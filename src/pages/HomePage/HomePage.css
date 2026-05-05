@@ -1,0 +1,91 @@
+/* ============================================
+   Home Page
+   ============================================ */
+
+.home-page {
+  flex: 1;
+  padding-bottom: calc(var(--bottom-nav-height) + var(--space-lg));
+}
+
+/* Header */
+.home-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-bg-primary);
+  padding: var(--space-base) 0 0;
+}
+
+.home-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) 0 var(--space-base);
+}
+
+.home-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.home-header__icon {
+  font-size: 26px;
+}
+
+.home-header__title {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
+}
+
+.home-header__subtitle {
+  font-size: var(--fs-xs);
+  color: var(--color-text-tertiary);
+  font-weight: 400;
+  margin-left: var(--space-sm);
+}
+
+/* Sections */
+.home-section {
+  padding: var(--space-lg) 0;
+}
+
+.home-section__title {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.02em;
+}
+
+/* Khutbah list */
+.khutbah-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Bismillah banner */
+.bismillah-banner {
+  text-align: center;
+  padding: var(--space-lg) var(--space-base);
+  background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-bg-secondary) 100%);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.bismillah-banner__arabic {
+  font-family: var(--font-arabic);
+  font-size: var(--fs-2xl);
+  color: var(--color-accent);
+  line-height: var(--line-height-arabic);
+  margin-bottom: var(--space-xs);
+}
+
+.bismillah-banner__text {
+  font-size: var(--fs-sm);
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
