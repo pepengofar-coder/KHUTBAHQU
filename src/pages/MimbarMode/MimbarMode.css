@@ -1,0 +1,27 @@
+.mimbar{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;overflow-y:auto}
+.mimbar--light{background:#FFFDF9;color:#1F2937}
+.mimbar--dark{background:#111318;color:#E5E5E5}
+.mimbar__topbar{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-4);flex-shrink:0}
+.mimbar__topbar button{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);font-size:16px;transition:all var(--tr-fast)}
+.mimbar--light .mimbar__topbar button:hover{background:#f0ead6}
+.mimbar--dark .mimbar__topbar button:hover{background:#252830}
+.mimbar__content{flex:1;max-width:720px;margin:0 auto;padding:var(--sp-6) var(--sp-6) var(--sp-16)}
+.mimbar__title{font-family:var(--font-heading);font-size:var(--fs-3xl);font-weight:800;margin-bottom:var(--sp-8);text-align:center}
+.mimbar__block{margin-bottom:var(--sp-6)}
+.mimbar__opening{font-family:var(--font-arabic);direction:rtl;text-align:center;line-height:var(--lh-arabic);padding:var(--sp-6);border-radius:var(--radius-lg);margin-bottom:var(--sp-6)}
+.mimbar--light .mimbar__opening{background:#F0EAD6}
+.mimbar--dark .mimbar__opening{background:#1E2028}
+.mimbar__p{line-height:2;text-align:justify;margin-bottom:var(--sp-6)}
+.mimbar__quran{padding:var(--sp-5);border-radius:var(--radius-md);margin-bottom:var(--sp-6)}
+.mimbar--light .mimbar__quran{background:#E6F0EB;border-left:4px solid #0F3D2E}
+.mimbar--dark .mimbar__quran{background:#142E23;border-left:4px solid #1A5C44}
+.mimbar__quran-ar{font-family:var(--font-arabic);direction:rtl;text-align:center;line-height:var(--lh-arabic);margin-bottom:var(--sp-3)}
+.mimbar--light .mimbar__quran-ar{color:#0F3D2E}
+.mimbar--dark .mimbar__quran-ar{color:#4ADE80}
+.mimbar__hadith{padding:var(--sp-5);border-radius:var(--radius-md);margin-bottom:var(--sp-6)}
+.mimbar--light .mimbar__hadith{background:#FFF8E1;border-left:4px solid #D6A84F}
+.mimbar--dark .mimbar__hadith{background:#2A2418;border-left:4px solid #D6A84F}
+.mimbar__hadith-ar{font-family:var(--font-arabic);direction:rtl;text-align:center;line-height:var(--lh-arabic);margin-bottom:var(--sp-3)}
+.mimbar--light .mimbar__hadith-ar{color:#B8892E}
+.mimbar--dark .mimbar__hadith-ar{color:#F0DFB8}
+.mimbar__label{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:700;margin:var(--sp-8) 0 var(--sp-4);padding-bottom:var(--sp-2);border-bottom:2px solid currentColor;opacity:.6}
