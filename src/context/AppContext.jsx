@@ -1,97 +1,117 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { khutbahList as initialKhutbahList, categories } from '../data/khutbahData';
+import { khutbahList as allKhutbah, CATEGORIES, TYPES } from '../data/khutbahData';
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-  const [khutbahList, setKhutbahList] = useState(initialKhutbahList);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [fontSize, setFontSize] = useState(1); // multiplier: 0.85, 1, 1.15, 1.3
-  const [bookmarks, setBookmarks] = useState(() => {
-    try {
-      const saved = localStorage.getItem('khutbahqu_bookmarks');
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
+  // Dark mode
+  const [darkMode, setDarkMode] = useState(() => {
+    const s = localStorage.getItem('kq_dark');
+    if (s !== null) return s === '1';
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
   });
-
-  // Persist bookmarks
   useEffect(() => {
-    localStorage.setItem('khutbahqu_bookmarks', JSON.stringify(bookmarks));
-  }, [bookmarks]);
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    localStorage.setItem('kq_dark', darkMode ? '1' : '0');
+  }, [darkMode]);
+  const toggleDark = useCallback(() => setDarkMode(p => !p), []);
 
-  const toggleBookmark = useCallback((khutbahId) => {
-    setBookmarks(prev => {
-      if (prev.includes(khutbahId)) {
-        return prev.filter(id => id !== khutbahId);
-      }
-      return [...prev, khutbahId];
-    });
-  }, []);
-
-  const isBookmarked = useCallback((khutbahId) => {
-    return bookmarks.includes(khutbahId);
-  }, [bookmarks]);
-
-  const filteredKhutbah = khutbahList.filter(k => {
-    const matchesSearch = searchQuery === '' ||
-      k.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      k.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      k.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const matchesCategory = !activeCategory || k.category === activeCategory;
-
-    return matchesSearch && matchesCategory;
-  });
-
-  const bookmarkedKhutbah = khutbahList.filter(k => bookmarks.includes(k.id));
-
-  const fontSizeOptions = [
+  // Font size
+  const FONT_OPTS = [
     { label: 'Kecil', value: 0.85 },
     { label: 'Normal', value: 1 },
     { label: 'Besar', value: 1.15 },
     { label: 'Sangat Besar', value: 1.3 },
   ];
-
+  const [fontSize, setFontSize] = useState(1);
   const cycleFontSize = useCallback(() => {
-    setFontSize(prev => {
-      const currentIdx = fontSizeOptions.findIndex(o => o.value === prev);
-      const nextIdx = (currentIdx + 1) % fontSizeOptions.length;
-      return fontSizeOptions[nextIdx].value;
+    setFontSize(p => {
+      const i = FONT_OPTS.findIndex(o => o.value === p);
+      return FONT_OPTS[(i + 1) % FONT_OPTS.length].value;
     });
   }, []);
 
-  const value = {
-    khutbahList,
-    categories,
-    searchQuery,
-    setSearchQuery,
-    activeCategory,
-    setActiveCategory,
-    filteredKhutbah,
-    bookmarks,
-    bookmarkedKhutbah,
-    toggleBookmark,
-    isBookmarked,
-    fontSize,
-    setFontSize,
-    cycleFontSize,
-    fontSizeOptions,
-  };
+  // Bookmarks
+  const [bookmarks, setBookmarks] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('kq_bm') || '[]'); } catch { return []; }
+  });
+  useEffect(() => { localStorage.setItem('kq_bm', JSON.stringify(bookmarks)); }, [bookmarks]);
+  const toggleBookmark = useCallback(id => {
+    setBookmarks(p => p.includes(id) ? p.filter(x => x !== id) : [...p, id]);
+  }, []);
+  const isBookmarked = useCallback(id => bookmarks.includes(id), [bookmarks]);
+
+  // Recently viewed
+  const [recentlyViewed, setRecentlyViewed] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('kq_rv') || '[]'); } catch { return []; }
+  });
+  useEffect(() => { localStorage.setItem('kq_rv', JSON.stringify(recentlyViewed)); }, [recentlyViewed]);
+  const addRecentlyViewed = useCallback(id => {
+    setRecentlyViewed(p => [id, ...p.filter(x => x !== id)].slice(0, 8));
+  }, []);
+
+  // Filters
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeType, setActiveType] = useState(null);
+  const [activeDuration, setActiveDuration] = useState(null); // 'short' | 'medium' | 'long'
+
+  const filteredKhutbah = allKhutbah.filter(k => {
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      const match = k.title.toLowerCase().includes(q)
+        || k.summary.toLowerCase().includes(q)
+        || k.tags.some(t => t.includes(q));
+      if (!match) return false;
+    }
+    if (activeCategory && k.category !== activeCategory) return false;
+    if (activeType && k.type !== activeType) return false;
+    if (activeDuration) {
+      if (activeDuration === 'short' && k.duration > 8) return false;
+      if (activeDuration === 'medium' && (k.duration < 9 || k.duration > 12)) return false;
+      if (activeDuration === 'long' && k.duration < 13) return false;
+    }
+    return true;
+  });
+
+  const bookmarkedKhutbah = allKhutbah.filter(k => bookmarks.includes(k.id));
+  const recentKhutbah = recentlyViewed.map(id => allKhutbah.find(k => k.id === id)).filter(Boolean);
+  const getKhutbahBySlug = useCallback(slug => allKhutbah.find(k => k.slug === slug), []);
+  const getRelated = useCallback((k, n = 3) =>
+    allKhutbah.filter(x => x.id !== k.id && (x.category === k.category || x.tags.some(t => k.tags.includes(t)))).slice(0, n)
+  , []);
+
+  // Utilities
+  const copyText = useCallback(async (text) => {
+    try { await navigator.clipboard.writeText(text); return true; } catch { return false; }
+  }, []);
+  const shareWhatsApp = useCallback((k) => {
+    const url = `${window.location.origin}/khutbah/${k.slug}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(`📖 ${k.title}\n${k.summary}\n\n${url}`)}`);
+  }, []);
 
   return (
-    <AppContext.Provider value={value}>
+    <AppContext.Provider value={{
+      darkMode, toggleDark,
+      fontSize, setFontSize, cycleFontSize, fontSizeOptions: FONT_OPTS,
+      bookmarks, bookmarkedKhutbah, toggleBookmark, isBookmarked,
+      recentlyViewed, recentKhutbah, addRecentlyViewed,
+      searchQuery, setSearchQuery,
+      activeCategory, setActiveCategory,
+      activeType, setActiveType,
+      activeDuration, setActiveDuration,
+      allKhutbah, filteredKhutbah,
+      getKhutbahBySlug, getRelated,
+      categories: CATEGORIES, types: TYPES,
+      copyText, shareWhatsApp,
+    }}>
       {children}
     </AppContext.Provider>
   );
 }
 
 export function useApp() {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error('useApp must be used within an AppProvider');
-  }
-  return context;
+  const ctx = useContext(AppContext);
+  if (!ctx) throw new Error('useApp must be used within AppProvider');
+  return ctx;
 }

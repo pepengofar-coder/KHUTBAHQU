@@ -1,102 +1,132 @@
 /* ============================================
-   KhutbahQu — Design System & Global Styles
-   High Contrast • Clean • Zero Distraction
+   KhutbahQu — Design System v2.0
+   Islamic-Modern • Premium • Responsive
    ============================================ */
 
-/* CSS Custom Properties */
 :root {
-  /* Color Palette — Warm & Clean */
-  --color-bg-primary: #FAFAF7;
-  --color-bg-secondary: #F5F0E8;
+  /* Primary palette */
+  --color-primary: #0F3D2E;
+  --color-primary-light: #1A5C44;
+  --color-primary-dark: #0A2B1F;
+  --color-primary-surface: #E6F0EB;
+
+  /* Gold accent */
+  --color-gold: #D6A84F;
+  --color-gold-light: #F0DFB8;
+  --color-gold-dark: #B8892E;
+
+  /* Backgrounds */
+  --color-bg: #F8F3E7;
+  --color-bg-alt: #F0EAD6;
   --color-bg-card: #FFFFFF;
   --color-bg-elevated: #FFFDF9;
-  --color-bg-bottom-nav: #FFFFFF;
 
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #4A4A4A;
-  --color-text-tertiary: #7A7A7A;
+  /* Text */
+  --color-text: #1F2937;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #6B7280;
   --color-text-inverse: #FFFFFF;
 
-  --color-accent: #1B5E20;
-  --color-accent-hover: #2E7D32;
-  --color-accent-light: #E8F5E9;
-  --color-accent-muted: #C8E6C9;
+  /* Borders & dividers */
+  --color-border: #E5E1D8;
+  --color-border-light: #F0ECE2;
+  --color-divider: #EAE6DC;
 
-  --color-border: #E8E4DD;
-  --color-border-light: #F0ECE5;
-  --color-divider: #EDEBE6;
-
-  --color-tag-jumat: #1B5E20;
-  --color-tag-nikah: #BF360C;
-  --color-tag-idul-fitri: #E65100;
-  --color-tag-idul-adha: #4E342E;
-  --color-tag-jenazah: #37474F;
-  --color-tag-umum: #283593;
+  /* Semantic */
+  --color-success: #059669;
+  --color-warning: #D97706;
+  --color-error: #DC2626;
 
   /* Shadow */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-bottom-nav: 0 -2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-xs: 0 1px 2px rgba(15,61,46,0.04);
+  --shadow-sm: 0 1px 3px rgba(15,61,46,0.06), 0 1px 2px rgba(15,61,46,0.04);
+  --shadow-md: 0 4px 6px rgba(15,61,46,0.05), 0 2px 4px rgba(15,61,46,0.04);
+  --shadow-lg: 0 10px 15px rgba(15,61,46,0.06), 0 4px 6px rgba(15,61,46,0.04);
+  --shadow-xl: 0 20px 25px rgba(15,61,46,0.08), 0 8px 10px rgba(15,61,46,0.04);
 
   /* Typography */
-  --font-latin: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-arabic: 'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif;
 
-  --fs-xs: 0.75rem;     /* 12px */
-  --fs-sm: 0.8125rem;   /* 13px */
-  --fs-base: 0.9375rem; /* 15px */
-  --fs-md: 1rem;        /* 16px */
-  --fs-lg: 1.125rem;    /* 18px */
-  --fs-xl: 1.375rem;    /* 22px */
-  --fs-2xl: 1.625rem;   /* 26px */
-  --fs-3xl: 2rem;       /* 32px */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 1.875rem;
+  --fs-4xl: 2.25rem;
+  --fs-5xl: 3rem;
 
-  --line-height-tight: 1.3;
-  --line-height-normal: 1.6;
-  --line-height-relaxed: 1.8;
-  --line-height-arabic: 2.2;
+  --lh-tight: 1.25;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.75;
+  --lh-arabic: 2.2;
 
   /* Spacing */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 12px;
-  --space-base: 16px;
-  --space-lg: 20px;
-  --space-xl: 24px;
-  --space-2xl: 32px;
-  --space-3xl: 40px;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
 
-  /* Border Radius */
+  /* Radius */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
   --radius-xl: 20px;
+  --radius-2xl: 24px;
   --radius-pill: 100px;
 
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
-  --transition-slow: 350ms ease;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --tr-fast: 150ms var(--ease-out);
+  --tr-base: 250ms var(--ease-out);
+  --tr-slow: 400ms var(--ease-out);
 
   /* Layout */
-  --bottom-nav-height: 64px;
-  --header-height: 56px;
-  --max-content-width: 480px;
+  --max-w: 1200px;
+  --max-w-reading: 720px;
+  --nav-h: 64px;
+  --bottom-nav-h: 64px;
 }
 
+/* ---- Dark mode ---- */
+[data-theme="dark"] {
+  --color-bg: #111318;
+  --color-bg-alt: #1A1D24;
+  --color-bg-card: #1E2028;
+  --color-bg-elevated: #252830;
+
+  --color-text: #F1F1F3;
+  --color-text-secondary: #B0B3BC;
+  --color-text-muted: #7C7F8A;
+
+  --color-border: #2E3038;
+  --color-border-light: #262830;
+  --color-divider: #2A2D35;
+
+  --color-primary-surface: #142E23;
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.3);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,0.35);
+}
 
 /* ============================================
-   Reset & Base
+   Reset
    ============================================ */
-
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -105,11 +135,11 @@ html {
 }
 
 body {
-  font-family: var(--font-latin);
+  font-family: var(--font-body);
   font-size: var(--fs-base);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-primary);
+  line-height: var(--lh-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -121,103 +151,208 @@ body {
   flex-direction: column;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font-family: inherit;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: inherit;
-}
-
-ul, ol {
-  list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-input, textarea {
-  font-family: inherit;
-  font-size: inherit;
-}
-
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+ul, ol { list-style: none; }
+img { display: block; max-width: 100%; }
+input, textarea, select { font-family: inherit; font-size: inherit; }
 
 /* ============================================
-   Arabic Typography Utilities
+   Utilities
    ============================================ */
-
-.arabic-text {
-  font-family: var(--font-arabic);
-  direction: rtl;
-  text-align: right;
-  line-height: var(--line-height-arabic);
-  font-size: var(--fs-xl);
-}
-
-.arabic-text.arabic-lg {
-  font-size: var(--fs-2xl);
-}
-
-.arabic-text.arabic-xl {
-  font-size: var(--fs-3xl);
-}
-
-
-/* ============================================
-   Utility Classes
-   ============================================ */
-
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
 .container {
   width: 100%;
-  max-width: var(--max-content-width);
+  max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 var(--space-base);
+  padding: 0 var(--sp-4);
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 4px;
+@media (min-width: 768px) {
+  .container { padding: 0 var(--sp-8); }
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+.container--reading {
+  max-width: var(--max-w-reading);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: var(--lh-tight);
+}
+
+/* Arabic typography */
+.arabic-text {
+  font-family: var(--font-arabic);
+  direction: rtl;
+  text-align: right;
+  line-height: var(--lh-arabic);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-5);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  transition: all var(--tr-fast);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+.btn--primary:hover { background: var(--color-primary-light); }
+
+.btn--gold {
+  background: var(--color-gold);
+  color: var(--color-primary-dark);
+}
+.btn--gold:hover { background: var(--color-gold-dark); color: #fff; }
+
+.btn--outline {
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text);
+  background: var(--color-bg-card);
+}
+.btn--outline:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+.btn--ghost {
+  color: var(--color-text-muted);
+  padding: var(--sp-2) var(--sp-3);
+}
+.btn--ghost:hover { color: var(--color-primary); background: var(--color-primary-surface); }
+
+.btn--sm { padding: var(--sp-2) var(--sp-3); font-size: var(--fs-xs); }
+.btn--lg { padding: var(--sp-4) var(--sp-8); font-size: var(--fs-md); border-radius: var(--radius-lg); }
+
+.btn:active { transform: scale(0.97); }
+
+/* Card base */
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--tr-base);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border);
+}
+
+/* Section */
+.section {
+  padding: var(--sp-12) 0;
+}
+
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-6);
+  gap: var(--sp-4);
+}
+
+.section__title {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.section__subtitle {
+  font-size: var(--fs-base);
+  color: var(--color-text-muted);
+  margin-top: var(--sp-1);
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
   border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  line-height: 1.4;
 }
 
-/* Focus visible for accessibility */
+.badge--primary {
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+}
+
+.badge--gold {
+  background: var(--color-gold-light);
+  color: var(--color-gold-dark);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: var(--radius-pill); }
+
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-/* Prevent iOS zoom on input focus */
-@media screen and (max-width: 768px) {
-  input,
-  select,
-  textarea {
-    font-size: 16px !important;
-  }
+/* Islamic geometric pattern overlay utility */
+.islamic-pattern {
+  position: relative;
 }
+.islamic-pattern::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230F3D2E' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+.islamic-pattern > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Grid helpers */
+.grid {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+.grid--2 { grid-template-columns: 1fr; }
+.grid--3 { grid-template-columns: 1fr; }
+.grid--4 { grid-template-columns: repeat(2, 1fr); }
+
+@media (min-width: 640px) {
+  .grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .grid--3 { grid-template-columns: repeat(2, 1fr); }
+  .grid--4 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .grid--3 { grid-template-columns: repeat(3, 1fr); }
+  .grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Prevent iOS zoom on input focus */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+/* Hide on breakpoints */
+@media (max-width: 767px) { .hide-mobile { display: none !important; } }
+@media (min-width: 768px) { .hide-desktop { display: none !important; } }

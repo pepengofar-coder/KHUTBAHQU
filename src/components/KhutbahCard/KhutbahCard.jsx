@@ -2,50 +2,38 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import './KhutbahCard.css';
 
-export default function KhutbahCard({ khutbah }) {
-  const navigate = useNavigate();
-  const { isBookmarked, toggleBookmark, categories } = useApp();
+export default function KhutbahCard({ khutbah, compact = false }) {
+  const nav = useNavigate();
+  const { isBookmarked, toggleBookmark, copyText, shareWhatsApp, categories, types } = useApp();
+  const bm = isBookmarked(khutbah.id);
+  const cat = categories.find(c => c.id === khutbah.category);
+  const tp = types.find(t => t.id === khutbah.type);
 
-  const bookmarked = isBookmarked(khutbah.id);
-  const category = categories.find(c => c.id === khutbah.category);
-
-  const handleBookmarkClick = (e) => {
-    e.stopPropagation();
-    toggleBookmark(khutbah.id);
-  };
+  const stop = (e, fn) => { e.stopPropagation(); fn(); };
 
   return (
-    <article
-      className="khutbah-card"
-      onClick={() => navigate(`/baca/${khutbah.id}`)}
-      role="link"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && navigate(`/baca/${khutbah.id}`)}
-      id={`khutbah-card-${khutbah.id}`}
-    >
-      <div className="khutbah-card__header">
-        <h3 className="khutbah-card__title">{khutbah.title}</h3>
-        <button
-          className={`khutbah-card__bookmark${bookmarked ? ' bookmarked' : ''}`}
-          onClick={handleBookmarkClick}
-          aria-label={bookmarked ? 'Hapus bookmark' : 'Simpan bookmark'}
-        >
-          {bookmarked ? '🔖' : '🏷️'}
+    <article className="kcard card" onClick={() => nav(`/khutbah/${khutbah.slug}`)} tabIndex={0}
+      onKeyDown={e => e.key === 'Enter' && nav(`/khutbah/${khutbah.slug}`)} id={`kcard-${khutbah.id}`}>
+      <div className="kcard__top">
+        <h3 className="kcard__title">{khutbah.title}</h3>
+        <button className={`kcard__bm-btn${bm?' active':''}`} onClick={e => stop(e, () => toggleBookmark(khutbah.id))}
+          aria-label={bm?'Hapus favorit':'Simpan favorit'}>
+          {bm ? '★' : '☆'}
         </button>
       </div>
-
-      <div className="khutbah-card__meta">
-        {category && (
-          <span className="khutbah-card__category-badge">
-            {category.icon} {category.label}
-          </span>
-        )}
-        <span className="khutbah-card__source">{khutbah.source}</span>
-        <span className="khutbah-card__dot" aria-hidden="true" />
-        <span className="khutbah-card__time">
-          ⏳ {khutbah.readTime} Min
-        </span>
+      {!compact && <p className="kcard__summary">{khutbah.summary}</p>}
+      <div className="kcard__meta">
+        {cat && <span className="badge badge--primary">{cat.icon} {cat.label}</span>}
+        {tp && <span className="badge badge--gold">{tp.label}</span>}
+        <span className="badge" style={{background:'var(--color-bg-alt)',color:'var(--color-text-muted)'}}>⏱ {khutbah.duration} mnt</span>
       </div>
+      {!compact && (
+        <div className="kcard__actions">
+          <button className="btn btn--primary btn--sm" onClick={e => stop(e, () => nav(`/khutbah/${khutbah.slug}`))}>Baca</button>
+          <button className="btn btn--outline btn--sm" onClick={e => stop(e, () => toggleBookmark(khutbah.id))}>{bm?'Tersimpan':'Simpan'}</button>
+          <button className="btn btn--ghost btn--sm" onClick={e => stop(e, () => shareWhatsApp(khutbah))}>WhatsApp</button>
+        </div>
+      )}
     </article>
   );
 }

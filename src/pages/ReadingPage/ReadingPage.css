@@ -1,273 +1,39 @@
-/* ============================================
-   Reading Page — Core Value Screen
-   Full-screen mode on scroll
-   ============================================ */
-
-.reading-page {
-  min-height: 100dvh;
-  background: var(--color-bg-elevated);
-  padding-bottom: var(--space-3xl);
-}
-
-/* Top Bar */
-.reading-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--color-bg-elevated);
-  border-bottom: 1px solid var(--color-border-light);
-  transition: transform var(--transition-base);
-}
-
-.reading-topbar.hidden {
-  transform: translateY(-100%);
-}
-
-.reading-topbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-md) var(--space-base);
-  max-width: var(--max-content-width);
-  margin: 0 auto;
-}
-
-.reading-topbar__back {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: var(--fs-base);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
-}
-
-.reading-topbar__back:active {
-  background: var(--color-bg-secondary);
-  transform: scale(0.95);
-}
-
-.reading-topbar__back-icon {
-  font-size: 20px;
-}
-
-.reading-topbar__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.reading-topbar__btn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-md);
-  font-size: 18px;
-  transition: all var(--transition-fast);
-  position: relative;
-}
-
-.reading-topbar__btn:active {
-  background: var(--color-bg-secondary);
-  transform: scale(0.9);
-}
-
-.reading-topbar__btn.bookmarked {
-  color: var(--color-accent);
-}
-
-/* Font size badge */
-.reading-topbar__font-badge {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  font-size: 8px;
-  font-weight: 700;
-  background: var(--color-accent);
-  color: white;
-  padding: 0 3px;
-  border-radius: 3px;
-  line-height: 1.4;
-}
-
-/* Content */
-.reading-content {
-  max-width: var(--max-content-width);
-  margin: 0 auto;
-  padding: var(--space-lg) var(--space-base);
-}
-
-.reading-header {
-  margin-bottom: var(--space-xl);
-  padding-bottom: var(--space-lg);
-  border-bottom: 1px solid var(--color-divider);
-}
-
-.reading-header__title {
-  font-size: var(--fs-xl);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  line-height: var(--line-height-tight);
-  margin-bottom: var(--space-md);
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-}
-
-.reading-header__author {
-  font-size: var(--fs-base);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-xs);
-}
-
-.reading-header__source {
-  font-size: var(--fs-sm);
-  color: var(--color-text-tertiary);
-}
-
-/* Body sections */
-.reading-body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-}
-
-/* Opening / closing (Arabic mukaddimah) */
-.reading-arabic-block {
-  font-family: var(--font-arabic);
-  direction: rtl;
-  text-align: center;
-  font-size: var(--fs-xl);
-  line-height: var(--line-height-arabic);
-  color: var(--color-text-primary);
-  padding: var(--space-lg);
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-light);
-}
-
-/* Paragraph */
-.reading-paragraph {
-  font-size: var(--fs-base);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-primary);
-  text-align: justify;
-}
-
-/* Quran verse block */
-.reading-quran {
-  padding: var(--space-lg);
-  background: var(--color-accent-light);
-  border-left: 4px solid var(--color-accent);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-}
-
-.reading-quran__arabic {
-  font-family: var(--font-arabic);
-  direction: rtl;
-  text-align: center;
-  font-size: var(--fs-2xl);
-  line-height: var(--line-height-arabic);
-  color: var(--color-accent);
-  margin-bottom: var(--space-md);
-  font-weight: 400;
-}
-
-.reading-quran__translation {
-  font-size: var(--fs-base);
-  color: var(--color-text-secondary);
-  font-style: italic;
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-sm);
-}
-
-.reading-quran__reference {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--color-accent);
-}
-
-/* Hadith block */
-.reading-hadith {
-  padding: var(--space-lg);
-  background: #FFF8E1;
-  border-left: 4px solid #F9A825;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-}
-
-.reading-hadith__arabic {
-  font-family: var(--font-arabic);
-  direction: rtl;
-  text-align: center;
-  font-size: var(--fs-xl);
-  line-height: var(--line-height-arabic);
-  color: #E65100;
-  margin-bottom: var(--space-md);
-}
-
-.reading-hadith__translation {
-  font-size: var(--fs-base);
-  color: var(--color-text-secondary);
-  font-style: italic;
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-sm);
-}
-
-.reading-hadith__reference {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: #BF360C;
-}
-
-/* Scroll progress bar */
-.reading-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background: var(--color-accent);
-  z-index: 200;
-  transition: width 100ms linear;
-}
-
-/* Not found state */
-.reading-notfound {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 60vh;
-  text-align: center;
-  padding: var(--space-2xl);
-  gap: var(--space-base);
-  color: var(--color-text-tertiary);
-}
-
-.reading-notfound__icon {
-  font-size: 64px;
-  opacity: 0.4;
-}
-
-.reading-notfound__text {
-  font-size: var(--fs-lg);
-  font-weight: 600;
-}
-
-.reading-notfound__back {
-  margin-top: var(--space-base);
-  padding: var(--space-md) var(--space-xl);
-  background: var(--color-accent);
-  color: white;
-  font-weight: 600;
-  border-radius: var(--radius-pill);
-  font-size: var(--fs-base);
-  transition: all var(--transition-fast);
-}
-
-.reading-notfound__back:active {
-  transform: scale(0.95);
-  opacity: 0.9;
-}
+.detail{padding-bottom:var(--sp-16);min-height:100dvh}
+.detail__progress{position:fixed;top:0;left:0;height:3px;background:var(--color-primary);z-index:200;transition:width 100ms linear}
+.detail__topbar{position:sticky;top:0;z-index:50;background:var(--color-bg);border-bottom:1px solid var(--color-border-light);transition:transform var(--tr-base)}
+.detail__topbar.hidden{transform:translateY(-100%)}
+.detail__topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-4);max-width:var(--max-w-reading);margin:0 auto}
+.detail__back{display:flex;align-items:center;gap:var(--sp-1);font-size:var(--fs-base);font-weight:500;color:var(--color-text-muted);padding:var(--sp-2) var(--sp-3);border-radius:var(--radius-md);transition:all var(--tr-fast)}
+.detail__back:hover{background:var(--color-primary-surface);color:var(--color-primary)}
+.detail__toolbar{display:flex;align-items:center;gap:var(--sp-1)}
+.detail__tool-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);font-size:16px;transition:all var(--tr-fast);position:relative}
+.detail__tool-btn:hover{background:var(--color-primary-surface)}
+.detail__tool-btn.active{color:var(--color-gold)}
+.detail__tool-badge{position:absolute;bottom:1px;right:1px;font-size:7px;font-weight:800;background:var(--color-primary);color:#fff;padding:0 3px;border-radius:3px}
+.detail__content{max-width:var(--max-w-reading);margin:0 auto;padding:var(--sp-6) var(--sp-4)}
+.detail__header{margin-bottom:var(--sp-8);padding-bottom:var(--sp-6);border-bottom:1px solid var(--color-divider)}
+.detail__title{font-size:var(--fs-2xl);font-weight:800;color:var(--color-text);margin-bottom:var(--sp-3)}
+@media(min-width:768px){.detail__title{font-size:var(--fs-3xl)}}
+.detail__info{font-size:var(--fs-sm);color:var(--color-text-muted);margin-bottom:var(--sp-4);line-height:var(--lh-relaxed)}
+.detail__badges{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.detail__section-label{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;color:var(--color-primary);margin:var(--sp-8) 0 var(--sp-4);padding-bottom:var(--sp-2);border-bottom:2px solid var(--color-primary-surface)}
+.detail__body{display:flex;flex-direction:column;gap:var(--sp-6)}
+.detail__opening{font-family:var(--font-arabic);direction:rtl;text-align:center;font-size:var(--fs-xl);line-height:var(--lh-arabic);padding:var(--sp-6);background:var(--color-bg-alt);border-radius:var(--radius-lg);border:1px solid var(--color-border-light)}
+.detail__p{font-size:var(--fs-base);line-height:var(--lh-relaxed);text-align:justify}
+.detail__quran{padding:var(--sp-5);background:var(--color-primary-surface);border-left:4px solid var(--color-primary);border-radius:0 var(--radius-md) var(--radius-md) 0}
+.detail__quran-ar{font-family:var(--font-arabic);direction:rtl;text-align:center;font-size:var(--fs-2xl);line-height:var(--lh-arabic);color:var(--color-primary);margin-bottom:var(--sp-3)}
+.detail__quran-tr{font-size:var(--fs-base);color:var(--color-text-secondary);font-style:italic;line-height:var(--lh-relaxed);margin-bottom:var(--sp-2)}
+.detail__quran-ref{font-size:var(--fs-sm);font-weight:600;color:var(--color-primary)}
+.detail__hadith{padding:var(--sp-5);background:var(--color-gold-light);border-left:4px solid var(--color-gold);border-radius:0 var(--radius-md) var(--radius-md) 0}
+.detail__hadith-ar{font-family:var(--font-arabic);direction:rtl;text-align:center;font-size:var(--fs-xl);line-height:var(--lh-arabic);color:var(--color-gold-dark);margin-bottom:var(--sp-3)}
+.detail__hadith-tr{font-size:var(--fs-base);color:var(--color-text-secondary);font-style:italic;line-height:var(--lh-relaxed);margin-bottom:var(--sp-2)}
+.detail__hadith-ref{font-size:var(--fs-sm);font-weight:600;color:var(--color-gold-dark)}
+.detail__dua{text-align:center;padding:var(--sp-6);background:var(--color-bg-alt);border-radius:var(--radius-lg);font-family:var(--font-arabic);direction:rtl;font-size:var(--fs-xl);line-height:var(--lh-arabic);color:var(--color-primary)}
+.detail__refs{padding:var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-md)}
+.detail__refs h3{font-size:var(--fs-sm);font-weight:700;margin-bottom:var(--sp-2);color:var(--color-text-muted)}
+.detail__refs li{font-size:var(--fs-sm);color:var(--color-text-secondary);padding:var(--sp-1) 0}
+.detail__related{padding:var(--sp-8) 0}
+.detail__related-grid{display:grid;gap:var(--sp-4);grid-template-columns:1fr}
+@media(min-width:640px){.detail__related-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.detail__related-grid{grid-template-columns:repeat(3,1fr)}}
+.detail__404{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;text-align:center;color:var(--color-text-muted);gap:var(--sp-4)}

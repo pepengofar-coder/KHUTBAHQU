@@ -1,67 +1,54 @@
+import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
-import SearchBar from '../../components/SearchBar/SearchBar';
-import CategoryTags from '../../components/CategoryTags/CategoryTags';
+import HeroSection from '../../components/HeroSection/HeroSection';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
+import ThemeSection from '../../components/ThemeSection/ThemeSection';
+import HijriCalendarWidget from '../../components/HijriCalendarWidget/HijriCalendarWidget';
 import './HomePage.css';
 
 export default function HomePage() {
-  const { filteredKhutbah, searchQuery, activeCategory } = useApp();
-
-  const showingFiltered = searchQuery || activeCategory;
+  const { allKhutbah } = useApp();
+  const featured = allKhutbah.slice(0, 3);
+  const weekly = allKhutbah.filter(k => k.type === 'khutbah-jumat').slice(0, 2);
 
   return (
     <div className="home-page">
-      {/* Sticky Header */}
-      <header className="home-header container">
-        <div className="home-header__bar">
-          <div className="home-header__logo">
-            <span className="home-header__icon" aria-hidden="true">📖</span>
-            <h1 className="home-header__title">KhutbahQu</h1>
+      <HeroSection />
+
+      <section className="home-featured container">
+        <div className="section__header">
+          <div>
+            <h2 className="section__title">⭐ Khutbah Pilihan</h2>
+            <p className="section__subtitle">Materi terbaik yang kami rekomendasikan</p>
           </div>
+          <Link to="/khutbah" className="btn btn--outline btn--sm">Lihat Semua →</Link>
         </div>
+        <div className="home-featured__grid">
+          {featured.map(k => <KhutbahCard key={k.id} khutbah={k} />)}
+        </div>
+      </section>
 
-        {/* Search */}
-        <SearchBar />
-      </header>
+      <ThemeSection />
 
-      <main className="container">
-        {/* Bismillah Banner */}
-        {!showingFiltered && (
-          <div className="bismillah-banner">
-            <p className="bismillah-banner__arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-            <p className="bismillah-banner__text">Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang</p>
+      <section className="home-calendar container">
+        <div className="section__header">
+          <div>
+            <h2 className="section__title">📅 Kalender Hijriah</h2>
+            <p className="section__subtitle">Tanggal Hijriah hari ini dan peristiwa Islam terdekat</p>
           </div>
-        )}
+          <Link to="/kalender-hijriah" className="btn btn--outline btn--sm">Selengkapnya →</Link>
+        </div>
+        <HijriCalendarWidget maxEvents={3} />
+      </section>
 
-        {/* Categories */}
-        <section className="home-section">
-          <CategoryTags />
-        </section>
-
-        {/* Khutbah List */}
-        <section className="home-section">
-          <h2 className="home-section__title">
-            {showingFiltered
-              ? `Hasil Pencarian (${filteredKhutbah.length})`
-              : 'Terbaru Minggu Ini:'
-            }
-          </h2>
-
-          {filteredKhutbah.length > 0 ? (
-            <div className="khutbah-list">
-              {filteredKhutbah.map(khutbah => (
-                <KhutbahCard key={khutbah.id} khutbah={khutbah} />
-              ))}
-            </div>
-          ) : (
-            <div className="khutbah-list__empty">
-              <div className="khutbah-list__empty-icon">🔍</div>
-              <p className="khutbah-list__empty-text">Khutbah tidak ditemukan</p>
-              <p className="khutbah-list__empty-subtext">Coba kata kunci lain atau ubah filter kategori</p>
-            </div>
-          )}
-        </section>
-      </main>
+      <section className="home-weekly container">
+        <div className="section__header">
+          <h2 className="section__title">🕌 Khutbah Minggu Ini</h2>
+        </div>
+        <div className="home-weekly__grid">
+          {weekly.map(k => <KhutbahCard key={k.id} khutbah={k} />)}
+        </div>
+      </section>
     </div>
   );
 }
