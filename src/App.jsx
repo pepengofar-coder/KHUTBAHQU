@@ -1,40 +1,45 @@
-import { useState, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
-import SplashScreen from './components/SplashScreen/SplashScreen';
+import Navbar from './components/Navbar/Navbar';
 import BottomNav from './components/BottomNav/BottomNav';
+import Footer from './components/Footer/Footer';
 import HomePage from './pages/HomePage/HomePage';
-import ReadingPage from './pages/ReadingPage/ReadingPage';
-import BookmarksPage from './pages/BookmarksPage/BookmarksPage';
-import SettingsPage from './pages/SettingsPage/SettingsPage';
+import CatalogPage from './pages/CatalogPage/CatalogPage';
+import DetailPage from './pages/ReadingPage/ReadingPage';
+import HijriCalendarPage from './pages/HijriCalendarPage/HijriCalendarPage';
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
+import AboutPage from './pages/AboutPage/AboutPage';
+import MimbarMode from './pages/MimbarMode/MimbarMode';
 
 function AppLayout() {
   const location = useLocation();
-  const isReading = location.pathname.startsWith('/baca/');
+  const isMimbar = location.pathname === '/mimbar';
+  const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
+
+  if (isMimbar) return <MimbarMode />;
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/baca/:id" element={<ReadingPage />} />
-        <Route path="/tersimpan" element={<BookmarksPage />} />
-        <Route path="/pengaturan" element={<SettingsPage />} />
-      </Routes>
-      {!isReading && <BottomNav />}
+      <Navbar />
+      <main style={{ flex: 1 }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/khutbah" element={<CatalogPage />} />
+          <Route path="/khutbah/:slug" element={<DetailPage />} />
+          <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
+          <Route path="/favorit" element={<FavoritesPage />} />
+          <Route path="/tentang" element={<AboutPage />} />
+        </Routes>
+      </main>
+      {!isDetail && <Footer />}
+      <BottomNav />
     </>
   );
 }
 
 export default function App() {
-  const [showSplash, setShowSplash] = useState(true);
-
-  const handleSplashFinish = useCallback(() => {
-    setShowSplash(false);
-  }, []);
-
   return (
     <AppProvider>
-      {showSplash && <SplashScreen onFinish={handleSplashFinish} />}
       <BrowserRouter>
         <AppLayout />
       </BrowserRouter>
