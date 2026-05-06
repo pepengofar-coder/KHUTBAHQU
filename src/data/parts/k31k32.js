@@ -1,0 +1,62 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k31 = {
+  id: 31, title: 'Bahaya Maksiat dan Dampaknya bagi Kehidupan', slug: 'bahaya-maksiat-dampak-kehidupan',
+  summary: 'Maksiat bukan hanya dosa di akhirat, tetapi juga membawa dampak buruk di dunia. Khutbah ini membahas bahaya maksiat terhadap hati, rezeki, hubungan sosial, dan keselamatan di akhirat.',
+  category: 'taqwa', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['maksiat', 'dosa', 'dampak', 'taubat'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada kesempatan kali ini, khatib ingin membahas tentang bahaya maksiat dan dampaknya bagi kehidupan seorang muslim. Banyak di antara kita yang meremehkan maksiat — menganggapnya kecil dan tidak berbahaya. Padahal Rasulullah shallallahu 'alaihi wasallam memperingatkan kita untuk tidak meremehkan dosa-dosa kecil, karena dosa kecil yang terus-menerus bisa menjadi besar dan menghancurkan pelakunya." },
+    { type: 'paragraph', text: "Ibnul Qayyim rahimahullah menyebutkan dalam kitabnya bahwa maksiat memiliki banyak dampak buruk. Di antaranya adalah:" },
+    { type: 'paragraph', text: "Pertama, maksiat menggelapkan hati. Setiap kali seseorang berbuat dosa, muncul titik hitam di hatinya. Jika ia bertaubat, titik hitam itu hilang. Namun jika ia terus bermaksiat, titik hitam itu bertambah hingga menutupi seluruh hatinya. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'إِنَّ الْمُؤْمِنَ إِذَا أَذْنَبَ كَانَتْ نُكْتَةٌ سَوْدَاءُ فِي قَلْبِهِ فَإِنْ تَابَ وَنَزَعَ وَاسْتَغْفَرَ صُقِلَ قَلْبُهُ', translation: '"Sesungguhnya seorang mukmin jika berbuat dosa, muncullah titik hitam di hatinya. Jika ia bertaubat, mencabut diri dari dosa, dan beristighfar, maka hatinya dibersihkan kembali."', ref: 'Hadis riwayat Ibnu Majah, dishahihkan oleh Al-Albani' },
+    { type: 'paragraph', text: "Kedua, maksiat menghalangi rezeki. Allah subhanahu wa ta'ala berfirman bahwa jika penduduk suatu negeri beriman dan bertakwa, niscaya Dia akan membukakan untuk mereka berkah dari langit dan bumi. Sebaliknya, kemaksiatan menutup pintu rezeki dan menghilangkan berkah." },
+    { type: 'paragraph', text: "Ketiga, maksiat mendatangkan musibah. Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'وَمَا أَصَابَكُمْ مِنْ مُصِيبَةٍ فَبِمَا كَسَبَتْ أَيْدِيكُمْ وَيَعْفُو عَنْ كَثِيرٍ', translation: '"Dan musibah apa pun yang menimpa kamu, maka itu adalah disebabkan oleh perbuatan tanganmu sendiri, dan Allah memaafkan banyak dari dosa-dosamu."', ref: 'QS. Asy-Syura: 30' },
+    { type: 'paragraph', text: "Keempat, maksiat menjauhkan kita dari ketaatan. Seseorang yang terbiasa bermaksiat akan semakin sulit untuk beribadah. Shalat terasa berat, membaca Al-Qur'an terasa membosankan, mendengar nasihat terasa tidak enak. Inilah hukuman yang Allah subhanahu wa ta'ala berikan di dunia — sebelum hukuman di akhirat." },
+    { type: 'paragraph', text: "Kelima, maksiat menyebabkan rasa gelisah dan tidak tenang. Orang yang bermaksiat tidak akan pernah merasakan ketenangan sejati, meskipun ia memiliki harta yang berlimpah dan kesenangan dunia yang banyak. Karena ketenangan hati hanya bisa diraih dengan dzikir dan ketaatan kepada Allah subhanahu wa ta'ala." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Maka marilah kita menjauhi segala bentuk kemaksiatan — baik yang besar maupun yang kecil, baik yang tampak maupun yang tersembunyi. Jauhi zina, jauhi riba, jauhi minum khamr, jauhi ghibah, jauhi namimah, jauhi melihat yang haram, dan jauhi mendengar yang haram." },
+    { type: 'paragraph', text: "Dan jika kita terlanjur jatuh ke dalam maksiat, segera bertaubat kepada Allah subhanahu wa ta'ala. Jangan berlarut-larut dalam dosa. Jangan menunda taubat. Karena kita tidak tahu kapan ajal menjemput. Jangan sampai kematian mendatangi kita dalam keadaan bermaksiat kepada Allah subhanahu wa ta'ala." },
+    { type: 'paragraph', text: "Gantilah setiap keburukan dengan kebaikan. Rasulullah shallallahu 'alaihi wasallam bersabda: 'Bertakwalah kepada Allah di mana pun engkau berada, iringilah keburukan dengan kebaikan niscaya kebaikan itu akan menghapusnya, dan pergaulilah manusia dengan akhlak yang baik.'" },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjaga kita dari segala bentuk kemaksiatan, membersihkan hati kita dari noda dosa, dan menjadikan kita hamba-hamba-Nya yang senantiasa berada di jalan ketaatan." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Asy-Syura: 30', 'Hadis riwayat Ibnu Majah'],
+};
+
+export const k32 = {
+  id: 32, title: 'Istiqamah: Teguh di Jalan Kebenaran', slug: 'istiqamah-teguh-jalan-kebenaran',
+  summary: 'Istiqamah adalah konsistensi dalam menjalankan kebenaran dan ketaatan kepada Allah subhanahu wa ta\'ala. Khutbah ini membahas makna istiqamah, keutamaannya, dan cara meraihnya.',
+  category: 'taqwa', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['istiqamah', 'konsisten', 'ketaatan', 'iman'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Seorang sahabat pernah datang kepada Rasulullah shallallahu 'alaihi wasallam dan berkata: 'Wahai Rasulullah, katakanlah kepadaku tentang Islam suatu perkataan yang aku tidak perlu bertanya lagi kepada orang lain setelahmu.' Maka Rasulullah shallallahu 'alaihi wasallam menjawab dengan kalimat yang sangat singkat namun sangat mendalam:" },
+    { type: 'hadith', arabic: 'قُلْ آمَنْتُ بِاللَّهِ ثُمَّ اسْتَقِمْ', translation: '"Katakanlah: Aku beriman kepada Allah, kemudian istiqamahlah."', ref: 'Hadis riwayat Muslim' },
+    { type: 'paragraph', text: "Istiqamah. Satu kata yang sangat ringkas namun sangat berat untuk diamalkan. Istiqamah artinya lurus dan konsisten di atas ketaatan kepada Allah subhanahu wa ta'ala. Istiqamah bukan berarti sempurna tanpa dosa, tetapi berarti terus berusaha untuk berada di jalan yang lurus, bangkit lagi setiap kali terjatuh, dan tidak pernah berhenti beramal meskipun amalnya sedikit." },
+    { type: 'paragraph', text: "Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'إِنَّ الَّذِينَ قَالُوا رَبُّنَا اللَّهُ ثُمَّ اسْتَقَامُوا تَتَنَزَّلُ عَلَيْهِمُ الْمَلَائِكَةُ أَلَّا تَخَافُوا وَلَا تَحْزَنُوا وَأَبْشِرُوا بِالْجَنَّةِ الَّتِي كُنْتُمْ تُوعَدُونَ', translation: '"Sesungguhnya orang-orang yang berkata: Tuhan kami adalah Allah, kemudian mereka istiqamah, maka malaikat-malaikat akan turun kepada mereka dan berkata: Janganlah kamu takut dan janganlah kamu bersedih, dan bergembiralah dengan surga yang telah dijanjikan kepadamu."', ref: 'QS. Fussilat: 30' },
+    { type: 'paragraph', text: "Subhanallah. Betapa indahnya janji Allah bagi orang yang istiqamah. Malaikat turun kepada mereka — baik di saat kematian maupun di padang mahsyar — untuk menenangkan mereka, menghilangkan rasa takut dan sedih mereka, dan memberikan kabar gembira tentang surga yang telah dijanjikan." },
+    { type: 'paragraph', text: "Abu Bakar Ash-Shiddiq radhiyallahu 'anhu ketika ditanya tentang istiqamah, beliau berkata: 'Istiqamah adalah engkau tidak menyekutukan Allah dengan sesuatu apa pun.' Umar bin Khaththab radhiyallahu 'anhu berkata: 'Istiqamah adalah engkau istiqamah di atas perintah dan larangan, dan tidak menyeleweng seperti musangnya rubah.' Utsman bin Affan radhiyallahu 'anhu berkata: 'Istiqamah adalah engkau mengikhlaskan amalmu untuk Allah.'" },
+    { type: 'paragraph', text: "Di antara kunci meraih istiqamah adalah: pertama, memperbanyak doa memohon keteguhan hati. Rasulullah shallallahu 'alaihi wasallam sering berdoa: 'Ya Allah, Wahai Dzat yang membolak-balikkan hati, teguhkanlah hatiku di atas agama-Mu.' Kedua, memperbanyak amal saleh meskipun sedikit. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa amal yang paling dicintai Allah adalah yang paling istiqamah meskipun sedikit." },
+    { type: 'paragraph', text: "Ketiga, berteman dengan orang-orang shalih yang mengingatkan kita kepada kebaikan. Keempat, menjauhi lingkungan dan teman yang mengajak kepada kemaksiatan. Kelima, selalu mengingat tujuan akhir — surga Allah subhanahu wa ta'ala yang penuh kenikmatan." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Istiqamah adalah perjuangan seumur hidup. Ia bukan tujuan yang bisa dicapai dalam satu hari, tetapi proses yang harus dijaga setiap hari. Akan ada saat di mana iman kita meningkat, dan akan ada saat di mana iman kita menurun. Yang penting adalah kita terus berusaha untuk kembali bangkit setiap kali terjatuh." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam bersabda bahwa iman itu bisa usang di dalam dada seseorang sebagaimana usangnya pakaian. Maka mintalah kepada Allah agar memperbarui iman di dalam hati kalian. Marilah kita senantiasa memperbarui iman kita, memperbarui niat kita, dan memperbarui semangat kita dalam beribadah." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala mengaruniakan kita istiqamah di atas kebenaran, meneguhkan hati kita di atas agama-Nya, dan mematikan kita dalam keadaan husnul khatimah — akhir kehidupan yang baik di atas iman dan Islam." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Fussilat: 30', 'Hadis riwayat Muslim'],
+};

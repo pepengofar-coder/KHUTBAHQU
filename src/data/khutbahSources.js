@@ -11,6 +11,8 @@ export const SOURCES_INDONESIA = [
   { id: 'almanhaj', name: 'AlManhaj.or.id', url: 'https://almanhaj.or.id', lang: 'id', focus: 'Kajian dan khutbah Ahlus Sunnah' },
   { id: 'firanda', name: 'BekalIslam Firanda', url: 'https://bekalislam.firanda.com/category/khotbah', lang: 'id', focus: 'Khutbah dari Ustadz Firanda Andirja' },
   { id: 'radiorodja', name: 'Radio Rodja', url: 'https://www.radiorodja.com/download/khutbah-jumat', lang: 'id', focus: 'Audio dan naskah khutbah Jumat' },
+  { id: 'arrisalah', name: 'Ar-Risalah', url: 'https://arrisalah.net', lang: 'id', focus: 'Majalah dakwah Islam' },
+  { id: 'shahihfiqih', name: 'Shahih Fiqih', url: 'https://shahihfiqih.com', lang: 'id', focus: 'Fiqih dan kajian Islam shahih' },
 ];
 
 export const SOURCES_INTERNATIONAL = [
@@ -30,6 +32,7 @@ export const SUGGESTED_THEMES = [
   { theme: 'tauhid', label: 'Tauhid', description: 'Mengesakan Allah subhanahu wa ta\'ala' },
   { theme: 'taqwa', label: 'Takwa', description: 'Ketakwaan kepada Allah subhanahu wa ta\'ala' },
   { theme: 'shalat', label: 'Shalat', description: 'Keutamaan dan hukum shalat' },
+  { theme: 'ikhlas', label: 'Ikhlas', description: 'Keikhlasan dalam beramal' },
   { theme: 'akhlak', label: 'Akhlak', description: 'Budi pekerti dan adab Islami' },
   { theme: 'death', label: 'Kematian', description: 'Mengingat kematian dan akhirat' },
   { theme: 'family', label: 'Keluarga', description: 'Rumah tangga Islami' },
@@ -45,6 +48,17 @@ export const SUGGESTED_THEMES = [
   { theme: 'gratitude', label: 'Syukur', description: 'Mensyukuri nikmat Allah subhanahu wa ta\'ala' },
   { theme: 'social', label: 'Sosial', description: 'Hubungan bermasyarakat dalam Islam' },
   { theme: 'youth', label: 'Pemuda', description: 'Pembinaan generasi muda Muslim' },
+  { theme: 'sedekah', label: 'Sedekah', description: 'Keutamaan bersedekah dan infak' },
+  { theme: 'amanah', label: 'Amanah', description: 'Menunaikan amanah dan tanggung jawab' },
+  { theme: 'kejujuran', label: 'Kejujuran', description: 'Pentingnya kejujuran dalam Islam' },
+  { theme: 'birrul-walidain', label: 'Birrul Walidain', description: 'Berbakti kepada kedua orang tua' },
+  { theme: 'pendidikan', label: 'Pendidikan Anak', description: 'Mendidik anak shalih dan shalihah' },
+  { theme: 'persaudaraan', label: 'Persaudaraan', description: 'Ukhuwah Islamiyah dan silaturahmi' },
+  { theme: 'bidah', label: 'Bahaya Bid\'ah', description: 'Menjauhi perkara baru dalam agama' },
+  { theme: 'istiqamah', label: 'Istiqamah', description: 'Konsisten di jalan kebenaran' },
+  { theme: 'muhasabah', label: 'Muhasabah Diri', description: 'Introspeksi dan evaluasi diri' },
+  { theme: 'maksiat', label: 'Bahaya Maksiat', description: 'Dampak buruk kemaksiatan' },
+  { theme: 'ghibah', label: 'Bahaya Ghibah', description: 'Bahaya menggunjing sesama muslim' },
 ];
 
 /** Status konten khutbah */

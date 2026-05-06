@@ -1,0 +1,62 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k19 = {
+  id: 19, title: 'Sabar: Kunci Meraih Kemenangan dari Allah', slug: 'sabar-kunci-meraih-kemenangan',
+  summary: 'Sabar adalah separuh keimanan dan kunci meraih pertolongan Allah subhanahu wa ta\'ala. Khutbah ini membahas makna sabar, macam-macamnya, dan keutamaan orang yang bersabar dalam menghadapi ujian kehidupan.',
+  category: 'patience', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['sabar', 'ujian', 'iman', 'ketabahan'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan dunia ini adalah tempat ujian. Tidak ada seorang pun yang terlepas dari cobaan dan musibah. Yang kaya diuji dengan hartanya, yang miskin diuji dengan kemiskinannya. Yang sehat diuji dengan kesehatannya, yang sakit diuji dengan sakitnya. Dalam menghadapi seluruh ujian ini, Allah subhanahu wa ta'ala memerintahkan kita untuk bersabar." },
+    { type: 'quran', arabic: 'يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', translation: '"Wahai orang-orang yang beriman, mohonlah pertolongan dengan sabar dan shalat. Sesungguhnya Allah beserta orang-orang yang sabar."', ref: 'QS. Al-Baqarah: 153' },
+    { type: 'paragraph', text: "Perhatikanlah, jamaah sekalian. Allah subhanahu wa ta'ala menegaskan bahwa Dia bersama orang-orang yang sabar. Kebersamaan Allah ini adalah kebersamaan yang khusus — berupa pertolongan, penjagaan, dan dukungan. Orang yang bersabar tidak pernah sendirian dalam menghadapi ujiannya, karena Allah subhanahu wa ta'ala senantiasa bersamanya." },
+    { type: 'paragraph', text: "Para ulama membagi sabar menjadi tiga macam. Pertama, sabar dalam menjalankan ketaatan kepada Allah subhanahu wa ta'ala. Menjalankan ibadah membutuhkan kesabaran — bangun shalat Subuh di waktu yang masih gelap, berpuasa menahan lapar dan dahaga, menunaikan zakat dari harta yang kita cintai. Semua ini membutuhkan kesabaran." },
+    { type: 'paragraph', text: "Kedua, sabar dalam menjauhi kemaksiatan. Di sekitar kita banyak sekali godaan dan ajakan kepada kemaksiatan. Membutuhkan kesabaran yang besar untuk menahan diri dari dosa, apalagi ketika godaannya sangat kuat dan kesempatan terbuka lebar. Maka sabar jenis ini memiliki kedudukan yang sangat tinggi di sisi Allah subhanahu wa ta'ala." },
+    { type: 'paragraph', text: "Ketiga, sabar dalam menghadapi takdir Allah subhanahu wa ta'ala yang menyakitkan. Sakit, kehilangan orang yang dicintai, kesulitan ekonomi, kegagalan, dan berbagai musibah lainnya. Orang yang bersabar menghadapi musibah dengan penuh ridha dan berharap pahala dari Allah subhanahu wa ta'ala." },
+    { type: 'paragraph', text: "Allah subhanahu wa ta'ala memberikan kabar gembira yang sangat besar bagi orang-orang yang bersabar:" },
+    { type: 'quran', arabic: 'إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُمْ بِغَيْرِ حِسَابٍ', translation: '"Sesungguhnya hanya orang-orang yang bersabar yang akan disempurnakan pahala mereka tanpa batas."', ref: 'QS. Az-Zumar: 10' },
+    { type: 'paragraph', text: "Tanpa batas! Seluruh amal ibadah lainnya memiliki perhitungan pahala yang tertentu. Satu kebaikan dibalas sepuluh kali lipat, atau tujuh ratus kali lipat. Tetapi pahala kesabaran diberikan tanpa batas dan tanpa hitungan. Ini menunjukkan betapa tingginya kedudukan sabar di sisi Allah subhanahu wa ta'ala." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Rasulullah shallallahu 'alaihi wasallam adalah teladan terbaik dalam kesabaran. Beliau diusir dari kampung halamannya, dilempari batu hingga berdarah, dihina dan dicaci maki, kehilangan putra-putrinya, dan diboikot selama tiga tahun. Namun beliau tetap sabar dan terus berdakwah di jalan Allah subhanahu wa ta'ala." },
+    { type: 'hadith', arabic: 'عَجَبًا لِأَمْرِ الْمُؤْمِنِ إِنَّ أَمْرَهُ كُلَّهُ لَهُ خَيْرٌ وَلَيْسَ ذَلِكَ لِأَحَدٍ إِلَّا لِلْمُؤْمِنِ إِنْ أَصَابَتْهُ سَرَّاءُ شَكَرَ فَكَانَ خَيْرًا لَهُ وَإِنْ أَصَابَتْهُ ضَرَّاءُ صَبَرَ فَكَانَ خَيْرًا لَهُ', translation: '"Sungguh menakjubkan urusan seorang mukmin. Seluruh urusannya adalah kebaikan baginya, dan hal itu tidak dimiliki oleh siapa pun kecuali seorang mukmin. Jika ia mendapat kesenangan, ia bersyukur, maka itu menjadi kebaikan baginya. Dan jika ia tertimpa kesusahan, ia bersabar, maka itu pun menjadi kebaikan baginya."', ref: 'Hadis riwayat Muslim' },
+    { type: 'paragraph', text: "Marilah kita menjadi orang-orang yang sabar. Sabar dalam beribadah, sabar menjauhi maksiat, dan sabar menghadapi ujian. Jangan berkeluh kesah, jangan berputus asa, dan jangan menyalahkan takdir Allah subhanahu wa ta'ala. Karena di balik setiap ujian pasti ada hikmah dan kebaikan yang Allah subhanahu wa ta'ala sembunyikan untuk kita." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita hamba-hamba-Nya yang sabar, yang senantiasa ridha dengan takdir-Nya, dan yang meraih pahala tanpa batas di sisi-Nya." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Baqarah: 153', 'QS. Az-Zumar: 10', 'Hadis riwayat Muslim'],
+};
+
+export const k20 = {
+  id: 20, title: 'Mensyukuri Nikmat Allah yang Tak Terhitung', slug: 'mensyukuri-nikmat-allah-tak-terhitung',
+  summary: 'Nikmat Allah subhanahu wa ta\'ala sangat banyak hingga tidak mampu dihitung oleh manusia. Khutbah ini membahas hakikat syukur, cara bersyukur, dan konsekuensi bagi yang mengingkari nikmat Allah.',
+  category: 'gratitude', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['syukur', 'nikmat', 'alhamdulillah', 'kufur-nikmat'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pernahkah kita menghitung berapa banyak nikmat yang Allah subhanahu wa ta'ala berikan kepada kita setiap hari? Nikmat kesehatan, nikmat penglihatan, nikmat pendengaran, nikmat makanan dan minuman, nikmat keluarga, nikmat keamanan, nikmat iman dan Islam — dan masih sangat banyak lagi nikmat yang tidak mungkin kita hitung satu per satu." },
+    { type: 'quran', arabic: 'وَإِنْ تَعُدُّوا نِعْمَةَ اللَّهِ لَا تُحْصُوهَا إِنَّ اللَّهَ لَغَفُورٌ رَحِيمٌ', translation: '"Dan jika kamu menghitung nikmat Allah, niscaya kamu tidak akan mampu menghitungnya. Sesungguhnya Allah benar-benar Maha Pengampun lagi Maha Penyayang."', ref: 'QS. An-Nahl: 18' },
+    { type: 'paragraph', text: "Subhanallah. Nikmat Allah subhanahu wa ta'ala begitu banyak hingga seluruh manusia dan jin pun tidak akan mampu menghitungnya. Coba bayangkan, nikmat bernafas saja — kita menghirup dan menghembuskan nafas sekitar 20.000 kali setiap hari tanpa kita sadari. Jika satu kali tarikan nafas kita hargai dengan seribu rupiah saja, maka kita berutang 20 juta rupiah kepada Allah setiap harinya. Padahal bernafas hanyalah satu dari jutaan nikmat yang kita terima." },
+    { type: 'paragraph', text: "Maka sudah sepatutnya kita bersyukur kepada Allah subhanahu wa ta'ala atas seluruh nikmat-Nya. Syukur yang benar mencakup tiga hal: syukur dengan hati, yaitu mengakui bahwa seluruh nikmat datangnya dari Allah; syukur dengan lisan, yaitu memuji Allah dengan ucapan alhamdulillah dan pujian-pujian lainnya; dan syukur dengan anggota badan, yaitu menggunakan nikmat Allah untuk taat kepada-Nya, bukan untuk bermaksiat." },
+    { type: 'paragraph', text: "Allah subhanahu wa ta'ala memberikan janji yang sangat agung bagi orang yang bersyukur:" },
+    { type: 'quran', arabic: 'لَئِنْ شَكَرْتُمْ لَأَزِيدَنَّكُمْ وَلَئِنْ كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ', translation: '"Jika kamu bersyukur, pasti Aku akan menambah nikmat kepadamu. Dan jika kamu mengingkari nikmat-Ku, maka sesungguhnya azab-Ku sangat pedih."', ref: 'QS. Ibrahim: 7' },
+    { type: 'paragraph', text: "Ayat ini mengandung dua pesan sekaligus: janji dan ancaman. Bagi yang bersyukur, Allah akan menambah nikmat-Nya. Nikmat bertambah bukan berarti hanya bertambah secara materi, tetapi juga bertambah berkah, ketenangan, dan kebermanfaatan. Sebaliknya, bagi yang kufur nikmat — yaitu mengingkari dan tidak mensyukuri nikmat Allah — maka ancamannya adalah azab yang sangat pedih." },
+    { type: 'paragraph', text: "Di antara bentuk kufur nikmat adalah menggunakan nikmat Allah untuk bermaksiat kepada-Nya. Mata yang diberikan untuk melihat kebaikan, justru digunakan untuk melihat yang haram. Telinga yang diberikan untuk mendengar kebenaran, justru digunakan untuk mendengar ghibah dan namimah. Harta yang diberikan sebagai rezeki halal, justru dibelanjakan untuk kemaksiatan. Ini adalah bentuk kufur nikmat yang sangat berbahaya." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Di antara adab bersyukur yang diajarkan oleh Rasulullah shallallahu 'alaihi wasallam adalah melihat kepada orang yang berada di bawah kita dalam urusan dunia, bukan melihat kepada orang yang di atas kita. Beliau bersabda:" },
+    { type: 'hadith', arabic: 'اُنْظُرُوا إِلَى مَنْ أَسْفَلَ مِنْكُمْ وَلَا تَنْظُرُوا إِلَى مَنْ هُوَ فَوْقَكُمْ فَهُوَ أَجْدَرُ أَنْ لَا تَزْدَرُوا نِعْمَةَ اللَّهِ', translation: '"Lihatlah kepada orang yang berada di bawah kalian, dan jangan melihat kepada orang yang di atas kalian. Karena yang demikian itu lebih pantas agar kalian tidak meremehkan nikmat Allah."', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Ketika kita merasa rumah kita kecil, lihatlah saudara-saudara kita yang tidak memiliki rumah. Ketika kita merasa makanan kita kurang enak, lihatlah saudara-saudara kita yang kelaparan. Ketika kita merasa penghasilan kita kurang, lihatlah saudara-saudara kita yang tidak memiliki pekerjaan. Dengan cara ini, kita akan selalu merasa cukup dan bersyukur." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita hamba-hamba-Nya yang pandai bersyukur atas seluruh nikmat-Nya, yang menggunakan nikmat-Nya untuk taat kepada-Nya, dan yang senantiasa memuji-Nya dalam segala keadaan." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. An-Nahl: 18', 'QS. Ibrahim: 7', 'Hadis riwayat Bukhari dan Muslim'],
+};

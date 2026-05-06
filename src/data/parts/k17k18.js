@@ -1,0 +1,62 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k17 = {
+  id: 17, title: 'Kehidupan Alam Kubur: Taman Surga atau Jurang Neraka', slug: 'kehidupan-alam-kubur',
+  summary: 'Alam kubur adalah alam barzakh yang menjadi perhentian pertama menuju akhirat. Khutbah ini membahas kehidupan di alam kubur, pertanyaan malaikat, serta nikmat dan siksa kubur berdasarkan dalil-dalil shahih.',
+  category: 'death', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['kubur', 'barzakh', 'kematian', 'akhirat'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setelah kematian, setiap manusia akan memasuki alam yang dinamakan alam barzakh, yaitu alam kubur. Alam ini adalah perhentian pertama dalam perjalanan panjang menuju akhirat. Di sinilah setiap jiwa akan menunggu hingga hari kiamat tiba. Dan di sinilah setiap jiwa akan merasakan awal dari pembalasan atas amal perbuatannya di dunia." },
+    { type: 'paragraph', text: "Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'وَمِنْ وَرَائِهِمْ بَرْزَخٌ إِلَىٰ يَوْمِ يُبْعَثُونَ', translation: '"Dan di hadapan mereka ada alam barzakh (pembatas) sampai pada hari mereka dibangkitkan."', ref: 'QS. Al-Mu\'minun: 100' },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam mengabarkan bahwa ketika seorang manusia diletakkan di dalam kuburnya dan orang-orang yang mengantarkan jenazahnya sudah pergi, ia akan didatangi oleh dua malaikat yang akan menanyakan tiga pertanyaan besar:" },
+    { type: 'paragraph', text: "Pertanyaan pertama: Siapa Tuhanmu? Pertanyaan kedua: Apa agamamu? Pertanyaan ketiga: Siapa nabimu? Orang mukmin yang istiqamah di atas kebenaran akan mampu menjawab ketiga pertanyaan ini dengan lancar dan benar. Ia akan berkata: 'Tuhanku Allah, agamaku Islam, dan nabiku Muhammad shallallahu alaihi wasallam.' Sedangkan orang munafik atau kafir akan kebingungan dan tidak mampu menjawab." },
+    { type: 'hadith', arabic: 'إِنَّ الْعَبْدَ إِذَا وُضِعَ فِي قَبْرِهِ وَتَوَلَّى عَنْهُ أَصْحَابُهُ وَإِنَّهُ لَيَسْمَعُ قَرْعَ نِعَالِهِمْ أَتَاهُ مَلَكَانِ فَيُقْعِدَانِهِ فَيَقُولَانِ: مَا كُنْتَ تَقُولُ فِي هَذَا الرَّجُلِ؟', translation: '"Sesungguhnya seorang hamba jika diletakkan di dalam kuburnya dan orang-orang yang mengantarnya telah pergi — dan ia masih mendengar suara sandal mereka — datanglah dua malaikat kepadanya, lalu mendudukkannya dan bertanya: Apa yang dahulu kamu katakan tentang orang ini (Muhammad)?"', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Bagi orang mukmin yang berhasil menjawab, kuburnya akan dilapangkan sejauh mata memandang, diberi cahaya, dan dijadikan taman dari taman-taman surga. Ia akan merasakan kenikmatan dan ketenangan hingga hari kiamat. Sebaliknya, bagi orang yang tidak mampu menjawab, kuburnya akan disempitkan hingga tulang-tulang rusuknya saling bertindihan, dan ia akan merasakan siksa kubur yang sangat pedih." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam senantiasa berlindung dari siksa kubur. Beliau bersabda kepada para sahabat untuk memperbanyak memohon perlindungan dari empat perkara, salah satunya adalah siksa kubur. Bahkan dalam setiap shalat, sebelum salam, Rasulullah shallallahu 'alaihi wasallam membaca doa perlindungan dari siksa kubur." },
+    { type: 'paragraph', text: "Jamaah yang dimuliakan Allah. Di antara amalan yang bisa menyelamatkan kita dari siksa kubur adalah: istiqamah di atas tauhid dan sunnah, menjaga shalat lima waktu, membaca surat Al-Mulk setiap malam — karena ia menjadi pelindung dari siksa kubur sebagaimana yang disabdakan Rasulullah shallallahu 'alaihi wasallam —, bersedekah, dan mati dalam keadaan menjaga ribath (berjaga di jalan Allah subhanahu wa ta'ala)." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Mengingat alam kubur seharusnya membuat kita lebih serius dalam mempersiapkan bekal. Kubur kita kelak bisa menjadi taman surga yang penuh kenikmatan, atau bisa menjadi jurang neraka yang penuh siksaan. Semuanya tergantung pada amal perbuatan kita di dunia ini." },
+    { type: 'paragraph', text: "Utsman bin Affan radhiyallahu 'anhu, ketika berdiri di samping kubur, beliau menangis hingga jenggotnya basah. Ketika ditanya mengapa beliau menangis lebih deras di kubur dibandingkan ketika menyebut surga dan neraka, beliau menjawab: 'Karena kubur adalah perhentian pertama dari perhentian-perhentian akhirat. Jika selamat darinya, maka yang setelahnya lebih mudah. Dan jika tidak selamat darinya, maka yang setelahnya lebih berat.'" },
+    { type: 'paragraph', text: "Maka marilah kita mempersiapkan jawaban untuk pertanyaan kubur mulai dari sekarang. Bukan hanya menghafal jawabannya, tetapi mengamalkannya dalam kehidupan sehari-hari. Karena di alam kubur nanti, yang bisa menjawab hanyalah orang yang benar-benar mengamalkan tauhid, Islam, dan mengikuti Sunnah Nabi Muhammad shallallahu 'alaihi wasallam di dunia." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala melindungi kita dari siksa kubur, melapangkan kubur kita, meneranginya dengan cahaya iman, dan menjadikannya taman dari taman-taman surga." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', "QS. Al-Mu'minun: 100", 'Hadis riwayat Bukhari dan Muslim'],
+};
+
+export const k18 = {
+  id: 18, title: 'Hari Kiamat: Hari Pembalasan yang Pasti Datang', slug: 'hari-kiamat-pembalasan-pasti',
+  summary: 'Hari kiamat adalah hari yang pasti datang, ketika seluruh manusia akan dimintai pertanggungjawaban atas setiap amal perbuatannya. Khutbah ini membahas dahsyatnya hari kiamat dan cara mempersiapkan diri menghadapinya.',
+  category: 'death', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['kiamat', 'akhirat', 'hisab', 'pembalasan'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Hari kiamat adalah hari yang pasti datang. Tidak ada keraguan di dalamnya. Seluruh nabi dan rasul mengabarkan tentang kedatangannya. Al-Qur'an menyebutkannya dalam puluhan surat dengan berbagai nama: Yaumul Qiyamah (hari kiamat), Yaumul Hisab (hari perhitungan), Yaumul Ba'ts (hari kebangkitan), Yaumul Hasrah (hari penyesalan), As-Sa'ah (saat itu), dan nama-nama lainnya yang menggambarkan kedahsyatannya." },
+    { type: 'paragraph', text: "Allah subhanahu wa ta'ala menggambarkan dahsyatnya hari kiamat:" },
+    { type: 'quran', arabic: 'يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمْ إِنَّ زَلْزَلَةَ السَّاعَةِ شَيْءٌ عَظِيمٌ ○ يَوْمَ تَرَوْنَهَا تَذْهَلُ كُلُّ مُرْضِعَةٍ عَمَّا أَرْضَعَتْ وَتَضَعُ كُلُّ ذَاتِ حَمْلٍ حَمْلَهَا وَتَرَى النَّاسَ سُكَارَىٰ وَمَا هُمْ بِسُكَارَىٰ وَلَٰكِنَّ عَذَابَ اللَّهِ شَدِيدٌ', translation: '"Wahai manusia, bertakwalah kepada Tuhanmu. Sesungguhnya guncangan hari kiamat itu adalah suatu kejadian yang sangat dahsyat. Pada hari ketika kamu melihatnya, setiap ibu yang menyusui akan lalai terhadap anak yang disusuinya, setiap perempuan hamil akan menggugurkan kandungannya, dan kamu melihat manusia mabuk, padahal mereka tidak mabuk, tetapi azab Allah itu sangat keras."', ref: 'QS. Al-Hajj: 1-2' },
+    { type: 'paragraph', text: "Jamaah yang dimuliakan Allah. Bayangkanlah dahsyatnya hari itu. Ibu yang sedang menyusui anaknya — kasih sayang seorang ibu yang begitu kuat — akan melupakan bayinya. Wanita hamil akan menggugurkan kandungannya. Manusia tampak seperti orang mabuk karena kedahsyatan dan ketakutan yang luar biasa. Padahal mereka tidak mabuk. Inilah gambaran hari kiamat yang Al-Qur'an sampaikan kepada kita." },
+    { type: 'paragraph', text: "Pada hari itu, seluruh manusia akan dikumpulkan di padang Mahsyar. Mereka berdiri dalam keadaan telanjang dan tidak berkhitan, menunggu hisab dari Allah subhanahu wa ta'ala. Matahari didekatkan hanya sejarak satu mil dari kepala manusia. Manusia berkeringat sesuai dengan amal perbuatannya — ada yang keringatnya sampai mata kaki, ada yang sampai lutut, ada yang sampai dada, dan ada yang tenggelam dalam keringatnya sendiri." },
+    { type: 'hadith', arabic: 'يُحْشَرُ النَّاسُ يَوْمَ الْقِيَامَةِ حُفَاةً عُرَاةً غُرْلًا', translation: '"Manusia akan dikumpulkan pada hari kiamat dalam keadaan tidak beralas kaki, telanjang, dan tidak berkhitan."', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Pada hari itu, setiap manusia akan dimintai pertanggungjawaban atas empat perkara: tentang umurnya untuk apa ia habiskan, tentang masa mudanya untuk apa ia gunakan, tentang hartanya dari mana ia dapatkan dan untuk apa ia belanjakan, dan tentang ilmunya untuk apa ia amalkan." },
+    { type: 'paragraph', text: "Pada hari itu pula, amal perbuatan manusia akan ditimbang dengan timbangan yang adil. Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'فَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ خَيْرًا يَرَهُ ○ وَمَنْ يَعْمَلْ مِثْقَالَ ذَرَّةٍ شَرًّا يَرَهُ', translation: '"Barangsiapa mengerjakan kebaikan seberat zarah (atom), niscaya dia akan melihat balasannya. Dan barangsiapa mengerjakan kejahatan seberat zarah, niscaya dia akan melihat balasannya."', ref: 'QS. Az-Zalzalah: 7-8' },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Lalu bagaimana cara kita mempersiapkan diri menghadapi hari yang dahsyat itu? Pertama, perkuat iman dan tauhid kita. Kedua, perbanyak amal saleh: shalat, puasa, sedekah, membaca Al-Qur'an, dan berbuat baik kepada sesama. Ketiga, bertaubat dari segala dosa dan kemaksiatan sebelum terlambat. Keempat, tunaikan hak-hak sesama manusia, karena pada hari kiamat kelak dosa yang berkaitan dengan hak manusia tidak akan diampuni kecuali dengan kerelaan pemilik haknya." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam memberikan kabar gembira bahwa ada tujuh golongan yang akan dinaungi oleh Allah subhanahu wa ta'ala pada hari ketika tidak ada naungan selain naungan-Nya. Di antaranya adalah pemimpin yang adil, pemuda yang tumbuh dalam ketaatan, orang yang hatinya selalu terikat dengan masjid, dua orang yang saling mencintai karena Allah, dan orang yang bersedekah dengan tersembunyi." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita termasuk hamba-hamba-Nya yang ringan hisabnya, berat timbangan kebaikannya, dan selamat dari azab hari kiamat. Semoga kita termasuk orang-orang yang dinaungi oleh Allah subhanahu wa ta'ala pada hari yang tidak ada naungan selain naungan-Nya." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Hajj: 1-2', 'QS. Az-Zalzalah: 7-8', 'Hadis riwayat Bukhari dan Muslim'],
+};

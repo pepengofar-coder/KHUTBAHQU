@@ -1,0 +1,61 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k25 = {
+  id: 25, title: "Mengikuti Sunnah Rasulullah dan Menjauhi Bid'ah", slug: 'mengikuti-sunnah-menjauhi-bidah',
+  summary: "Keselamatan seorang muslim terletak pada keistiqamahannya mengikuti Sunnah Rasulullah shallallahu 'alaihi wasallam dan menjauhi segala bentuk bid'ah. Khutbah ini membahas pentingnya berpegang teguh pada Sunnah dan bahaya bid'ah dalam agama.",
+  category: 'sunnah', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['sunnah', 'bidah', 'ittiba', 'manhaj'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala telah menyempurnakan agama Islam ini. Tidak ada satu perkara pun dalam urusan agama yang luput dari penjelasan Al-Qur'an dan Sunnah. Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'الْيَوْمَ أَكْمَلْتُ لَكُمْ دِينَكُمْ وَأَتْمَمْتُ عَلَيْكُمْ نِعْمَتِي وَرَضِيتُ لَكُمُ الْإِسْلَامَ دِينًا', translation: '"Pada hari ini telah Aku sempurnakan agamamu untukmu, dan telah Aku cukupkan nikmat-Ku bagimu, dan telah Aku ridhai Islam sebagai agamamu."', ref: 'QS. Al-Maidah: 3' },
+    { type: 'paragraph', text: "Karena agama ini sudah sempurna, maka tidak boleh ada seorang pun yang menambah-nambah amalan baru dalam agama yang tidak diajarkan oleh Rasulullah shallallahu 'alaihi wasallam. Setiap penambahan dalam agama tanpa dasar dari Al-Qur'an dan Sunnah disebut bid'ah, dan setiap bid'ah adalah kesesatan." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam selalu mengingatkan dalam khutbahnya:" },
+    { type: 'hadith', arabic: 'أَمَّا بَعْدُ فَإِنَّ خَيْرَ الْحَدِيثِ كِتَابُ اللَّهِ وَخَيْرَ الْهَدْيِ هَدْيُ مُحَمَّدٍ وَشَرَّ الْأُمُورِ مُحْدَثَاتُهَا وَكُلَّ بِدْعَةٍ ضَلَالَةٌ', translation: '"Amma ba\'du. Sesungguhnya sebaik-baik perkataan adalah Kitabullah, sebaik-baik petunjuk adalah petunjuk Muhammad, dan seburuk-buruk perkara adalah yang diada-adakan, dan setiap bid\'ah adalah kesesatan."', ref: 'Hadis riwayat Muslim' },
+    { type: 'paragraph', text: "Mengikuti Sunnah Rasulullah shallallahu 'alaihi wasallam adalah bukti kecintaan kita kepada beliau. Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'قُلْ إِنْ كُنْتُمْ تُحِبُّونَ اللَّهَ فَاتَّبِعُونِي يُحْبِبْكُمُ اللَّهُ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ', translation: '"Katakanlah: Jika kamu mencintai Allah, maka ikutilah aku, niscaya Allah akan mencintaimu dan mengampuni dosa-dosamu."', ref: 'QS. Ali Imran: 31' },
+    { type: 'paragraph', text: "Mengikuti Sunnah bukan hanya dalam ibadah ritual saja, tetapi dalam seluruh aspek kehidupan: cara makan, cara tidur, cara berpakaian, cara bermuamalah, cara berinteraksi dengan sesama, dan cara menghadapi berbagai situasi kehidupan. Semakin banyak Sunnah yang kita amalkan, semakin dekat kita dengan Rasulullah shallallahu 'alaihi wasallam di surga kelak." },
+    { type: 'paragraph', text: "Adapun bid'ah, meskipun pelakunya berniat baik, tetap tertolak di sisi Allah subhanahu wa ta'ala. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'مَنْ عَمِلَ عَمَلًا لَيْسَ عَلَيْهِ أَمْرُنَا فَهُوَ رَدٌّ', translation: '"Barangsiapa mengamalkan suatu amalan yang tidak ada perintah kami di dalamnya, maka amalan itu tertolak."', ref: 'Hadis riwayat Muslim' },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Marilah kita mempelajari Sunnah Rasulullah shallallahu 'alaihi wasallam dengan sungguh-sungguh. Pelajarilah hadis-hadis shahih, pahami maknanya, dan amalkan dalam kehidupan sehari-hari. Jangan mudah menerima amalan-amalan baru yang tidak memiliki dasar dari Al-Qur'an dan Sunnah, meskipun diamalkan oleh banyak orang." },
+    { type: 'paragraph', text: "Abdullah bin Mas'ud radhiyallahu 'anhu berkata: 'Ikutilah (Sunnah) dan jangan membuat-buat perkara baru, karena kalian sudah dicukupkan.' Maka jadikanlah Al-Qur'an dan Sunnah sebagai rujukan utama dalam segala urusan agama kita." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita pengikut Sunnah yang setia, menjaga kita dari bid'ah dan kesesatan, dan mengumpulkan kita bersama Nabi Muhammad shallallahu 'alaihi wasallam di telaga beliau dan di surga-Nya yang penuh kenikmatan." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Maidah: 3', 'QS. Ali Imran: 31', 'Hadis riwayat Muslim'],
+};
+
+export const k26 = {
+  id: 26, title: 'Menyambut Ramadhan: Bulan Seribu Kebaikan', slug: 'menyambut-ramadhan-bulan-seribu-kebaikan',
+  summary: 'Ramadhan adalah bulan yang penuh rahmat, ampunan, dan pembebasan dari neraka. Khutbah ini membahas keutamaan bulan Ramadhan, amalan-amalan utama di dalamnya, dan motivasi untuk meraih Lailatul Qadr.',
+  category: 'ramadan', type: 'khutbah-jumat', duration: 10, occasion: 'Ramadan',
+  tags: ['ramadhan', 'puasa', 'lailatul-qadr', 'pahala'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Segala puji bagi Allah subhanahu wa ta'ala yang telah mempertemukan kita dengan bulan Ramadhan yang mulia. Bulan yang di dalamnya Al-Qur'an diturunkan, bulan yang di dalamnya pintu-pintu surga dibuka dan pintu-pintu neraka ditutup, bulan yang di dalamnya terdapat satu malam yang lebih baik dari seribu bulan." },
+    { type: 'quran', arabic: 'شَهْرُ رَمَضَانَ الَّذِي أُنْزِلَ فِيهِ الْقُرْآنُ هُدًى لِلنَّاسِ وَبَيِّنَاتٍ مِنَ الْهُدَىٰ وَالْفُرْقَانِ', translation: '"Bulan Ramadhan adalah bulan yang di dalamnya diturunkan Al-Qur\'an sebagai petunjuk bagi manusia dan penjelasan-penjelasan mengenai petunjuk itu serta pembeda antara yang hak dan yang bathil."', ref: 'QS. Al-Baqarah: 185' },
+    { type: 'paragraph', text: "Ramadhan dibagi menjadi tiga bagian: sepuluh hari pertama adalah rahmat, sepuluh hari kedua adalah ampunan, dan sepuluh hari terakhir adalah pembebasan dari api neraka. Sungguh besar anugerah Allah subhanahu wa ta'ala dalam bulan ini." },
+    { type: 'paragraph', text: "Di antara amalan utama di bulan Ramadhan adalah puasa dengan iman dan mengharap pahala. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ', translation: '"Barangsiapa berpuasa Ramadhan dengan iman dan mengharap pahala, maka diampuni dosa-dosanya yang telah lalu."', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Amalan kedua adalah shalat tarawih. Barangsiapa mendirikan shalat malam di bulan Ramadhan dengan iman dan mengharap pahala, maka diampuni dosa-dosanya yang telah lalu. Amalan ketiga adalah memperbanyak membaca Al-Qur'an. Rasulullah shallallahu 'alaihi wasallam memperbanyak membaca Al-Qur'an di bulan Ramadhan bersama malaikat Jibril 'alaihissalam." },
+    { type: 'paragraph', text: "Amalan keempat adalah memperbanyak sedekah. Rasulullah shallallahu 'alaihi wasallam adalah orang yang paling dermawan, dan kedermawanan beliau semakin meningkat di bulan Ramadhan. Amalan kelima adalah berdoa, karena doa orang yang berpuasa tidak akan ditolak. Amalan keenam adalah i'tikaf, khususnya di sepuluh hari terakhir untuk mencari Lailatul Qadr." },
+    { type: 'paragraph', text: "Jamaah yang dimuliakan Allah. Janganlah kita sia-siakan bulan ini dengan hal-hal yang tidak bermanfaat. Jangan jadikan Ramadhan sebagai bulan untuk tidur siang yang panjang, begadang tanpa ibadah, atau boros dalam urusan makanan. Ramadhan adalah bulan ibadah, bukan bulan makan-makan dan berhibura." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Di antara perkara terbesar yang tidak boleh kita lewatkan di bulan Ramadhan adalah Lailatul Qadr. Allah subhanahu wa ta'ala berfirman bahwa Lailatul Qadr lebih baik dari seribu bulan. Artinya, beribadah di malam itu pahalanya lebih besar daripada beribadah selama 83 tahun lebih. Sungguh anugerah yang luar biasa." },
+    { type: 'paragraph', text: "Lailatul Qadr terdapat di sepuluh malam terakhir bulan Ramadhan, khususnya di malam-malam ganjil. Maka perbanyaklah ibadah di malam-malam tersebut. Aisyah radhiyallahu 'anha bertanya kepada Rasulullah shallallahu 'alaihi wasallam tentang doa yang dibaca jika mendapati Lailatul Qadr, maka beliau mengajarkan: 'Allahumma innaka 'afuwwun tuhibbul 'afwa fa'fu 'annii' — Ya Allah, Engkau Maha Pemaaf dan mencintai maaf, maka maafkanlah aku." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menerima puasa kita, shalat malam kita, dan seluruh amal ibadah kita di bulan Ramadhan. Semoga kita termasuk hamba-hamba-Nya yang meraih Lailatul Qadr dan mendapatkan ampunan serta pembebasan dari api neraka." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Baqarah: 185', 'Hadis riwayat Bukhari dan Muslim'],
+};

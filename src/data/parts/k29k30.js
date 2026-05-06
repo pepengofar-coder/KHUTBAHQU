@@ -1,0 +1,61 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k29 = {
+  id: 29, title: 'Keutamaan Sedekah dan Infak di Jalan Allah', slug: 'keutamaan-sedekah-infak-jalan-allah',
+  summary: 'Sedekah tidak mengurangi harta, justru menambah keberkahan dan membersihkan jiwa. Khutbah ini membahas keutamaan sedekah, macam-macamnya, dan motivasi untuk gemar bersedekah.',
+  category: 'ibadah', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['sedekah', 'infak', 'dermawan', 'pahala'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala menjanjikan pahala yang sangat besar bagi orang-orang yang gemar berinfak dan bersedekah di jalan-Nya. Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'مَثَلُ الَّذِينَ يُنْفِقُونَ أَمْوَالَهُمْ فِي سَبِيلِ اللَّهِ كَمَثَلِ حَبَّةٍ أَنْبَتَتْ سَبْعَ سَنَابِلَ فِي كُلِّ سُنْبُلَةٍ مِائَةُ حَبَّةٍ وَاللَّهُ يُضَاعِفُ لِمَنْ يَشَاءُ', translation: '"Perumpamaan orang-orang yang menginfakkan hartanya di jalan Allah seperti sebutir biji yang menumbuhkan tujuh tangkai, pada setiap tangkai ada seratus biji. Dan Allah melipatgandakan pahala bagi siapa yang Dia kehendaki."', ref: 'QS. Al-Baqarah: 261' },
+    { type: 'paragraph', text: "Satu dirham yang diinfakkan di jalan Allah subhanahu wa ta'ala bisa dilipatgandakan menjadi 700 kali lipat, bahkan lebih. Ini adalah janji Allah subhanahu wa ta'ala yang pasti. Maka sesungguhnya bersedekah bukanlah mengurangi harta, melainkan menambahnya — menambah berkahnya, menambah kebaikannya, dan menambah pahalanya di sisi Allah." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam menegaskan:" },
+    { type: 'hadith', arabic: 'مَا نَقَصَتْ صَدَقَةٌ مِنْ مَالٍ', translation: '"Sedekah itu tidak mengurangi harta."', ref: 'Hadis riwayat Muslim' },
+    { type: 'paragraph', text: "Jamaah yang dimuliakan Allah. Sedekah dalam Islam tidak hanya terbatas pada harta benda. Rasulullah shallallahu 'alaihi wasallam mengajarkan bahwa sedekah memiliki banyak bentuk. Senyuman kepada saudaramu adalah sedekah. Menyingkirkan duri dari jalan adalah sedekah. Membantu orang yang kesulitan naik ke kendaraannya adalah sedekah. Perkataan yang baik adalah sedekah. Setiap langkah menuju masjid untuk shalat berjamaah adalah sedekah." },
+    { type: 'paragraph', text: "Bahkan Rasulullah shallallahu 'alaihi wasallam bersabda bahwa hubungan suami istri pun bisa menjadi sedekah jika diniatkan untuk menjaga kehormatan diri. Para sahabat heran dan bertanya: 'Wahai Rasulullah, apakah salah seorang dari kami menyalurkan syahwatnya dan mendapat pahala?' Beliau menjawab: 'Bagaimana pendapat kalian jika ia menyalurkannya di tempat yang haram, bukankah ia berdosa? Demikian pula jika ia menyalurkannya di tempat yang halal, ia mendapat pahala.'" },
+    { type: 'paragraph', text: "Di antara keutamaan sedekah yang paling besar adalah sedekah menjadi naungan bagi pelakunya di hari kiamat. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa tujuh golongan yang akan dinaungi oleh Allah pada hari yang tidak ada naungan kecuali naungan-Nya, salah satunya adalah orang yang bersedekah dengan tangan kanannya sehingga tangan kirinya tidak mengetahui apa yang disedekahkan oleh tangan kanannya." },
+    { type: 'paragraph', text: "Sedekah juga menjadi penawar penyakit, penolak bala, pembuka pintu rezeki, dan penyebab turunnya rahmat Allah subhanahu wa ta'ala. Maka janganlah kita pelit dalam bersedekah. Bersedekahlah dalam keadaan lapang maupun sempit, dalam keadaan sehat maupun sakit, dalam keadaan senang maupun susah." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Marilah kita menjadi orang-orang yang dermawan. Jangan menunggu kaya untuk bersedekah, karena sedekah bukan tentang besarnya jumlah tetapi tentang keikhlasan hati. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa satu dirham bisa mengalahkan seratus ribu dirham — yaitu satu dirham dari orang yang hanya memiliki dua dirham, dibandingkan seratus ribu dirham dari orang yang memiliki kekayaan melimpah." },
+    { type: 'paragraph', text: "Dan jangan lupa, sedekah yang paling utama adalah sedekah yang diberikan saat kita masih sehat, masih berkeinginan, masih berharap kaya, dan masih takut miskin. Jangan menunda sedekah hingga saat sakaratul maut datang, karena saat itu harta sudah menjadi milik ahli waris." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita hamba-hamba-Nya yang dermawan, yang tangannya selalu di atas — memberi dan bukan meminta. Semoga sedekah kita diterima dan menjadi naungan bagi kita di hari kiamat kelak." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Baqarah: 261', 'Hadis riwayat Muslim'],
+};
+
+export const k30 = {
+  id: 30, title: 'Amanah: Sifat Mulia Orang Beriman', slug: 'amanah-sifat-mulia-orang-beriman',
+  summary: 'Amanah adalah salah satu sifat terpenting yang harus dimiliki seorang muslim. Khilangnya amanah adalah tanda dekatnya hari kiamat. Khutbah ini membahas pentingnya amanah dan konsekuensi mengkhianatinya.',
+  category: 'akhlak', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['amanah', 'akhlak', 'tanggung-jawab', 'kejujuran'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala memerintahkan kita untuk menunaikan amanah kepada yang berhak menerimanya:" },
+    { type: 'quran', arabic: 'إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا وَإِذَا حَكَمْتُمْ بَيْنَ النَّاسِ أَنْ تَحْكُمُوا بِالْعَدْلِ', translation: '"Sesungguhnya Allah menyuruh kamu menyampaikan amanah kepada yang berhak menerimanya, dan apabila kamu menetapkan hukum di antara manusia hendaknya kamu menetapkannya dengan adil."', ref: 'QS. An-Nisa: 58' },
+    { type: 'paragraph', text: "Amanah adalah perkara yang sangat besar dan berat. Allah subhanahu wa ta'ala bahkan menggambarkan bahwa langit, bumi, dan gunung-gunung enggan memikul amanah ini, namun manusia memikulnya. Allah berfirman:" },
+    { type: 'quran', arabic: 'إِنَّا عَرَضْنَا الْأَمَانَةَ عَلَى السَّمَاوَاتِ وَالْأَرْضِ وَالْجِبَالِ فَأَبَيْنَ أَنْ يَحْمِلْنَهَا وَأَشْفَقْنَ مِنْهَا وَحَمَلَهَا الْإِنْسَانُ', translation: '"Sesungguhnya Kami telah menawarkan amanah kepada langit, bumi, dan gunung-gunung, tetapi semuanya enggan memikulnya dan mereka khawatir tidak mampu melaksanakannya, lalu manusia memikulnya."', ref: 'QS. Al-Ahzab: 72' },
+    { type: 'paragraph', text: "Amanah mencakup banyak hal, jamaah sekalian. Amanah dalam ibadah — menjalankan perintah Allah dan menjauhi larangan-Nya. Amanah dalam jabatan — menjalankan tugas dengan benar dan tidak menyalahgunakan wewenang. Amanah dalam harta — menjaga harta yang dititipkan dan menunaikan hak-hak yang melekat padanya. Amanah dalam ilmu — menyampaikan ilmu yang benar dan tidak menyembunyikannya. Amanah dalam keluarga — menjaga dan mendidik keluarga dengan baik." },
+    { type: 'paragraph', text: "Nabi Muhammad shallallahu 'alaihi wasallam dikenal oleh masyarakat Mekkah dengan gelar Al-Amin — orang yang paling terpercaya. Bahkan musuh-musuh beliau pun masih menitipkan harta mereka kepada beliau karena mereka percaya bahwa beliau tidak akan mengkhianati amanah." },
+    { type: 'paragraph', text: "Sebaliknya, mengkhianati amanah adalah salah satu sifat orang munafik. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'آيَةُ الْمُنَافِقِ ثَلَاثٌ إِذَا حَدَّثَ كَذَبَ وَإِذَا وَعَدَ أَخْلَفَ وَإِذَا اؤْتُمِنَ خَانَ', translation: '"Tanda orang munafik ada tiga: jika berbicara ia berdusta, jika berjanji ia mengingkari, dan jika dipercaya ia berkhianat."', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam juga memperingatkan bahwa hilangnya amanah adalah tanda dekatnya hari kiamat. Ketika amanah sudah disia-siakan, ketika jabatan diberikan bukan kepada ahlinya, maka tunggulah kehancuran." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Marilah kita menjadi orang-orang yang amanah dalam segala hal. Amanah dalam pekerjaan — tidak korupsi, tidak mencuri waktu kerja, dan menunaikan tugas dengan sebaik-baiknya. Amanah dalam jual beli — tidak menipu, tidak mengurangi timbangan, dan jujur dalam bertransaksi. Amanah dalam hubungan sosial — menjaga rahasia orang lain, menepati janji, dan tidak berkhianat." },
+    { type: 'paragraph', text: "Ingatlah bahwa setiap amanah yang kita pikul akan dimintai pertanggungjawabannya di hadapan Allah subhanahu wa ta'ala di hari kiamat kelak. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa setiap kalian adalah pemimpin dan setiap pemimpin akan dimintai pertanggungjawaban atas yang dipimpinnya." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita hamba-hamba-Nya yang amanah, yang dipercaya oleh manusia dan dipercaya oleh Allah subhanahu wa ta'ala. Semoga kita termasuk orang-orang yang mampu menunaikan amanah dengan sebaik-baiknya." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. An-Nisa: 58', 'QS. Al-Ahzab: 72', 'Hadis riwayat Bukhari dan Muslim'],
+};

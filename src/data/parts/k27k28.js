@@ -1,0 +1,61 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k27 = {
+  id: 27, title: 'Keutamaan Sepuluh Hari Pertama Bulan Dzulhijjah', slug: 'keutamaan-sepuluh-hari-dzulhijjah',
+  summary: 'Sepuluh hari pertama Dzulhijjah adalah hari-hari yang paling dicintai Allah subhanahu wa ta\'ala untuk beramal saleh. Khutbah ini membahas keutamaannya dan amalan-amalan yang dianjurkan di dalamnya.',
+  category: 'hajj', type: 'khutbah-jumat', duration: 10, occasion: 'Dzulhijjah',
+  tags: ['dzulhijjah', 'amal-saleh', 'puasa-arafah', 'haji'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kita sedang berada di hari-hari yang sangat mulia, yaitu sepuluh hari pertama bulan Dzulhijjah. Allah subhanahu wa ta'ala bersumpah dengan hari-hari ini dalam Al-Qur'an, dan Allah tidak bersumpah kecuali dengan sesuatu yang sangat agung:" },
+    { type: 'quran', arabic: 'وَالْفَجْرِ ○ وَلَيَالٍ عَشْرٍ', translation: '"Demi fajar, dan demi malam yang sepuluh."', ref: 'QS. Al-Fajr: 1-2' },
+    { type: 'paragraph', text: "Ibnu Abbas radhiyallahu 'anhuma dan mayoritas mufassirin menafsirkan 'malam yang sepuluh' dalam ayat ini adalah sepuluh hari pertama bulan Dzulhijjah. Rasulullah shallallahu 'alaihi wasallam bersabda tentang keutamaan hari-hari ini:" },
+    { type: 'hadith', arabic: 'مَا مِنْ أَيَّامٍ الْعَمَلُ الصَّالِحُ فِيهِنَّ أَحَبُّ إِلَى اللَّهِ مِنْ هَذِهِ الْأَيَّامِ يَعْنِي أَيَّامَ الْعَشْرِ قَالُوا يَا رَسُولَ اللَّهِ وَلَا الْجِهَادُ فِي سَبِيلِ اللَّهِ قَالَ وَلَا الْجِهَادُ فِي سَبِيلِ اللَّهِ إِلَّا رَجُلٌ خَرَجَ بِنَفْسِهِ وَمَالِهِ فَلَمْ يَرْجِعْ مِنْ ذَلِكَ بِشَيْءٍ', translation: '"Tidak ada hari-hari di mana amal saleh di dalamnya lebih dicintai oleh Allah daripada hari-hari ini — yaitu sepuluh hari pertama Dzulhijjah." Para sahabat bertanya, "Wahai Rasulullah, tidak juga jihad di jalan Allah?" Beliau menjawab, "Tidak juga jihad di jalan Allah, kecuali seseorang yang keluar dengan jiwa dan hartanya, lalu tidak kembali dengan sesuatu pun."', ref: 'Hadis riwayat Bukhari' },
+    { type: 'paragraph', text: "Subhanallah. Amal saleh di sepuluh hari pertama Dzulhijjah lebih dicintai Allah daripada jihad fi sabilillah. Jihad yang merupakan puncak tertinggi amalan Islam pun masih di bawah kedudukan amal saleh di hari-hari ini. Maka betapa meruginya orang yang menyia-nyiakan hari-hari ini tanpa memperbanyak amal kebaikan." },
+    { type: 'paragraph', text: "Di antara amalan yang dianjurkan di sepuluh hari pertama Dzulhijjah adalah: memperbanyak takbir, tahlil, dan tahmid. Rasulullah shallallahu 'alaihi wasallam menganjurkan untuk memperbanyak mengucapkan Allahu Akbar, Laa ilaaha illallah, dan Alhamdulillah di hari-hari ini." },
+    { type: 'paragraph', text: "Amalan kedua adalah puasa, khususnya puasa hari Arafah bagi yang tidak menunaikan haji. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'صِيَامُ يَوْمِ عَرَفَةَ أَحْتَسِبُ عَلَى اللَّهِ أَنْ يُكَفِّرَ السَّنَةَ الَّتِي قَبْلَهُ وَالسَّنَةَ الَّتِي بَعْدَهُ', translation: '"Puasa hari Arafah, aku berharap kepada Allah agar menghapuskan dosa setahun sebelumnya dan setahun sesudahnya."', ref: 'Hadis riwayat Muslim' },
+    { type: 'paragraph', text: "Amalan ketiga adalah memperbanyak sedekah, shalat sunnah, membaca Al-Qur'an, berdzikir, dan segala bentuk amal kebaikan. Amalan keempat adalah berkurban bagi yang mampu, karena ibadah qurban termasuk amalan yang paling utama di hari-hari ini." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Marilah kita manfaatkan sisa hari-hari mulia ini sebaik-baiknya. Jangan lewatkan puasa Arafah bagi yang tidak berhaji. Jangan lewatkan takbir dan tahlil. Jangan lewatkan shalat malam dan tilawah Al-Qur'an. Karena hari-hari ini akan segera berlalu dan kita tidak tahu apakah kita akan bertemu dengannya lagi tahun depan." },
+    { type: 'paragraph', text: "Bagi saudara-saudara kita yang sedang menunaikan ibadah haji, marilah kita doakan mereka agar mendapat haji mabrur. Haji yang mabrur tidak ada balasannya kecuali surga, sebagaimana sabda Rasulullah shallallahu 'alaihi wasallam." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menerima seluruh amal ibadah kita di hari-hari yang mulia ini, dan menjadikan kita hamba-hamba-Nya yang senantiasa memanfaatkan waktu-waktu utama untuk beribadah dan mendekatkan diri kepada-Nya." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Fajr: 1-2', 'Hadis riwayat Bukhari', 'Hadis riwayat Muslim'],
+};
+
+export const k28 = {
+  id: 28, title: 'Keutamaan Hari Jumat dan Adab-Adabnya', slug: 'keutamaan-hari-jumat-adab',
+  summary: "Hari Jumat adalah hari terbaik yang matahari terbit padanya. Di dalamnya terdapat satu waktu mustajab yang tidak ada doa seorang muslim pun yang ditolak. Khutbah ini membahas keutamaan dan adab hari Jumat.",
+  category: 'jumat', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['jumat', 'sayyidul-ayyam', 'adab', 'shalat-jumat'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ketahuilah bahwa hari ini, hari Jumat, adalah hari terbaik yang matahari pernah terbit padanya. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ فِيهِ خُلِقَ آدَمُ وَفِيهِ أُدْخِلَ الْجَنَّةَ وَفِيهِ أُخْرِجَ مِنْهَا وَلَا تَقُومُ السَّاعَةُ إِلَّا فِي يَوْمِ الْجُمُعَةِ', translation: '"Sebaik-baik hari yang matahari terbit padanya adalah hari Jumat. Pada hari itu Adam diciptakan, pada hari itu ia dimasukkan ke dalam surga, pada hari itu pula ia dikeluarkan darinya, dan tidaklah kiamat terjadi kecuali pada hari Jumat."', ref: 'Hadis riwayat Muslim' },
+    { type: 'paragraph', text: "Hari Jumat memiliki keistimewaan yang tidak dimiliki oleh hari-hari lainnya. Di antara keistimewaannya adalah adanya waktu mustajab — satu waktu di mana doa seorang muslim pasti dikabulkan oleh Allah subhanahu wa ta'ala. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa di hari Jumat terdapat satu waktu, tidaklah seorang muslim berdoa kepada Allah meminta kebaikan pada waktu itu, kecuali Allah akan mengabulkannya." },
+    { type: 'paragraph', text: "Sebagian ulama berpendapat bahwa waktu mustajab tersebut adalah antara duduknya imam di atas mimbar hingga selesai shalat Jumat. Sebagian lainnya berpendapat bahwa waktu itu adalah di akhir waktu shalat Ashar pada hari Jumat. Maka perbanyaklah doa di kedua waktu tersebut." },
+    { type: 'paragraph', text: "Di antara adab-adab hari Jumat yang diajarkan oleh Rasulullah shallallahu 'alaihi wasallam adalah: pertama, mandi Jumat. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa mandi pada hari Jumat adalah wajib bagi setiap orang yang sudah baligh. Kedua, memakai pakaian terbaik dan menggunakan wangi-wangian." },
+    { type: 'paragraph', text: "Ketiga, berangkat lebih awal ke masjid. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa orang yang datang paling awal ke masjid pada hari Jumat, seolah-olah ia berqurban seekor unta. Yang datang setelahnya seolah berqurban sapi, lalu kambing, lalu ayam, lalu telur. Maka semakin awal kita datang, semakin besar pahalanya." },
+    { type: 'paragraph', text: "Keempat, memperbanyak shalawat kepada Nabi Muhammad shallallahu 'alaihi wasallam pada hari Jumat dan malam Jumat. Beliau bersabda:" },
+    { type: 'hadith', arabic: 'أَكْثِرُوا الصَّلَاةَ عَلَيَّ يَوْمَ الْجُمُعَةِ وَلَيْلَةَ الْجُمُعَةِ', translation: '"Perbanyaklah shalawat kepadaku pada hari Jumat dan malam Jumat."', ref: 'Hadis riwayat Baihaqi, dishahihkan oleh Al-Albani' },
+    { type: 'paragraph', text: "Kelima, membaca Surat Al-Kahfi pada hari Jumat. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa barangsiapa membaca Surat Al-Kahfi pada hari Jumat, ia akan diterangi cahaya antara dua Jumat." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Di antara adab penting lainnya adalah mendengarkan khutbah Jumat dengan seksama dan tidak berbicara atau bermain-main selama khutbah berlangsung. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa siapa saja yang berkata 'diamlah' kepada temannya pada saat imam sedang berkhutbah pada hari Jumat, maka ia telah berbuat sia-sia — artinya pahala Jumatnya berkurang." },
+    { type: 'paragraph', text: "Maka hendaklah kita mengagungkan hari Jumat ini sebagaimana Allah subhanahu wa ta'ala mengagungkannya. Jadikan hari Jumat sebagai hari terbaik dalam pekan kita — hari untuk memperbanyak ibadah, shalawat, doa, sedekah, dan amal kebaikan lainnya." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menerima amal ibadah kita di hari Jumat ini, mengabulkan doa-doa kita, dan menjadikan kita hamba-hamba-Nya yang mengagungkan syiar-syiar-Nya." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'Hadis riwayat Muslim', 'Hadis riwayat Baihaqi'],
+};

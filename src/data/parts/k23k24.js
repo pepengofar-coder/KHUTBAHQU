@@ -1,0 +1,60 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k23 = {
+  id: 23, title: 'Indahnya Ukhuwah Islamiyah: Persaudaraan Sesama Muslim', slug: 'indahnya-ukhuwah-islamiyah',
+  summary: 'Persaudaraan sesama muslim adalah ikatan yang sangat kuat yang dibangun atas dasar iman dan takwa. Khutbah ini membahas keutamaan ukhuwah Islamiyah, hak-hak sesama muslim, dan bahaya perpecahan.',
+  category: 'social', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['ukhuwah', 'persaudaraan', 'sesama-muslim', 'silaturahmi'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang sangat menekankan pentingnya persaudaraan dan persatuan di antara sesama muslim. Allah subhanahu wa ta'ala menegaskan bahwa seluruh orang beriman adalah saudara:" },
+    { type: 'quran', arabic: 'إِنَّمَا الْمُؤْمِنُونَ إِخْوَةٌ فَأَصْلِحُوا بَيْنَ أَخَوَيْكُمْ وَاتَّقُوا اللَّهَ لَعَلَّكُمْ تُرْحَمُونَ', translation: '"Sesungguhnya orang-orang mukmin itu bersaudara. Maka damaikanlah antara kedua saudaramu dan bertakwalah kepada Allah agar kamu mendapat rahmat."', ref: 'QS. Al-Hujurat: 10' },
+    { type: 'paragraph', text: "Persaudaraan dalam Islam bukan didasarkan pada kesamaan suku, ras, warna kulit, atau bahasa. Persaudaraan Islam dibangun di atas ikatan iman yang jauh lebih kuat dan lebih kekal dari ikatan darah sekalipun. Seorang muslim di Indonesia adalah saudara bagi muslim di Palestina, muslim di Turki, muslim di Nigeria, dan muslim di seluruh penjuru dunia." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam menggambarkan indahnya persaudaraan Islam dengan perumpamaan yang sangat menakjubkan:" },
+    { type: 'hadith', arabic: 'مَثَلُ الْمُؤْمِنِينَ فِي تَوَادِّهِمْ وَتَرَاحُمِهِمْ وَتَعَاطُفِهِمْ مَثَلُ الْجَسَدِ إِذَا اشْتَكَى مِنْهُ عُضْوٌ تَدَاعَى لَهُ سَائِرُ الْجَسَدِ بِالسَّهَرِ وَالْحُمَّى', translation: '"Perumpamaan orang-orang mukmin dalam saling mencintai, saling mengasihi, dan saling menyayangi bagaikan satu tubuh. Apabila satu anggota tubuh merasakan sakit, maka seluruh tubuh ikut merasakan demam dan tidak bisa tidur."', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Inilah gambaran ideal persaudaraan Islam — seperti satu tubuh yang saling merasakan. Jika saudara kita sakit, kita ikut merasakan sakitnya. Jika saudara kita kesusahan, kita ikut turut prihatin dan berusaha membantu. Jika saudara kita bahagia, kita ikut berbahagia." },
+    { type: 'paragraph', text: "Di antara hak sesama muslim atas saudaranya adalah: menjawab salamnya, menjenguknya ketika sakit, mengantarkan jenazahnya, memenuhi undangannya, mendoakannya ketika bersin, dan menasihatinya ketika dimintai nasihat. Ini semua adalah hak yang harus kita tunaikan." },
+    { type: 'paragraph', text: "Sebaliknya, Islam melarang keras segala hal yang merusak persaudaraan. Allah subhanahu wa ta'ala berfirman:" },
+    { type: 'quran', arabic: 'يَا أَيُّهَا الَّذِينَ آمَنُوا لَا يَسْخَرْ قَوْمٌ مِنْ قَوْمٍ عَسَىٰ أَنْ يَكُونُوا خَيْرًا مِنْهُمْ وَلَا نِسَاءٌ مِنْ نِسَاءٍ عَسَىٰ أَنْ يَكُنَّ خَيْرًا مِنْهُنَّ', translation: '"Wahai orang-orang yang beriman, janganlah suatu kaum mengolok-olok kaum yang lain, boleh jadi mereka lebih baik dari mereka. Dan jangan pula perempuan-perempuan mengolok-olok perempuan lain, boleh jadi mereka lebih baik dari mereka."', ref: 'QS. Al-Hujurat: 11' },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Rasulullah shallallahu 'alaihi wasallam juga melarang tiga perkara yang merusak persaudaraan:" },
+    { type: 'hadith', arabic: 'لَا تَحَاسَدُوا وَلَا تَنَاجَشُوا وَلَا تَبَاغَضُوا وَلَا تَدَابَرُوا وَلَا يَبِعْ بَعْضُكُمْ عَلَى بَيْعِ بَعْضٍ وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا', translation: '"Jangan saling hasad, jangan saling menipu, jangan saling membenci, jangan saling membelakangi, jangan berjual beli di atas jual beli saudaranya. Dan jadilah kalian hamba-hamba Allah yang bersaudara."', ref: 'Hadis riwayat Muslim' },
+    { type: 'paragraph', text: "Marilah kita jaga persaudaraan kita. Hindari hasad, dengki, ghibah, namimah, dan segala bentuk permusuhan. Sambunglah silaturahmi yang terputus. Maafkanlah kesalahan saudara kita. Doakanlah kebaikan untuk mereka. Karena persatuan umat Islam adalah kekuatan, sedangkan perpecahan adalah kelemahan dan kehancuran." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menyatukan hati-hati kaum muslimin, menghilangkan rasa dengki dan permusuhan dari hati kita, dan menjadikan kita bersaudara yang saling mencintai karena-Nya." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Hujurat: 10', 'QS. Al-Hujurat: 11', 'Hadis riwayat Bukhari dan Muslim', 'Hadis riwayat Muslim'],
+};
+
+export const k24 = {
+  id: 24, title: "Keutamaan Membaca dan Mengamalkan Al-Qur'an", slug: 'keutamaan-membaca-mengamalkan-alquran',
+  summary: "Al-Qur'an adalah kalamullah yang menjadi petunjuk bagi seluruh umat manusia. Khutbah ini membahas keutamaan membaca Al-Qur'an, menghafalnya, dan mengamalkan isinya dalam kehidupan sehari-hari.",
+  category: 'quran', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['quran', 'tilawah', 'tadabbur', 'hafalan'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala telah menurunkan Al-Qur'an sebagai petunjuk bagi seluruh umat manusia. Al-Qur'an adalah kalamullah, firman Allah subhanahu wa ta'ala yang mulia, yang tidak datang kepadanya kebathilan dari depan maupun dari belakang. Ia adalah mukjizat terbesar yang diberikan kepada Nabi Muhammad shallallahu 'alaihi wasallam." },
+    { type: 'quran', arabic: 'إِنَّ هَٰذَا الْقُرْآنَ يَهْدِي لِلَّتِي هِيَ أَقْوَمُ وَيُبَشِّرُ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا كَبِيرًا', translation: '"Sesungguhnya Al-Qur\'an ini memberikan petunjuk ke jalan yang paling lurus dan memberikan kabar gembira kepada orang-orang mukmin yang mengerjakan kebaikan bahwa mereka akan mendapat pahala yang besar."', ref: 'QS. Al-Isra: 9' },
+    { type: 'paragraph', text: "Membaca Al-Qur'an memiliki keutamaan yang sangat besar. Setiap huruf yang kita baca akan diganjar dengan satu kebaikan, dan satu kebaikan dilipatgandakan menjadi sepuluh kebaikan. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'مَنْ قَرَأَ حَرْفًا مِنْ كِتَابِ اللَّهِ فَلَهُ بِهِ حَسَنَةٌ وَالْحَسَنَةُ بِعَشْرِ أَمْثَالِهَا لَا أَقُولُ الم حَرْفٌ وَلَكِنْ أَلِفٌ حَرْفٌ وَلَامٌ حَرْفٌ وَمِيمٌ حَرْفٌ', translation: '"Barangsiapa membaca satu huruf dari Kitabullah, maka baginya satu kebaikan, dan satu kebaikan dilipatgandakan menjadi sepuluh kebaikan. Aku tidak mengatakan alif lam mim satu huruf, tetapi alif satu huruf, lam satu huruf, dan mim satu huruf."', ref: 'Hadis riwayat Tirmidzi, dishahihkan oleh Al-Albani' },
+    { type: 'paragraph', text: "Bayangkan, jamaah sekalian. Hanya dengan membaca Bismillahirrahmanirrahim saja, kita sudah mendapatkan 190 kebaikan (19 huruf × 10 kebaikan). Betapa dermawannya Allah subhanahu wa ta'ala. Maka sungguh merugi orang yang melewatkan hari-harinya tanpa membaca Al-Qur'an." },
+    { type: 'paragraph', text: "Al-Qur'an juga akan menjadi syafaat (penolong) bagi pembacanya di hari kiamat. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa Al-Qur'an akan datang pada hari kiamat dan berkata: 'Wahai Tuhanku, hiasilah dia,' maka dikenakanlah kepadanya mahkota kemuliaan. Kemudian Al-Qur'an berkata lagi: 'Wahai Tuhanku, tambahkanlah untuknya,' maka dikenakanlah pakaian kemuliaan. Kemudian Al-Qur'an berkata: 'Wahai Tuhanku, ridhailah dia,' maka Allah meridhainya." },
+    { type: 'paragraph', text: "Namun jamaah sekalian, membaca Al-Qur'an saja tidak cukup. Kita juga harus mentadabburi — merenungkan maknanya — dan mengamalkan isinya dalam kehidupan sehari-hari. Jangan sampai kita menjadi orang yang membaca Al-Qur'an tetapi Al-Qur'an melaknat kita karena kita tidak mengamalkannya." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Marilah kita membuat program harian untuk membaca Al-Qur'an. Luangkan waktu minimal 15-20 menit setiap hari untuk tilawah. Jangan biarkan mushaf kita berdebu di rak buku. Bacalah dengan tartil, pelajari tajwidnya, pahami maknanya, dan amalkan isinya." },
+    { type: 'paragraph', text: "Ajarkanlah Al-Qur'an kepada anak-anak kita sejak kecil. Rasulullah shallallahu 'alaihi wasallam bersabda bahwa sebaik-baik kalian adalah yang mempelajari Al-Qur'an dan mengajarkannya. Orang tua yang mengajarkan Al-Qur'an kepada anaknya akan dikenakan mahkota yang cahayanya lebih indah dari cahaya matahari di hari kiamat kelak." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita ahli Al-Qur'an — yang membacanya, menghafalnya, mentadabburinya, dan mengamalkannya. Semoga Al-Qur'an menjadi hujjah bagi kita, bukan hujjah atas kita di hari kiamat kelak." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Isra: 9', 'Hadis riwayat Tirmidzi'],
+};

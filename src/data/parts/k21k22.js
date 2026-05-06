@@ -1,0 +1,62 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const k21 = {
+  id: 21, title: 'Birrul Walidain: Berbakti kepada Kedua Orang Tua', slug: 'birrul-walidain-berbakti-orang-tua',
+  summary: 'Berbakti kepada orang tua adalah kewajiban agung yang disejajarkan dengan perintah beribadah kepada Allah subhanahu wa ta\'ala. Khutbah ini membahas keutamaan birrul walidain dan ancaman bagi yang durhaka kepada orang tua.',
+  category: 'family', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['birrul-walidain', 'orang-tua', 'bakti', 'keluarga'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Dalam Al-Qur'an, Allah subhanahu wa ta'ala menyejajarkan perintah berbakti kepada orang tua dengan perintah beribadah kepada-Nya. Ini menunjukkan betapa tingginya kedudukan orang tua dan betapa agungnya kewajiban berbakti kepada keduanya." },
+    { type: 'quran', arabic: 'وَقَضَىٰ رَبُّكَ أَلَّا تَعْبُدُوا إِلَّا إِيَّاهُ وَبِالْوَالِدَيْنِ إِحْسَانًا إِمَّا يَبْلُغَنَّ عِنْدَكَ الْكِبَرَ أَحَدُهُمَا أَوْ كِلَاهُمَا فَلَا تَقُلْ لَهُمَا أُفٍّ وَلَا تَنْهَرْهُمَا وَقُلْ لَهُمَا قَوْلًا كَرِيمًا', translation: '"Dan Tuhanmu telah memerintahkan agar kamu jangan menyembah selain Dia dan hendaklah berbuat baik kepada kedua orang tua dengan sebaik-baiknya. Jika salah satu atau kedua-duanya sampai berusia lanjut dalam pemeliharaanmu, maka janganlah engkau berkata \'ah\' dan janganlah engkau membentak mereka, dan ucapkanlah kepada mereka perkataan yang mulia."', ref: 'QS. Al-Isra: 23' },
+    { type: 'paragraph', text: "Perhatikanlah betapa halusnya larangan dalam ayat ini, jamaah sekalian. Bahkan mengatakan 'uf' — sekadar kata yang menunjukkan ketidaksenangan — saja dilarang oleh Allah subhanahu wa ta'ala. Apalagi membentak, memaki, meninggikan suara, apalagi sampai memukul orang tua. Betapa besar dosanya di sisi Allah subhanahu wa ta'ala." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam menempatkan birrul walidain sebagai amalan yang paling utama setelah shalat tepat waktu. Ketika seorang sahabat bertanya tentang amalan yang paling dicintai oleh Allah, beliau menjawab:" },
+    { type: 'hadith', arabic: 'الصَّلاَةُ عَلَى وَقْتِهَا. قَالَ: ثُمَّ أَيُّ؟ قَالَ: بِرُّ الْوَالِدَيْنِ. قَالَ: ثُمَّ أَيُّ؟ قَالَ: الْجِهَادُ فِي سَبِيلِ اللَّهِ', translation: '"Shalat tepat pada waktunya." Sahabat bertanya, "Kemudian apa?" Beliau menjawab, "Berbakti kepada kedua orang tua." Sahabat bertanya lagi, "Kemudian apa?" Beliau menjawab, "Jihad di jalan Allah."', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Birrul walidain bahkan lebih didahulukan daripada jihad fi sabilillah. Ini menunjukkan betapa agungnya kedudukan amalan ini. Seorang sahabat datang kepada Rasulullah shallallahu 'alaihi wasallam untuk meminta izin berjihad, maka beliau bertanya apakah kedua orang tuanya masih hidup. Ketika sahabat itu menjawab ya, beliau bersabda: 'Berjihadlah pada keduanya' — maksudnya berbaktilah kepada keduanya." },
+    { type: 'paragraph', text: "Jamaah yang dimuliakan Allah. Di antara bentuk birrul walidain adalah: menaati mereka dalam hal yang tidak bermaksiat kepada Allah, berbicara dengan lembut dan hormat, mendoakan mereka, memberi nafkah dan merawat mereka terutama di usia tua, menyambung silaturahmi dengan kerabat dan teman-teman mereka, serta memenuhi janji dan wasiat mereka setelah mereka wafat." },
+    { type: 'paragraph', text: "Khusus untuk ibu, kedudukannya lebih tinggi tiga kali lipat dibandingkan ayah dalam hal berbakti. Seorang sahabat bertanya kepada Rasulullah shallallahu 'alaihi wasallam tentang siapa yang paling berhak mendapatkan perlakuan baik. Beliau menjawab: 'Ibumu.' Ditanya lagi, beliau menjawab: 'Ibumu.' Ditanya lagi, beliau menjawab: 'Ibumu.' Baru yang keempat beliau menjawab: 'Ayahmu.' Karena pengorbanan ibu dalam mengandung, melahirkan, menyusui, dan merawat anak tidak ada tandingannya." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Sebaliknya, durhaka kepada orang tua adalah dosa besar yang sangat dimurkai oleh Allah subhanahu wa ta'ala. Rasulullah shallallahu 'alaihi wasallam memasukkan durhaka kepada orang tua sebagai salah satu dosa besar yang harus dijauhi. Orang yang durhaka kepada orang tuanya terancam tidak masuk surga dan tidak akan dicium oleh bau surga." },
+    { type: 'paragraph', text: "Bagi yang orang tuanya masih hidup, manfaatkanlah kesempatan ini sebaik-baiknya. Ciumlah tangan mereka, peluk mereka, ucapkan terima kasih, dan perbanyaklah berbakti kepada mereka. Karena kita tidak tahu kapan mereka akan pergi meninggalkan kita. Jangan sampai kita menyesal setelah mereka tiada." },
+    { type: 'paragraph', text: "Dan bagi yang orang tuanya sudah meninggal dunia, birrul walidain tetap bisa dilakukan dengan cara: mendoakan mereka, memintakan ampunan untuk mereka, melaksanakan wasiat mereka, menyambung silaturahmi dengan sahabat-sahabat mereka, dan bersedekah atas nama mereka." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan kita anak-anak yang berbakti kepada orang tua, mengampuni kedua orang tua kita, dan mengumpulkan kita bersama mereka di surga-Nya yang mulia." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Al-Isra: 23', 'Hadis riwayat Bukhari dan Muslim'],
+};
+
+export const k22 = {
+  id: 22, title: 'Mendidik Anak Shalih di Era Digital', slug: 'mendidik-anak-shalih-era-digital',
+  summary: 'Anak adalah amanah dari Allah subhanahu wa ta\'ala yang harus dididik dengan pendidikan Islam yang benar. Khutbah ini membahas tanggung jawab orang tua dalam mendidik anak dan tantangan pendidikan di era digital.',
+  category: 'family', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
+  tags: ['pendidikan', 'anak', 'keluarga', 'digital'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Anak adalah amanah yang sangat besar dari Allah subhanahu wa ta'ala. Setiap anak yang lahir dalam keadaan fitrah — suci dan bersih. Tugas orang tua lah yang menentukan ke arah mana anak tersebut akan tumbuh dan berkembang. Rasulullah shallallahu 'alaihi wasallam bersabda:" },
+    { type: 'hadith', arabic: 'كُلُّ مَوْلُودٍ يُولَدُ عَلَى الْفِطْرَةِ فَأَبَوَاهُ يُهَوِّدَانِهِ أَوْ يُنَصِّرَانِهِ أَوْ يُمَجِّسَانِهِ', translation: '"Setiap anak dilahirkan dalam keadaan fitrah. Maka kedua orang tuanya lah yang menjadikannya Yahudi, Nasrani, atau Majusi."', ref: 'Hadis riwayat Bukhari dan Muslim' },
+    { type: 'paragraph', text: "Hadis ini menegaskan peran sentral orang tua dalam pembentukan karakter dan akidah anak. Orang tua adalah madrasah pertama dan utama bagi anak-anaknya. Maka betapa besar tanggung jawab kita di hadapan Allah subhanahu wa ta'ala terkait pendidikan anak-anak kita." },
+    { type: 'paragraph', text: "Allah subhanahu wa ta'ala berfirman dengan tegas:" },
+    { type: 'quran', arabic: 'يَا أَيُّهَا الَّذِينَ آمَنُوا قُوا أَنْفُسَكُمْ وَأَهْلِيكُمْ نَارًا وَقُودُهَا النَّاسُ وَالْحِجَارَةُ', translation: '"Wahai orang-orang yang beriman, jagalah dirimu dan keluargamu dari api neraka yang bahan bakarnya adalah manusia dan batu."', ref: 'QS. At-Tahrim: 6' },
+    { type: 'paragraph', text: "Menjaga keluarga dari api neraka berarti mendidik mereka dengan pendidikan Islam yang benar. Mengajarkan mereka tauhid, mengajarkan mereka shalat, mengajarkan mereka Al-Qur'an, mengajarkan mereka akhlak yang mulia, dan menjauhkan mereka dari kemaksiatan dan kerusakan." },
+    { type: 'paragraph', text: "Di era digital saat ini, tantangan mendidik anak semakin besar. Anak-anak kita terpapar informasi dari berbagai arah — internet, media sosial, game, dan konten-konten yang tidak semua bermanfaat. Banyak konten yang merusak akidah, akhlak, dan moral anak-anak kita. Maka orang tua harus menjadi filter pertama dan utama bagi anak-anaknya." },
+    { type: 'paragraph', text: "Luqman Al-Hakim, yang diabadikan namanya dalam Al-Qur'an, memberikan wasiat pendidikan yang sangat fundamental kepada putranya:" },
+    { type: 'quran', arabic: 'يَا بُنَيَّ لَا تُشْرِكْ بِاللَّهِ إِنَّ الشِّرْكَ لَظُلْمٌ عَظِيمٌ', translation: '"Wahai anakku, janganlah engkau menyekutukan Allah. Sesungguhnya mempersekutukan Allah adalah benar-benar kezaliman yang besar."', ref: 'QS. Luqman: 13' },
+    { type: 'paragraph', text: "Perhatikanlah, pendidikan pertama yang Luqman ajarkan kepada anaknya adalah tauhid. Ini menunjukkan bahwa pondasi utama pendidikan anak adalah akidah yang benar. Sebelum mengajarkan ilmu dunia, ajarkanlah terlebih dahulu ilmu agama. Sebelum menyekolahkan ke lembaga pendidikan terbaik, tanamlah dulu kecintaan kepada Allah dan Rasul-Nya di dalam hati mereka." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah. Di antara langkah praktis mendidik anak di era digital adalah: pertama, berikan teladan yang baik karena anak lebih banyak belajar dari apa yang ia lihat daripada apa yang ia dengar. Kedua, ajak anak shalat berjamaah di masjid sejak kecil. Ketiga, bacakan kisah-kisah nabi dan sahabat yang menginspirasi. Keempat, awasi penggunaan gadget dan internet dengan bijak, bukan dengan melarang total tetapi dengan mendampingi dan membimbing. Kelima, luangkan waktu berkualitas bersama anak untuk berkomunikasi dan membangun kedekatan emosional." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam bersabda bahwa di antara amal yang pahalanya tidak terputus setelah seseorang meninggal adalah anak shalih yang mendoakan orang tuanya. Maka investasi terbesar seorang muslim bukanlah harta benda, melainkan anak yang shalih yang akan terus mendoakan kita bahkan setelah kita meninggal dunia." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan anak-anak kita generasi yang shalih dan shalihah, yang menjadi penyejuk mata bagi kita di dunia dan penolong di akhirat. Semoga Allah menjaga mereka dari segala fitnah dan kerusakan di zaman ini." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. At-Tahrim: 6', 'QS. Luqman: 13', 'Hadis riwayat Bukhari dan Muslim'],
+};
