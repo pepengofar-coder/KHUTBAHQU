@@ -121,6 +121,13 @@ import { kematian_5, kematian_6 } from './parts/cat_kematian_3.js';
 import { kematian_7, kematian_8 } from './parts/cat_kematian_4.js';
 import { kematian_9, kematian_10 } from './parts/cat_kematian_5.js';
 
+// Syukur (10 new)
+import { syukur_1, syukur_2 } from './parts/cat_syukur_1.js';
+import { syukur_3, syukur_4 } from './parts/cat_syukur_2.js';
+import { syukur_5, syukur_6 } from './parts/cat_syukur_3.js';
+import { syukur_7, syukur_8 } from './parts/cat_syukur_4.js';
+import { syukur_9, syukur_10 } from './parts/cat_syukur_5.js';
+
 export const khutbahList = [
   k1, k2, k3, k4, k5, k6, k7, k8, k9, k10,
   k11, k12, k13, k14, k15, k16, k17, k18, k19, k20,
@@ -141,4 +148,5 @@ export const khutbahList = [
   muharram_1, muharram_2, muharram_3, muharram_4, muharram_5, muharram_6, muharram_7, muharram_8, muharram_9, muharram_10,
   sosial_1, sosial_2, sosial_3, sosial_4, sosial_5, sosial_6, sosial_7, sosial_8, sosial_9, sosial_10,
   kematian_1, kematian_2, kematian_3, kematian_4, kematian_5, kematian_6, kematian_7, kematian_8, kematian_9, kematian_10,
+  syukur_1, syukur_2, syukur_3, syukur_4, syukur_5, syukur_6, syukur_7, syukur_8, syukur_9, syukur_10,
 ];
