@@ -100,6 +100,13 @@ import { qurban_5, qurban_6 } from './parts/cat_qurban_3.js';
 import { qurban_7, qurban_8 } from './parts/cat_qurban_4.js';
 import { qurban_9, qurban_10 } from './parts/cat_qurban_5.js';
 
+// Muharram (10 new)
+import { muharram_1, muharram_2 } from './parts/cat_muharram_1.js';
+import { muharram_3, muharram_4 } from './parts/cat_muharram_2.js';
+import { muharram_5, muharram_6 } from './parts/cat_muharram_3.js';
+import { muharram_7, muharram_8 } from './parts/cat_muharram_4.js';
+import { muharram_9, muharram_10 } from './parts/cat_muharram_5.js';
+
 export const khutbahList = [
   k1, k2, k3, k4, k5, k6, k7, k8, k9, k10,
   k11, k12, k13, k14, k15, k16, k17, k18, k19, k20,
@@ -117,4 +124,5 @@ export const khutbahList = [
   ramadhan_1, ramadhan_2, ramadhan_3, ramadhan_4, ramadhan_5, ramadhan_6, ramadhan_7, ramadhan_8, ramadhan_9, ramadhan_10,
   dzulhijjah_1, dzulhijjah_2, dzulhijjah_3, dzulhijjah_4, dzulhijjah_5, dzulhijjah_6, dzulhijjah_7, dzulhijjah_8, dzulhijjah_9, dzulhijjah_10,
   qurban_1, qurban_2, qurban_3, qurban_4, qurban_5, qurban_6, qurban_7, qurban_8, qurban_9, qurban_10,
+  muharram_1, muharram_2, muharram_3, muharram_4, muharram_5, muharram_6, muharram_7, muharram_8, muharram_9, muharram_10,
 ];
