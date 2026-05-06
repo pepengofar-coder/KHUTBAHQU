@@ -12,7 +12,6 @@ export const CATEGORIES = [
   { id: 'hajj', label: 'Dzulhijjah', icon: '🕋' },
   { id: 'qurban', label: 'Qurban', icon: '🐑' },
   { id: 'muharram', label: 'Muharram', icon: '📅' },
-  { id: 'maulid', label: 'Maulid', icon: '💚' },
   { id: 'social', label: 'Sosial', icon: '🏘️' },
   { id: 'death', label: 'Kematian & Akhirat', icon: '⏳' },
   { id: 'gratitude', label: 'Syukur', icon: '🙏' },

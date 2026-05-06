@@ -4,8 +4,15 @@
  */
 
 const WORDS_PER_MINUTE = 110; // Tempo baca khutbah (lambat, dengan jeda dan penghayatan)
-const MIN_WORD_COUNT = 600;   // ~5.5 menit minimum (termasuk teks Arab)
-const IDEAL_WORD_COUNT = 900; // ~8-9 menit ideal
+const MIN_WORD_COUNT = 1200;  // ~11 menit minimum
+const IDEAL_WORD_COUNT = 1500; // ~14 menit ideal
+
+/** Status konten */
+export const CONTENT_STATUS = {
+  DRAFT: 'draft',
+  REVIEW: 'review',
+  PUBLISHED: 'published',
+};
 
 /**
  * Menghitung jumlah kata dari seluruh blok konten khutbah
@@ -40,7 +47,7 @@ export function formatDuration(khutbah) {
 }
 
 /**
- * Deteksi apakah konten terlalu pendek untuk dibacakan (< 7 menit)
+ * Deteksi apakah konten terlalu pendek untuk dibacakan (< 11 menit)
  */
 export function isContentTooShort(khutbah) {
   const words = countWords(khutbah);
@@ -153,6 +160,61 @@ export function isSimilarTitle(newTitle, existingTitles, threshold = 0.6) {
 }
 
 /**
+ * Deteksi apakah khutbah memiliki minimal 1 ayat Al-Qur'an
+ */
+export function hasQuranVerse(khutbah) {
+  const blocks = [...(khutbah.firstKhutbah || []), ...(khutbah.secondKhutbah || [])];
+  return blocks.some(b => b.type === 'quran');
+}
+
+/**
+ * Deteksi apakah khutbah memiliki minimal 1 hadis
+ */
+export function hasHadith(khutbah) {
+  const blocks = [...(khutbah.firstKhutbah || []), ...(khutbah.secondKhutbah || [])];
+  return blocks.some(b => b.type === 'hadith');
+}
+
+/**
+ * Deteksi konten bertema maulid (dilarang)
+ */
+export function hasMaulidContent(khutbah) {
+  const maulidPatterns = [/\bmaulid\b/i, /\bmilad\s*nabi\b/i, /\bperayaan\s*maulid\b/i];
+  let text = (khutbah.title || '') + ' ' + (khutbah.summary || '') + ' ' + (khutbah.category || '');
+  for (const tag of (khutbah.tags || [])) text += ' ' + tag;
+  return maulidPatterns.some(p => p.test(text));
+}
+
+/**
+ * Auto-determine status berdasarkan validasi
+ */
+export function getAutoStatus(khutbah) {
+  const words = countWords(khutbah);
+  const blocks = [...(khutbah.firstKhutbah || []), ...(khutbah.secondKhutbah || [])];
+  const hasSecond = (khutbah.secondKhutbah || []).length > 0;
+  const hasDua = !!khutbah.dua;
+  const hasQuran = blocks.some(b => b.type === 'quran');
+  const hasHadis = blocks.some(b => b.type === 'hadith');
+  const abbrevs = scanKhutbahForAbbreviations(khutbah);
+
+  if (words < MIN_WORD_COUNT || !hasSecond || !hasDua || !hasQuran || !hasHadis || abbrevs.length > 0) {
+    return words < 600 ? CONTENT_STATUS.DRAFT : CONTENT_STATUS.REVIEW;
+  }
+  return khutbah.status || CONTENT_STATUS.PUBLISHED;
+}
+
+/**
+ * Hitung jumlah khutbah per kategori
+ */
+export function countByCategory(khutbahList) {
+  const counts = {};
+  for (const k of khutbahList) {
+    counts[k.category] = (counts[k.category] || 0) + 1;
+  }
+  return counts;
+}
+
+/**
  * Validasi lengkap satu khutbah — mengembalikan semua masalah
  */
 export function validateKhutbah(khutbah) {
@@ -170,33 +232,39 @@ export function validateKhutbah(khutbah) {
   } else {
     const hasOpening = khutbah.firstKhutbah.some(b => b.type === 'opening');
     const hasClosing = khutbah.firstKhutbah.some(b => b.type === 'closing');
-    const hasDalil = khutbah.firstKhutbah.some(b => b.type === 'quran' || b.type === 'hadith');
     if (!hasOpening) issues.push({ severity: 'warning', message: 'Khutbah pertama tidak memiliki pembukaan (mukaddimah)' });
     if (!hasClosing) issues.push({ severity: 'warning', message: 'Khutbah pertama tidak memiliki penutup' });
-    if (!hasDalil) issues.push({ severity: 'warning', message: 'Khutbah pertama tidak memiliki dalil (ayat/hadis)' });
   }
 
-  // 3. Cek khutbah kedua
+  // 3. Cek dalil
+  if (!hasQuranVerse(khutbah)) {
+    issues.push({ severity: 'error', message: 'Tidak ada ayat Al-Qur\'an. Minimal 1 ayat wajib ada.' });
+  }
+  if (!hasHadith(khutbah)) {
+    issues.push({ severity: 'error', message: 'Tidak ada hadis. Minimal 1 hadis shahih/hasan wajib ada.' });
+  }
+
+  // 4. Cek khutbah kedua
   if (!khutbah.secondKhutbah || khutbah.secondKhutbah.length === 0) {
-    issues.push({ severity: 'warning', message: 'Khutbah kedua kosong' });
+    issues.push({ severity: 'error', message: 'Khutbah kedua kosong — wajib ada' });
   }
 
-  // 4. Cek doa
-  if (!khutbah.dua) issues.push({ severity: 'warning', message: 'Doa penutup kosong' });
+  // 5. Cek doa
+  if (!khutbah.dua) issues.push({ severity: 'error', message: 'Doa penutup kosong — wajib ada' });
 
-  // 5. Cek panjang konten
+  // 6. Cek panjang konten
   const lengthCheck = isContentTooShort(khutbah);
   if (lengthCheck.tooShort) {
-    issues.push({ severity: 'warning', message: `Konten terlalu pendek (${lengthCheck.wordCount} kata, minimal ${lengthCheck.minRequired}). Estimasi: ${lengthCheck.estimatedMinutes} menit` });
+    issues.push({ severity: 'error', message: `Konten terlalu pendek (${lengthCheck.wordCount} kata, minimal ${lengthCheck.minRequired}). Estimasi: ${lengthCheck.estimatedMinutes} menit` });
   }
 
-  // 6. Cek singkatan
+  // 7. Cek singkatan
   const abbrevs = scanKhutbahForAbbreviations(khutbah);
   for (const a of abbrevs) {
     issues.push({ severity: 'error', message: `Ditemukan singkatan "${a.abbreviation}" (${a.count}x). Gunakan: ${a.suggestion}` });
   }
 
-  // 7. Cek placeholder
+  // 8. Cek placeholder
   let allText = khutbah.title + ' ' + khutbah.summary + ' ';
   const blocks = [...(khutbah.firstKhutbah || []), ...(khutbah.secondKhutbah || [])];
   for (const b of blocks) {
@@ -208,11 +276,17 @@ export function validateKhutbah(khutbah) {
     issues.push({ severity: 'error', message: `Ditemukan placeholder: "${p}"` });
   }
 
+  // 9. Cek maulid
+  if (hasMaulidContent(khutbah)) {
+    issues.push({ severity: 'error', message: 'Konten bertema Maulid terdeteksi — tidak diperbolehkan' });
+  }
+
   return {
     valid: issues.filter(i => i.severity === 'error').length === 0,
     issues,
     wordCount: countWords(khutbah),
     estimatedMinutes: estimateReadingDuration(khutbah),
+    autoStatus: getAutoStatus(khutbah),
   };
 }
 

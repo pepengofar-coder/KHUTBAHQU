@@ -5,3 +5,4 @@
 .theme-chip{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-lg);font-size:var(--fs-sm);font-weight:500;color:var(--color-text-secondary);transition:all var(--tr-fast);cursor:pointer}
 .theme-chip:hover{border-color:var(--color-primary);color:var(--color-primary);background:var(--color-primary-surface)}
 .theme-chip__icon{font-size:20px}
+.theme-chip__count{margin-left:auto;font-size:.7rem;font-weight:700;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:var(--color-primary-surface,rgba(0,0,0,.06));color:var(--color-text-muted);padding:0 5px}

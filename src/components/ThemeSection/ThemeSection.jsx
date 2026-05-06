@@ -3,8 +3,15 @@ import { useApp } from '../../context/AppContext';
 import './ThemeSection.css';
 
 export default function ThemeSection() {
-  const { categories } = useApp();
+  const { categories, allKhutbah } = useApp();
   const nav = useNavigate();
+
+  // Count per category
+  const counts = {};
+  for (const k of allKhutbah) {
+    counts[k.category] = (counts[k.category] || 0) + 1;
+  }
+
   return (
     <section className="themes">
       <div className="container">
@@ -19,6 +26,7 @@ export default function ThemeSection() {
             <button key={c.id} className="theme-chip" onClick={() => nav(`/khutbah?cat=${c.id}`)}>
               <span className="theme-chip__icon">{c.icon}</span>
               {c.label}
+              <span className="theme-chip__count">{counts[c.id] || 0}</span>
             </button>
           ))}
         </div>
