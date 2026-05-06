@@ -1,0 +1,63 @@
+import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+
+export const taubat_1 = {
+  id: 84,
+  title: 'Taubat Nasuha: Mengetuk Pintu Ampunan yang Tak Pernah Tertutup',
+  slug: 'taubat-nasuha-mengetuk-pintu-ampunan',
+  summary: 'Sebesar apapun dosa seorang hamba, ampunan Allah selalu lebih besar. Khutbah ini membahas syarat-syarat taubat nasuha dan bahaya menunda-nunda taubat sebelum ajal menjemput.',
+  category: 'taubat', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
+  tags: ['taubat', 'ampunan', 'dosa', 'nasuha'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Fitrah manusia adalah tempatnya salah dan lupa. Tidak ada manusia yang suci dari dosa kecuali para Nabi yang telah di-ma'shum (dijaga) oleh Allah. Rasulullah shallallahu 'alaihi wasallam menegaskan bahwa semua Bani Adam pasti pernah melakukan kesalahan. Namun, sebaik-baik orang yang bersalah adalah mereka yang bertaubat." },
+    { type: 'paragraph', text: "Terkadang, syaitan membisikkan rasa putus asa ke dalam hati seorang hamba yang telah bergelimang maksiat. Syaitan berkata kepadanya: 'Dosamu sudah terlalu banyak. Shalatmu tidak akan diterima. Percuma kamu ke masjid, kamu sudah pasti masuk neraka.' Ini adalah tipu daya iblis yang paling berbahaya, karena ia ingin menutup pintu rahmat Allah yang sebenarnya terbuka sangat lebar." },
+    { type: 'paragraph', text: "Bantahlah bisikan syaitan itu dengan firman Allah subhanahu wa ta'ala yang paling menyejukkan hati dan memberikan harapan bagi para pendosa:" },
+    { type: 'quran', arabic: 'قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا ۚ إِنَّهُ هُوَ الْغَفُورُ الرَّحِيمُ', translation: '"Katakanlah: Hai hamba-hamba-Ku yang melampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah. Sesungguhnya Allah mengampuni dosa-dosa semuanya. Sesungguhnya Dialah Yang Maha Pengampun lagi Maha Penyayang."', ref: 'QS. Az-Zumar: 53' },
+    { type: 'paragraph', text: "Ayat ini tidak ditujukan kepada para ulama atau para ahli ibadah, melainkan ditujukan secara khusus kepada 'Alladziina asrafuu'—orang-orang yang melampaui batas, orang-orang yang bermaksiat ekstrim, peminum khamr, pezina, pembunuh, dan pelaku riba. Kepada mereka semua, Allah memanggil dengan sebutan yang sangat lembut: 'Yaa 'Ibaadii' (Wahai hamba-hamba-Ku). Seolah Allah berkata: Sekotor apapun engkau, engkau tetap hamba-Ku, maka kembalilah kepada-Ku." },
+    { type: 'paragraph', text: "Namun, taubat yang mendatangkan ampunan bukanlah sekadar ucapan 'Astaghfirullah' di lisan sementara hati dan anggota badan masih menikmati maksiat. Taubat yang diterima adalah Taubat Nasuha (taubat yang sebenar-benarnya). Para ulama menetapkan tiga syarat mutlak untuk taubat nasuha jika dosanya berkaitan dengan hak Allah: Pertama, berhenti seketika dari maksiat tersebut (Al-Iqla'). Kedua, menyesal sejujur-jujurnya di dalam hati (An-Nadam). Ketiga, bertekad kuat untuk tidak mengulanginya lagi di masa depan (Al-'Azm)." },
+    { type: 'paragraph', text: "Jika dosa itu berkaitan dengan hak anak Adam (manusia), seperti mencuri, menipu, atau mengghibah, maka ada syarat keempat: harus menyelesaikan urusannya dengan orang yang didzalimi. Jika berupa harta, harus dikembalikan. Jika berupa fitnah, harus meminta maaf secara langsung. Karena Allah mungkin akan mengampuni dosa hamba kepada-Nya, namun Allah tidak akan memaafkan kedzaliman antar sesama hamba sampai mereka saling memaafkan." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam bersabda: 'Sesungguhnya Allah menerima taubat seorang hamba selama nyawanya belum sampai di tenggorokan (Ghargharah).' (HR. Tirmidzi). Ini berarti, waktu untuk bertaubat sangat terbatas dan batas waktunya dirahasiakan. Siapa yang bisa menjamin bahwa sore nanti kita masih bernafas? Menunda-nunda taubat (Taswif) adalah salah satu tentara iblis yang paling efektif untuk membinasakan manusia." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Jangan menunggu tua untuk bertaubat, karena malaikat maut tidak pernah memeriksa KTP untuk melihat tanggal lahir kita. Banyak orang yang mati muda, mati mendadak, saat sedang bermaksiat karena mereka selalu berpikir: 'Besok saja saya bertaubat, minggu depan saja saya ke masjid.'" },
+    { type: 'paragraph', text: "Marilah kita jadikan hari Jumat yang mulia ini sebagai titik balik. Bukalah lembaran baru. Menangislah atas dosa-dosa masa lalu di sepertiga malam terakhir. Ketahuilah bahwa Allah sangat gembira menerima taubat hamba-Nya, lebih gembira daripada seseorang yang menemukan kembali untanya yang hilang beserta perbekalannya di tengah padang pasir yang tandus." },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menerima taubat kita, menghapus segala kesalahan kita, mengganti keburukan kita dengan kebaikan, dan mematikan kita dalam keadaan bersih dari dosa sebagaimana bayi yang baru dilahirkan." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'QS. Az-Zumar: 53', 'Hadis riwayat Tirmidzi'],
+};
+
+export const taubat_2 = {
+  id: 85,
+  title: 'Dosa Kecil yang Merusak: Jangan Meremehkan Maksiat',
+  slug: 'dosa-kecil-merusak-jangan-meremehkan-maksiat',
+  summary: 'Dosa kecil yang dilakukan terus-menerus tanpa taubat dapat menghitamkan hati dan menyeret pelakunya ke dalam neraka. Khutbah ini membahas bahaya meremehkan dosa dan pentingnya memperbanyak istighfar.',
+  category: 'taubat', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
+  tags: ['taubat', 'dosa-kecil', 'maksiat', 'istighfar'], createdAt: '2026-05-06', status: 'published',
+  firstKhutbah: [
+    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
+    { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
+    { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ketika kita berbicara tentang dosa, pikiran kita biasanya langsung tertuju pada dosa-dosa besar (Al-Kaba'ir) seperti menyekutukan Allah (syirik), membunuh, berzina, memakan harta anak yatim, atau lari dari medan perang. Kita sering merasa aman dan berkata dalam hati: 'Alhamdulillah, aku tidak pernah berzina, aku tidak membunuh, dan aku tidak minum khamr, berarti aku aman dari azab neraka.'" },
+    { type: 'paragraph', text: "Perasaan aman seperti ini sangatlah berbahaya. Ibnu Mas'ud radhiyallahu 'anhu memberikan perbandingan yang sangat luar biasa antara cara pandang seorang mukmin dan seorang munafik terhadap dosa:" },
+    { type: 'hadith', arabic: 'إِنَّ الْمُؤْمِنَ يَرَى ذُنُوبَهُ كَأَنَّهُ قَاعِدٌ تَحْتَ جَبَلٍ يَخَافُ أَنْ يَقَعَ عَلَيْهِ، وَإِنَّ الْفَاجِرَ يَرَى ذُنُوبَهُ كَذُبَابٍ مَرَّ عَلَى أَنْفِهِ فَقَالَ بِهِ هَكَذَا', translation: '"Sesungguhnya orang mukmin melihat dosa-dosanya seolah-olah ia sedang duduk di bawah gunung yang ia takut gunung itu akan runtuh menimpanya. Sedangkan orang fajir (pendosa/munafik) melihat dosa-dosanya seperti lalat yang lewat di depan hidungnya, lalu ia hanya mengibasnya dengan tangan seperti ini."', ref: 'Hadis riwayat Bukhari' },
+    { type: 'paragraph', text: "Orang mukmin sangat sensitif terhadap dosa, sekecil apapun itu. Sebaliknya, orang yang tipis imannya meremehkan dosa kecil. Ia beralasan: 'Ah, ini cuma dosa kecil. Cuma memandang yang haram sedikit di media sosial. Cuma menyindir tetangga. Cuma mengambil alat tulis kantor untuk dibawa pulang.' Ia lupa bahwa gunungan pasir yang sangat besar tersusun dari butiran-butiran pasir yang sangat kecil." },
+    { type: 'paragraph', text: "Para ulama memperingatkan: 'Laa shaghiirata ma'al ishraar, wa laa kabiirata ma'al istighfaar' (Tidak ada istilah dosa kecil jika dilakukan terus-menerus, dan tidak ada istilah dosa besar jika diringi dengan istighfar dan taubat). Dosa kecil yang dibiasakan, diremehkan, dan tidak ditaubati, perlahan-lahan akan menumpuk dan berubah wujud menjadi dosa besar yang membinasakan." },
+    { type: 'paragraph', text: "Rasulullah shallallahu 'alaihi wasallam membuat sebuah perumpamaan yang sangat nyata tentang bahaya mengumpulkan dosa kecil. Beliau mengibaratkan sebuah kaum yang singgah di sebuah lembah. Lalu waktu masak tiba, namun tidak ada kayu bakar yang besar. Maka setiap orang menyebar untuk mencari sepotong kayu kecil atau ranting. Meskipun yang dikumpulkan hanya ranting-ranting kecil, namun karena jumlahnya banyak, akhirnya kumpulan ranting itu mampu menyalakan api yang sangat besar untuk membakar makanan mereka. Begitulah dosa-dosa kecil yang diremehkan; ia akan berkumpul hingga mampu membakar pelakunya di neraka Jahannam." },
+    { type: 'paragraph', text: "Setiap kali seseorang berbuat dosa, sekecil apapun itu, maka akan dititikkan satu noda hitam di hatinya (Ar-Raan). Jika ia segera beristighfar dan bertaubat, noda itu akan dihapus dan hatinya kembali mengkilap. Namun jika ia mengulangi maksiat dan menambah maksiat yang lain, noda hitam itu akan semakin banyak hingga menutupi seluruh hatinya. Jika hati sudah tertutup legam, maka ia tidak lagi bisa membedakan mana yang haq dan mana yang bathil. Nasihat agama hanya akan masuk telinga kanan dan keluar telinga kiri tanpa membekas di hati." },
+    { type: 'paragraph', text: "Oleh karena itu, Anas bin Malik radhiyallahu 'anhu pernah menegur para Tabi'in di zamannya: 'Sesungguhnya kalian melakukan amalan-amalan yang di mata kalian lebih tipis dari sehelai rambut (dianggap remeh). Padahal kami di zaman Rasulullah shallallahu 'alaihi wasallam menganggap amalan tersebut termasuk dosa-dosa yang membinasakan.' Perbedaan standar ini menunjukkan bahwa semakin tinggi keimanan seseorang, ia tidak akan melihat seberapa kecil dosa yang ia lakukan, melainkan ia melihat betapa Besarnya Dzat yang sedang ia durhakai." },
+    { type: 'closing', text: PENUTUP_KHUTBAH_1 },
+  ],
+  secondKhutbah: [
+    { type: 'opening', text: MUK_KHUTBAH_2 },
+    { type: 'paragraph', text: "Jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Janganlah kita merasa bangga dan aman dari siksa Allah hanya karena kita tidak melakukan dosa besar. Bisa jadi dosa-dosa kecil yang setiap hari kita lakukan tanpa sadar, melalui mata, telinga, lisan, atau jari jemari kita di media sosial, telah menggunung dan siap menghancurkan amal kebaikan kita kelak di timbangan akhirat (mizan)." },
+    { type: 'paragraph', text: "Jadikanlah istighfar sebagai wirid harian yang tidak pernah putus. Rasulullah shallallahu 'alaihi wasallam, manusia suci yang telah dijamin surga, beristighfar kepada Allah dalam sehari tidak kurang dari 70 hingga 100 kali. Bagaimana dengan kita yang bergelimang dosa dari pagi hingga malam?" },
+    { type: 'paragraph', text: "Semoga Allah subhanahu wa ta'ala menjadikan lisan kita senantiasa basah dengan istighfar, menumbuhkan rasa takut di dalam hati kita untuk melakukan maksiat sekecil apapun, dan mengampuni segala ketergelinciran kita baik yang disengaja maupun yang tidak kita sadari." },
+  ],
+  dua: DUA_PENUTUP,
+  references: ['QS. Ali Imran: 102', 'Hadis riwayat Bukhari', 'Atsar Anas bin Malik'],
+};
