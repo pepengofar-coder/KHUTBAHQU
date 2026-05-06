@@ -1,0 +1,70 @@
+{
+  "id": 100,
+  "title": "Keutamaan Hari Jumat",
+  "slug": "keutamaan-hari-jumat",
+  "summary": "[DRAFT] Silakan tulis ringkasan khutbah tentang: Keutamaan Hari Jumat",
+  "category": "jumat",
+  "type": "khutbah-jumat",
+  "duration": 0,
+  "occasion": "Jumat",
+  "tags": [
+    "jumat"
+  ],
+  "createdAt": "2026-05-05",
+  "updatedAt": "2026-05-05",
+  "status": "draft",
+  "sourceInspiration": [
+    "muslim-or-id"
+  ],
+  "sourceNotes": "Tema terinspirasi dari sumber referensi. Konten ditulis ulang secara orisinal.",
+  "firstKhutbah": [
+    {
+      "type": "opening",
+      "text": "إِنَّ الْحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللَّهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللَّهُ فَلاَ مُضِلَّ لَهُ وَمَنْ يُضْلِلْ فَلاَ هَادِيَ لَهُ. أَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ"
+    },
+    {
+      "type": "paragraph",
+      "text": "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala."
+    },
+    {
+      "type": "quran",
+      "arabic": "يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلاَ تَمُوتُنَّ إِلاَّ وَأَنْتُمْ مُسْلِمُونَ",
+      "translation": "\"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim.\"",
+      "ref": "QS. Ali Imran: 102"
+    },
+    {
+      "type": "paragraph",
+      "text": "[TULIS ISI UTAMA KHUTBAH PERTAMA DI SINI — Bahas tema \"Keutamaan Hari Jumat\" dengan dalil yang relevan]"
+    },
+    {
+      "type": "quran",
+      "arabic": "[TEKS ARAB AYAT]",
+      "translation": "[TERJEMAH AYAT]",
+      "ref": "[QS. Nama Surat: Ayat]"
+    },
+    {
+      "type": "paragraph",
+      "text": "[PENJELASAN DALIL DAN NASIHAT PRAKTIS UNTUK JAMAAH]"
+    },
+    {
+      "type": "closing",
+      "text": "بَارَكَ اللَّهُ لِي وَلَكُمْ فِي الْقُرْآنِ الْعَظِيمِ، وَنَفَعَنِي وَإِيَّاكُمْ بِمَا فِيهِ مِنَ الْآيَاتِ وَالذِّكْرِ الْحَكِيمِ، أَقُولُ قَوْلِي هَذَا وَأَسْتَغْفِرُ اللَّهَ الْعَظِيمَ لِي وَلَكُمْ وَلِسَائِرِ الْمُسْلِمِينَ مِنْ كُلِّ ذَنْبٍ فَاسْتَغْفِرُوهُ إِنَّهُ هُوَ الْغَفُورُ الرَّحِيمُ"
+    }
+  ],
+  "secondKhutbah": [
+    {
+      "type": "opening",
+      "text": "إِنَّ الْحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللَّهِ مِنْ شُرُورِ أَنْفُسِنَا، وَالصَّلاَةُ وَالسَّلاَمُ عَلَى نَبِيِّنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ"
+    },
+    {
+      "type": "paragraph",
+      "text": "[TULIS ISI KHUTBAH KEDUA — Ringkasan nasihat dan motivasi]"
+    },
+    {
+      "type": "paragraph",
+      "text": "[DOA DAN PENUTUP KHUTBAH KEDUA]"
+    }
+  ],
+  "dua": "اَللَّهُمَّ اغْفِرْ لِلْمُسْلِمِينَ وَالْمُسْلِمَاتِ وَالْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ الْأَحْيَاءِ مِنْهُمْ وَالْأَمْوَاتِ. رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+  "references": []
+}
