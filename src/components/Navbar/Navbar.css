@@ -1,8 +1,9 @@
 .navbar{position:sticky;top:0;z-index:100;background:var(--color-bg);border-bottom:1px solid var(--color-border-light);backdrop-filter:blur(12px)}
 .navbar__inner{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);max-width:var(--max-w);margin:0 auto;padding:0 var(--sp-4)}
 @media(min-width:768px){.navbar__inner{padding:0 var(--sp-8)}}
-.navbar__logo{display:flex;align-items:center;gap:var(--sp-2);font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:800;color:var(--color-primary)}
-.navbar__logo-icon{font-size:24px}
+.navbar__logo{display:flex;align-items:center;}
+.navbar__logo-img{height:36px;width:auto;object-fit:contain;transition:transform var(--tr-fast)}
+.navbar__logo-img:hover{transform:scale(1.05)}
 .navbar__links{display:none;align-items:center;gap:var(--sp-1)}
 @media(min-width:1024px){.navbar__links{display:flex}}
 .navbar__link{padding:var(--sp-2) var(--sp-3);border-radius:var(--radius-md);font-size:var(--fs-sm);font-weight:500;color:var(--color-text-muted);transition:all var(--tr-fast)}

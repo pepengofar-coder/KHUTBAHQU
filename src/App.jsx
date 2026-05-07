@@ -17,7 +17,7 @@ function AppLayout() {
   const location = useLocation();
   const isMimbar = location.pathname === '/mimbar';
   const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
-  const isAdmin = location.pathname === '/admin';
+  const isAdmin = location.pathname === '/admin280292';
 
   if (isMimbar) return <MimbarMode />;
 
@@ -32,7 +32,7 @@ function AppLayout() {
           <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
           <Route path="/favorit" element={<FavoritesPage />} />
           <Route path="/tentang" element={<AboutPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin280292" element={<AdminPage />} />
           <Route path="/kontribusi" element={<SubmitPage />} />
         </Routes>
       </main>

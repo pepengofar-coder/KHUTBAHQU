@@ -16,8 +16,7 @@ export default function Navbar() {
     <header className="navbar">
       <div className="navbar__inner">
         <NavLink to="/" className="navbar__logo">
-          <span className="navbar__logo-icon">📖</span>
-          KhutbahQu
+          <img src="/logo.png" alt="KhutbahQu Logo" className="navbar__logo-img" />
         </NavLink>
         <nav className="navbar__links" aria-label="Navigasi utama">
           {LINKS.map(l => (
