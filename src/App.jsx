@@ -10,17 +10,20 @@ import HijriCalendarPage from './pages/HijriCalendarPage/HijriCalendarPage';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import MimbarMode from './pages/MimbarMode/MimbarMode';
+import AdminPage from './pages/AdminPage/AdminPage';
+import SubmitPage from './pages/SubmitPage/SubmitPage';
 
 function AppLayout() {
   const location = useLocation();
   const isMimbar = location.pathname === '/mimbar';
   const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
+  const isAdmin = location.pathname === '/admin';
 
   if (isMimbar) return <MimbarMode />;
 
   return (
     <>
-      <Navbar />
+      {(!isAdmin) && <Navbar />}
       <main style={{ flex: 1 }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -29,6 +32,8 @@ function AppLayout() {
           <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
           <Route path="/favorit" element={<FavoritesPage />} />
           <Route path="/tentang" element={<AboutPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/kontribusi" element={<SubmitPage />} />
         </Routes>
       </main>
       {!isDetail && <Footer />}

@@ -1,9 +1,31 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { khutbahList as allKhutbah, CATEGORIES, TYPES } from '../data/khutbahData';
+import { khutbahList as staticKhutbah, CATEGORIES, TYPES } from '../data/khutbahData';
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
+  // Local Khutbah State
+  const [localKhutbahs, setLocalKhutbahs] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('kq_local_khutbahs') || '[]'); } catch { return []; }
+  });
+  useEffect(() => { localStorage.setItem('kq_local_khutbahs', JSON.stringify(localKhutbahs)); }, [localKhutbahs]);
+
+  const allKhutbah = [...staticKhutbah, ...localKhutbahs.filter(k => k.status === 'published' || !k.status)];
+  const adminKhutbah = [...staticKhutbah.map(k => ({...k, status: 'published', isStatic: true})), ...localKhutbahs];
+
+  const addSubmission = useCallback((data, status = 'review') => {
+    const newK = { ...data, id: Date.now(), status, createdAt: new Date().toISOString().split('T')[0] };
+    setLocalKhutbahs(p => [newK, ...p]);
+  }, []);
+
+  const updateKhutbah = useCallback((id, updates) => {
+    setLocalKhutbahs(p => p.map(k => k.id === id ? { ...k, ...updates } : k));
+  }, []);
+
+  const deleteKhutbah = useCallback(id => {
+    setLocalKhutbahs(p => p.filter(k => k.id !== id));
+  }, []);
+
   // Dark mode
   const [darkMode, setDarkMode] = useState(() => {
     const s = localStorage.getItem('kq_dark');
@@ -54,14 +76,14 @@ export function AppProvider({ children }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeType, setActiveType] = useState(null);
-  const [activeDuration, setActiveDuration] = useState(null); // 'short' | 'medium' | 'long'
+  const [activeDuration, setActiveDuration] = useState(null);
 
   const filteredKhutbah = allKhutbah.filter(k => {
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       const match = k.title.toLowerCase().includes(q)
         || k.summary.toLowerCase().includes(q)
-        || k.tags.some(t => t.includes(q));
+        || (k.tags || []).some(t => t.includes(q));
       if (!match) return false;
     }
     if (activeCategory && k.category !== activeCategory) return false;
@@ -76,10 +98,10 @@ export function AppProvider({ children }) {
 
   const bookmarkedKhutbah = allKhutbah.filter(k => bookmarks.includes(k.id));
   const recentKhutbah = recentlyViewed.map(id => allKhutbah.find(k => k.id === id)).filter(Boolean);
-  const getKhutbahBySlug = useCallback(slug => allKhutbah.find(k => k.slug === slug), []);
+  const getKhutbahBySlug = useCallback(slug => allKhutbah.find(k => k.slug === slug), [allKhutbah]);
   const getRelated = useCallback((k, n = 3) =>
-    allKhutbah.filter(x => x.id !== k.id && (x.category === k.category || x.tags.some(t => k.tags.includes(t)))).slice(0, n)
-  , []);
+    allKhutbah.filter(x => x.id !== k.id && (x.category === k.category || (x.tags && k.tags && x.tags.some(t => k.tags.includes(t))))).slice(0, n)
+  , [allKhutbah]);
 
   // Utilities
   const copyText = useCallback(async (text) => {
@@ -100,9 +122,10 @@ export function AppProvider({ children }) {
       activeCategory, setActiveCategory,
       activeType, setActiveType,
       activeDuration, setActiveDuration,
-      allKhutbah, filteredKhutbah,
+      allKhutbah, filteredKhutbah, adminKhutbah,
       getKhutbahBySlug, getRelated,
       categories: CATEGORIES, types: TYPES,
+      addSubmission, updateKhutbah, deleteKhutbah,
       copyText, shareWhatsApp,
     }}>
       {children}

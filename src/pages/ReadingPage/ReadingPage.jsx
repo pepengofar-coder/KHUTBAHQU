@@ -2,7 +2,12 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
+import { MUK_LENGKAP, MUK_KHUTBAH_2, DUA_PENUTUP, khutbahIntroTemplates, secondKhutbahIntroTemplates, closingDuaTemplates } from '../../data/parts/header.js';
 import './ReadingPage.css';
+
+// Simple string hashing for deterministic pseudo-randomness
+const hashCode = s => s.split('').reduce((a,b)=>{a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);
+const getTemplate = (id, templates) => templates[Math.abs(hashCode(id.toString())) % templates.length];
 
 export default function DetailPage() {
   const { slug } = useParams();
@@ -20,7 +25,7 @@ export default function DetailPage() {
   const [progress, setProgress] = useState(0);
   const lastY = useRef(0);
 
-  useEffect(() => { if (k) { addRecentlyViewed(k.id); window.scrollTo(0, 0); } }, [slug]);
+  useEffect(() => { if (k) { addRecentlyViewed(k.id); window.scrollTo(0, 0); } }, [slug, k, addRecentlyViewed]);
 
   const onScroll = useCallback(() => {
     requestAnimationFrame(() => {
@@ -48,12 +53,20 @@ export default function DetailPage() {
   const fLabel = fontSizeOptions.find(o => o.value === fontSize)?.label || 'M';
   const fBadge = fontSize === 0.85 ? 'S' : fontSize === 1 ? 'M' : fontSize === 1.15 ? 'L' : 'XL';
 
-  const renderBlock = (b, i) => {
+  // Dynamic replacements
+  const renderBlock = (b, i, section) => {
     const fs = { fontSize: `calc(var(--fs-base) * ${fontSize})` };
     const fsAr = { fontSize: `calc(var(--fs-2xl) * ${fontSize})` };
+    
+    let text = b.text;
+    if (b.type === 'opening') {
+      if (section === 1 && text === MUK_LENGKAP) text = getTemplate(k.id, khutbahIntroTemplates);
+      if (section === 2 && text === MUK_KHUTBAH_2) text = getTemplate(k.id, secondKhutbahIntroTemplates);
+    }
+
     switch (b.type) {
-      case 'opening': return <div key={i} className="detail__opening" style={{ fontSize: `calc(var(--fs-xl) * ${fontSize})` }}>{b.text}</div>;
-      case 'paragraph': return <p key={i} className="detail__p" style={fs}>{b.text}</p>;
+      case 'opening': return <div key={i} className="detail__opening" style={{ fontSize: `calc(var(--fs-xl) * ${fontSize})` }}>{text}</div>;
+      case 'paragraph': return <p key={i} className="detail__p" style={fs}>{text}</p>;
       case 'quran': return (
         <div key={i} className="detail__quran">
           <p className="detail__quran-ar" style={fsAr}>{b.arabic}</p>
@@ -70,14 +83,25 @@ export default function DetailPage() {
     }
   };
 
+  const currentDua = k.dua === DUA_PENUTUP ? getTemplate(k.id, closingDuaTemplates) : k.dua;
+
   const getAllText = () => {
     let t = k.title + '\n\n';
-    [...k.firstKhutbah, ...k.secondKhutbah].forEach(b => {
-      if (b.text) t += b.text + '\n\n';
+    k.firstKhutbah.forEach(b => {
+      let text = b.text;
+      if (b.type === 'opening' && text === MUK_LENGKAP) text = getTemplate(k.id, khutbahIntroTemplates);
+      if (text) t += text + '\n\n';
       if (b.arabic) t += b.arabic + '\n';
       if (b.translation) t += b.translation + '\n\n';
     });
-    if (k.dua) t += k.dua + '\n';
+    k.secondKhutbah.forEach(b => {
+      let text = b.text;
+      if (b.type === 'opening' && text === MUK_KHUTBAH_2) text = getTemplate(k.id, secondKhutbahIntroTemplates);
+      if (text) t += text + '\n\n';
+      if (b.arabic) t += b.arabic + '\n';
+      if (b.translation) t += b.translation + '\n\n';
+    });
+    if (currentDua) t += currentDua + '\n';
     return t;
   };
 
@@ -105,29 +129,30 @@ export default function DetailPage() {
           <h1 className="detail__title" style={{fontSize:`calc(var(--fs-2xl) * ${fontSize})`}}>{k.title}</h1>
           <p className="detail__info">{k.summary}</p>
           <div className="detail__badges">
-            {cat && <span className="badge badge--primary">{cat.icon} {cat.label}</span>}
+            {cat && <span className="badge badge--primary">{cat.label}</span>}
             {tp && <span className="badge badge--gold">{tp.label}</span>}
             <span className="badge" style={{background:'var(--color-bg-alt)'}}>⏱ {k.duration} menit</span>
             <span className="badge" style={{background:'var(--color-bg-alt)'}}>{k.occasion}</span>
+            {k.contributorName && <span className="badge badge--primary">👤 Oleh: {k.contributorName}</span>}
           </div>
         </div>
 
         {k.firstKhutbah.length > 0 && <>
           <h2 className="detail__section-label">Khutbah Pertama</h2>
-          <div className="detail__body">{k.firstKhutbah.map(renderBlock)}</div>
+          <div className="detail__body">{k.firstKhutbah.map((b,i) => renderBlock(b, i, 1))}</div>
         </>}
 
         {k.secondKhutbah.length > 0 && <>
           <h2 className="detail__section-label">Khutbah Kedua</h2>
-          <div className="detail__body">{k.secondKhutbah.map(renderBlock)}</div>
+          <div className="detail__body">{k.secondKhutbah.map((b,i) => renderBlock(b, i, 2))}</div>
         </>}
 
-        {k.dua && <>
+        {currentDua && <>
           <h2 className="detail__section-label">Doa Penutup</h2>
-          <div className="detail__dua" style={{fontSize:`calc(var(--fs-xl) * ${fontSize})`}}>{k.dua}</div>
+          <div className="detail__dua" style={{fontSize:`calc(var(--fs-xl) * ${fontSize})`}}>{currentDua}</div>
         </>}
 
-        {k.references.length > 0 && (
+        {k.references && k.references.length > 0 && (
           <div className="detail__refs" style={{marginTop:'var(--sp-6)'}}>
             <h3>📚 Referensi</h3>
             <ul>{k.references.map((r, i) => <li key={i}>• {r}</li>)}</ul>

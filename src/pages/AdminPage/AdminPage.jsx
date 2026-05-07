@@ -5,16 +5,13 @@ import { ALL_SOURCES, SUGGESTED_THEMES, STATUS_LABELS, CONTENT_STATUSES } from '
 import './AdminPage.css';
 
 export default function AdminPage() {
-  const { allKhutbah } = useApp();
+  const { adminKhutbah, updateKhutbah, deleteKhutbah } = useApp();
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedKhutbah, setSelectedKhutbah] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Add status to existing khutbah (all are 'published' since they're live)
-  const khutbahWithStatus = useMemo(() =>
-    allKhutbah.map(k => ({ ...k, status: k.status || 'published' }))
-  , [allKhutbah]);
+  const khutbahWithStatus = useMemo(() => adminKhutbah, [adminKhutbah]);
 
   // Validation results
   const validationResults = useMemo(() =>
@@ -157,7 +154,20 @@ export default function AdminPage() {
                   <button onClick={() => setSelectedKhutbah(null)}>✕</button>
                 </div>
                 <div className="admin__modal-body">
-                  <DetailView khutbah={selectedKhutbah} allKhutbah={khutbahWithStatus} />
+                  <DetailView 
+                    khutbah={selectedKhutbah} 
+                    allKhutbah={khutbahWithStatus} 
+                    onUpdate={(updates) => {
+                      updateKhutbah(selectedKhutbah.id, updates);
+                      setSelectedKhutbah({...selectedKhutbah, ...updates});
+                    }}
+                    onDelete={() => {
+                      if(confirm('Yakin ingin menghapus?')) {
+                        deleteKhutbah(selectedKhutbah.id);
+                        setSelectedKhutbah(null);
+                      }
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -310,7 +320,7 @@ export default function AdminPage() {
 }
 
 /** Sub-component for detail view */
-function DetailView({ khutbah, allKhutbah }) {
+function DetailView({ khutbah, allKhutbah, onUpdate, onDelete }) {
   const v = validateKhutbah(khutbah);
   const words = countWords(khutbah);
   const dur = estimateReadingDuration(khutbah);
@@ -318,6 +328,30 @@ function DetailView({ khutbah, allKhutbah }) {
 
   return (
     <div className="admin__detail">
+      {!khutbah.isStatic && (
+        <div className="admin__actions" style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
+          {khutbah.status === 'review' && (
+            <>
+              <button className="btn btn--primary" onClick={() => onUpdate({status: 'published'})}>✅ Approve & Publish</button>
+              <button className="btn btn--ghost" style={{color: 'red', borderColor: 'red'}} onClick={() => onUpdate({status: 'rejected'})}>❌ Reject</button>
+            </>
+          )}
+          {khutbah.status === 'published' && (
+            <button className="btn btn--ghost" onClick={() => onUpdate({status: 'draft'})}>⬇️ Unpublish (Draft)</button>
+          )}
+          {(khutbah.status === 'draft' || khutbah.status === 'rejected') && (
+            <button className="btn btn--primary" onClick={() => onUpdate({status: 'published'})}>⬆️ Publish</button>
+          )}
+          <button className="btn btn--ghost" style={{color: 'red', marginLeft: 'auto'}} onClick={onDelete}>🗑 Delete</button>
+        </div>
+      )}
+
+      {khutbah.contributorName && (
+        <div className="admin__alert admin__alert--info" style={{marginBottom: 16}}>
+          <strong>👤 Kontributor:</strong> {khutbah.contributorName} ({khutbah.contributorEmail}) {khutbah.contributorWa ? ` - WA: ${khutbah.contributorWa}` : ''}
+        </div>
+      )}
+
       <div className="admin__detail-grid">
         <div><strong>ID:</strong> {khutbah.id}</div>
         <div><strong>Slug:</strong> {khutbah.slug}</div>

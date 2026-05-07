@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import CategoryIcon from '../CategoryIcon/CategoryIcon';
 import './ThemeSection.css';
 
 export default function ThemeSection() {
@@ -24,7 +25,7 @@ export default function ThemeSection() {
         <div className="themes__grid">
           {categories.map(c => (
             <button key={c.id} className="theme-chip" onClick={() => nav(`/khutbah?cat=${c.id}`)}>
-              <span className="theme-chip__icon">{c.icon}</span>
+              <span className="theme-chip__icon"><CategoryIcon id={c.id} size={18} /></span>
               {c.label}
               <span className="theme-chip__count">{counts[c.id] || 0}</span>
             </button>
