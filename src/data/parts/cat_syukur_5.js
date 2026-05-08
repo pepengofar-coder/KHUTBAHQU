@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const syukur_9 = {
   id: 177,
@@ -9,6 +9,7 @@ export const syukur_9 = {
   tags: ['syukur', 'alhamdulillah', 'tahmid', 'dzikir', 'mizan', 'pahala'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang sangat rasional (masuk akal) namun sekaligus penuh dengan keajaiban pahala (bonus dari Allah). Dalam dunia bisnis, jika kita ingin mendapatkan hasil (keuntungan) yang sangat besar, maka kita harus mengeluarkan modal (uang, tenaga, waktu) yang sangat besar pula. Itulah hukum alam." },
@@ -43,6 +44,7 @@ export const syukur_10 = {
   tags: ['syukur', 'keluarga', 'anak', 'pendidikan', 'parenting', 'manja', 'qanaah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah fenomena sosial (pergeseran karakter) yang cukup memprihatinkan yang menimpa generasi anak-anak kita (generasi milenial dan Gen Z) hari ini. Para sosiolog sering menyebut mereka dengan istilah 'Strawberry Generation' (Generasi Stroberi). Kenapa disebut stroberi? Karena stroberi itu dari luar tampak sangat indah, merah merona, dan eksotis. Namun jika buah itu ditekan sedikit saja, ia akan langsung hancur berair (lembek)." },

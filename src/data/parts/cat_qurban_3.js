@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const qurban_5 = {
   id: 133,
@@ -9,6 +9,7 @@ export const qurban_5 = {
   tags: ['qurban', 'idul-adha', 'meninggal', 'wafat', 'orang-tua', 'fikih', 'birrul-walidain'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah pertanyaan fikih yang sangat sering dilontarkan oleh masyarakat setiap kali menjelang perayaan Idul Adha: 'Bolehkah saya berkurban atas nama ayah atau ibu saya yang sudah meninggal dunia? Dan apakah pahalanya sampai kepada mereka?' Pertanyaan ini lahir dari rasa cinta dan kerinduan seorang anak (Birrul Walidain) yang ingin terus berbakti kepada orang tuanya yang telah berada di alam barzakh." },
@@ -43,6 +44,7 @@ export const qurban_6 = {
   tags: ['qurban', 'aqiqah', 'idul-adha', 'niat', 'fikih', 'tasyrik'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang memudahkan umatnya, namun kemudahan tersebut harus selalu berlandaskan pada rel syariat dan kaidah fikih yang benar. Sering kali, menjelang hari raya Idul Adha, banyak bapak-bapak yang bertanya kepada para asatidz mengenai sebuah dilema ekonomi dan ibadah: 'Ustadz, saya saat kecil belum sempat diaqiqahi oleh orang tua karena miskin. Sekarang saya punya uang hanya cukup untuk membeli satu ekor kambing. Bolehkah saya menyembelih satu kambing itu di hari Idul Adha dengan niat ganda (di-double): niat untuk Kurban sekaligus niat untuk Aqiqah?'" },

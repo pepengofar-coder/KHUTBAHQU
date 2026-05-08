@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const muharram_9 = {
   id: 147,
@@ -9,6 +9,7 @@ export const muharram_9 = {
   tags: ['muharram', 'taubat', 'buku-amal', 'tahun-baru-islam', 'dosa', 'ampunan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika sebuah perusahaan multinasional besar selalu melakukan 'Tutup Buku' (Closing) di setiap akhir tahun keuangan untuk menghitung laba dan rugi, maka sejatinya setiap manusia juga memiliki 'Buku Catatan Amal' yang harus ditutup dan dievaluasi setiap kali pergantian tahun. Memasuki bulan Muharram (Tahun Baru Islam) berarti kita sedang menutup lembaran buku catatan amal tahun lalu, dan membuka lembaran baru yang masih putih bersih untuk tahun ini." },
@@ -44,6 +45,7 @@ export const muharram_10 = {
   tags: ['muharram', 'bulan-haram', 'lisan', 'hoax', 'fitnah', 'media-sosial', 'ghibah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kita semua mengetahui bahwa bulan Muharram adalah salah satu dari empat Bulan Suci (Asyhurul Hurum). Allah subhanahu wa ta'ala telah melarang keras segala bentuk kezaliman (dosa) pada bulan-bulan ini dengan firman-Nya: 'Fala tazhlimu fihinna anfusakum' (Maka janganlah kalian menzalimi diri kalian sendiri di dalamnya). Dosa di bulan Muharram ibarat noda kotoran babi yang menempel di baju ihram yang putih bersih; ia sangat mencolok dan mendatangkan murka (kemarahan) Allah." },

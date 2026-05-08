@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const kematian_1 = {
   id: 159,
@@ -9,6 +9,7 @@ export const kematian_1 = {
   tags: ['kematian', 'akhirat', 'dzikrul-maut', 'dunia', 'sakaratul-maut', 'umur'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia di dunia ini sering kali memperdebatkan banyak hal. Memperdebatkan pilihan politik, memperdebatkan strategi bisnis, memperdebatkan status sosial, hingga memperdebatkan perkara-perkara fikih cabang. Namun, ada satu hal (sebuah realitas) yang tidak pernah dan tidak akan pernah bisa diperdebatkan oleh manusia, baik ia seorang mukmin yang taat maupun seorang atheis yang tidak bertuhan. Realitas mutlak itu bernama: KEMATIAN." },
@@ -43,6 +44,7 @@ export const kematian_2 = {
   tags: ['kematian', 'akhirat', 'barzakh', 'kubur', 'azab-kubur', 'munkar-nakir', 'fitnah-kubur'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kematian di mata orang-orang kafir (atheis) dianggap sebagai akhir dari segalanya (finish). Mereka mengira setelah jantung berhenti berdetak dan tubuh membusuk di dalam tanah, maka selesailah urusan; tidak ada lagi pertanggungjawaban. Namun dalam akidah Islam, kematian (Al-Maut) BUKANLAH akhir dari perjalanan. Kematian justru adalah pintu gerbang menuju fase kehidupan yang baru, sebuah terminal transit (ruang tunggu) yang disebut dengan 'Alam Barzakh' (Alam Kubur)." },

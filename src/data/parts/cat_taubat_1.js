@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const taubat_1 = {
   id: 84,
@@ -9,6 +9,7 @@ export const taubat_1 = {
   tags: ['taubat', 'ampunan', 'dosa', 'nasuha'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Fitrah manusia adalah tempatnya salah dan lupa. Tidak ada manusia yang suci dari dosa kecuali para Nabi yang telah di-ma'shum (dijaga) oleh Allah. Rasulullah shallallahu 'alaihi wasallam menegaskan bahwa semua Bani Adam pasti pernah melakukan kesalahan. Namun, sebaik-baik orang yang bersalah adalah mereka yang bertaubat." },
@@ -40,6 +41,7 @@ export const taubat_2 = {
   tags: ['taubat', 'dosa-kecil', 'maksiat', 'istighfar'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ketika kita berbicara tentang dosa, pikiran kita biasanya langsung tertuju pada dosa-dosa besar (Al-Kaba'ir) seperti menyekutukan Allah (syirik), membunuh, berzina, memakan harta anak yatim, atau lari dari medan perang. Kita sering merasa aman dan berkata dalam hati: 'Alhamdulillah, aku tidak pernah berzina, aku tidak membunuh, dan aku tidak minum khamr, berarti aku aman dari azab neraka.'" },

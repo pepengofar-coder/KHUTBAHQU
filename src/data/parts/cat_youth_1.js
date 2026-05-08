@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const youth_1 = {
   id: 100,
@@ -9,6 +9,7 @@ export const youth_1 = {
   tags: ['pemuda', 'masa-muda', 'masjid', 'naungan', 'akhirat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia, terkhusus bagi para pemuda yang hadir di masjid ini. Fase kehidupan manusia berawal dari kelemahan (masa kanak-kanak), kemudian menuju puncak kekuatan (masa muda), dan akhirnya kembali kepada kelemahan dan uban (masa tua). Dari ketiga fase tersebut, masa muda adalah masa yang paling krusial, paling produktif, dan karenanya akan dimintai pertanggungjawaban secara khusus oleh Allah subhanahu wa ta'ala." },
@@ -42,6 +43,7 @@ export const youth_2 = {
   tags: ['pemuda', 'pergaulan', 'zina', 'kehormatan', 'adab'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Salah satu ujian terberat yang dihadapi oleh para pemuda dan pemudi di era modern ini adalah fitnah syahwat (godaan hawa nafsu). Globalisasi budaya dan kemajuan teknologi telah meruntuhkan tembok-tembok pembatas interaksi sosial. Hari ini, seorang pemuda tidak perlu keluar rumah untuk berbuat maksiat; cukup dengan sebuah smartphone di kamarnya, ia bisa melihat segala bentuk aurat dan berinteraksi tanpa batas dengan lawan jenis dari seluruh penjuru dunia." },

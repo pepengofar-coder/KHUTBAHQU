@@ -66,7 +66,32 @@ async function runValidation() {
         for (const phrase of mandatoryPhrases) {
           const cleanPhrase = stripArabicDiacritics(phrase);
           if (!cleanText.includes(cleanPhrase)) {
-            console.error(`[ERROR] ${file}: ${key} opening is missing required phrase: "${phrase}"`);
+            console.error(`[ERROR] ${file}: ${key} Arabic opening is missing required phrase: "${phrase}"`);
+            hasErrors = true;
+          }
+        }
+
+        // --- VALIDASI PEMBUKAAN BAHASA INDONESIA ---
+        const introParagraphs = khutbah.firstKhutbah.filter((part, index) => part.type === 'paragraph' && (wasiatIndex === -1 || index < wasiatIndex));
+        if (introParagraphs.length === 0) {
+          console.error(`[ERROR] ${file}: ${key} is missing an Indonesian opening paragraph before wasiat takwa.`);
+          hasErrors = true;
+          continue;
+        }
+
+        const introText = introParagraphs.map(p => p.text).join(' ').toLowerCase().replace(/['‘]/g, '');
+        
+        const indoMandatoryPhrases = [
+          'allah subhanahu wa taala',
+          'shallallahu alaihi wasallam',
+          'keluarga',
+          'sahabat',
+          'umat'
+        ];
+
+        for (const phrase of indoMandatoryPhrases) {
+          if (!introText.includes(phrase)) {
+            console.error(`[ERROR] ${file}: ${key} Indonesian opening is missing required phrase: "${phrase}"`);
             hasErrors = true;
           }
         }
@@ -78,7 +103,7 @@ async function runValidation() {
     console.error(`\nValidation FAILED. Please fix the errors above.`);
     process.exit(1);
   } else {
-    console.log(`\nValidation PASSED for ${totalChecked} khutbahs. All openings are valid and contain the mandatory phrases.`);
+    console.log(`\nValidation PASSED for ${totalChecked} khutbahs. All Arabic and Indonesian openings are valid and contain the mandatory phrases.`);
   }
 }
 

@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ibadah_7 = {
   id: 82,
@@ -9,6 +9,7 @@ export const ibadah_7 = {
   tags: ['ibadah', 'tahajud', 'qiyamul-lail', 'malam'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ketika malam telah larut, ketika suara bising dunia telah senyap, ketika mata manusia terlelap dalam buaian mimpi, ada sekelompok hamba Allah yang justru melepaskan selimut hangatnya. Mereka bangkit dari kasurnya yang empuk, mengambil air wudhu dalam keheningan, dan berdiri menghadap kiblat dengan penuh kerinduan. Merekalah para pejuang malam, orang-orang yang senantiasa menjaga shalat tahajud (qiyamul lail)." },
@@ -41,6 +42,7 @@ export const ibadah_8 = {
   tags: ['ibadah', 'doa', 'senjata', 'adab'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia adalah makhluk yang lemah, penuh keterbatasan, dan tidak bisa lepas dari masalah. Namun, seorang mukmin memiliki satu kekuatan maha dahsyat yang bisa mengubah takdir, menyelesaikan masalah terpelik, dan mendatangkan pertolongan dari langit. Kekuatan itu adalah doa. Doa adalah senjata orang yang beriman, tiang agama, dan cahaya langit serta bumi." },

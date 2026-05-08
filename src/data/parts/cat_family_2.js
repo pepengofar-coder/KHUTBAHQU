@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const family_3 = {
   id: 95,
@@ -9,6 +9,7 @@ export const family_3 = {
   tags: ['keluarga', 'anak', 'pendidikan', 'amal-jariyah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setiap orang tua pasti menginginkan investasi terbaik untuk masa depan. Banyak yang membeli asuransi, menabung emas, atau berinvestasi properti agar kelak di hari tua tidak hidup sengsara. Namun, banyak yang melupakan bahwa Allah subhanahu wa ta'ala telah menitipkan aset dan investasi yang jauh lebih mahal dari sekadar emas dan properti, yaitu anak-anak kita." },
@@ -42,6 +43,7 @@ export const family_4 = {
   tags: ['keluarga', 'suami-istri', 'hak', 'kewajiban', 'pernikahan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam memandang ikatan pernikahan sebagai sebuah perjanjian agung yang disaksikan oleh para malaikat dan memiliki konsekuensi syar'i yang sangat besar (mitsaqan ghalizha). Oleh karena itu, agar bahtera rumah tangga dapat berlayar dengan selamat mencapai pulau harapan (sakinah mawaddah wa rahmah), nahkoda dan awak kapal harus memahami betul tugas, hak, dan kewajibannya masing-masing." },

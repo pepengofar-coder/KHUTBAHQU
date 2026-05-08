@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ikhlas_9 = {
   id: 66,
@@ -9,6 +9,7 @@ export const ikhlas_9 = {
   tags: ['ikhlas', 'keluarga', 'suami-istri', 'ibadah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Seringkali kita membatasi pemahaman ikhlas hanya pada ibadah-ibadah mahdhah seperti shalat, puasa, zakat, dan haji. Padahal, ikhlas harus meliputi seluruh aspek kehidupan kita, termasuk dalam kehidupan berkeluarga. Membangun rumah tangga, mencari nafkah, mendidik anak, dan melayani pasangan—semua itu bernilai ibadah yang sangat besar jika diniatkan dengan ikhlas karena Allah subhanahu wa ta'ala." },
@@ -42,6 +43,7 @@ export const ikhlas_10 = {
   tags: ['ikhlas', 'amal-kebaikan', 'rahasia', 'amalan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Penyakit hati yang paling mengancam amal ibadah kita adalah riya', yakni keinginan agar amal kita dilihat dan dipuji oleh manusia. Penyakit ini sangat halus dan bisa menyusup ke dalam hati siapa saja, bahkan pada orang-orang yang sudah lama menuntut ilmu dan beribadah." },

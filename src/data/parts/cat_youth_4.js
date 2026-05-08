@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const youth_7 = {
   id: 106,
@@ -9,6 +9,7 @@ export const youth_7 = {
   tags: ['pemuda', 'birrul-walidain', 'orang-tua', 'surga', 'bakti'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Dunia anak muda adalah dunia pertemanan. Saat memasuki usia remaja hingga dewasa, fokus hidup seorang pemuda seringkali beralih dari lingkungan rumah (keluarga) ke lingkungan pergaulan di luar (peer group). Pemuda akan lebih senang menghabiskan waktu berjam-jam nongkrong bersama sahabatnya di warung kopi, ketimbang duduk lima menit mengobrol dengan ayah dan ibunya di ruang tamu." },
@@ -42,6 +43,7 @@ export const youth_8 = {
   tags: ['pemuda', 'sosial-media', 'pencitraan', 'pamer', 'karya'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu penyakit mental yang sangat mewabah di kalangan generasi muda saat ini, yaitu kecanduan validasi (pengakuan) dari orang lain di dunia maya. Munculnya berbagai platform media sosial telah mengubah cara manusia berinteraksi dan menilai kesuksesan. Banyak pemuda yang mengukur harga dirinya dari jumlah 'Like', komentar pujian, dan banyaknya 'Follower' (pengikut) di akun pribadinya." },

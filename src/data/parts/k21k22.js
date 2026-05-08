@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k21 = {
   id: 21, title: 'Birrul Walidain: Berbakti kepada Kedua Orang Tua', slug: 'birrul-walidain-berbakti-orang-tua',
@@ -7,6 +7,7 @@ export const k21 = {
   tags: ['birrul-walidain', 'orang-tua', 'bakti', 'keluarga'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Dalam Al-Qur'an, Allah subhanahu wa ta'ala menyejajarkan perintah berbakti kepada orang tua dengan perintah beribadah kepada-Nya. Ini menunjukkan betapa tingginya kedudukan orang tua dan betapa agungnya kewajiban berbakti kepada keduanya." },
@@ -37,6 +38,7 @@ export const k22 = {
   tags: ['pendidikan', 'anak', 'keluarga', 'digital'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Anak adalah amanah yang sangat besar dari Allah subhanahu wa ta'ala. Setiap anak yang lahir dalam keadaan fitrah — suci dan bersih. Tugas orang tua lah yang menentukan ke arah mana anak tersebut akan tumbuh dan berkembang. Rasulullah shallallahu 'alaihi wasallam bersabda:" },

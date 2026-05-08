@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const kematian_9 = {
   id: 167,
@@ -9,6 +9,7 @@ export const kematian_9 = {
   tags: ['kematian', 'akhirat', 'neraka', 'jahannam', 'azab', 'zaqqum', 'dosa'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Syariat Islam mendidik jiwa manusia dengan metode keseimbangan antara janji (Reward / Surga) dan ancaman (Punishment / Neraka). Jika surga digunakan untuk menumbuhkan rasa rindu dan memotivasi ketaatan (Raja'), maka penyebutan (deskripsi) tentang Neraka digunakan sebagai cambuk untuk menumbuhkan rasa takut (Khauf) dan mencegah manusia dari keberanian melakukan dosa dan maksiat." },
@@ -45,6 +46,7 @@ export const kematian_10 = {
   tags: ['kematian', 'akhirat', 'wasiat', 'warisan', 'hutang', 'keluarga', 'harta'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kematian adalah tamu tak diundang yang bisa mengetuk pintu rumah kita kapan saja. Ia tidak pernah mengirim surat pemberitahuan, tidak pernah melihat usia (apakah masih muda atau sudah tua), dan tidak pernah memandang status kesehatan (banyak orang sehat bugar yang meninggal mendadak saat berolahraga)." },

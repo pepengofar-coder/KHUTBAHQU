@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const muharram_5 = {
   id: 143,
@@ -9,6 +9,7 @@ export const muharram_5 = {
   tags: ['muharram', 'tahun-baru-islam', 'muhasabah', 'introspeksi', 'umur', 'waktu'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia hidup di dunia ini ibarat seorang musafir yang sedang menaiki sebuah kereta api. Kereta itu terus melaju dengan kecepatan tinggi, tanpa pernah berhenti untuk beristirahat, dan tanpa bisa berjalan mundur barang sedetik pun. Kereta itu bernama 'Waktu', dan stasiun tujuan akhirnya bernama 'Kematian'." },
@@ -44,6 +45,7 @@ export const muharram_6 = {
   tags: ['muharram', 'asyura', 'nabi-musa', 'firaun', 'tauhid', 'kezaliman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Hari ke-10 di bulan Muharram (yang disebut Hari Asyura) adalah sebuah tanggal yang sangat monumental (bersejarah) dalam peradaban umat manusia. Pada hari itu, Allah subhanahu wa ta'ala mempertontonkan kepada dunia secara langsung (live) bagaimana hukum kausalitas (sebab-akibat) alam semesta bisa dibengkokkan oleh kekuasaan Tuhan, demi untuk menyelamatkan kelompok kecil yang beriman (Bani Israil) dari cengkeraman tiran diktator paling kejam di dunia, yaitu Fir'aun." },

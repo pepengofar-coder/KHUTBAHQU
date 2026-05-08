@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const muharram_1 = {
   id: 139,
@@ -9,6 +9,7 @@ export const muharram_1 = {
   tags: ['muharram', 'bulan-haram', 'puasa', 'asyura', 'tahun-baru-islam'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pergantian waktu, hari, bulan, dan tahun adalah salah satu tanda kebesaran Allah subhanahu wa ta'ala. Saat ini kita berada di bulan Muharram, bulan pertama dalam kalender tahun Hijriyah. Memasuki bulan Muharram berarti kita telah membuka lembaran baru dalam buku catatan amal kita. Apakah tahun ini akan lebih baik dari tahun kemarin, ataukah justru lebih buruk?" },
@@ -43,6 +44,7 @@ export const muharram_2 = {
   tags: ['muharram', 'puasa-asyura', 'ampunan', 'nabi-musa', 'firaun', 'tasua'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di dalam bulan Muharram yang mulia ini, terdapat satu hari yang sangat istimewa, sebuah hari yang menyimpan sejarah kemenangan besar peradaban tauhid atas kezaliman. Hari tersebut adalah tanggal 10 Muharram, yang dikenal dengan sebutan 'Hari Asyura'. Kata Asyura secara bahasa (etimologi) diambil dari kata 'Asyrah' yang berarti sepuluh." },

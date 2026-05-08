@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const sosial_3 = {
   id: 151,
@@ -9,6 +9,7 @@ export const sosial_3 = {
   tags: ['sosial', 'tetangga', 'adab', 'akhlak', 'lisan', 'surga', 'neraka'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia diciptakan oleh Allah subhanahu wa ta'ala sebagai makhluk sosial (Zoon Politicon). Artinya, tidak ada satu pun manusia di muka bumi ini yang mampu hidup sendirian (secara otonom) di tengah hutan belantara tanpa membutuhkan bantuan manusia lain. Fitrah penciptaan inilah yang mewajibkan kita untuk hidup bermasyarakat, dan lingkaran (ring) terdekat dari masyarakat itu disebut dengan 'Tetangga' (Al-Jaar)." },
@@ -44,6 +45,7 @@ export const sosial_4 = {
   tags: ['sosial', 'sedekah', 'subuh', 'harta', 'malaikat', 'doa', 'infak'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu pertanyaan matematis (logika hitung-hitungan) yang sangat sulit dijawab (dipercayai) oleh orang-orang yang hatinya dikuasai sifat pelit atau cinta dunia (Hubbud dunya). Pertanyaannya adalah: 'Bagaimana mungkin uang 100 ribu di dompet kita, jika kita keluarkan 20 ribu untuk dimasukkan ke kotak amal masjid, saldonya bukannya berkurang menjadi 80 ribu, tetapi justru akan bertambah menjadi 200 ribu atau bahkan 1 juta?'" },

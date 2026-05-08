@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k19 = {
   id: 19, title: 'Sabar: Kunci Meraih Kemenangan dari Allah', slug: 'sabar-kunci-meraih-kemenangan',
@@ -7,6 +7,7 @@ export const k19 = {
   tags: ['sabar', 'ujian', 'iman', 'ketabahan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan dunia ini adalah tempat ujian. Tidak ada seorang pun yang terlepas dari cobaan dan musibah. Yang kaya diuji dengan hartanya, yang miskin diuji dengan kemiskinannya. Yang sehat diuji dengan kesehatannya, yang sakit diuji dengan sakitnya. Dalam menghadapi seluruh ujian ini, Allah subhanahu wa ta'ala memerintahkan kita untuk bersabar." },
@@ -38,6 +39,7 @@ export const k20 = {
   tags: ['syukur', 'nikmat', 'alhamdulillah', 'kufur-nikmat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pernahkah kita menghitung berapa banyak nikmat yang Allah subhanahu wa ta'ala berikan kepada kita setiap hari? Nikmat kesehatan, nikmat penglihatan, nikmat pendengaran, nikmat makanan dan minuman, nikmat keluarga, nikmat keamanan, nikmat iman dan Islam — dan masih sangat banyak lagi nikmat yang tidak mungkin kita hitung satu per satu." },

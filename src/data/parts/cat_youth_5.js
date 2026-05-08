@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const youth_9 = {
   id: 108,
@@ -9,6 +9,7 @@ export const youth_9 = {
   tags: ['pemuda', 'sahabat', 'pertemanan', 'circle', 'agama', 'pergaulan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia diciptakan sebagai makhluk sosial yang tidak mungkin bisa hidup sendirian tanpa berinteraksi dengan orang lain. Namun, ada satu fase dalam kehidupan di mana pengaruh interaksi sosial (pertemanan) mencapai titik paling maksimal, yaitu pada masa muda. Pada masa ini, seorang pemuda seringkali lebih mendengarkan pendapat dan meniru gaya hidup teman nongkrongnya (circle pergaulannya) daripada mendengarkan nasihat orang tuanya sendiri." },

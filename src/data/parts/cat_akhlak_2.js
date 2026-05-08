@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const akhlak_3 = {
   id: 70,
@@ -9,6 +9,7 @@ export const akhlak_3 = {
   tags: ['akhlak', 'tetangga', 'sosial', 'adab'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang sangat komprehensif. Ia tidak hanya mengatur hubungan vertikal antara hamba dan penciptanya (hablum minallah), tetapi juga mengatur secara detail hubungan horizontal antar sesama manusia (hablum minannas). Salah satu hubungan sosial yang paling mendapat perhatian khusus dalam syariat Islam adalah hubungan dengan tetangga." },
@@ -42,6 +43,7 @@ export const akhlak_4 = {
   tags: ['akhlak', 'lisan', 'ghibah', 'dusta'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala menciptakan manusia dalam bentuk yang sebaik-baiknya, dan memberikan kepadanya karunia yang sangat berharga berupa lisan. Dengan lisan, kita bisa membaca Al-Qur'an, berdzikir, menyampaikan ilmu, dan menyambung silaturahmi. Namun, lisan ini pula yang paling sering menggelincirkan manusia ke dalam jurang kebinasaan." },

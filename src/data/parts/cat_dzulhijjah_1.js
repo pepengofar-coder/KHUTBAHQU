@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const dzulhijjah_1 = {
   id: 119,
@@ -9,6 +9,7 @@ export const dzulhijjah_1 = {
   tags: ['dzulhijjah', 'amal-shalih', 'hari-terbaik', 'puasa-arafah', 'haji'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala, dengan hikmah dan kebijaksanaan-Nya yang tak terbatas, telah melebihkan (mengistimewakan) sebagian waktu di atas waktu yang lain, dan melebihkan sebagian tempat di atas tempat yang lain. Jika dalam urusan tempat Allah mengistimewakan Makkah dan Madinah, maka dalam urusan waktu, Allah telah memilih hari-hari tertentu yang pahala amal shalih di dalamnya dilipatgandakan dengan kelipatan yang luar biasa." },
@@ -43,6 +44,7 @@ export const dzulhijjah_2 = {
   tags: ['dzulhijjah', 'puasa-arafah', 'ampunan', 'neraka', 'hari-arafah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu hari di dalam kalender Hijriyah yang sangat istimewa, sebuah hari di mana langit seolah-olah diturunkan begitu dekat ke bumi, hari di mana doa-doa diijabah (dikabulkan) dengan probabilitas tertinggi, dan hari di mana syaitan menangis tersedu-sedu karena merasa putus asa melihat betapa banyaknya manusia yang diampuni dosanya oleh Sang Maha Pengampun. Hari yang agung itu adalah Hari Arafah, yang jatuh pada tanggal 9 Dzulhijjah." },

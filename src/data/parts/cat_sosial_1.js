@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const sosial_1 = {
   id: 149,
@@ -9,6 +9,7 @@ export const sosial_1 = {
   tags: ['sosial', 'tetangga', 'kepedulian', 'empati', 'kemiskinan', 'akhlak'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang sangat seimbang (tawazun). Islam tidak hanya mengatur hubungan vertikal antara hamba dengan penciptanya (Hablum minallah) melalui shalat dan puasa, tetapi juga mengatur secara sangat ketat hubungan horizontal antar sesama manusia (Hablum minannas) melalui zakat, sedekah, dan etika bertetangga." },
@@ -43,6 +44,7 @@ export const sosial_2 = {
   tags: ['sosial', 'individualis', 'egois', 'ukhuwah', 'jamaah', 'masyarakat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah penyakit kronis yang lahir dari rahim modernitas dan kapitalisme. Penyakit ini tidak menyerang organ paru-paru atau jantung, melainkan menyerang hati nurani dan pola pikir manusia. Penyakit itu bernama 'Sikap Individualis' (Egoisme / Al-Ananiyah)." },

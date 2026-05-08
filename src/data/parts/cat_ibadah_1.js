@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ibadah_1 = {
   id: 76,
@@ -9,6 +9,7 @@ export const ibadah_1 = {
   tags: ['ibadah', 'tujuan-hidup', 'penciptaan', 'hakikat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika kita bertanya kepada seseorang, 'Untuk apa Anda hidup?' Jawabannya tentu akan beragam. Ada yang menjawab untuk meraih kesuksesan karir, untuk membahagiakan keluarga, untuk mencari kekayaan, atau sekadar menikmati hidup. Namun, sebagai seorang Muslim, kita memiliki jawaban yang pasti, final, dan tidak bisa ditawar lagi, karena jawaban itu datang langsung dari Sang Pencipta." },
@@ -42,6 +43,7 @@ export const ibadah_2 = {
   tags: ['ibadah', 'khusyuk', 'hati', 'shalat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu penyakit kronis yang melanda umat Islam di zaman modern ini, sebuah penyakit yang tidak menyerang fisik, melainkan menyerang hati dan kualitas ibadah kita. Penyakit itu adalah hilangnya kekhusyukan. Kita melihat masjid-masjid dibangun megah, karpetnya tebal, pendingin ruangannya sejuk, namun ruh dari ibadah di dalamnya seringkali terasa hampa." },

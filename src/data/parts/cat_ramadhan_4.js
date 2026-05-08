@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ramadhan_7 = {
   id: 115,
@@ -9,6 +9,7 @@ export const ramadhan_7 = {
   tags: ['ramadhan', 'itikaf', 'masjid', 'spiritual', 'menyepi', 'sepuluh-akhir'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan modern saat ini menuntut manusia untuk bergerak sangat cepat. Sejak bangun tidur hingga kembali tidur, mata, telinga, dan pikiran kita dibombardir (dihujani) oleh ribuan informasi, notifikasi pesan, berita, urusan pekerjaan, dan target-target duniawi yang seolah tak ada habisnya. Akibat dari hiruk pikuk (bisingnya) dunia ini, hati manusia menjadi sangat kelelahan, stres, hampa, dan perlahan-lahan melupakan tujuan penciptaannya." },
@@ -43,6 +44,7 @@ export const ramadhan_8 = {
   tags: ['ramadhan', 'ancaman', 'celaka', 'laknat', 'menyia-nyiakan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika sebuah pemerintah mengumumkan bahwa selama satu bulan penuh mereka akan memberikan pemutihan hutang, membebaskan pajak, dan membagikan emas secara gratis di alun-alun kota, niscaya seluruh penduduk akan berbondong-bondong datang mengambil kesempatan itu. Jika ada orang yang sehat jasmaninya namun ia hanya diam di rumah tanpa mengambil emas gratis tersebut, niscaya orang banyak akan mencibirnya dan menganggapnya sebagai orang bodoh yang rugi besar." },

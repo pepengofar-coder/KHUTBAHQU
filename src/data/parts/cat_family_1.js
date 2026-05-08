@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const family_1 = {
   id: 93,
@@ -9,6 +9,7 @@ export const family_1 = {
   tags: ['keluarga', 'sakinah', 'pernikahan', 'rumah-tangga'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Institusi terkecil namun paling strategis dalam membangun sebuah peradaban adalah keluarga. Hancurnya sebuah negara berawal dari hancurnya masyarakat, dan hancurnya masyarakat bermula dari hancurnya institusi keluarga. Oleh karena itu, syaitan sangat membenci keluarga yang harmonis. Iblis memberikan penghargaan tertinggi (mahkota) kepada tentaranya yang berhasil menceraikan sepasang suami istri." },
@@ -42,6 +43,7 @@ export const family_2 = {
   tags: ['keluarga', 'ayah', 'tanggung-jawab', 'neraka'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia, terkhusus para bapak dan calon ayah. Ada sebuah pemahaman yang keliru di tengah masyarakat kita mengenai pembagian tugas dalam keluarga. Seringkali diasumsikan bahwa tugas seorang bapak hanyalah mencari nafkah, pergi pagi pulang petang memeras keringat demi mencukupi kebutuhan materi. Sedangkan urusan mendidik anak, mengajari ngaji, dan mengurus akhlak sepenuhnya diserahkan kepada ibu (istri)." },

@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const taubat_7 = {
   id: 90,
@@ -9,6 +9,7 @@ export const taubat_7 = {
   tags: ['taubat', 'istighfar', 'rezeki', 'bala'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia dalam menjalani kehidupannya tidak akan pernah luput dari dua hal: ujian berupa kesulitan (bala) dan kebutuhan akan rezeki. Ketika krisis ekonomi melanda, harga kebutuhan pokok melambung, lahan pertanian mengering karena kemarau, atau ketika bisnis tiba-tiba macet, manusia seringkali bingung mencari solusi secara materi. Padahal, jauh sebelum kita menghadapi masalah itu, Al-Qur'an dan Sunnah telah memberikan satu resep gaib (ruhani) yang dijamin keberhasilannya: Istighfar." },
@@ -41,6 +42,7 @@ export const taubat_8 = {
   tags: ['taubat', 'putus-asa', 'rahmat', 'harapan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Salah satu seni tipu daya iblis yang paling halus dalam menyesatkan anak Adam adalah dengan 'menunggangi' rasa bersalah setelah berbuat dosa. Ketika seorang mukmin terjatuh dalam maksiat, lalu timbul penyesalan, iblis datang membisikkan sesuatu yang seolah-olah terdengar religius: 'Lihatlah dirimu, kamu sangat kotor. Dosamu sudah terlalu banyak. Allah tidak mungkin mengampuni manusia munafik sepertimu. Jadi, percuma saja kamu bertaubat.'" },

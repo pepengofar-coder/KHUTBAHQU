@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const kematian_5 = {
   id: 163,
@@ -9,6 +9,7 @@ export const kematian_5 = {
   tags: ['kematian', 'akhirat', 'kiamat', 'mahsyar', 'sangkakala', 'huru-hara'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Salah satu rukun iman yang sering kali diucapkan di lisan namun sangat jarang diresapi (dihayati) di dalam hati adalah Iman kepada Hari Akhir (Hari Kiamat). Banyak orang yang percaya bahwa kiamat itu ada, namun perilaku kesehariannya sama sekali tidak mencerminkan persiapan (bekal) untuk menghadapi hari kebangkitan tersebut. Mereka menipu, mereka korupsi, seolah-olah pengadilan akhirat itu hanyalah cerita dongeng pengantar tidur." },
@@ -43,6 +44,7 @@ export const kematian_6 = {
   tags: ['kematian', 'akhirat', 'mizan', 'shirath', 'timbangan', 'hisab', 'amal'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setelah fase penantian yang sangat panjang dan melelahkan di Padang Mahsyar, perjalanan roh manusia menuju stasiun akhir (surga atau neraka) masih harus melewati dua pos pemeriksaan yang sangat ketat dan mengerikan. Pos pertama bernama 'Al-Mizan' (Timbangan Keadilan), dan pos kedua bernama 'As-Shirath' (Jembatan Lintas Alam)." },

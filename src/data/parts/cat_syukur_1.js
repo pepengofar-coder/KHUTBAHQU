@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const syukur_1 = {
   id: 169,
@@ -9,6 +9,7 @@ export const syukur_1 = {
   tags: ['syukur', 'nikmat', 'alhamdulillah', 'sabar', 'ujian', 'rezeki'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kata 'Syukur' adalah salah satu kosa kata (istilah) yang paling sering meluncur dari lisan umat Islam. Namun paradoksnya, meskipun ia sangat mudah diucapkan, syukur adalah amal ibadah (maqam spiritual) yang sangat sulit untuk dipraktikkan. Allah subhanahu wa ta'ala sendiri yang mengkonfirmasi realitas ini di dalam Al-Qur'an:" },
@@ -45,6 +46,7 @@ export const syukur_2 = {
   tags: ['syukur', 'istidraj', 'azab', 'maksiat', 'rezeki', 'harta', 'dunia'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah fenomena (pertanyaan besar) yang sering kali mengganggu akal pikiran dan menggoyahkan keimanan seorang muslim awam. Fenomena itu adalah: Mengapa di dunia ini ada orang yang seumur hidupnya tidak pernah sujud (tidak pernah shalat), gemar minum khamar, menipu sana-sini, dan tidak mengenal masjid, NAMUN hidupnya terlihat sangat makmur, karirnya meroket, dan hartanya melimpah ruah?" },

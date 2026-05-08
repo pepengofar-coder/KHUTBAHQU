@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const akhlak_5 = {
   id: 72,
@@ -9,6 +9,7 @@ export const akhlak_5 = {
   tags: ['akhlak', 'jujur', 'dusta', 'kebenaran'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu sifat yang jika ia hilang dari sebuah masyarakat, maka akan runtuhlah pilar-pilar kepercayaan, hancurlah muamalah, dan lenyaplah rasa aman. Sifat itu adalah kejujuran (Ash-Shidq). Kejujuran bukan sekadar pilar moralitas sosial, tetapi dalam Islam, ia adalah pondasi utama keimanan dan jalan yang lurus menuju pintu surga." },
@@ -41,6 +42,7 @@ export const akhlak_6 = {
   tags: ['akhlak', 'tawadhu', 'sombong', 'rendah-hati'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia tercipta dari tanah, zat yang posisinya berada di bawah dan diinjak-injak. Namun anehnya, banyak manusia yang sifatnya ingin selalu meninggi, melayang, dan merendahkan yang lain. Sifat inilah yang disebut al-kibr atau kesombongan. Sombong adalah dosa pertama yang dilakukan oleh makhluk kepada Allah subhanahu wa ta'ala. Iblis menolak bersujud kepada Adam 'alaihissalam bukan karena ia tidak percaya kepada Allah, melainkan karena kesombongan: 'Aku lebih baik darinya (Adam). Engkau ciptakan aku dari api, sedangkan ia Engkau ciptakan dari tanah tanah.'" },

@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const taqwa_1 = {
   id: 42,
@@ -9,6 +9,7 @@ export const taqwa_1 = {
   tags: ['taqwa', 'iman', 'amal-saleh', 'keselamatan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala dengan sebenar-benar takwa, karena takwa adalah wasiat Allah kepada orang-orang terdahulu dan orang-orang kemudian." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Takwa adalah kata yang sangat sering kita dengar di setiap khutbah, di setiap ceramah, di setiap nasihat keagamaan. Namun sudahkah kita benar-benar memahami apa hakikat takwa itu? Apakah takwa hanya sekadar kata pembuka khutbah yang kita dengar lalu kita lupakan begitu saja? Ataukah takwa adalah sesuatu yang harus kita hayati, kita amalkan, dan kita jadikan sebagai pedoman hidup kita sehari-hari?" },
@@ -45,6 +46,7 @@ export const taqwa_2 = {
   tags: ['taqwa', 'muraqabah', 'sendiri', 'ihsan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada khutbah kali ini, khatib ingin mengangkat topik yang sangat penting dan sering luput dari perhatian kita, yaitu takwa kepada Allah di saat kita sendirian, di saat tidak ada seorang pun dari manusia yang menyaksikan perbuatan kita. Di sinilah ujian keimanan yang sesungguhnya. Karena sangat mudah untuk menampilkan ketaatan di hadapan orang banyak — shalat dengan khusyuk di masjid, bersikap ramah di depan umum, berkata jujur di hadapan saksi. Namun yang sangat sulit adalah menjaga ketaatan di saat hanya Allah subhanahu wa ta'ala yang melihat." },

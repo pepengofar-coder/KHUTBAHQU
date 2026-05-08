@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const akhlak_7 = {
   id: 74,
@@ -9,6 +9,7 @@ export const akhlak_7 = {
   tags: ['akhlak', 'memaafkan', 'dendam', 'lapang-dada'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Selama kita berinteraksi dengan manusia, potensi untuk tersakiti, kecewa, dan marah akan selalu ada. Kadang kita disakiti oleh ucapan teman, dikhianati rekan kerja, atau dikecewakan oleh keluarga sendiri. Secara manusiawi, wajar jika muncul rasa marah atau keinginan membalas. Namun, Islam mengajarkan jalan yang jauh lebih mulia dan menenangkan jiwa, yaitu jalan memaafkan." },
@@ -42,6 +43,7 @@ export const akhlak_8 = {
   tags: ['akhlak', 'husnudzon', 'suudzon', 'prasangka'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam sangat memperhatikan keselamatan hati. Hati yang sehat (qalbun salim) adalah syarat keselamatan di hari kiamat. Salah satu penyakit yang sangat merusak kesehatan hati dan memecah belah keharmonisan masyarakat adalah prasangka buruk (su'udzon) terhadap sesama. Prasangka buruk adalah iblis yang berbisik dalam benak, meracuni pikiran, dan menciptakan permusuhan dari hal-hal yang tidak nyata." },

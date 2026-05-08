@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const muharram_3 = {
   id: 141,
@@ -9,6 +9,7 @@ export const muharram_3 = {
   tags: ['muharram', 'hijrah', 'tahun-baru-islam', 'zona-nyaman', 'maksiat', 'taubat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setiap kali bulan Muharram datang menyapa, umat Islam merayakan pergantian Tahun Baru Hijriyah. Berbeda dengan tahun baru Masehi yang sering dirayakan dengan tiupan terompet, kembang api, dan pesta pora kemaksiatan, peringatan Tahun Baru Islam (Hijriyah) memiliki roh dan fondasi spiritual yang sangat kuat, yaitu: Semangat Perubahan (Hijrah)." },
@@ -45,6 +46,7 @@ export const muharram_4 = {
   tags: ['muharram', 'suro', 'mitos', 'tathayyur', 'syirik', 'sial', 'tauhid'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam datang ke muka bumi untuk membebaskan akal manusia dari belenggu kebodohan (jahiliyah), takhayul, khurafat, dan keyakinan-keyakinan mistis yang merusak tauhid (pengesaan Allah). Namun sangat disayangkan, meskipun Islam sudah berabad-abad masuk ke Nusantara, sisa-sisa keyakinan jahiliyah itu masih subur dan diyakini oleh sebagian masyarakat kita hingga hari ini." },

@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k11 = {
   id: 11, title: 'Pemuda Islam: Harapan Umat dan Pilar Peradaban', slug: 'pemuda-islam-harapan-umat',
@@ -7,6 +7,7 @@ export const k11 = {
   tags: ['pemuda', 'generasi', 'pendidikan'], createdAt: '2026-03-05',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pemuda adalah pilar utama sebuah peradaban. Maju mundurnya suatu umat sangat ditentukan oleh kualitas generasi mudanya. Rasulullah shallallahu 'alaihi wasallam memberikan perhatian yang sangat besar terhadap pembinaan pemuda." },
@@ -34,6 +35,7 @@ export const k12 = {
   tags: ['kematian', 'akhirat', 'taubat'], createdAt: '2026-02-28',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada kesempatan kali ini, khatib ingin mengajak kita semua untuk merenungkan satu kepastian yang tidak bisa kita hindari, yaitu kematian. Allah subhanahu wa ta'ala berfirman:" },

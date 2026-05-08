@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k31 = {
   id: 31, title: 'Bahaya Maksiat dan Dampaknya bagi Kehidupan', slug: 'bahaya-maksiat-dampak-kehidupan',
@@ -7,6 +7,7 @@ export const k31 = {
   tags: ['maksiat', 'dosa', 'dampak', 'taubat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada kesempatan kali ini, khatib ingin membahas tentang bahaya maksiat dan dampaknya bagi kehidupan seorang muslim. Banyak di antara kita yang meremehkan maksiat — menganggapnya kecil dan tidak berbahaya. Padahal Rasulullah shallallahu 'alaihi wasallam memperingatkan kita untuk tidak meremehkan dosa-dosa kecil, karena dosa kecil yang terus-menerus bisa menjadi besar dan menghancurkan pelakunya." },
@@ -38,6 +39,7 @@ export const k32 = {
   tags: ['istiqamah', 'konsisten', 'ketaatan', 'iman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Seorang sahabat pernah datang kepada Rasulullah shallallahu 'alaihi wasallam dan berkata: 'Wahai Rasulullah, katakanlah kepadaku tentang Islam suatu perkataan yang aku tidak perlu bertanya lagi kepada orang lain setelahmu.' Maka Rasulullah shallallahu 'alaihi wasallam menjawab dengan kalimat yang sangat singkat namun sangat mendalam:" },

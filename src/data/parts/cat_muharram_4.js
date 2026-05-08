@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const muharram_7 = {
   id: 145,
@@ -9,6 +9,7 @@ export const muharram_7 = {
   tags: ['muharram', 'anak-yatim', 'santunan', 'kepedulian', 'lebaran-yatim', 'sosial'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah tradisi (budaya kebaikan) yang sangat mengakar kuat di masyarakat Nusantara setiap kali memasuki bulan Muharram, khususnya pada tanggal 10 Muharram (Hari Asyura). Tradisi tersebut adalah 'Lebaran Anak Yatim'. Pada hari itu, masjid-masjid, majelis taklim, dan berbagai instansi berlomba-lomba mengadakan acara santunan besar-besaran untuk anak yatim piatu. Mereka diundang, diberi bingkisan, diberi amplop uang, dan kepalanya diusap dengan penuh kasih sayang." },
@@ -42,6 +43,7 @@ export const muharram_8 = {
   tags: ['muharram', 'karbala', 'husain', 'asyura', 'sejarah', 'ukhuwah', 'ahlul-bait'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika bagi umat Yahudi (Bani Israil) tanggal 10 Muharram (Hari Asyura) dikenang sebagai hari kemerdekaan dan keselamatan dari penindasan Fir'aun, maka bagi sejarah umat Islam, tanggal 10 Muharram juga menyimpan sebuah peristiwa kelam (luka sejarah) yang sangat memilukan dan menyayat hati setiap muslim yang mencintai Rasulullah shallallahu 'alaihi wasallam." },

@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k17 = {
   id: 17, title: 'Kehidupan Alam Kubur: Taman Surga atau Jurang Neraka', slug: 'kehidupan-alam-kubur',
@@ -7,6 +7,7 @@ export const k17 = {
   tags: ['kubur', 'barzakh', 'kematian', 'akhirat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setelah kematian, setiap manusia akan memasuki alam yang dinamakan alam barzakh, yaitu alam kubur. Alam ini adalah perhentian pertama dalam perjalanan panjang menuju akhirat. Di sinilah setiap jiwa akan menunggu hingga hari kiamat tiba. Dan di sinilah setiap jiwa akan merasakan awal dari pembalasan atas amal perbuatannya di dunia." },
@@ -38,6 +39,7 @@ export const k18 = {
   tags: ['kiamat', 'akhirat', 'hisab', 'pembalasan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Hari kiamat adalah hari yang pasti datang. Tidak ada keraguan di dalamnya. Seluruh nabi dan rasul mengabarkan tentang kedatangannya. Al-Qur'an menyebutkannya dalam puluhan surat dengan berbagai nama: Yaumul Qiyamah (hari kiamat), Yaumul Hisab (hari perhitungan), Yaumul Ba'ts (hari kebangkitan), Yaumul Hasrah (hari penyesalan), As-Sa'ah (saat itu), dan nama-nama lainnya yang menggambarkan kedahsyatannya." },

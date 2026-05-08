@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const kematian_7 = {
   id: 165,
@@ -9,6 +9,7 @@ export const kematian_7 = {
   tags: ['kematian', 'akhirat', 'penyesalan', 'taubat', 'umur', 'kubur'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kata 'Penyesalan' adalah sebuah kata yang selalu datang terlambat di akhir cerita. Di dunia ini, jika seseorang menyesal karena gagal dalam ujian, ia masih bisa belajar lagi dan mengulang ujian tersebut tahun depan. Jika seseorang menyesal karena bisnisnya bangkrut, ia masih bisa meminjam modal dan memulai usahanya dari nol. Penyesalan di dunia masih memberikan ruang (kesempatan kedua) untuk diperbaiki (direvisi)." },
@@ -43,6 +44,7 @@ export const kematian_8 = {
   tags: ['kematian', 'akhirat', 'surga', 'jannah', 'bidadari', 'kenikmatan', 'ru\'yatullah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan seorang mukmin di dunia ini sering kali diwarnai oleh kelelahan (Musibah/Ujian). Lelah bekerja mencari nafkah yang halal, lelah bangun di tengah malam yang dingin untuk shalat tahajud, lelah menahan pandangan (nafsu) dari godaan kemaksiatan, dan lelah dihina karena mempertahankan prinsip kebenaran (Sunnah). Dunia ini memang didesain oleh Allah sebagai Penjara (Sijnun) bagi orang-orang mukmin." },

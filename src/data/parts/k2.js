@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k2 = {
   id: 2, title: 'Bahaya Riba dan Cara Menghindarinya', slug: 'bahaya-riba-cara-menghindarinya',
@@ -7,6 +7,7 @@ export const k2 = {
   tags: ['riba', 'muamalah', 'ekonomi'], createdAt: '2026-04-25',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dimuliakan Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala dengan menjalankan segala perintah-Nya dan menjauhi seluruh larangan-Nya, termasuk menjauhi segala bentuk riba." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Salah satu dosa besar yang Allah subhanahu wa ta'ala peringatkan dengan sangat keras dalam Al-Qur'an adalah riba. Allah subhanahu wa ta'ala berfirman:" },

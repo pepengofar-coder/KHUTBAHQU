@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const shalat_5 = {
   id: 53,
@@ -9,6 +9,7 @@ export const shalat_5 = {
   tags: ['shalat', 'meninggalkan', 'dosa-besar', 'ancaman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada khutbah kali ini, khatib ingin menyampaikan peringatan yang sangat penting tentang bahaya meninggalkan shalat. Perkara ini bukanlah perkara ringan, bukan perkara yang bisa dianggap sepele, melainkan perkara yang berkaitan langsung dengan keselamatan atau kebinasaan seorang hamba di dunia dan di akhirat." },
@@ -43,6 +44,7 @@ export const shalat_6 = {
   tags: ['shalat', 'kegelisahan', 'ketenangan', 'mental'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan modern yang kita jalani saat ini dipenuhi dengan berbagai tekanan — tekanan pekerjaan, tekanan ekonomi, tekanan sosial, tekanan keluarga. Banyak orang yang mengalami stres, kecemasan, dan depresi. Mereka mencari solusi di berbagai tempat — ke psikolog, ke psikiater, mengonsumsi obat penenang, bahkan ada yang mencari pelarian melalui hiburan yang haram. Padahal solusi yang paling ampuh dan paling dekat dengan kita sudah diajarkan oleh Allah dan Rasul-Nya, yaitu shalat." },

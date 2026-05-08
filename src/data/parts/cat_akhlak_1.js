@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const akhlak_1 = {
   id: 68,
@@ -9,6 +9,7 @@ export const akhlak_1 = {
   tags: ['akhlak', 'timbangan', 'kiamat', 'mulia'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika kita ditanya, apa tujuan utama Rasulullah shallallahu 'alaihi wasallam diutus ke muka bumi? Banyak yang mungkin menjawab untuk menegakkan tauhid, untuk menyebarkan Islam, atau untuk memberantas kesyirikan. Semua jawaban itu benar. Namun, Rasulullah shallallahu 'alaihi wasallam sendiri merangkum tujuan utama pengutusannya dalam satu kalimat yang sangat ringkas dan padat:" },
@@ -42,6 +43,7 @@ export const akhlak_2 = {
   tags: ['akhlak', 'amarah', 'marah', 'sabar'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan ini dipenuhi dengan berbagai ujian dan gesekan antar sesama manusia. Ada kalanya kita dihadapkan pada situasi yang tidak menyenangkan, perlakuan yang tidak adil, atau ucapan yang menyakitkan. Dalam situasi seperti itu, emosi sangat mudah terpancing dan kemarahan pun meledak. Namun, Islam mengajarkan kita untuk menjadi tuan atas emosi kita, bukan menjadi budak dari amarah." },

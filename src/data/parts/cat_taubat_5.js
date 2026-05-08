@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const taubat_9 = {
   id: 92,
@@ -9,6 +9,7 @@ export const taubat_9 = {
   tags: ['taubat', 'aib', 'mujaharah', 'maksiat', 'bangga'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang sangat menjunjung tinggi kehormatan dan kesucian. Ketika seorang hamba tergelincir melakukan kemaksiatan secara sembunyi-sembunyi karena kelemahan imannya dan dorongan syahwatnya, Islam mengajarkan agar ia segera bertaubat dan menutupi aibnya sendiri rapat-rapat. Tidak perlu ia menceritakan dosa tersebut kepada siapapun, cukup menjadi rahasia antara dirinya dengan Allah yang Maha Penerima Taubat." },

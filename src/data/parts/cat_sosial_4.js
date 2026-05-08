@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const sosial_7 = {
   id: 155,
@@ -9,6 +9,7 @@ export const sosial_7 = {
   tags: ['sosial', 'senyum', 'sedekah', 'akhlak', 'ukhuwah', 'dakwah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah anggapan (persepsi) keliru di sebagian masyarakat kita mengenai definisi 'Orang Beragama' (Orang Saleh). Sebagian orang mengira bahwa indikator orang yang khusyuk dalam beragama adalah mereka yang selalu bermuka masam, dahi mengkerut, jarang tersenyum, dan terkesan galak (kaku) saat bertemu dengan saudaranya. Mereka menganggap bahwa tertawa atau tersenyum akan mengurangi wibawa keagamaan mereka." },
@@ -44,6 +45,7 @@ export const sosial_8 = {
   tags: ['sosial', 'hutang', 'piutang', 'kredit', 'akhlak', 'muamalah', 'keuangan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan sosial dan ekonomi masyarakat (khususnya masyarakat menengah ke bawah) tidak akan pernah bisa lepas dari aktivitas saling pinjam-meminjam uang (Hutang-Piutang atau Qardh). Dalam Fikih Muamalah Islam, memberikan pinjaman (menghutangi) kepada saudara yang sedang kesusahan bukanlah sekadar urusan bisnis duniawi, melainkan sebuah ibadah sosial (amal jariyah) yang pahalanya sangat spektakuler." },

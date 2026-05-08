@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ramadhan_1 = {
   id: 109,
@@ -9,6 +9,7 @@ export const ramadhan_1 = {
   tags: ['ramadhan', 'puasa', 'hati', 'persiapan', 'ampunan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah ungkapan indah dari para ulama salaf yang berbunyi: 'Rajab adalah bulan menanam benih, Sya'ban adalah bulan menyiram tanaman, dan Ramadhan adalah bulan memanen hasil panen.' Ungkapan ini menunjukkan bahwa bulan Ramadhan bukanlah bulan persiapan, melainkan bulan pelaksanaan (eksekusi) dari amal-amal yang sudah dipersiapkan sejak jauh-jauh hari." },
@@ -41,6 +42,7 @@ export const ramadhan_2 = {
   tags: ['ramadhan', 'puasa', 'hakikat', 'lisan', 'maksiat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ibadah puasa (shaum) memiliki keistimewaan tersendiri di mata Allah. Dalam sebuah hadis qudsi, Allah menyatakan: 'Setiap amal anak Adam adalah untuknya sendiri, kecuali puasa. Puasa itu untuk-Ku dan Aku sendiri yang akan membalasnya.' Mengapa puasa begitu spesial? Karena puasa adalah ibadah 'meninggalkan' sesuatu (at-tarku), bukan ibadah yang memiliki gerakan fisik yang bisa dilihat orang lain seperti ruku' dan sujud dalam shalat." },

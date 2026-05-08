@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k3 = {
   id: 3, title: 'Membangun Keluarga Sakinah Mawaddah Warahmah', slug: 'membangun-keluarga-sakinah',
@@ -7,6 +7,7 @@ export const k3 = {
   tags: ['keluarga', 'nikah', 'sakinah'], createdAt: '2026-04-20',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala, yakni dengan menjalankan perintah-Nya dan menjauhi larangan-Nya." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala menjadikan pernikahan sebagai salah satu tanda kebesaran-Nya. Pernikahan bukan hanya akad yang menghalalkan hubungan antara laki-laki dan perempuan, melainkan sebuah ikatan suci yang di dalamnya terkandung ketenangan, kasih sayang, dan rahmat." },
@@ -35,6 +36,7 @@ export const k4 = {
   tags: ['tafsir', 'waktu', 'amal-saleh'], createdAt: '2026-04-18',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah senantiasa bertakwa kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Hari ini khatib ingin mengajak kita merenungkan salah satu surat terpendek dalam Al-Qur'an, namun memiliki kandungan yang sangat agung. Imam Asy-Syafi'i rahimahullah pernah berkata: 'Seandainya Allah hanya menurunkan surat ini saja kepada manusia, niscaya itu sudah cukup bagi mereka.' Surat tersebut adalah Surat Al-Asr." },

@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const dzulhijjah_9 = {
   id: 127,
@@ -9,6 +9,7 @@ export const dzulhijjah_9 = {
   tags: ['dzulhijjah', 'kurban', 'kepedulian-sosial', 'ukhuwah', 'miskin', 'daging'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Syariat Islam bukanlah agama yang hanya fokus pada ibadah ritual yang menghubungkan manusia secara vertikal dengan Tuhannya (Hablum minallah), namun melupakan kehidupan sosial. Islam sangat menekankan ibadah yang memiliki dampak horizontal yang nyata terhadap sesama manusia (Hablum minannas). Salah satu ibadah yang paling sempurna menggabungkan kedua dimensi ini adalah ibadah menyembelih Kurban (Udhiyah) pada bulan Dzulhijjah." },
@@ -42,6 +43,7 @@ export const dzulhijjah_10 = {
   tags: ['dzulhijjah', 'kurban', 'fikih', 'rambut', 'kuku', 'hikmah', 'sunnah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Syariat Islam sangat kaya dengan aturan (fikih) yang detail. Di balik setiap detail aturan tersebut, sekecil apapun itu, pasti terkandung hikmah (filosofi kebaikan) yang sangat mendalam bagi kemaslahatan manusia, baik di dunia maupun di akhirat. Salah satu syariat yang sangat unik dan sering dipertanyakan menjelang Hari Raya Idul Adha adalah adanya larangan bagi 'Shohibul Qurban' (orang yang hendak berkurban) untuk memotong rambut dan kukunya." },

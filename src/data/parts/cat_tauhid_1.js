@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const tauhid_1 = {
   id: 33,
@@ -9,6 +9,7 @@ export const tauhid_1 = {
   tags: ['tauhid', 'syahadat', 'la-ilaha-illallah', 'iman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala, dengan senantiasa menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya, baik dalam keadaan sendiri maupun di hadapan orang banyak, baik dalam keadaan lapang maupun dalam keadaan sempit." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada khutbah kali ini, khatib ingin mengajak kita semua untuk merenungkan kembali kalimat yang paling agung, kalimat yang menjadi pembeda antara iman dan kekafiran, kalimat yang menjadi kunci masuk surga, yaitu kalimat La Ilaha Illallah — Tidak ada tuhan yang berhak disembah kecuali Allah. Kalimat ini adalah kalimat tauhid, kalimat yang menjadi pondasi seluruh ajaran Islam. Tanpa memahami dan mengamalkan kalimat ini dengan benar, maka seluruh amalan seorang muslim tidak akan bernilai di sisi Allah subhanahu wa ta'ala." },
@@ -46,6 +47,7 @@ export const tauhid_2 = {
   tags: ['tawakal', 'tauhid', 'tawakkal', 'ikhtiar'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[0] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala telah memerintahkan orang-orang beriman untuk bertawakal kepada-Nya. Tawakal adalah ibadah hati yang agung, ia merupakan bagian dari tauhid, dan ia menjadi salah satu sebab utama masuk surga. Ibnul Qayyim rahimahullah menyebutkan bahwa tawakal adalah separuh agama, dan separuh lainnya adalah inabah (kembali) kepada Allah subhanahu wa ta'ala. Karena agama ini dibangun di atas dua pondasi: meminta pertolongan kepada Allah (isti'anah) dan beribadah kepada-Nya. Isti'anah itulah hakikat tawakal, sebagaimana dalam doa yang kita baca setiap hari: Iyyaka na'budu wa iyyaka nasta'in — Hanya kepada-Mu kami menyembah dan hanya kepada-Mu kami meminta pertolongan." },

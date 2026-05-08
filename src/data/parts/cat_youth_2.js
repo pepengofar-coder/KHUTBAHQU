@@ -1,4 +1,4 @@
-import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const youth_3 = {
   id: 102,
@@ -9,6 +9,7 @@ export const youth_3 = {
   tags: ['pemuda', 'ashabul-kahfi', 'iman', 'tauhid', 'lingkungan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[1] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[3] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu surat di dalam Al-Qur'an yang sangat dianjurkan untuk kita baca setiap hari Jumat, yaitu surat Al-Kahfi. Di dalam surat ini, Allah subhanahu wa ta'ala mengabadikan sebuah kisah legendaris yang seharusnya menjadi role model (panutan) bagi setiap pemuda muslim hingga akhir zaman. Kisah tersebut adalah kisah Ashabul Kahfi (Para Penghuni Gua)." },
@@ -42,6 +43,7 @@ export const youth_4 = {
   tags: ['pemuda', 'kuat', 'amarah', 'tawuran', 'emosi'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
     { type: 'opening', text: khutbahOpeningTemplates[2] },
+    { type: 'paragraph', text: khutbahIndonesianOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Masa muda identik dengan energi yang meluap-luap, emosi yang meledak-ledak (darah muda), dan keinginan untuk menunjukkan eksistensi diri (show off). Banyak pemuda yang menerjemahkan 'kekuatan' dengan cara yang salah. Mereka berpikir bahwa pemuda yang kuat adalah pemuda yang menang dalam tawuran antar sekolah, jago berkelahi, anggota geng motor yang ditakuti, atau memiliki otot besar dari rajin nge-gym namun digunakan untuk mengintimidasi orang lemah." },
