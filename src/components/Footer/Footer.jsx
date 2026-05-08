@@ -24,7 +24,12 @@ export default function Footer() {
           <Link to="/khutbah?cat=taqwa">Taqwa</Link>
         </div>
       </div>
-      <div className="footer__bottom">© 2026 KhutbahQu. Semua konten disusun untuk kebaikan umat.</div>
+      <div className="footer__bottom">
+        <p>© 2026 KhutbahQu. Semua konten disusun untuk kebaikan umat.</p>
+        <p style={{ marginTop: '8px', fontSize: '0.9em', color: 'var(--color-text-muted)' }}>
+          Aplikasi oleh Amirudin Abu Ziyadhmaeda
+        </p>
+      </div>
     </footer>
   );
 }

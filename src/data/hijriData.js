@@ -23,23 +23,38 @@ const ISLAMIC_EVENTS = [
 ];
 
 export function gregorianToHijri(gDate) {
-  const d = new Date(gDate);
-  const y = d.getFullYear(), m = d.getMonth(), day = d.getDate();
-  let jd = Math.floor((1461 * (y + 4800 + Math.floor((m - 13) / 12))) / 4)
-    + Math.floor((367 * (m - 1 - 12 * Math.floor((m - 13) / 12))) / 12)
-    - Math.floor((3 * Math.floor((y + 4900 + Math.floor((m - 13) / 12)) / 100)) / 4)
-    + day - 32075;
-  const l = jd - 1948440 + 10632;
-  const n = Math.floor((l - 1) / 10631);
-  const l2 = l - 10631 * n + 354;
-  const j = Math.floor((10985 - l2) / 5316) * Math.floor((50 * l2) / 17719)
-    + Math.floor(l2 / 5670) * Math.floor((43 * l2) / 15238);
-  const l3 = l2 - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50)
-    - Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
-  const hm = Math.floor((24 * l3) / 709);
-  const hd = l3 - Math.floor((709 * hm) / 24);
-  const hy = 30 * n + j - 30;
-  return { year: hy, month: hm, day: hd };
+  try {
+    const d = new Date(gDate);
+    const formatter = new Intl.DateTimeFormat('id-ID-u-ca-islamic-umalqura', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    });
+    const parts = formatter.formatToParts(d);
+    const day = parseInt(parts.find(p => p.type === 'day').value, 10);
+    const month = parseInt(parts.find(p => p.type === 'month').value, 10);
+    const yearStr = parts.find(p => p.type === 'year').value;
+    const year = parseInt(yearStr.replace(/\D/g, ''), 10);
+    return { year, month, day };
+  } catch (e) {
+    const d = new Date(gDate);
+    const y = d.getFullYear(), m = d.getMonth(), day = d.getDate();
+    let jd = Math.floor((1461 * (y + 4800 + Math.floor((m - 13) / 12))) / 4)
+      + Math.floor((367 * (m - 1 - 12 * Math.floor((m - 13) / 12))) / 12)
+      - Math.floor((3 * Math.floor((y + 4900 + Math.floor((m - 13) / 12)) / 100)) / 4)
+      + day - 32075;
+    const l = jd - 1948440 + 10632;
+    const n = Math.floor((l - 1) / 10631);
+    const l2 = l - 10631 * n + 354;
+    const j = Math.floor((10985 - l2) / 5316) * Math.floor((50 * l2) / 17719)
+      + Math.floor(l2 / 5670) * Math.floor((43 * l2) / 15238);
+    const l3 = l2 - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50)
+      - Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+    const hm = Math.floor((24 * l3) / 709);
+    const hd = l3 - Math.floor((709 * hm) / 24);
+    const hy = 30 * n + j - 30;
+    return { year: hy, month: hm, day: hd };
+  }
 }
 
 export function getHijriDateString(gDate = new Date()) {
