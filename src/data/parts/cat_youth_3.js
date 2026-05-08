@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const youth_5 = {
   id: 104,
@@ -8,7 +8,7 @@ export const youth_5 = {
   category: 'youth', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['pemuda', 'kesalahan', 'maaf', 'taubat', 'ksatria', 'ego'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Salah satu sifat dasar yang sering kali menjangkiti para pemuda adalah ego (gengsi) yang terlalu tinggi. Rasa percaya diri yang berlebihan di usia muda kerap kali memunculkan penyakit mental berupa kesombongan terselubung: merasa diri paling benar, paling tahu, dan pantang untuk dikritik. Ketika melakukan sebuah kesalahan—baik kepada Allah maupun kepada sesama manusia—ego ini menjadi tembok tebal yang menghalanginya untuk mengucapkan kalimat sakti: 'Saya salah, saya minta maaf.'" },
@@ -42,7 +42,7 @@ export const youth_6 = {
   category: 'youth', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['pemuda', 'cita-cita', 'visi', 'himmah', 'semangat', 'sukses'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kualitas hidup seseorang sangat ditentukan oleh seberapa besar cita-citanya (visinya). Jika cita-citanya hanya sebatas bisa makan enak hari ini, memiliki kendaraan baru, atau mendapat pujian dari manusia di media sosial, maka energinya akan habis hanya untuk mengurusi hal-hal receh (remeh) tersebut. Namun, jika cita-citanya menembus batas dunia hingga ke surga tertinggi, maka ia akan bekerja keras menghasilkan karya-karya peradaban yang monumental." },

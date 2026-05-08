@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const tauhid_7 = {
   id: 39,
@@ -8,7 +8,7 @@ export const tauhid_7 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['ta\'alluq', 'tauhid', 'hati', 'bergantung'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala menciptakan hati manusia dan menjadikannya sebagai raja dari seluruh anggota tubuh. Jika hati baik, maka seluruh tubuh menjadi baik. Dan jika hati rusak, maka seluruh tubuh menjadi rusak. Di antara penyakit hati yang paling berbahaya adalah menggantungkan hati kepada selain Allah subhanahu wa ta'ala — dalam bahasa Arab disebut at-ta'alluq bi ghairillah. Penyakit ini bisa menggerogoti tauhid seseorang tanpa ia sadari, dan bisa membawanya kepada syirik tanpa ia ketahui." },
@@ -42,7 +42,7 @@ export const tauhid_8 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['rububiyyah', 'tauhid', 'pencipta', 'iman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Hari ini khatib ingin mengajak kita semua untuk merenungkan keagungan Allah subhanahu wa ta'ala sebagai Rabb — Pencipta, Pemilik, dan Pengatur seluruh alam semesta. Inilah yang disebut oleh para ulama sebagai Tauhid Rububiyyah, yaitu mengimani bahwa hanya Allah subhanahu wa ta'ala satu-satunya yang menciptakan segala sesuatu, yang memiliki segala sesuatu, dan yang mengatur segala urusan di alam semesta ini." },

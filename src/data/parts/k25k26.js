@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k25 = {
   id: 25, title: "Mengikuti Sunnah Rasulullah dan Menjauhi Bid'ah", slug: 'mengikuti-sunnah-menjauhi-bidah',
@@ -6,7 +6,7 @@ export const k25 = {
   category: 'sunnah', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['sunnah', 'bidah', 'ittiba', 'manhaj'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala telah menyempurnakan agama Islam ini. Tidak ada satu perkara pun dalam urusan agama yang luput dari penjelasan Al-Qur'an dan Sunnah. Allah subhanahu wa ta'ala berfirman:" },
@@ -37,7 +37,7 @@ export const k26 = {
   category: 'ramadan', type: 'khutbah-jumat', duration: 10, occasion: 'Ramadan',
   tags: ['ramadhan', 'puasa', 'lailatul-qadr', 'pahala'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Segala puji bagi Allah subhanahu wa ta'ala yang telah mempertemukan kita dengan bulan Ramadhan yang mulia. Bulan yang di dalamnya Al-Qur'an diturunkan, bulan yang di dalamnya pintu-pintu surga dibuka dan pintu-pintu neraka ditutup, bulan yang di dalamnya terdapat satu malam yang lebih baik dari seribu bulan." },

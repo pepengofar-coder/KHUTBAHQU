@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const tauhid_3 = {
   id: 35,
@@ -8,7 +8,7 @@ export const tauhid_3 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 15, occasion: 'Jumat',
   tags: ['syirik', 'tauhid', 'dosa-besar', 'iman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada kesempatan yang mulia ini, khatib ingin membahas perkara yang sangat penting dan sangat berbahaya, yaitu syirik kepada Allah subhanahu wa ta'ala. Syirik adalah dosa terbesar yang paling dibenci Allah subhanahu wa ta'ala, dosa yang tidak akan diampuni jika pelakunya meninggal dalam keadaan belum bertaubat darinya. Allah subhanahu wa ta'ala berfirman dengan tegas:" },
@@ -43,7 +43,7 @@ export const tauhid_4 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['khauf', 'takut', 'tauhid', 'ibadah-hati'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala, karena takwa adalah sebaik-baik bekal menuju akhirat dan ia adalah wasiat Allah subhanahu wa ta'ala kepada orang-orang terdahulu dan orang-orang kemudian." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Salah satu ibadah hati yang paling agung di sisi Allah subhanahu wa ta'ala adalah rasa takut kepada-Nya, yang dalam bahasa Arab disebut al-khauf. Rasa takut kepada Allah bukan berarti takut seperti takut kepada binatang buas atau takut kepada bencana alam. Takut kepada Allah adalah rasa takut yang disertai pengagungan, penghormatan, dan kecintaan. Ia mendorong pemiliknya untuk menjalankan perintah Allah dan menjauhi larangan-Nya. Ia membuat pemiliknya selalu waspada dan tidak berani bermaksiat kepada Allah subhanahu wa ta'ala meskipun tidak ada seorang pun yang melihatnya." },

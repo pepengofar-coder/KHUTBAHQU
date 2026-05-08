@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const taqwa_5 = {
   id: 46,
@@ -8,7 +8,7 @@ export const taqwa_5 = {
   category: 'taqwa', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['taqwa', 'akhirat', 'bekal', 'kematian'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setiap perjalanan membutuhkan bekal. Semakin jauh perjalanannya, semakin banyak bekal yang diperlukan. Dan perjalanan yang paling jauh, paling panjang, dan paling menentukan dalam hidup kita adalah perjalanan menuju akhirat — perjalanan yang dimulai ketika ruh meninggalkan jasad dan tidak berakhir selama-lamanya. Untuk perjalanan ini, Allah subhanahu wa ta'ala telah menunjukkan bekal yang terbaik." },
@@ -40,7 +40,7 @@ export const taqwa_6 = {
   category: 'taqwa', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['taqwa', 'pekerjaan', 'bisnis', 'halal'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Sebagian besar waktu kita dihabiskan di tempat kerja — di kantor, di toko, di ladang, di pabrik, di pasar, atau di mana pun kita mencari rezeki. Jika takwa hanya kita amalkan di masjid saat shalat dan kita tinggalkan begitu keluar dari masjid, maka takwa kita belum sempurna. Takwa yang sesungguhnya adalah takwa yang menemani kita ke mana pun kita pergi, termasuk ke tempat kerja." },
@@ -72,7 +72,7 @@ export const taqwa_7 = {
   category: 'taqwa', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['taqwa', 'wasiat', 'nasihat', 'al-quran'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pernahkah kita merenungkan mengapa setiap khutbah Jumat selalu diawali dengan wasiat takwa? Mengapa khatib selalu mengingatkan tentang takwa di awal khutbahnya? Jawabannya adalah karena takwa merupakan wasiat Allah subhanahu wa ta'ala yang paling utama dan paling universal. Allah subhanahu wa ta'ala berfirman:" },

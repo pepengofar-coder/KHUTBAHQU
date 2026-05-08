@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ibadah_5 = {
   id: 80,
@@ -8,7 +8,7 @@ export const ibadah_5 = {
   category: 'ibadah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ibadah', 'manisnya-iman', 'lezat', 'cinta'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pernahkah kita memperhatikan orang yang sedang jatuh cinta? Seorang pemuda rela mendaki gunung atau menembus hujan badai demi menemui orang yang dicintainya. Perjalanan yang jauh terasa dekat, pengorbanan yang mahal terasa murah, dan rasa lelah seketika sirna ketika bertemu dengan sang pujaan hati. Mengapa demikian? Karena ada cinta (mahabbah) yang mengubah beban menjadi kenikmatan." },
@@ -40,7 +40,7 @@ export const ibadah_6 = {
   category: 'ibadah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ibadah', 'kematian', 'akhirat', 'kiamat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu fakta dalam kehidupan yang tidak bisa dibantah oleh siapa pun, baik oleh orang yang beriman maupun ateis, baik oleh orang kaya maupun miskin, raja maupun rakyat jelata. Fakta itu adalah: kita semua pasti akan mati. Kematian adalah gerbang kepastian yang mengakhiri semua sandiwara dunia dan memulai fase kehidupan akhirat yang abadi." },

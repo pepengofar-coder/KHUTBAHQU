@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const syukur_3 = {
   id: 171,
@@ -8,7 +8,7 @@ export const syukur_3 = {
   category: 'syukur', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['syukur', 'qanaah', 'hasad', 'iri', 'media-sosial', 'kebahagiaan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pernahkah kita merasa bahwa hidup ini begitu berat, rezeki terasa seret, dan kebahagiaan seolah menjauh dari rumah tangga kita? Padahal jika kita hitung secara matematis, gaji kita cukup untuk makan sehari-hari, anak-anak kita sehat bisa bersekolah, dan kita masih bisa tidur nyenyak di bawah atap yang tidak bocor. Lalu dari manakah datangnya perasaan 'sengsara' (kurang bahagia) itu?" },
@@ -43,7 +43,7 @@ export const syukur_4 = {
   category: 'syukur', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['syukur', 'sujud-syukur', 'kesuksesan', 'adab', 'kemenangan', 'sunnah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Reaksi (respons) manusia ketika mendapatkan sebuah kemenangan besar atau kejutan kebahagiaan (seperti lulus ujian, diterima kerja, atau selamat dari kecelakaan maut) sangatlah beragam. Ada manusia yang bereaksi dengan berteriak histeris, ada yang melompat kegirangan, ada yang melakukan pesta pora (bahkan meminum khamar), dan ada pula yang menangis." },

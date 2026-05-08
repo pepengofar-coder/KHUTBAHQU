@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const sosial_9 = {
   id: 157,
@@ -8,7 +8,7 @@ export const sosial_9 = {
   category: 'sosial', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['sosial', 'wanita', 'kehormatan', 'hijab', 'pandangan', 'media-sosial', 'akhlak'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Sebelum cahaya Islam datang menyinari jazirah Arab, kaum perempuan hidup dalam peradaban jahiliyah (kebodohan) yang sangat kelam. Wanita dianggap tidak lebih dari sekadar barang warisan (properti) yang bisa diperjualbelikan, dan anak perempuan yang baru lahir sering kali dikubur hidup-hidup (wa'dul banat) karena dianggap membawa aib bagi keluarga." },
@@ -43,7 +43,7 @@ export const sosial_10 = {
   category: 'sosial', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['sosial', 'lingkungan', 'kebersihan', 'iman', 'gotong-royong', 'sampah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah slogan (ungkapan) Arab yang sangat populer dan sering ditempel di dinding-dinding madrasah atau masjid kita sejak kita masih kecil. Ungkapan itu berbunyi: 'An-Nazhafatu minal Iman' (Kebersihan adalah sebagian dari iman). Meskipun secara sanad (jalur periwayatan) ungkapan tersebut dinilai dhaif (lemah) oleh para ahli hadis, namun secara substansi dan makna, ia sangat sejalan dan didukung kuat oleh Al-Qur'an dan Sunnah." },

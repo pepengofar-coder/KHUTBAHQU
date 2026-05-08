@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k23 = {
   id: 23, title: 'Indahnya Ukhuwah Islamiyah: Persaudaraan Sesama Muslim', slug: 'indahnya-ukhuwah-islamiyah',
@@ -6,7 +6,7 @@ export const k23 = {
   category: 'social', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['ukhuwah', 'persaudaraan', 'sesama-muslim', 'silaturahmi'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang sangat menekankan pentingnya persaudaraan dan persatuan di antara sesama muslim. Allah subhanahu wa ta'ala menegaskan bahwa seluruh orang beriman adalah saudara:" },
@@ -37,7 +37,7 @@ export const k24 = {
   category: 'quran', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['quran', 'tilawah', 'tadabbur', 'hafalan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala telah menurunkan Al-Qur'an sebagai petunjuk bagi seluruh umat manusia. Al-Qur'an adalah kalamullah, firman Allah subhanahu wa ta'ala yang mulia, yang tidak datang kepadanya kebathilan dari depan maupun dari belakang. Ia adalah mukjizat terbesar yang diberikan kepada Nabi Muhammad shallallahu 'alaihi wasallam." },

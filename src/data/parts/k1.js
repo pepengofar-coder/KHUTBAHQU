@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k1 = {
   id: 1, title: 'Keutamaan Menjaga Lisan', slug: 'keutamaan-menjaga-lisan',
@@ -6,7 +6,7 @@ export const k1 = {
   category: 'akhlak', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['lisan', 'adab', 'ghibah'], createdAt: '2026-05-02',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala, dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya. Sebagaimana firman Allah subhanahu wa ta'ala:" },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada kesempatan yang mulia ini, khatib ingin mengajak diri khatib sendiri dan seluruh jamaah untuk merenungkan satu perkara yang sering kita remehkan, namun dampaknya sangat besar di sisi Allah subhanahu wa ta'ala, yaitu menjaga lisan." },

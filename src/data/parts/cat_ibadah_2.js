@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ibadah_3 = {
   id: 78,
@@ -8,7 +8,7 @@ export const ibadah_3 = {
   category: 'ibadah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ibadah', 'istiqamah', 'iman', 'konsisten'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Salah satu tantangan terbesar bagi seorang Muslim bukanlah saat ia berhijrah atau memulai ketaatan baru, melainkan bagaimana ia mempertahankan ketaatan tersebut hingga akhir hayatnya. Berapa banyak kita melihat saudara kita—atau bahkan diri kita sendiri—yang di awal Ramadhan begitu bersemangat memenuhi shaf masjid, namun di akhir Ramadhan semangat itu pudar? Berapa banyak yang berniat menghafal Al-Qur'an, tapi berhenti di tengah jalan? Berapa banyak yang rajin shalat berjamaah, lalu perlahan kembali meninggalkannya?" },
@@ -42,7 +42,7 @@ export const ibadah_4 = {
   category: 'ibadah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ibadah', 'syukur', 'sabar', 'ujian'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan di dunia ini bagaikan roda yang terus berputar. Tidak selamanya kita berada di puncak kelapangan, kesehatan, dan kekayaan. Dan tidak pula selamanya kita berada di lembah kesempitan, kesakitan, dan kemiskinan. Keduanya silih berganti menghampiri setiap anak manusia. Namun bagi seorang mukmin yang sejati, pergantian kondisi ini tidak mengubah rutinitas penghambaannya kepada Allah." },

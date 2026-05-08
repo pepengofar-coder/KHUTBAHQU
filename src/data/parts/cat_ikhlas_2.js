@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ikhlas_3 = {
   id: 60,
@@ -8,7 +8,7 @@ export const ikhlas_3 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ikhlas', 'sedekah', 'tersembunyi', 'infaq'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di antara amal yang paling dicintai Allah subhanahu wa ta'ala adalah sedekah. Namun nilai sedekah di sisi Allah tidak diukur dari jumlahnya, melainkan dari keikhlasan pelakunya. Sedekah seribu rupiah yang dilakukan dengan ikhlas bisa lebih bernilai di sisi Allah daripada sedekah jutaan rupiah yang dilakukan karena riya dan ingin dipuji manusia." },
@@ -41,7 +41,7 @@ export const ikhlas_4 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ikhlas', 'ilmu', 'menuntut-ilmu', 'niat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Menuntut ilmu agama adalah ibadah yang sangat mulia dan merupakan kewajiban bagi setiap muslim. Namun seperti ibadah-ibadah lainnya, ilmu agama juga membutuhkan keikhlasan agar bernilai di sisi Allah subhanahu wa ta'ala. Ilmu yang diniatkan bukan karena Allah tidak hanya tidak bernilai, tetapi justru bisa menjadi bencana bagi pemiliknya di hari kiamat." },

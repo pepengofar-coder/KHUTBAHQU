@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const sosial_5 = {
   id: 153,
@@ -8,7 +8,7 @@ export const sosial_5 = {
   category: 'sosial', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['sosial', 'bakhil', 'pelit', 'harta', 'zakat', 'sedekah', 'penyakit-hati'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu penyakit hati (penyakit ruhani) yang daya hancurnya terhadap kehidupan sosial dan keimanan sangatlah fatal. Penyakit ini sering kali tidak disadari oleh pengidapnya, karena iblis mengemas penyakit ini dengan topeng 'hemat' atau 'manajemen finansial untuk masa depan'. Penyakit tersebut bernama Bakhil alias Pelit (Kikir)." },
@@ -41,7 +41,7 @@ export const sosial_6 = {
   category: 'sosial', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['sosial', 'menjenguk', 'sakit', 'hak-muslim', 'adab', 'empati', 'pahala'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam adalah agama yang sangat menjunjung tinggi nilai-nilai kasih sayang dan empati di tengah-tengah masyarakat. Salah satu wujud nyata dari empati sosial tersebut adalah syariat yang memerintahkan kita untuk saling mengunjungi (Iyadah) ketika ada saudara atau tetangga yang sedang jatuh sakit." },

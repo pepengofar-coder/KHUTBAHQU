@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const family_5 = {
   id: 97,
@@ -8,7 +8,7 @@ export const family_5 = {
   category: 'family', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['keluarga', 'fitnah', 'aqidah', 'perlindungan', 'akhir-zaman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kita saat ini hidup di akhir zaman, di mana fitnah (ujian dan kerusakan) datang silih berganti bagaikan potongan malam yang gelap gulita. Fitnah tersebut tidak lagi datang mengetuk pintu rumah kita secara sopan, melainkan menerobos masuk ke dalam kamar tidur anak-anak kita melalui layar gawai (smartphone) yang berada dalam genggaman mereka." },
@@ -41,7 +41,7 @@ export const family_6 = {
   category: 'family', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['keluarga', 'rezeki', 'halal', 'nafkah', 'berkah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kewajiban utama seorang laki-laki setelah menikah adalah memikul tanggung jawab sebagai tulang punggung keluarga. Setiap tetes keringat yang dikeluarkan seorang suami atau bapak dalam mencari nafkah untuk anak dan istrinya akan bernilai pahala jihad di sisi Allah subhanahu wa ta'ala, asalkan memenuhi satu syarat mutlak: nafkah tersebut dicari dan didapatkan dari jalan yang halal." },

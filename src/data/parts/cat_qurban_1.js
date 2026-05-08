@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const qurban_1 = {
   id: 129,
@@ -8,7 +8,7 @@ export const qurban_1 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'taqarrub', 'ketaatan', 'mendekatkan-diri'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Secara etimologi (asal usul bahasa), kata 'Qurban' berasal dari bahasa Arab 'qaruba - yaqrubu - qurbanan' yang memiliki arti 'dekat'. Oleh karena itu, ibadah menyembelih hewan pada Hari Raya Idul Adha disebut dengan Qurban, karena ibadah ini adalah sebuah wasilah (sarana) yang paling efektif untuk mendekatkan diri kita (Taqarrub) kepada Allah subhanahu wa ta'ala." },
@@ -42,7 +42,7 @@ export const qurban_2 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'penyembelihan', 'adab', 'hewan', 'rahmatan-lil-alamin'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Islam diturunkan sebagai 'Rahmatan lil 'Alamin', rahmat bagi seluruh alam semesta, bukan hanya rahmat bagi umat manusia. Kasih sayang syariat Islam menjangkau seluruh makhluk, termasuk tumbuh-tumbuhan dan hewan-hewan. Hal ini sangat nyata terlihat dari betapa detailnya Rasulullah shallallahu 'alaihi wasallam mengatur etika (adab) dalam pelaksanaan ibadah kurban (penyembelihan)." },

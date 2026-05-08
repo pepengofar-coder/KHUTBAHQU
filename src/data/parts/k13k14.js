@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k13 = {
   id: 13, title: 'Mengenal Tauhid: Fondasi Keimanan Seorang Muslim', slug: 'mengenal-tauhid-fondasi-keimanan',
@@ -6,7 +6,7 @@ export const k13 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['tauhid', 'aqidah', 'iman', 'syirik'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala, dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada kesempatan yang mulia ini, khatib ingin mengajak kita semua untuk merenungkan perkara yang paling agung dan paling fundamental dalam agama Islam, yaitu tauhid. Tauhid adalah mengesakan Allah subhanahu wa ta'ala dalam beribadah, tidak menyekutukan-Nya dengan sesuatu apa pun. Tauhid adalah inti dari dakwah seluruh nabi dan rasul, dari Nabi Adam 'alaihissalam hingga Nabi Muhammad shallallahu 'alaihi wasallam." },
@@ -39,7 +39,7 @@ export const k14 = {
   category: 'shalat', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['shalat', 'ibadah', 'istiqamah', 'tiang-agama'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada hari yang mulia ini, khatib ingin mengajak kita untuk membahas tentang satu ibadah yang paling agung kedudukannya dalam Islam, yaitu shalat. Shalat adalah tiang agama. Ia adalah pembeda antara seorang muslim dengan orang kafir. Ia adalah amalan pertama yang akan dihisab pada hari kiamat. Tanpa shalat, bangunan agama seseorang akan runtuh." },

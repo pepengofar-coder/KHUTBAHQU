@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const dzulhijjah_5 = {
   id: 123,
@@ -8,7 +8,7 @@ export const dzulhijjah_5 = {
   category: 'dzulhijjah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['dzulhijjah', 'haji', 'mabrur', 'ihram', 'wukuf', 'kesombongan', 'mahsyar'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Rukun Islam kelima, ibadah Haji, merupakan ibadah puncak yang memadukan (menggabungkan) pengorbanan fisik, harta, dan waktu secara bersamaan. Jutaan umat Islam dari seluruh penjuru dunia—dengan perbedaan bahasa, warna kulit, budaya, dan status sosial—berbondong-bondong merespons panggilan (talbiyah) dari Tuhannya untuk berhimpun di tanah suci Makkah Al-Mukarramah." },
@@ -40,7 +40,7 @@ export const dzulhijjah_6 = {
   category: 'dzulhijjah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['dzulhijjah', 'hajar', 'ibrahim', 'tawakal', 'makkah', 'sai', 'ikhtiar'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika kita membicarakan bulan Dzulhijjah dan sejarah berdirinya Ka'bah, pikiran kita selalu tertuju pada kepemimpinan dan kehebatan spiritual Nabi Ibrahim 'alaihissalam. Namun, di balik kebesaran nama Ibrahim, ada sosok 'Pahlawan Tanpa Tanda Jasa' (unsung hero) yang merupakan pilar utama kesuksesan lahirnya peradaban baru di lembah Makkah. Sosok tersebut adalah seorang wanita tangguh, seorang ibu yang penuh ketawakalan, yaitu Siti Hajar radhiyallahu 'anha." },

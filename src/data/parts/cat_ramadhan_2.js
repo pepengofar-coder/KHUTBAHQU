@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ramadhan_3 = {
   id: 111,
@@ -8,7 +8,7 @@ export const ramadhan_3 = {
   category: 'ramadhan', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ramadhan', 'quran', 'tilawah', 'syafaat', 'tadabbur'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika kita merujuk pada ayat-ayat suci Al-Qur'an, kita akan menemukan sebuah fakta yang sangat menarik. Ketika Allah subhanahu wa ta'ala pertama kali memperkenalkan bulan Ramadhan di dalam Surat Al-Baqarah ayat 185, Allah tidak memulainya dengan menyebutkan syariat puasa, melainkan Allah memulainya dengan menyebutkan keistimewaan bulan tersebut sebagai bulan diturunkannya Al-Qur'an." },
@@ -40,7 +40,7 @@ export const ramadhan_4 = {
   category: 'ramadhan', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ramadhan', 'tarawih', 'qiyamul-lail', 'shalat-malam', 'ampunan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Syariat Islam telah merancang kurikulum ibadah di bulan Ramadhan dengan sangat sempurna dan seimbang. Jika di siang hari kita diwajibkan untuk menahan hawa nafsu (puasa/shiyam), maka di malam harinya kita sangat dianjurkan untuk menghidupkan waktu dengan ibadah shalat malam (qiyam). Keduanya ibarat dua sayap burung yang akan menerbangkan derajat seorang hamba menuju puncak ketakwaan." },

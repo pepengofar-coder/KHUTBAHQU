@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k15 = {
   id: 15, title: 'Ikhlas: Syarat Diterimanya Setiap Amal', slug: 'ikhlas-syarat-diterimanya-amal',
@@ -6,7 +6,7 @@ export const k15 = {
   category: 'ibadah', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['ikhlas', 'niat', 'amal', 'riya'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala, dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada khutbah kali ini, khatib ingin mengajak kita semua untuk membahas tentang perkara yang menjadi syarat utama diterimanya setiap amal ibadah, yaitu ikhlas. Ikhlas adalah memurnikan niat dalam beribadah, menjadikan seluruh amal semata-mata karena Allah subhanahu wa ta'ala, bukan karena tujuan duniawi, bukan karena ingin dipuji manusia, dan bukan karena mengharapkan balasan dari makhluk." },
@@ -39,7 +39,7 @@ export const k16 = {
   category: 'taubat', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['taubat', 'istighfar', 'ampunan', 'dosa'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setiap manusia pasti pernah berbuat dosa dan kesalahan. Tidak ada manusia yang ma'shum — terjaga dari dosa — kecuali para nabi dan rasul. Namun Allah subhanahu wa ta'ala dengan rahmat-Nya yang sangat luas telah membuka pintu taubat bagi setiap hamba yang mau kembali kepada-Nya." },

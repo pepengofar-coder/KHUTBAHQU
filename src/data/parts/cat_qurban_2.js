@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const qurban_3 = {
   id: 131,
@@ -8,7 +8,7 @@ export const qurban_3 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'syiar', 'bakhil', 'kikir', 'harta'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Agama Islam memiliki syiar-syiar (simbol-simbol keagungan) yang harus dihidupkan, dihormati, dan diagungkan oleh setiap pemeluknya. Adzan yang berkumandang lima waktu di masjid adalah syiar Islam. Pakaian hijab bagi muslimah adalah syiar Islam. Dan di bulan Dzulhijjah ini, menyembelih hewan kurban (unta, sapi, domba, atau kambing) di tanah lapang atau pelataran masjid adalah salah satu syiar Islam yang paling agung." },
@@ -43,7 +43,7 @@ export const qurban_4 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'fikih', 'syarat-sah', 'hewan', 'cacat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ibadah kurban (Udhiyah) adalah ibadah Mahdhah, yaitu ibadah yang tata caranya (kaifiat), waktu pelaksanaannya, dan syarat rukunnya telah ditentukan secara mutlak dan terperinci oleh syariat (Tauqifiyah). Kita tidak boleh menggunakan akal-akalan (ijtihad bebas) dalam melaksanakan ibadah ini. Misalnya, kita tidak boleh berkurban dengan ayam meskipun ayamnya berjumlah seribu ekor, dan kita tidak boleh menyembelih hewan kurban pada bulan Ramadhan." },

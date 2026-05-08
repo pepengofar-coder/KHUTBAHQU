@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const shalat_3 = {
   id: 51,
@@ -8,7 +8,7 @@ export const shalat_3 = {
   category: 'shalat', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['shalat', 'berjamaah', 'masjid', 'keutamaan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di antara nikmat Allah subhanahu wa ta'ala yang sangat besar adalah nikmat bisa hadir di masjid dan menunaikan shalat berjamaah. Tidak semua orang mendapatkan nikmat ini. Ada yang sakit sehingga tidak bisa datang ke masjid. Ada yang terjebak di daerah yang tidak ada masjidnya. Ada yang tertahan oleh kesibukan dunia sehingga melewatkan jamaah. Dan ada pula yang — na'udzu billah — memiliki masjid di dekatnya namun ia malas untuk mendatanginya." },
@@ -42,7 +42,7 @@ export const shalat_4 = {
   category: 'shalat', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['tahajud', 'qiyamul-lail', 'shalat-malam', 'sunnah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di sepertiga malam terakhir, ketika kebanyakan manusia sedang terlelap dalam tidurnya, ada hamba-hamba Allah yang bangun, mengambil wudhu, menggelar sajadah, dan berdiri menghadap Rabb-nya. Mereka bermunajat dengan air mata, mereka membaca Al-Qur'an dengan suara lirih, mereka bersujud dan memohon ampunan. Mereka adalah para penghuni malam, para pelaku qiyamul lail, para pencari cinta Allah di keheningan malam." },

@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const qurban_9 = {
   id: 137,
@@ -8,7 +8,7 @@ export const qurban_9 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'perusahaan', 'instansi', 'csr', 'kolektif', 'fikih'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Seiring dengan perkembangan zaman dan meningkatnya kesadaran beragama di dunia kerja, muncul sebuah tren positif di kalangan perusahaan (korporasi), BUMN, maupun instansi pemerintahan. Setiap kali menjelang Idul Adha, perusahaan-perusahaan ini mengeluarkan dana khusus (biasanya dari dana CSR/Corporate Social Responsibility) untuk membeli puluhan ekor sapi. Sapi-sapi ini kemudian disembelih dan dibagikan kepada warga sekitar pabrik atau kantor." },
@@ -42,7 +42,7 @@ export const qurban_10 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'kesombongan', 'ujub', 'spiritual', 'ibadah', 'ikhlas'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setelah kita melewati hari raya Idul Adha dan berhasil menunaikan ibadah kurban, ada satu penyakit hati (virus) yang sangat berbahaya dan sering kali menyerang para pelaku kebaikan. Virus ini bergerak sangat halus (invisible), tidak berbau, tidak bersuara, namun daya hancurnya mampu menghanguskan pahala kurban seberat satu ton sapi limousin menjadi abu debu yang tak tersisa di akhirat." },

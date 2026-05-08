@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ikhlas_5 = {
   id: 62,
@@ -8,7 +8,7 @@ export const ikhlas_5 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ikhlas', 'dakwah', 'amar-maruf', 'nahi-munkar'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Dakwah adalah tugas mulia yang diemban oleh para nabi dan rasul. Dan setiap muslim memiliki kewajiban untuk berdakwah sesuai kemampuannya — menyampaikan kebenaran dan mencegah kemungkaran. Namun dakwah, seperti ibadah lainnya, tidak akan bernilai di sisi Allah jika tidak disertai dengan keikhlasan." },
@@ -40,7 +40,7 @@ export const ikhlas_6 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['niat', 'ikhlas', 'mujahadah', 'hati'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di antara perjuangan batin yang paling berat bagi seorang muslim adalah menjaga niat agar tetap ikhlas. Niat tidak seperti batu yang kokoh dan tidak berubah. Niat lebih seperti air yang terus mengalir dan bisa berubah arah kapan saja. Di awal amal, niat bisa ikhlas. Tetapi di tengah amal, niat bisa berubah menjadi riya. Atau sebaliknya, di awal niatnya kurang baik, tetapi kemudian diperbaiki menjadi ikhlas." },

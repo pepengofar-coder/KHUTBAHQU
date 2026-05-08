@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k27 = {
   id: 27, title: 'Keutamaan Sepuluh Hari Pertama Bulan Dzulhijjah', slug: 'keutamaan-sepuluh-hari-dzulhijjah',
@@ -6,7 +6,7 @@ export const k27 = {
   category: 'hajj', type: 'khutbah-jumat', duration: 10, occasion: 'Dzulhijjah',
   tags: ['dzulhijjah', 'amal-saleh', 'puasa-arafah', 'haji'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kita sedang berada di hari-hari yang sangat mulia, yaitu sepuluh hari pertama bulan Dzulhijjah. Allah subhanahu wa ta'ala bersumpah dengan hari-hari ini dalam Al-Qur'an, dan Allah tidak bersumpah kecuali dengan sesuatu yang sangat agung:" },
@@ -36,7 +36,7 @@ export const k28 = {
   category: 'jumat', type: 'khutbah-jumat', duration: 10, occasion: 'Jumat',
   tags: ['jumat', 'sayyidul-ayyam', 'adab', 'shalat-jumat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ketahuilah bahwa hari ini, hari Jumat, adalah hari terbaik yang matahari pernah terbit padanya. Rasulullah shallallahu 'alaihi wasallam bersabda:" },

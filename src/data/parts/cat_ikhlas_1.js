@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ikhlas_1 = {
   id: 58,
@@ -8,7 +8,7 @@ export const ikhlas_1 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['ikhlas', 'niat', 'amal', 'riya'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di antara perkara yang paling penting dalam agama ini adalah ikhlas. Ikhlas adalah ruh dari setiap amal ibadah. Tanpa ikhlas, amal ibadah menjadi seperti jasad tanpa ruh — ada bentuknya tetapi tidak ada nilainya. Seseorang bisa shalat ribuan rakaat, berpuasa sepanjang tahun, bersedekah dengan hartanya yang berlimpah, tetapi jika semua itu tidak dilakukan dengan ikhlas karena Allah, maka semuanya akan sia-sia dan tidak memiliki nilai sedikitpun di sisi Allah subhanahu wa ta'ala." },
@@ -43,7 +43,7 @@ export const ikhlas_2 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['riya', 'ikhlas', 'syirik-kecil', 'niat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Rasulullah shallallahu 'alaihi wasallam pernah menyampaikan sesuatu yang membuat para sahabat sangat khawatir. Beliau bersabda:" },

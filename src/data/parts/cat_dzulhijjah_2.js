@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const dzulhijjah_3 = {
   id: 121,
@@ -8,7 +8,7 @@ export const dzulhijjah_3 = {
   category: 'dzulhijjah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['dzulhijjah', 'ibrahim', 'ismail', 'pengorbanan', 'idul-adha', 'taat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setiap kali bulan Dzulhijjah tiba dan Idul Adha menjelang, ingatan umat Islam seluruh dunia akan ditarik kembali ribuan tahun ke belakang, menembus lorong waktu menuju padang pasir tandus di Jazirah Arab. Di sanalah terukir sebuah sejarah pengorbanan paling fenomenal yang pernah dilakukan oleh umat manusia, yaitu kisah bapaknya para Nabi, Ibrahim 'alaihissalam, dan putra tercintanya, Ismail 'alaihissalam." },
@@ -41,7 +41,7 @@ export const dzulhijjah_4 = {
   category: 'dzulhijjah', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['dzulhijjah', 'qurban', 'idul-adha', 'sifat-kebinatangan', 'takwa', 'daging'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Pada hari raya Idul Adha (tanggal 10 Dzulhijjah) dan tiga hari Tasyrik setelahnya (11, 12, 13 Dzulhijjah), umat Islam di seluruh dunia disyariatkan untuk melaksanakan ibadah menyembelih hewan kurban (Udhiyah). Bagi yang mampu (memiliki kelapangan rezeki), ibadah kurban ini hukumnya adalah sunnah muakkadah (sangat ditekankan), bahkan sebagian ulama seperti Imam Abu Hanifah mewajibkannya." },

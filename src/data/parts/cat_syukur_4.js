@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const syukur_7 = {
   id: 175,
@@ -8,7 +8,7 @@ export const syukur_7 = {
   category: 'syukur', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['syukur', 'musibah', 'sabar', 'ujian', 'dosa', 'kafarah', 'teguran'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kehidupan di dunia ini tidak didesain oleh Allah sebagai tempat liburan (zona nyaman) tanpa masalah. Sunnatullah (hukum alam) telah menetapkan bahwa roda kehidupan akan selalu berputar silih berganti antara sedih dan bahagia, sehat dan sakit, kaya dan miskin. Allah subhanahu wa ta'ala dengan tegas menyatakan bahwa ujian (musibah) adalah kurikulum wajib bagi setiap orang yang mengaku beriman." },
@@ -43,7 +43,7 @@ export const syukur_8 = {
   category: 'syukur', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['syukur', 'hidayah', 'islam', 'iman', 'nikmat', 'tauhid', 'kaya'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika hari ini ada lembaga survei yang turun ke jalan raya, lalu mereka mewawancarai secara acak umat Islam dengan satu pertanyaan: 'Nikmat apakah yang paling berharga (paling besar) yang pernah Anda terima dalam hidup ini?' Maka bisa dipastikan, mayoritas jawaban akan berputar pada urusan materi jasmani." },

@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const qurban_7 = {
   id: 135,
@@ -8,7 +8,7 @@ export const qurban_7 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'utang', 'arisan', 'fikih', 'kemampuan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Syariat Islam dibangun di atas fondasi kemudahan (Taisir) dan peniadaan kesulitan (Raf'ul Haraj). Allah subhanahu wa ta'ala tidak pernah membebani hamba-Nya di luar batas kesanggupannya. Kaidah ini sangat jelas teraplikasi dalam ibadah kurban (Udhiyah). Para ulama telah sepakat bahwa syarat mutlak dianjurkannya (disunnahkannya) berkurban adalah adanya 'Istitha'ah' atau kemampuan (kelapangan) harta." },
@@ -41,7 +41,7 @@ export const qurban_8 = {
   category: 'qurban', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['qurban', 'idul-adha', 'distribusi', 'tetangga', 'miskin', 'fikih', 'prioritas'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Tahap akhir dari ibadah kurban—yang seringkali dipenuhi dengan peluh keringat dan dinamika kepanitiaan—adalah pendistribusian (pembagian) daging hewan kurban. Proses distribusi ini tidak kalah pentingnya (krusial) dibandingkan proses penyembelihan itu sendiri. Jika penyembelihannya sah sesuai sunnah, namun cara pembagiannya salah, tidak adil, atau menimbulkan keributan, maka nilai pahala kurban bisa terkikis habis." },

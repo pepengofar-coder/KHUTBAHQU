@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ramadhan_5 = {
   id: 113,
@@ -8,7 +8,7 @@ export const ramadhan_5 = {
   category: 'ramadhan', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ramadhan', 'sedekah', 'dermawan', 'kikir', 'harta'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada satu penyakit hati yang sangat dibenci oleh Allah dan Rasul-Nya, yaitu sifat kikir (bakhil). Penyakit kikir bukan hanya tentang keengganan seseorang untuk mengeluarkan harta demi kebaikan (pelit), melainkan juga mengandung unsur rasa tidak percaya (su'udzon) kepada janji ganti dari Allah. Orang kikir selalu merasa khawatir hartanya akan berkurang jika disedekahkan, padahal matematika sedekah dalam Islam adalah tentang penambahan dan pelipatgandaan." },
@@ -41,7 +41,7 @@ export const ramadhan_6 = {
   category: 'ramadhan', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ramadhan', 'lailatul-qadar', 'malam-mulia', 'itikaf', 'seribu-bulan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala telah memuliakan umat Nabi Muhammad dengan sebuah anugerah agung yang tidak pernah diberikan kepada umat-umat nabi terdahulu. Pada zaman Bani Israil, umur manusia sangatlah panjang (bisa mencapai ratusan tahun). Mereka bisa beribadah dan berjihad hingga puluhan tahun. Ketika para sahabat Nabi mendengar hal ini, mereka merasa sedih karena umur umat Muhammad sangatlah pendek (rata-rata hanya 60 hingga 70 tahun). Tentu pahala yang didapat tidak akan bisa menandingi pahala umat terdahulu." },

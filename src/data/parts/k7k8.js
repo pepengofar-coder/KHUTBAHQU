@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k7 = {
   id: 7, title: 'Keutamaan Bulan Muharram dan Puasa Asyura', slug: 'keutamaan-bulan-muharram',
@@ -6,7 +6,7 @@ export const k7 = {
   category: 'muharram', type: 'khutbah-jumat', duration: 9, occasion: '1 Muharram',
   tags: ['muharram', 'asyura', 'puasa'], createdAt: '2026-04-05',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kita kini berada di bulan Muharram, salah satu bulan yang Allah subhanahu wa ta'ala muliakan. Allah subhanahu wa ta'ala berfirman:" },
@@ -33,7 +33,7 @@ export const k8 = {
   category: 'maulid', type: 'khutbah-jumat', duration: 10, occasion: 'Maulid Nabi',
   tags: ['maulid', 'akhlak', 'rasulullah'], createdAt: '2026-03-20',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Allah subhanahu wa ta'ala telah mengutus kepada kita seorang rasul yang mulia, yang menjadi teladan sempurna dalam segala aspek kehidupan. Allah subhanahu wa ta'ala berfirman tentang beliau:" },

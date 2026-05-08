@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const taqwa_3 = {
   id: 44,
@@ -8,7 +8,7 @@ export const taqwa_3 = {
   category: 'taqwa', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['taqwa', 'keluarga', 'rumah-tangga', 'pendidikan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Takwa kepada Allah subhanahu wa ta'ala harus termanifestasi dalam seluruh aspek kehidupan kita, termasuk dan terutama dalam kehidupan berkeluarga. Keluarga adalah unit terkecil dari masyarakat, dan ia merupakan madrasah pertama bagi generasi penerus umat. Jika keluarga dibangun di atas fondasi takwa, maka akan lahir generasi yang bertakwa. Dan jika keluarga jauh dari takwa, maka akan lahir generasi yang jauh dari Allah subhanahu wa ta'ala." },
@@ -41,7 +41,7 @@ export const taqwa_4 = {
   category: 'taqwa', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['taqwa', 'fitnah', 'zaman', 'istiqamah'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Kita hidup di zaman yang oleh Rasulullah shallallahu 'alaihi wasallam disebut sebagai zaman fitnah. Fitnah datang silih berganti, dari berbagai arah, dalam berbagai bentuk. Ada fitnah syubhat yang mengacaukan pemahaman agama, ada fitnah syahwat yang menarik kepada kemaksiatan, ada fitnah harta yang membutakan mata hati, ada fitnah teknologi yang membuka pintu-pintu keburukan, dan ada fitnah lingkungan sosial yang menormalisasi kemungkaran." },

@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const tauhid_5 = {
   id: 37,
@@ -8,7 +8,7 @@ export const tauhid_5 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['mahabbah', 'cinta-allah', 'tauhid', 'ibadah-hati'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita senantiasa meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala, dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya, baik di saat ramai maupun di saat sendiri, baik di saat lapang maupun di saat sempit." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di antara ibadah hati yang paling agung dan paling mulia di sisi Allah subhanahu wa ta'ala adalah mahabbah — cinta kepada Allah subhanahu wa ta'ala. Para ulama menyebutkan bahwa ibadah itu dibangun di atas tiga pilar utama: cinta (mahabbah), takut (khauf), dan harapan (raja). Dan di antara ketiganya, cinta adalah yang paling utama dan paling tinggi kedudukannya. Ia adalah ruh dari ibadah, inti dari tauhid, dan hakikat dari penghambaan kepada Allah subhanahu wa ta'ala." },
@@ -43,7 +43,7 @@ export const tauhid_6 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['asmaul-husna', 'sifat-allah', 'tauhid', 'iman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di antara ilmu yang paling mulia dan paling utama dalam Islam adalah ilmu tentang Allah subhanahu wa ta'ala — mengenal-Nya melalui nama-nama-Nya yang indah dan sifat-sifat-Nya yang sempurna. Ilmu ini merupakan fondasi dari seluruh ilmu agama, karena semakin seseorang mengenal Allah, semakin kuat keimanannya, semakin dalam kecintaannya, semakin besar rasa takutnya, dan semakin sempurna peribadatannya." },

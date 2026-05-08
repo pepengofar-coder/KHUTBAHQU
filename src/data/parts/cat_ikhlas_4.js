@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ikhlas_7 = {
   id: 64,
@@ -8,7 +8,7 @@ export const ikhlas_7 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['sumah', 'riya', 'ikhlas', 'hati'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setelah membahas tentang riya — beramal agar dilihat manusia — pada kesempatan ini khatib ingin membahas saudara kembarnya yang sama berbahayanya, yaitu sum'ah. Sum'ah adalah beramal agar didengar oleh manusia. Jika riya berkaitan dengan penglihatan, maka sum'ah berkaitan dengan pendengaran. Orang yang riya ingin amalnya dilihat, sedangkan orang yang sum'ah ingin amalnya didengar dan dibicarakan oleh orang lain." },
@@ -40,7 +40,7 @@ export const ikhlas_8 = {
   category: 'ikhlas', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ujub', 'ikhlas', 'sombong', 'tawadhu'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Setelah kita membahas tentang riya dan sum'ah, ada satu lagi penyakit hati yang sangat berbahaya bagi keikhlasan, yaitu ujub. Ujub adalah rasa kagum dan bangga terhadap diri sendiri atas amal ibadah yang telah dilakukan. Bedanya dengan riya: riya ingin orang lain kagum terhadap amalnya, sedangkan ujub adalah ia sendiri yang kagum terhadap amalnya. Ujub bisa terjadi meskipun seseorang beramal tanpa dilihat siapapun." },

@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const kematian_3 = {
   id: 161,
@@ -8,7 +8,7 @@ export const kematian_3 = {
   category: 'kematian', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['kematian', 'akhirat', 'husnul-khatimah', 'suul-khatimah', 'syahid', 'keringat'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika ada satu doa yang paling sering dipanjatkan oleh lisan seorang muslim sepanjang hidupnya, mulai dari orang awam hingga ulama besar, doa itu adalah permohonan agar diwafatkan dalam keadaan 'Husnul Khatimah' (Akhir yang baik). Mengapa akhir perjalanan ini begitu penting? Karena Rasulullah shallallahu 'alaihi wasallam menegaskan bahwa keselamatan seseorang tidak dinilai dari awal kehidupannya, melainkan ditentukan oleh detik-detik terakhir nafasnya:" },
@@ -42,7 +42,7 @@ export const kematian_4 = {
   category: 'kematian', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['kematian', 'akhirat', 'roh', 'arwah', 'mitos', 'langit', 'barzakh'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Perkara tentang Ruh (Roh/Jiwa) adalah perkara gaib yang mutlak merupakan hak prerogatif ilmu Allah subhanahu wa ta'ala. Akal manusia yang terbatas tidak akan pernah sanggup menembus rahasia (dzat) ruh. Namun, melalui lisan yang mulia dari baginda Rasulullah shallallahu 'alaihi wasallam, kita diberikan sedikit bocoran (informasi) tentang apa yang akan dialami oleh roh kita setelah ia terlepas dari sangkar tubuh (jasad) saat kematian tiba." },

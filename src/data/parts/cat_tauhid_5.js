@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const tauhid_9 = {
   id: 41,
@@ -8,7 +8,7 @@ export const tauhid_9 = {
   category: 'tauhid', type: 'khutbah-jumat', duration: 14, occasion: 'Jumat',
   tags: ['husnuzhan', 'tauhid', 'prasangka-baik', 'iman'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala dengan menjalankan segala perintah-Nya dan menjauhi segala larangan-Nya, baik di saat kita dalam keadaan senang maupun di saat kita dalam keadaan sedih, baik di saat urusan kita lancar maupun di saat kita tertimpa musibah." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Di antara ibadah hati yang sangat penting dan sangat berpengaruh dalam kehidupan seorang muslim adalah husnuzhan billah — berbaik sangka kepada Allah subhanahu wa ta'ala. Husnuzhan billah artinya meyakini bahwa Allah subhanahu wa ta'ala selalu memberikan yang terbaik bagi hamba-Nya, bahwa di balik setiap ketentuan Allah ada hikmah yang agung, bahwa setiap musibah pasti disertai kemudahan, dan bahwa Allah tidak pernah menzalimi hamba-Nya sedikit pun." },

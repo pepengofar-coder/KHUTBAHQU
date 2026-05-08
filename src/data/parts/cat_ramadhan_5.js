@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const ramadhan_9 = {
   id: 117,
@@ -8,7 +8,7 @@ export const ramadhan_9 = {
   category: 'ramadhan', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ramadhan', 'puasa', 'hawa-nafsu', 'muraqabah', 'pengendalian-diri'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia diciptakan oleh Allah dengan dua unsur utama: akal (seperti malaikat) dan hawa nafsu (seperti hewan). Pertarungan antara akal yang menyeru kepada ketaatan dan hawa nafsu yang menyeru kepada kenikmatan syahwat adalah peperangan abadi yang terjadi di dalam batin setiap manusia. Jika hawa nafsu dibiarkan lepas tanpa kendali, maka manusia bisa menjadi makhluk yang derajatnya lebih rendah dan lebih buas daripada binatang ternak." },
@@ -41,7 +41,7 @@ export const ramadhan_10 = {
   category: 'ramadhan', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['ramadhan', 'idul-fitri', 'istiqamah', 'syawal', 'kemenangan', 'amal'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Waktu berlalu begitu cepat. Tidak terasa, bulan Ramadhan yang penuh berkah, rahmat, dan ampunan telah berpamitan meninggalkan kita. Ada rasa sedih di dalam dada orang-orang yang beriman karena berpisah dengan tamu agung ini, namun di saat yang sama ada rasa syukur dan bahagia karena kita telah menyelesaikannya dan merayakan hari kemenangan, Idul Fitri." },

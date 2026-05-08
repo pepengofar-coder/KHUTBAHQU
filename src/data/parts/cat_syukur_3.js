@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const syukur_5 = {
   id: 173,
@@ -8,7 +8,7 @@ export const syukur_5 = {
   category: 'syukur', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['syukur', 'terima-kasih', 'balas-budi', 'akhlak', 'manusia', 'kebaikan'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Syukur kepada Allah adalah pondasi utama keimanan. Namun, ada satu syarat (protokol) penting yang sering dilupakan oleh banyak orang dalam mempraktikkan syukur ini. Banyak orang yang rajin mengucapkan 'Alhamdulillah' siang dan malam, dan rajin bersujud syukur di masjid, namun secara bersamaan (paradoks) ibadah syukurnya itu DITOLAK mentah-mentah (tidak diakui) oleh Allah subhanahu wa ta'ala." },
@@ -43,7 +43,7 @@ export const syukur_6 = {
   category: 'syukur', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['syukur', 'sehat', 'waktu', 'umur', 'kelalaian', 'pemuda'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Jika kita bertanya kepada seorang pedagang (pebisnis) di pasar: 'Kondisi seperti apakah yang paling membuat Anda sedih dan merugi dalam berdagang?' Maka ia pasti akan menjawab: 'Saat saya membeli barang dengan harga sangat mahal (modal besar), namun ternyata saya tertipu (barangnya palsu) dan saya harus menjualnya kembali dengan harga yang sangat murah (banting harga), sehingga saya rugi besar (bangkrut).'" },

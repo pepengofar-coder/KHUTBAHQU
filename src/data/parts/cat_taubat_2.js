@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const taubat_3 = {
   id: 86,
@@ -8,7 +8,7 @@ export const taubat_3 = {
   category: 'taubat', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['taubat', 'ampunan', 'rahmat', 'gembira'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Manusia terkadang memandang sesamanya dengan kacamata yang sempit dan penuh penghakiman. Ketika seseorang dikenal sebagai pendosa atau mantan narapidana, masyarakat seringkali memberinya cap buruk (stigma) seumur hidup. Meskipun ia telah bertaubat, manusia seringkali sulit untuk melupakan masa lalunya, sulit memaafkan, dan enggan menerimanya kembali ke dalam pergaulan." },
@@ -41,7 +41,7 @@ export const taubat_4 = {
   category: 'taubat', type: 'khutbah-jumat', duration: 13, occasion: 'Jumat',
   tags: ['taubat', 'maut', 'kematian', 'taswif', 'menunda'], createdAt: '2026-05-06', status: 'published',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[2] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita bersama-sama meningkatkan ketakwaan kita kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Ada sebuah penyakit yang sangat mematikan, yang tidak menyerang organ fisik manusia, tidak pula bisa dideteksi oleh alat medis yang paling canggih sekalipun. Namun, penyakit ini telah membunuh masa depan jutaan manusia di akhirat kelak. Penyakit itu bernama 'Taswif', yang artinya suka menunda-nunda." },

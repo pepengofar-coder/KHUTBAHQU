@@ -1,4 +1,4 @@
-import { MUK_LENGKAP, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
+import { khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const k9 = {
   id: 9, title: 'Persiapan Menyambut Bulan Suci Ramadhan', slug: 'persiapan-menyambut-ramadan',
@@ -6,7 +6,7 @@ export const k9 = {
   category: 'ramadan', type: 'khutbah-jumat', duration: 9, occasion: 'Ramadan',
   tags: ['ramadan', 'puasa', 'persiapan'], createdAt: '2026-03-15',
   firstKhutbah: [
-    { type: 'opening', text: MUK_LENGKAP },
+    { type: 'opening', text: khutbahOpeningTemplates[1] },
     { type: 'paragraph', text: "Ma'asyiral muslimin jamaah shalat Jumat yang dirahmati Allah subhanahu wa ta'ala. Marilah kita meningkatkan ketakwaan kepada Allah subhanahu wa ta'ala." },
     { type: 'quran', arabic: WASIAT_TAQWA, translation: '"Wahai orang-orang yang beriman, bertakwalah kepada Allah dengan sebenar-benar takwa, dan janganlah kamu mati kecuali dalam keadaan Muslim."', ref: 'QS. Ali Imran: 102' },
     { type: 'paragraph', text: "Jamaah Jumat yang berbahagia. Tidak lama lagi kita akan kedatangan tamu agung, yaitu bulan suci Ramadhan. Bulan yang di dalamnya Allah subhanahu wa ta'ala menurunkan Al-Qur'an, bulan yang di dalamnya terdapat malam Lailatul Qadr yang lebih baik dari seribu bulan." },
@@ -35,6 +35,7 @@ export const k10 = {
   tags: ['qurban', 'idul-adha', 'pengorbanan'], createdAt: '2026-03-10',
   firstKhutbah: [
     { type: 'opening', text: 'اَللهُ أَكْبَرُ اَللهُ أَكْبَرُ اَللهُ أَكْبَرُ، لاَ إِلَهَ إِلاَّ اللهُ وَاللهُ أَكْبَرُ، اَللهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ' },
+    { type: 'opening', text: khutbahOpeningTemplates[0] },
     { type: 'paragraph', text: "Ma'asyiral muslimin, jamaah shalat Ied yang dirahmati Allah subhanahu wa ta'ala. Pada hari yang agung ini, kita berkumpul untuk merayakan Idul Adha, hari raya pengorbanan. Hari ini kita mengingat kisah agung Nabi Ibrahim 'alaihissalam yang diperintahkan oleh Allah subhanahu wa ta'ala untuk menyembelih putranya, Ismail 'alaihissalam." },
     { type: 'paragraph', text: "Nabi Ibrahim 'alaihissalam dan Ismail 'alaihissalam keduanya tunduk kepada perintah Allah subhanahu wa ta'ala dengan penuh keikhlasan. Dan Allah subhanahu wa ta'ala pun menggantikan Ismail dengan seekor sembelihan yang besar. Inilah asal mula disyariatkannya ibadah qurban." },
     { type: 'quran', arabic: 'لَنْ يَنَالَ اللَّهَ لُحُومُهَا وَلَا دِمَاؤُهَا وَلَٰكِنْ يَنَالُهُ التَّقْوَىٰ مِنْكُمْ', translation: '"Daging dan darah hewan-hewan qurban itu tidak akan sampai kepada Allah, tetapi yang sampai kepada-Nya adalah ketakwaan dari kamu."', ref: 'QS. Al-Hajj: 37' },
