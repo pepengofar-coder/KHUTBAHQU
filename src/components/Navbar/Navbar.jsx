@@ -5,6 +5,7 @@ import './Navbar.css';
 const LINKS = [
   { to: '/', label: 'Home' },
   { to: '/khutbah', label: 'Khutbah Jumat' },
+  { to: '/mushaf', label: 'Mushaf Al-Qur\'an' },
   { to: '/kalender-hijriah', label: 'Kalender Hijriah' },
   { to: '/favorit', label: 'Favorit' },
   { to: '/kontribusi', label: '📤 Kirim Khutbah' },

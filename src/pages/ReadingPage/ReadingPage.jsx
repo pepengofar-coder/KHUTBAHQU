@@ -101,7 +101,11 @@ export default function DetailPage() {
       if (b.arabic) t += b.arabic + '\n';
       if (b.translation) t += b.translation + '\n\n';
     });
-    if (currentDua) t += currentDua + '\n';
+    if (currentDua) {
+      t += "Marilah kita menundukkan kepala dan hati sejenak, berdoa kepada Allah subhanahu wa ta'ala, memohon ampunan, hidayah, dan pertolongan-Nya. Sebelumnya marilah kita bershalawat kepada Nabi Muhammad shallallahu 'alaihi wasallam sebagaimana perintah Allah:\n";
+      t += "اِنَّ اللّٰهَ وَمَلٰۤىِٕكَتَهٗ يُصَلُّوْنَ عَلَى النَّبِيِّۗ يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا\n\n";
+      t += currentDua + '\n';
+    }
     return t;
   };
 
@@ -149,6 +153,14 @@ export default function DetailPage() {
 
         {currentDua && <>
           <h2 className="detail__section-label">Doa Penutup</h2>
+          <div className="detail__body">
+            <p className="detail__p" style={{ fontSize: `calc(var(--fs-base) * ${fontSize})` }}>Marilah kita menundukkan kepala dan hati sejenak, berdoa kepada Allah subhanahu wa ta'ala, memohon ampunan, hidayah, dan pertolongan-Nya. Sebelumnya marilah kita bershalawat kepada Nabi Muhammad shallallahu 'alaihi wasallam sebagaimana perintah Allah:</p>
+            <div className="detail__quran">
+              <p className="detail__quran-ar" style={{ fontSize: `calc(var(--fs-2xl) * ${fontSize})` }}>اِنَّ اللّٰهَ وَمَلٰۤىِٕكَتَهٗ يُصَلُّوْنَ عَلَى النَّبِيِّۗ يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا</p>
+              <p className="detail__quran-tr" style={{ fontSize: `calc(var(--fs-base) * ${fontSize})` }}>"Sesungguhnya Allah dan para malaikat-Nya bershalawat untuk Nabi. Wahai orang-orang yang beriman! Bershalawatlah kamu untuk Nabi dan ucapkanlah salam dengan penuh penghormatan kepadanya."</p>
+              <p className="detail__quran-ref">QS. Al-Ahzab: 56</p>
+            </div>
+          </div>
           <div className="detail__dua" style={{fontSize:`calc(var(--fs-xl) * ${fontSize})`}}>{currentDua}</div>
         </>}
 

@@ -77,7 +77,13 @@ export default function MimbarMode() {
         </>}
         {k.dua && <>
           <p className="mimbar__label">Doa</p>
-          <div className="mimbar__opening" style={{ fontSize: `calc(var(--fs-xl) * ${fs})` }}>{k.dua}</div>
+          <p className="mimbar__p" style={{ fontSize: `calc(var(--fs-md) * ${fs})` }}>Marilah kita menundukkan kepala dan hati sejenak, berdoa kepada Allah subhanahu wa ta'ala, memohon ampunan, hidayah, dan pertolongan-Nya. Sebelumnya marilah kita bershalawat kepada Nabi Muhammad shallallahu 'alaihi wasallam sebagaimana perintah Allah:</p>
+          <div className="mimbar__quran">
+            <p className="mimbar__quran-ar" style={{ fontSize: `calc(var(--fs-2xl) * ${fs})` }}>اِنَّ اللّٰهَ وَمَلٰۤىِٕكَتَهٗ يُصَلُّوْنَ عَلَى النَّبِيِّۗ يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا</p>
+            <p style={{ fontStyle: 'italic', fontSize: `calc(var(--fs-base) * ${fs})`, opacity: .8 }}>"Sesungguhnya Allah dan para malaikat-Nya bershalawat untuk Nabi. Wahai orang-orang yang beriman! Bershalawatlah kamu untuk Nabi dan ucapkanlah salam dengan penuh penghormatan kepadanya."</p>
+            <p style={{ fontSize: 'var(--fs-sm)', fontWeight: 600, marginTop: 8, opacity: .6 }}>QS. Al-Ahzab: 56</p>
+          </div>
+          <div className="mimbar__opening" style={{ fontSize: `calc(var(--fs-xl) * ${fs})`, marginTop: '1.5rem' }}>{k.dua}</div>
         </>}
       </div>
     </div>

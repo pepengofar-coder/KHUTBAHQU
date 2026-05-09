@@ -16,6 +16,9 @@ export default function BottomNav({ hidden = false }) {
         <NavLink to="/kontribusi" className={({isActive})=>`bottom-nav__item${isActive?' active':''}`}>
           <span className="bottom-nav__icon">📤</span><span className="bottom-nav__label">Kirim</span>
         </NavLink>
+        <NavLink to="/mushaf" className={({isActive})=>`bottom-nav__item${isActive?' active':''}`}>
+          <span className="bottom-nav__icon">📖</span><span className="bottom-nav__label">Mushaf</span>
+        </NavLink>
         <NavLink to="/kalender-hijriah" className={({isActive})=>`bottom-nav__item${isActive?' active':''}`}>
           <span className="bottom-nav__icon">📅</span><span className="bottom-nav__label">Kalender</span>
         </NavLink>

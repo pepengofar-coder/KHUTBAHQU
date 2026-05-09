@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage/HomePage';
 import CatalogPage from './pages/CatalogPage/CatalogPage';
 import DetailPage from './pages/ReadingPage/ReadingPage';
 import HijriCalendarPage from './pages/HijriCalendarPage/HijriCalendarPage';
+import MushafPage from './pages/MushafPage/MushafPage';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import MimbarMode from './pages/MimbarMode/MimbarMode';
@@ -29,6 +30,7 @@ function AppLayout() {
           <Route path="/" element={<HomePage />} />
           <Route path="/khutbah" element={<CatalogPage />} />
           <Route path="/khutbah/:slug" element={<DetailPage />} />
+          <Route path="/mushaf" element={<MushafPage />} />
           <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
           <Route path="/favorit" element={<FavoritesPage />} />
           <Route path="/tentang" element={<AboutPage />} />
