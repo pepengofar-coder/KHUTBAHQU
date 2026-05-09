@@ -1,18 +1,23 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar/Navbar';
 import BottomNav from './components/BottomNav/BottomNav';
 import Footer from './components/Footer/Footer';
-import HomePage from './pages/HomePage/HomePage';
-import CatalogPage from './pages/CatalogPage/CatalogPage';
-import DetailPage from './pages/ReadingPage/ReadingPage';
-import HijriCalendarPage from './pages/HijriCalendarPage/HijriCalendarPage';
-import MushafPage from './pages/MushafPage/MushafPage';
-import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
-import AboutPage from './pages/AboutPage/AboutPage';
-import MimbarMode from './pages/MimbarMode/MimbarMode';
-import AdminPage from './pages/AdminPage/AdminPage';
-import SubmitPage from './pages/SubmitPage/SubmitPage';
+import PageLoader from './components/PageLoader/PageLoader';
+import OfflineBanner from './components/OfflineBanner/OfflineBanner';
+
+// Lazy load pages
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const CatalogPage = lazy(() => import('./pages/CatalogPage/CatalogPage'));
+const DetailPage = lazy(() => import('./pages/ReadingPage/ReadingPage'));
+const HijriCalendarPage = lazy(() => import('./pages/HijriCalendarPage/HijriCalendarPage'));
+const MushafPage = lazy(() => import('./pages/MushafPage/MushafPage'));
+const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
+const MimbarMode = lazy(() => import('./pages/MimbarMode/MimbarMode'));
+const AdminPage = lazy(() => import('./pages/AdminPage/AdminPage'));
+const SubmitPage = lazy(() => import('./pages/SubmitPage/SubmitPage'));
 
 function AppLayout() {
   const location = useLocation();
@@ -20,23 +25,30 @@ function AppLayout() {
   const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
   const isAdmin = location.pathname === '/admin280292';
 
-  if (isMimbar) return <MimbarMode />;
+  if (isMimbar) return (
+    <Suspense fallback={<PageLoader />}>
+      <MimbarMode />
+    </Suspense>
+  );
 
   return (
     <>
+      <OfflineBanner />
       {(!isAdmin) && <Navbar />}
       <main style={{ flex: 1 }}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/khutbah" element={<CatalogPage />} />
-          <Route path="/khutbah/:slug" element={<DetailPage />} />
-          <Route path="/mushaf" element={<MushafPage />} />
-          <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
-          <Route path="/favorit" element={<FavoritesPage />} />
-          <Route path="/tentang" element={<AboutPage />} />
-          <Route path="/admin280292" element={<AdminPage />} />
-          <Route path="/kontribusi" element={<SubmitPage />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/khutbah" element={<CatalogPage />} />
+            <Route path="/khutbah/:slug" element={<DetailPage />} />
+            <Route path="/mushaf" element={<MushafPage />} />
+            <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
+            <Route path="/favorit" element={<FavoritesPage />} />
+            <Route path="/tentang" element={<AboutPage />} />
+            <Route path="/admin280292" element={<AdminPage />} />
+            <Route path="/kontribusi" element={<SubmitPage />} />
+          </Routes>
+        </Suspense>
       </main>
       {!isDetail && <Footer />}
       <BottomNav />
