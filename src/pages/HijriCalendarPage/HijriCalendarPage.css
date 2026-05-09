@@ -1,0 +1,480 @@
+/* ============================================================
+   HijriCalendarPage — Kalender Hijriah + Puasa Sunnah
+   Premium Islamic Design
+   ============================================================ */
+
+.hijri-page {
+  padding: var(--sp-8) var(--sp-4) var(--sp-20);
+}
+
+/* ── Today Card ── */
+.hijri-page__today-card {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #1a6b4f 100%);
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-6) var(--sp-8);
+  text-align: center;
+  margin-bottom: var(--sp-6);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(15, 61, 46, 0.3);
+}
+.hijri-page__today-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M30 0L38 8L30 16L22 8L30 0zM30 30L38 38L30 46L22 38L30 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hijri-page__today-hijri {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-heading);
+}
+.hijri-page__today-greg {
+  font-size: var(--fs-sm);
+  color: rgba(255,255,255,0.7);
+  margin-top: var(--sp-1);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Monthly Calendar ── */
+.hijri-cal {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  margin-bottom: var(--sp-6);
+  box-shadow: var(--shadow-md);
+}
+
+.hijri-cal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.hijri-cal__nav {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.4rem;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--tr-fast);
+  flex-shrink: 0;
+}
+.hijri-cal__nav:hover { background: rgba(255,255,255,0.25); }
+
+.hijri-cal__title { text-align: center; }
+.hijri-cal__greg-month {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-heading);
+}
+.hijri-cal__hijri-month {
+  font-size: var(--fs-xs);
+  color: var(--color-gold);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.hijri-cal__today-btn-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-6);
+  border-bottom: 1px solid var(--color-border-light);
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.hijri-cal__today-btn {
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+  border: 1px solid rgba(15,61,46,0.15);
+  border-radius: var(--radius-pill);
+  padding: var(--sp-1) var(--sp-4);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  white-space: nowrap;
+}
+.hijri-cal__today-btn:hover { background: var(--color-primary); color: #fff; }
+
+.hijri-cal__filter {
+  display: flex;
+  gap: var(--sp-1);
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+}
+.hijri-cal__filter-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  white-space: nowrap;
+}
+.hijri-cal__filter-btn.active {
+  background: var(--color-bg-card);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Weekday labels */
+.hijri-cal__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border-light);
+}
+.hijri-cal__weekday {
+  text-align: center;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  padding: var(--sp-2) 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.hijri-cal__weekday--friday { color: var(--color-primary); }
+
+/* Day grid */
+.hijri-cal__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: var(--color-border-light);
+}
+
+.hijri-cal__empty {
+  background: var(--color-bg-alt);
+  min-height: 60px;
+}
+
+.hijri-cal__day {
+  background: var(--color-bg-card);
+  border: none;
+  min-height: 60px;
+  padding: var(--sp-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1px;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  position: relative;
+}
+.hijri-cal__day:hover { background: var(--color-bg-alt); z-index: 1; }
+
+.hijri-cal__day--today {
+  background: var(--color-primary-surface);
+}
+.hijri-cal__day--today .hijri-cal__gday {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+.hijri-cal__day--selected {
+  background: var(--color-primary-surface);
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+  z-index: 2;
+}
+.hijri-cal__day--friday .hijri-cal__gday { color: var(--color-primary); font-weight: 700; }
+.hijri-cal__day--fast { background: #FFFBF0; }
+[data-theme="dark"] .hijri-cal__day--fast { background: #1C1A12; }
+
+.hijri-cal__gday {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.hijri-cal__hday {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+
+/* Dots */
+.hijri-cal__dots {
+  display: flex;
+  gap: 2px;
+  margin-top: 2px;
+}
+.hijri-cal__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: block;
+  flex-shrink: 0;
+}
+.hijri-cal__dot--fast  { background: #F59E0B; }
+.hijri-cal__dot--event { background: var(--color-primary); }
+
+/* Legend */
+.hijri-cal__legend {
+  display: flex;
+  gap: var(--sp-5);
+  justify-content: center;
+  padding: var(--sp-3);
+  border-top: 1px solid var(--color-border-light);
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+.hijri-cal__legend span {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+/* ── Day Detail Popup ── */
+.hijri-detail {
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  margin-bottom: var(--sp-6);
+  box-shadow: var(--shadow-lg);
+  animation: slideDown 0.2s var(--ease-out);
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hijri-detail__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--sp-4);
+}
+.hijri-detail__date {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.hijri-detail__hijri {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+.hijri-detail__close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: all var(--tr-fast);
+}
+.hijri-detail__close:hover { background: var(--color-error); color: #fff; }
+.hijri-detail__empty {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--sp-4);
+}
+.hijri-detail__item {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid;
+  margin-bottom: var(--sp-3);
+}
+.hijri-detail__item--event {
+  background: var(--color-primary-surface);
+  border-color: var(--color-primary);
+}
+.hijri-detail__item--fast {
+  background: #FFFBF0;
+}
+[data-theme="dark"] .hijri-detail__item--fast { background: #1C1A12; }
+.hijri-detail__item-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.hijri-detail__item-name { font-weight: 700; font-size: var(--fs-base); }
+.hijri-detail__item-type { font-size: var(--fs-xs); color: var(--color-text-muted); margin-top: 2px; }
+.hijri-detail__item-desc { font-size: var(--fs-sm); color: var(--color-text-secondary); margin-top: 4px; line-height: var(--lh-relaxed); }
+.hijri-detail__item-dalil { font-size: var(--fs-xs); color: var(--color-text-muted); margin-top: 4px; font-style: italic; }
+
+/* ── Sunnah Fasts Panel ── */
+.hijri-fasts {
+  margin-bottom: var(--sp-10);
+}
+.hijri-fasts__title {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--sp-2);
+}
+.hijri-fasts__subtitle {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--sp-6);
+  line-height: var(--lh-relaxed);
+}
+.hijri-fasts__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--sp-4);
+}
+
+.hijri-fast-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-5);
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  transition: all var(--tr-base);
+  border-left: 4px solid var(--fast-color, var(--color-primary));
+  box-shadow: var(--shadow-xs);
+}
+.hijri-fast-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.hijri-fast-card__icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--fast-color, var(--color-primary)) 12%, transparent);
+  border-radius: var(--radius-md);
+}
+.hijri-fast-card__content { flex: 1; min-width: 0; }
+.hijri-fast-card__name {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--fast-color, var(--color-text));
+  margin-bottom: var(--sp-1);
+}
+.hijri-fast-card__desc {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-2);
+}
+.hijri-fast-card__schedule {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg-alt);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--sp-1);
+}
+.hijri-fast-card__dalil {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ── Upcoming Events ── */
+.hijri-events { margin-bottom: var(--sp-8); }
+.hijri-events__title {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  margin-bottom: var(--sp-4);
+  color: var(--color-text);
+}
+.hijri-events__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.hijri-events__item {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3) var(--sp-5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-4);
+  transition: all var(--tr-fast);
+}
+.hijri-events__item:hover { box-shadow: var(--shadow-sm); }
+.hijri-events__item--today {
+  border-color: var(--color-gold);
+  background: var(--color-gold-light);
+}
+.hijri-events__name { font-weight: 500; font-size: var(--fs-sm); }
+.hijri-events__badge {
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hijri-events__item--today .hijri-events__badge {
+  background: var(--color-gold);
+  color: var(--color-primary-dark);
+}
+
+/* ── Disclaimer ── */
+.hijri-page__disclaimer {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+  text-align: center;
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .hijri-page { padding: var(--sp-4) var(--sp-2) var(--sp-20); }
+  .hijri-page__today-card { padding: var(--sp-5); }
+  .hijri-page__today-hijri { font-size: var(--fs-xl); }
+  .hijri-cal__header { padding: var(--sp-4); }
+  .hijri-cal__day { min-height: 50px; }
+  .hijri-cal__gday { font-size: var(--fs-xs); width: 22px; height: 22px; }
+  .hijri-cal__day--today .hijri-cal__gday { width: 22px; height: 22px; }
+  .hijri-cal__today-btn-row { padding: var(--sp-2) var(--sp-3); }
+  .hijri-fasts__grid { grid-template-columns: 1fr; }
+}
