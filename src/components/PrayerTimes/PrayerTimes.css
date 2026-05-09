@@ -122,6 +122,46 @@
   transform: rotate(180deg);
 }
 
+.prayer-times__gps-badge {
+  background: var(--color-gold);
+  color: var(--color-primary-dark);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.prayer-times__switch-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: var(--radius-pill);
+  color: rgba(255,255,255,0.9);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.prayer-times__switch-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.prayer-times__denied-msg {
+  background: rgba(217, 119, 6, 0.2);
+  border: 1px solid rgba(217, 119, 6, 0.4);
+  border-radius: var(--radius-md);
+  color: #fde68a;
+  font-size: var(--fs-xs);
+  padding: var(--sp-2) var(--sp-4);
+  margin-bottom: var(--sp-3);
+  line-height: var(--lh-relaxed);
+}
+
 /* ── Loading ── */
 .prayer-times__loading {
   display: flex;

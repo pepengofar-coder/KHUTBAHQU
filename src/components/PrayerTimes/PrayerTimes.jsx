@@ -25,15 +25,15 @@ const INDONESIAN_CITIES = [
   { name: 'Samarinda', lat: -0.5022, lon: 117.1536 },
   { name: 'Manado', lat: 1.4748, lon: 124.8421 },
   { name: 'Ambon', lat: -3.6954, lon: 128.1814 },
-  { name: 'Jayapura', lat: -2.5916, lon: 140.6690 },
+  { name: 'Jayapura', lat: -2.5916, lon: 140.669 },
 ];
 
 const PRAYERS = [
-  { key: 'Fajr', label: 'Subuh', icon: '🌙' },
-  { key: 'Dhuhr', label: 'Dzuhur', icon: '☀️' },
-  { key: 'Asr', label: 'Ashar', icon: '🌤️' },
+  { key: 'Fajr',    label: 'Subuh',   icon: '🌙' },
+  { key: 'Dhuhr',   label: 'Dzuhur',  icon: '☀️' },
+  { key: 'Asr',     label: 'Ashar',   icon: '🌤️' },
   { key: 'Maghrib', label: 'Maghrib', icon: '🌅' },
-  { key: 'Isha', label: 'Isya', icon: '🌃' },
+  { key: 'Isha',    label: 'Isya',    icon: '🌃' },
 ];
 
 function parseTime(timeStr) {
@@ -45,78 +45,144 @@ function parseTime(timeStr) {
 }
 
 function formatTime(timeStr) {
-  if (!timeStr) return '--:--';
-  return timeStr.substring(0, 5);
+  return timeStr ? timeStr.substring(0, 5) : '--:--';
 }
 
-function getNextPrayer(timings) {
+function getNextPrayerKey(timings) {
   const now = new Date();
   for (const p of PRAYERS) {
     const t = parseTime(timings[p.key]);
     if (t && t > now) return p.key;
   }
-  return PRAYERS[0].key; // after Isha → next is Fajr
+  return PRAYERS[0].key;
 }
 
 function getCountdown(timeStr) {
   const target = parseTime(timeStr);
-  if (!target) return null;
+  if (!target) return '00:00:00';
   const now = new Date();
   let diff = target - now;
   if (diff < 0) diff += 24 * 3600 * 1000;
   const h = Math.floor(diff / 3600000);
   const m = Math.floor((diff % 3600000) / 60000);
   const s = Math.floor((diff % 60000) / 1000);
-  return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+// Reverse geocode lat/lon → city name via Nominatim
+async function reversGeocode(lat, lon) {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=id`,
+      { headers: { 'Accept-Language': 'id' } }
+    );
+    const data = await res.json();
+    const addr = data.address || {};
+    return addr.city || addr.town || addr.county || addr.state || 'Lokasi Anda';
+  } catch {
+    return 'Lokasi Anda';
+  }
 }
 
 export default function PrayerTimes() {
-  const [city, setCity] = useState(() => localStorage.getItem('kq_prayer_city') || 'Jakarta');
+  // Location state
+  const [locationMode, setLocationMode] = useState('detecting'); // 'detecting' | 'gps' | 'manual' | 'denied'
+  const [gpsCoords, setGpsCoords] = useState(null);
+  const [gpsLabel, setGpsLabel] = useState('Lokasi Anda');
+  const [manualCity, setManualCity] = useState(() => localStorage.getItem('kq_prayer_city') || 'Jakarta');
+
+  // Prayer data
   const [timings, setTimings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [countdown, setCountdown] = useState('');
-  const [now, setNow] = useState(new Date());
-  const intervalRef = useRef(null);
   const [hijriDate, setHijriDate] = useState('');
 
-  const fetchPrayerTimes = useCallback(async (cityName) => {
+  // Clock
+  const [now, setNow] = useState(new Date());
+  const [countdown, setCountdown] = useState('');
+  const intervalRef = useRef(null);
+
+  // ── Try GPS on first load ────────────────────────────────────
+  const tryGPS = useCallback(() => {
+    if (!navigator.geolocation) {
+      setLocationMode('manual');
+      return;
+    }
+    setLocationMode('detecting');
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude: lat, longitude: lon } = pos.coords;
+        setGpsCoords({ lat, lon });
+        const label = await reversGeocode(lat, lon);
+        setGpsLabel(label);
+        setLocationMode('gps');
+      },
+      () => {
+        // Permission denied or unavailable → use manual city
+        setLocationMode('denied');
+      },
+      { timeout: 8000, maximumAge: 300000 }
+    );
+  }, []);
+
+  useEffect(() => { tryGPS(); }, [tryGPS]);
+
+  // ── Fetch prayer times whenever coords/city changes ─────────
+  const fetchPrayerTimes = useCallback(async ({ lat, lon } = {}) => {
     setLoading(true);
     setError(null);
     try {
-      const cityData = INDONESIAN_CITIES.find(c => c.name === cityName) || INDONESIAN_CITIES[0];
       const today = new Date();
       const dd = today.getDate();
       const mm = today.getMonth() + 1;
       const yyyy = today.getFullYear();
-      const url = `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${cityData.lat}&longitude=${cityData.lon}&method=11`;
+
+      let fetchLat = lat, fetchLon = lon;
+      if (!fetchLat || !fetchLon) {
+        const city = INDONESIAN_CITIES.find(c => c.name === manualCity) || INDONESIAN_CITIES[0];
+        fetchLat = city.lat;
+        fetchLon = city.lon;
+      }
+
+      const url = `https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${fetchLat}&longitude=${fetchLon}&method=11`;
       const res = await fetch(url);
       if (!res.ok) throw new Error('Gagal mengambil data');
       const data = await res.json();
       setTimings(data.data.timings);
       const h = data.data.date?.hijri;
       if (h) setHijriDate(`${h.day} ${h.month.en} ${h.year} H`);
-    } catch (e) {
+    } catch {
       setError('Gagal memuat jadwal sholat. Periksa koneksi internet.');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [manualCity]);
 
+  // Re-fetch when location mode resolves
   useEffect(() => {
-    fetchPrayerTimes(city);
-    localStorage.setItem('kq_prayer_city', city);
-  }, [city, fetchPrayerTimes]);
+    if (locationMode === 'gps' && gpsCoords) {
+      fetchPrayerTimes(gpsCoords);
+    } else if (locationMode === 'manual' || locationMode === 'denied') {
+      fetchPrayerTimes();
+    }
+  }, [locationMode, gpsCoords, fetchPrayerTimes]);
 
+  // Save manual city preference
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setNow(new Date());
-    }, 1000);
+    if (locationMode === 'manual') {
+      localStorage.setItem('kq_prayer_city', manualCity);
+      fetchPrayerTimes();
+    }
+  }, [manualCity]); // eslint-disable-line
+
+  // ── Clock tick ───────────────────────────────────────────────
+  useEffect(() => {
+    intervalRef.current = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(intervalRef.current);
   }, []);
 
-  const nextPrayerKey = timings ? getNextPrayer(timings) : null;
-  const nextPrayer = PRAYERS.find(p => p.key === nextPrayerKey);
+  const nextPrayerKey = timings ? getNextPrayerKey(timings) : null;
+  const nextPrayer    = PRAYERS.find(p => p.key === nextPrayerKey);
 
   useEffect(() => {
     if (timings && nextPrayerKey) {
@@ -126,6 +192,9 @@ export default function PrayerTimes() {
 
   const currentTime = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
   const currentDate = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+  // Label to show in location row
+  const locationLabel = locationMode === 'gps' ? gpsLabel : (locationMode === 'detecting' ? 'Mendeteksi...' : manualCity);
 
   return (
     <div className="prayer-times">
@@ -138,19 +207,60 @@ export default function PrayerTimes() {
         <div className="prayer-times__clock">{currentTime}</div>
       </div>
 
+      {/* Location Row */}
       <div className="prayer-times__city-row">
-        <span className="prayer-times__city-label">📍 Kota:</span>
-        <select
-          className="prayer-times__city-select"
-          value={city}
-          onChange={e => setCity(e.target.value)}
-        >
-          {INDONESIAN_CITIES.map(c => (
-            <option key={c.name} value={c.name}>{c.name}</option>
-          ))}
-        </select>
-        <button className="prayer-times__refresh" onClick={() => fetchPrayerTimes(city)} title="Refresh">🔄</button>
+        {locationMode === 'gps' ? (
+          // GPS mode
+          <>
+            <span className="prayer-times__city-label">📍 {gpsLabel}</span>
+            <span className="prayer-times__gps-badge">GPS</span>
+            <button
+              className="prayer-times__switch-btn"
+              onClick={() => setLocationMode('manual')}
+              title="Pilih kota manual"
+            >🔄 Pilih Kota</button>
+          </>
+        ) : locationMode === 'detecting' ? (
+          // Detecting
+          <>
+            <span className="prayer-times__city-label">📡 Mendeteksi lokasi...</span>
+            <button
+              className="prayer-times__switch-btn"
+              onClick={() => setLocationMode('manual')}
+            >Pilih Manual</button>
+          </>
+        ) : (
+          // Manual / denied
+          <>
+            <span className="prayer-times__city-label">📍 Kota:</span>
+            <select
+              className="prayer-times__city-select"
+              value={manualCity}
+              onChange={e => setManualCity(e.target.value)}
+            >
+              {INDONESIAN_CITIES.map(c => (
+                <option key={c.name} value={c.name}>{c.name}</option>
+              ))}
+            </select>
+            <button
+              className="prayer-times__refresh"
+              onClick={tryGPS}
+              title="Coba gunakan lokasi GPS"
+            >📡</button>
+          </>
+        )}
+        <button
+          className="prayer-times__refresh"
+          onClick={() => locationMode === 'gps' ? fetchPrayerTimes(gpsCoords) : fetchPrayerTimes()}
+          title="Refresh"
+        >🔄</button>
       </div>
+
+      {locationMode === 'denied' && (
+        <div className="prayer-times__denied-msg">
+          ⚠️ Izin lokasi ditolak. Silakan pilih kota secara manual, atau aktifkan izin lokasi di pengaturan browser.
+        </div>
+      )}
 
       {loading && (
         <div className="prayer-times__loading">
@@ -168,7 +278,9 @@ export default function PrayerTimes() {
           {nextPrayer && (
             <div className="prayer-times__next">
               <div className="prayer-times__next-label">Sholat berikutnya</div>
-              <div className="prayer-times__next-name">{nextPrayer.icon} {nextPrayer.label} — {formatTime(timings[nextPrayer.key])}</div>
+              <div className="prayer-times__next-name">
+                {nextPrayer.icon} {nextPrayer.label} — {formatTime(timings[nextPrayer.key])}
+              </div>
               <div className="prayer-times__countdown">{countdown}</div>
             </div>
           )}
@@ -177,9 +289,12 @@ export default function PrayerTimes() {
             {PRAYERS.map(p => {
               const isNext = p.key === nextPrayerKey;
               const t = parseTime(timings[p.key]);
-              const isPast = t && t < now && p.key !== nextPrayerKey;
+              const isPast = t && t < now && !isNext;
               return (
-                <div key={p.key} className={`prayer-times__item ${isNext ? 'prayer-times__item--next' : ''} ${isPast ? 'prayer-times__item--past' : ''}`}>
+                <div
+                  key={p.key}
+                  className={`prayer-times__item${isNext ? ' prayer-times__item--next' : ''}${isPast ? ' prayer-times__item--past' : ''}`}
+                >
                   <span className="prayer-times__prayer-icon">{p.icon}</span>
                   <span className="prayer-times__prayer-name">{p.label}</span>
                   <span className="prayer-times__prayer-time">{formatTime(timings[p.key])}</span>
