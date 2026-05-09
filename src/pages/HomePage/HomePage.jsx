@@ -5,6 +5,7 @@ import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import ThemeSection from '../../components/ThemeSection/ThemeSection';
 import HijriCalendarWidget from '../../components/HijriCalendarWidget/HijriCalendarWidget';
 import PrayerTimes from '../../components/PrayerTimes/PrayerTimes';
+import WeatherWidget from '../../components/WeatherWidget/WeatherWidget';
 import './HomePage.css';
 
 export default function HomePage() {
@@ -16,9 +17,10 @@ export default function HomePage() {
     <div className="home-page">
       <HeroSection />
 
-      {/* Waktu Sholat */}
-      <section className="home-prayer container" style={{ paddingTop: 'var(--sp-10)', paddingBottom: 'var(--sp-4)' }}>
+      {/* Widget Section: Waktu Sholat & Cuaca */}
+      <section className="home-widgets container" style={{ paddingTop: 'var(--sp-10)', paddingBottom: 'var(--sp-4)' }}>
         <PrayerTimes />
+        <WeatherWidget />
       </section>
 
       <section className="home-featured container">

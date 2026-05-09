@@ -6,3 +6,5 @@
 .home-weekly{padding:var(--sp-8) 0 var(--sp-12)}
 .home-weekly__grid{display:grid;gap:var(--sp-6);grid-template-columns:1fr}
 @media(min-width:640px){.home-weekly__grid{grid-template-columns:repeat(2,1fr)}}
+.home-widgets{display:grid;gap:var(--sp-6);grid-template-columns:1fr}
+@media(min-width:768px){.home-widgets{grid-template-columns:2fr 1fr}}
