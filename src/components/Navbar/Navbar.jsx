@@ -7,6 +7,7 @@ const LINKS = [
   { to: '/khutbah', label: 'Khutbah Jumat' },
   { to: '/kalender-hijriah', label: 'Kalender Hijriah' },
   { to: '/favorit', label: 'Favorit' },
+  { to: '/kontribusi', label: '📤 Kirim Khutbah' },
   { to: '/tentang', label: 'Tentang' },
 ];
 

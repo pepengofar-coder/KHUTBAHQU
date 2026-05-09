@@ -3,8 +3,30 @@ import { khutbahList as staticKhutbah, CATEGORIES, TYPES } from '../data/khutbah
 
 const AppContext = createContext(null);
 
+const ADMIN_USERNAME = 'amirudin';
+const ADMIN_PASSWORD = 'bismillah';
+
 export function AppProvider({ children }) {
-  // Local Khutbah State
+  // ─── Admin Auth ─────────────────────────────────────────────────────────────
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
+    return sessionStorage.getItem('kq_admin_auth') === '1';
+  });
+
+  const adminLogin = useCallback((username, password) => {
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      sessionStorage.setItem('kq_admin_auth', '1');
+      setIsAdminLoggedIn(true);
+      return true;
+    }
+    return false;
+  }, []);
+
+  const adminLogout = useCallback(() => {
+    sessionStorage.removeItem('kq_admin_auth');
+    setIsAdminLoggedIn(false);
+  }, []);
+
+  // ─── Local Khutbah State ─────────────────────────────────────────────────────
   const [localKhutbahs, setLocalKhutbahs] = useState(() => {
     try { return JSON.parse(localStorage.getItem('kq_local_khutbahs') || '[]'); } catch { return []; }
   });
@@ -18,6 +40,24 @@ export function AppProvider({ children }) {
     setLocalKhutbahs(p => [newK, ...p]);
   }, []);
 
+  const addAdminKhutbah = useCallback((data) => {
+    const slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    const newK = {
+      ...data,
+      id: Date.now(),
+      slug,
+      status: 'published',
+      isAdminAdded: true,
+      createdAt: new Date().toISOString().split('T')[0],
+      type: data.type || 'khutbah-jumat',
+      occasion: data.occasion || 'Jumat',
+      duration: Math.round((data.firstKhutbah?.length || 0) / 130),
+      tags: [data.category],
+    };
+    setLocalKhutbahs(p => [newK, ...p]);
+    return newK;
+  }, []);
+
   const updateKhutbah = useCallback((id, updates) => {
     setLocalKhutbahs(p => p.map(k => k.id === id ? { ...k, ...updates } : k));
   }, []);
@@ -26,7 +66,7 @@ export function AppProvider({ children }) {
     setLocalKhutbahs(p => p.filter(k => k.id !== id));
   }, []);
 
-  // Dark mode
+  // ─── Dark mode ───────────────────────────────────────────────────────────────
   const [darkMode, setDarkMode] = useState(() => {
     const s = localStorage.getItem('kq_dark');
     if (s !== null) return s === '1';
@@ -38,7 +78,7 @@ export function AppProvider({ children }) {
   }, [darkMode]);
   const toggleDark = useCallback(() => setDarkMode(p => !p), []);
 
-  // Font size
+  // ─── Font size ───────────────────────────────────────────────────────────────
   const FONT_OPTS = [
     { label: 'Kecil', value: 0.85 },
     { label: 'Normal', value: 1 },
@@ -53,7 +93,7 @@ export function AppProvider({ children }) {
     });
   }, []);
 
-  // Bookmarks
+  // ─── Bookmarks ───────────────────────────────────────────────────────────────
   const [bookmarks, setBookmarks] = useState(() => {
     try { return JSON.parse(localStorage.getItem('kq_bm') || '[]'); } catch { return []; }
   });
@@ -63,7 +103,7 @@ export function AppProvider({ children }) {
   }, []);
   const isBookmarked = useCallback(id => bookmarks.includes(id), [bookmarks]);
 
-  // Recently viewed
+  // ─── Recently viewed ─────────────────────────────────────────────────────────
   const [recentlyViewed, setRecentlyViewed] = useState(() => {
     try { return JSON.parse(localStorage.getItem('kq_rv') || '[]'); } catch { return []; }
   });
@@ -72,7 +112,7 @@ export function AppProvider({ children }) {
     setRecentlyViewed(p => [id, ...p.filter(x => x !== id)].slice(0, 8));
   }, []);
 
-  // Filters
+  // ─── Filters ─────────────────────────────────────────────────────────────────
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeType, setActiveType] = useState(null);
@@ -103,7 +143,7 @@ export function AppProvider({ children }) {
     allKhutbah.filter(x => x.id !== k.id && (x.category === k.category || (x.tags && k.tags && x.tags.some(t => k.tags.includes(t))))).slice(0, n)
   , [allKhutbah]);
 
-  // Utilities
+  // ─── Utilities ───────────────────────────────────────────────────────────────
   const copyText = useCallback(async (text) => {
     try { await navigator.clipboard.writeText(text); return true; } catch { return false; }
   }, []);
@@ -114,18 +154,28 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
+      // Admin auth
+      isAdminLoggedIn, adminLogin, adminLogout,
+      // Theme
       darkMode, toggleDark,
+      // Font
       fontSize, setFontSize, cycleFontSize, fontSizeOptions: FONT_OPTS,
+      // Bookmarks
       bookmarks, bookmarkedKhutbah, toggleBookmark, isBookmarked,
+      // Recently viewed
       recentlyViewed, recentKhutbah, addRecentlyViewed,
+      // Filters
       searchQuery, setSearchQuery,
       activeCategory, setActiveCategory,
       activeType, setActiveType,
       activeDuration, setActiveDuration,
+      // Khutbah data
       allKhutbah, filteredKhutbah, adminKhutbah,
       getKhutbahBySlug, getRelated,
       categories: CATEGORIES, types: TYPES,
-      addSubmission, updateKhutbah, deleteKhutbah,
+      // CRUD
+      addSubmission, addAdminKhutbah, updateKhutbah, deleteKhutbah,
+      // Utils
       copyText, shareWhatsApp,
     }}>
       {children}

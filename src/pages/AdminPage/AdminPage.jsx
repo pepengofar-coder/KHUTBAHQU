@@ -1,26 +1,202 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
-import { validateKhutbah, countWords, estimateReadingDuration, detectDuplicates, isSimilarTitle } from '../../data/khutbahValidator';
-import { ALL_SOURCES, SUGGESTED_THEMES, STATUS_LABELS, CONTENT_STATUSES } from '../../data/khutbahSources';
+import { validateKhutbah, countWords, estimateReadingDuration, detectDuplicates } from '../../data/khutbahValidator';
+import { ALL_SOURCES, SUGGESTED_THEMES, STATUS_LABELS } from '../../data/khutbahSources';
 import './AdminPage.css';
 
+// ── Login Screen ─────────────────────────────────────────────
+function LoginScreen() {
+  const { adminLogin } = useApp();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    await new Promise(r => setTimeout(r, 600));
+    const ok = adminLogin(username, password);
+    if (!ok) setError('Username atau password salah.');
+    setLoading(false);
+  };
+
+  return (
+    <div className="admin-login">
+      <div className="admin-login__card">
+        <div className="admin-login__logo">🕌</div>
+        <h1 className="admin-login__title">KhutbahQu Admin</h1>
+        <p className="admin-login__subtitle">Masuk untuk mengelola konten khutbah</p>
+        <form onSubmit={handleSubmit} className="admin-login__form">
+          {error && <div className="admin-login__error">⚠️ {error}</div>}
+          <div className="admin-login__field">
+            <label>Username</label>
+            <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required autoFocus />
+          </div>
+          <div className="admin-login__field">
+            <label>Password</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
+          </div>
+          <button type="submit" className="admin-login__btn" disabled={loading}>
+            {loading ? '⏳ Memverifikasi...' : '🔐 Masuk Panel Admin'}
+          </button>
+        </form>
+        <p className="admin-login__back"><a href="/">← Kembali ke KhutbahQu</a></p>
+      </div>
+    </div>
+  );
+}
+
+// ── Add Khutbah Form ─────────────────────────────────────────
+function AddKhutbahForm({ categories, onAdd, onCancel }) {
+  const [form, setForm] = useState({
+    title: '', category: 'tauhid', summary: '', firstKhutbah: '', secondKhutbah: '', dua: '', references: ''
+  });
+  const [msg, setMsg] = useState('');
+
+  const handleChange = e => setForm(p => ({ ...p, [e.target.name]: e.target.value }));
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!form.title || !form.firstKhutbah || !form.secondKhutbah || !form.dua) {
+      setMsg('❌ Judul, Khutbah 1, Khutbah 2, dan Doa wajib diisi.');
+      return;
+    }
+    const parseBlocks = text => text.split('\n\n').filter(p => p.trim()).map(p => ({ type: 'paragraph', text: p.trim() }));
+    const refs = form.references.split('\n').map(r => r.trim()).filter(Boolean);
+    onAdd({
+      title: form.title,
+      category: form.category,
+      summary: form.summary,
+      firstKhutbah: parseBlocks(form.firstKhutbah),
+      secondKhutbah: parseBlocks(form.secondKhutbah),
+      dua: form.dua,
+      references: refs,
+    });
+  };
+
+  return (
+    <div className="admin-add-form">
+      <h3>➕ Tambah Khutbah Baru</h3>
+      {msg && <div className="admin__alert admin__alert--warning">{msg}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="admin-add-form__row">
+          <div className="admin-add-form__group">
+            <label>Judul *</label>
+            <input type="text" name="title" value={form.title} onChange={handleChange} placeholder="Judul khutbah..." required />
+          </div>
+          <div className="admin-add-form__group">
+            <label>Kategori *</label>
+            <select name="category" value={form.category} onChange={handleChange}>
+              {categories.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+            </select>
+          </div>
+        </div>
+        <div className="admin-add-form__group">
+          <label>Ringkasan</label>
+          <textarea name="summary" value={form.summary} onChange={handleChange} rows="2" placeholder="Ringkasan singkat khutbah..." />
+        </div>
+        <div className="admin-add-form__group">
+          <label>Isi Khutbah Pertama * <small>(pisah paragraf dengan baris kosong)</small></label>
+          <textarea name="firstKhutbah" value={form.firstKhutbah} onChange={handleChange} rows="10" placeholder="Jamaah shalat Jumat yang dirahmati Allah..." required />
+        </div>
+        <div className="admin-add-form__group">
+          <label>Isi Khutbah Kedua *</label>
+          <textarea name="secondKhutbah" value={form.secondKhutbah} onChange={handleChange} rows="7" placeholder="Isi khutbah kedua..." required />
+        </div>
+        <div className="admin-add-form__group">
+          <label>Doa Penutup *</label>
+          <textarea name="dua" value={form.dua} onChange={handleChange} rows="4" placeholder="Allahummaghfir lil muslimina wal muslimat..." required />
+        </div>
+        <div className="admin-add-form__group">
+          <label>Referensi Dalil <small>(satu per baris)</small></label>
+          <textarea name="references" value={form.references} onChange={handleChange} rows="3" placeholder="QS. Al-Baqarah: 183&#10;HR. Bukhari dan Muslim" />
+        </div>
+        <div className="admin-add-form__actions">
+          <button type="submit" className="btn btn--primary">✅ Simpan & Publish</button>
+          <button type="button" className="btn btn--ghost" onClick={onCancel}>Batal</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+// ── Submission Detail ─────────────────────────────────────────
+function SubmissionDetail({ khutbah, onApprove, onReject, onClose }) {
+  const words = khutbah.firstKhutbah
+    ? khutbah.firstKhutbah.reduce((s, b) => s + (b.text ? b.text.split(/\s+/).length : 0), 0) +
+      (khutbah.secondKhutbah || []).reduce((s, b) => s + (b.text ? b.text.split(/\s+/).length : 0), 0)
+    : 0;
+
+  const socialEntries = khutbah.socialMedia
+    ? Object.entries(khutbah.socialMedia).filter(([, v]) => v)
+    : [];
+
+  return (
+    <div className="admin__modal-overlay" onClick={onClose}>
+      <div className="admin__modal" onClick={e => e.stopPropagation()}>
+        <div className="admin__modal-header">
+          <h3>{khutbah.title}</h3>
+          <button onClick={onClose}>✕</button>
+        </div>
+        <div className="admin__modal-body">
+          <div className="admin__alert admin__alert--info" style={{ marginBottom: 16 }}>
+            <strong>👤 Pengirim:</strong> {khutbah.contributorName} — {khutbah.contributorEmail}
+          </div>
+          {socialEntries.length > 0 && (
+            <div className="admin__social-list">
+              <strong>📱 Media Sosial:</strong>
+              <div className="admin__social-tags">
+                {socialEntries.map(([k, v]) => (
+                  <span key={k} className="admin__social-tag">
+                    {k === 'instagram' ? '📸' : k === 'facebook' ? '👤' : k === 'whatsapp' ? '💬' : k === 'twitter' ? '🐦' : k === 'youtube' ? '▶️' : '🎵'}
+                    {' '}{k}: {v}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="admin__detail-grid" style={{ marginTop: 16 }}>
+            <div><strong>Kategori:</strong> {khutbah.category}</div>
+            <div><strong>Total Kata:</strong> {words}</div>
+            <div><strong>Dikirim:</strong> {khutbah.createdAt}</div>
+            <div><strong>Status:</strong> {khutbah.status}</div>
+          </div>
+          {khutbah.summary && <p style={{ marginTop: 12, color: 'var(--color-text-secondary)' }}><em>{khutbah.summary}</em></p>}
+          <div className="admin__actions" style={{ display: 'flex', gap: 8, marginTop: 20 }}>
+            <button className="btn btn--primary" onClick={onApprove}>✅ Approve & Publish</button>
+            <button className="btn btn--ghost" style={{ color: 'red', borderColor: 'red' }} onClick={onReject}>❌ Reject</button>
+            <button className="btn btn--ghost" style={{ marginLeft: 'auto' }} onClick={onClose}>Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Main Admin Page ───────────────────────────────────────────
 export default function AdminPage() {
-  const { adminKhutbah, updateKhutbah, deleteKhutbah } = useApp();
+  const { isAdminLoggedIn, adminLogout, adminKhutbah, updateKhutbah, deleteKhutbah, addAdminKhutbah, categories } = useApp();
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedKhutbah, setSelectedKhutbah] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [addSuccess, setAddSuccess] = useState('');
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
 
-  const khutbahWithStatus = useMemo(() => adminKhutbah, [adminKhutbah]);
+  if (!isAdminLoggedIn) return <LoginScreen />;
 
-  // Validation results
+  const pendingSubmissions = adminKhutbah.filter(k => k.status === 'review' && !k.isStatic);
+  const khutbahWithStatus = adminKhutbah;
+
   const validationResults = useMemo(() =>
     khutbahWithStatus.map(k => ({ khutbah: k, validation: validateKhutbah(k) }))
   , [khutbahWithStatus]);
 
   const duplicates = useMemo(() => detectDuplicates(khutbahWithStatus), [khutbahWithStatus]);
 
-  // Stats
   const stats = useMemo(() => {
     const total = khutbahWithStatus.length;
     const published = khutbahWithStatus.filter(k => k.status === 'published').length;
@@ -30,40 +206,123 @@ export default function AdminPage() {
     return { total, published, totalWords, avgDuration, issues };
   }, [khutbahWithStatus, validationResults]);
 
-  // Filtered list
   const filtered = khutbahWithStatus.filter(k => {
     if (filterStatus !== 'all' && k.status !== filterStatus) return false;
     if (searchTerm) {
       const q = searchTerm.toLowerCase();
-      return k.title.toLowerCase().includes(q) || k.slug.includes(q) || k.category.includes(q);
+      return k.title.toLowerCase().includes(q) || k.slug?.includes(q) || k.category.includes(q);
     }
     return true;
   });
 
+  const handleAddKhutbah = (data) => {
+    addAdminKhutbah(data);
+    setShowAddForm(false);
+    setAddSuccess(`✅ Khutbah "${data.title}" berhasil ditambahkan dan dipublikasikan!`);
+    setTimeout(() => setAddSuccess(''), 5000);
+    setActiveTab('content');
+  };
+
+  const TABS = [
+    { id: 'overview', label: '📊 Overview' },
+    { id: 'submissions', label: `📥 Kiriman User${pendingSubmissions.length > 0 ? ` (${pendingSubmissions.length})` : ''}` },
+    { id: 'content', label: '📝 Konten' },
+    { id: 'validation', label: '🔍 Validasi' },
+    { id: 'sources', label: '📚 Sumber' },
+    { id: 'themes', label: '💡 Tema' },
+    { id: 'guide', label: '📖 Panduan' },
+  ];
+
   return (
     <div className="admin container">
       <div className="admin__header">
-        <h1>📋 Admin Panel — KhutbahQu</h1>
-        <p className="admin__subtitle">Kelola, validasi, dan monitor materi khutbah</p>
+        <div>
+          <h1>📋 Admin Panel — KhutbahQu</h1>
+          <p className="admin__subtitle">Kelola, validasi, dan monitor materi khutbah</p>
+        </div>
+        <div className="admin__header-actions">
+          <button className="btn btn--primary btn--sm" onClick={() => { setShowAddForm(true); setActiveTab('add'); }}>
+            ➕ Tambah Khutbah
+          </button>
+          <button className="btn btn--ghost btn--sm" onClick={adminLogout}>🚪 Logout</button>
+        </div>
       </div>
 
-      {/* Tabs */}
+      {addSuccess && <div className="admin__alert admin__alert--success">{addSuccess}</div>}
+
       <div className="admin__tabs">
-        {[
-          { id: 'overview', label: '📊 Overview', },
-          { id: 'content', label: '📝 Konten' },
-          { id: 'validation', label: '🔍 Validasi' },
-          { id: 'sources', label: '📚 Sumber Referensi' },
-          { id: 'themes', label: '💡 Tema' },
-          { id: 'guide', label: '📖 Panduan' },
-        ].map(tab => (
+        {TABS.map(tab => (
           <button
             key={tab.id}
-            className={`admin__tab ${activeTab === tab.id ? 'admin__tab--active' : ''}`}
-            onClick={() => setActiveTab(tab.id)}
+            className={`admin__tab ${activeTab === tab.id ? 'admin__tab--active' : ''} ${tab.id === 'submissions' && pendingSubmissions.length > 0 ? 'admin__tab--badge' : ''}`}
+            onClick={() => { setActiveTab(tab.id); setShowAddForm(false); }}
           >{tab.label}</button>
         ))}
       </div>
+
+      {/* Add Form Tab */}
+      {activeTab === 'add' && (
+        <div className="admin__section">
+          <AddKhutbahForm categories={categories} onAdd={handleAddKhutbah} onCancel={() => setActiveTab('content')} />
+        </div>
+      )}
+
+      {/* Submissions Tab */}
+      {activeTab === 'submissions' && (
+        <div className="admin__section">
+          <h3>📥 Kiriman Khutbah dari User</h3>
+          {pendingSubmissions.length === 0 ? (
+            <div className="admin__empty">
+              <p>🎉 Tidak ada kiriman yang menunggu review saat ini.</p>
+            </div>
+          ) : (
+            <div className="admin__submission-list">
+              {pendingSubmissions.map(k => {
+                const socials = k.socialMedia ? Object.entries(k.socialMedia).filter(([, v]) => v) : [];
+                return (
+                  <div key={k.id} className="admin__submission-card">
+                    <div className="admin__submission-meta">
+                      <span className="admin__submission-name">👤 {k.contributorName}</span>
+                      <span className="admin__submission-date">📅 {k.createdAt}</span>
+                      <span className="badge badge--primary">{k.category}</span>
+                    </div>
+                    <h4 className="admin__submission-title">{k.title}</h4>
+                    {k.summary && <p className="admin__submission-summary">{k.summary}</p>}
+                    {socials.length > 0 && (
+                      <div className="admin__social-tags" style={{ marginTop: 8 }}>
+                        {socials.map(([pl, val]) => (
+                          <span key={pl} className="admin__social-tag">
+                            {pl === 'instagram' ? '📸' : pl === 'facebook' ? '👤' : pl === 'whatsapp' ? '💬' : pl === 'twitter' ? '🐦' : pl === 'youtube' ? '▶️' : '🎵'}
+                            {' '}{pl}: {val}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="admin__submission-actions">
+                      <button className="btn btn--sm btn--ghost" onClick={() => setSelectedSubmission(k)}>👁 Detail</button>
+                      <button className="btn btn--sm btn--primary" onClick={() => { updateKhutbah(k.id, { status: 'published' }); }}>
+                        ✅ Approve
+                      </button>
+                      <button className="btn btn--sm btn--ghost" style={{ color: 'red' }} onClick={() => { if (confirm('Yakin reject kiriman ini?')) deleteKhutbah(k.id); }}>
+                        ❌ Reject
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {selectedSubmission && (
+            <SubmissionDetail
+              khutbah={selectedSubmission}
+              onApprove={() => { updateKhutbah(selectedSubmission.id, { status: 'published' }); setSelectedSubmission(null); }}
+              onReject={() => { if (confirm('Yakin reject?')) { deleteKhutbah(selectedSubmission.id); setSelectedSubmission(null); } }}
+              onClose={() => setSelectedSubmission(null)}
+            />
+          )}
+        </div>
+      )}
 
       {/* Overview Tab */}
       {activeTab === 'overview' && (
@@ -71,26 +330,24 @@ export default function AdminPage() {
           <div className="admin__stats">
             <div className="admin__stat-card"><span className="admin__stat-num">{stats.total}</span><span className="admin__stat-label">Total Khutbah</span></div>
             <div className="admin__stat-card"><span className="admin__stat-num">{stats.published}</span><span className="admin__stat-label">Published</span></div>
+            <div className="admin__stat-card"><span className="admin__stat-num">{pendingSubmissions.length}</span><span className="admin__stat-label">Menunggu Review</span></div>
             <div className="admin__stat-card"><span className="admin__stat-num">{stats.totalWords.toLocaleString()}</span><span className="admin__stat-label">Total Kata</span></div>
             <div className="admin__stat-card"><span className="admin__stat-num">±{stats.avgDuration} mnt</span><span className="admin__stat-label">Rata-rata Durasi</span></div>
             <div className="admin__stat-card"><span className="admin__stat-num" style={{ color: stats.issues > 0 ? '#D97706' : '#059669' }}>{stats.issues}</span><span className="admin__stat-label">Issues</span></div>
           </div>
-
           {duplicates.length > 0 && (
             <div className="admin__alert admin__alert--warning">
               <strong>⚠️ Duplikasi Terdeteksi:</strong>
-              {duplicates.map((d, i) => <p key={i}>{d.type === 'title' ? 'Judul' : 'Slug'} duplikat: "{d.value}" (ID: {d.ids.join(', ')})</p>)}
+              {duplicates.map((d, i) => <p key={i}>{d.type === 'title' ? 'Judul' : 'Slug'} duplikat: "{d.value}"</p>)}
             </div>
           )}
-
           <h3>Ringkasan per Kategori</h3>
           <div className="admin__category-grid">
             {[...new Set(khutbahWithStatus.map(k => k.category))].map(cat => {
               const items = khutbahWithStatus.filter(k => k.category === cat);
               return (
                 <div key={cat} className="admin__cat-card">
-                  <strong>{cat}</strong>
-                  <span>{items.length} khutbah</span>
+                  <strong>{cat}</strong><span>{items.length} khutbah</span>
                 </div>
               );
             })}
@@ -102,29 +359,15 @@ export default function AdminPage() {
       {activeTab === 'content' && (
         <div className="admin__section">
           <div className="admin__toolbar">
-            <input
-              type="text" placeholder="🔍 Cari judul, slug, kategori..."
-              value={searchTerm} onChange={e => setSearchTerm(e.target.value)}
-              className="admin__search"
-            />
+            <input type="text" placeholder="🔍 Cari judul, slug, kategori..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="admin__search" />
             <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} className="admin__select">
               <option value="all">Semua Status</option>
               {Object.entries(STATUS_LABELS).map(([k, v]) => <option key={k} value={k}>{v.icon} {v.label}</option>)}
             </select>
+            <button className="btn btn--primary btn--sm" onClick={() => { setShowAddForm(true); setActiveTab('add'); }}>➕ Tambah</button>
           </div>
-
           <table className="admin__table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Judul</th>
-                <th>Kategori</th>
-                <th>Kata</th>
-                <th>Durasi</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
+            <thead><tr><th>ID</th><th>Judul</th><th>Kategori</th><th>Kata</th><th>Durasi</th><th>Status</th><th>Aksi</th></tr></thead>
             <tbody>
               {filtered.map(k => {
                 const words = countWords(k);
@@ -133,45 +376,26 @@ export default function AdminPage() {
                 return (
                   <tr key={k.id}>
                     <td>{k.id}</td>
-                    <td><strong>{k.title}</strong><br/><small className="admin__slug">/{k.slug}</small></td>
+                    <td><strong>{k.title}</strong><br /><small className="admin__slug">/{k.slug}</small></td>
                     <td><span className="badge badge--primary">{k.category}</span></td>
                     <td className={words < 800 ? 'admin__warn' : ''}>{words}</td>
                     <td>±{dur} mnt</td>
                     <td><span className="admin__status" style={{ background: st.color + '20', color: st.color }}>{st.icon} {st.label}</span></td>
-                    <td><button className="btn btn--ghost btn--sm" onClick={() => setSelectedKhutbah(k)}>Detail</button></td>
+                    <td>
+                      {!k.isStatic && (
+                        <div style={{ display: 'flex', gap: 4 }}>
+                          {k.status !== 'published' && <button className="btn btn--ghost btn--sm" onClick={() => updateKhutbah(k.id, { status: 'published' })}>✅</button>}
+                          {k.status === 'published' && <button className="btn btn--ghost btn--sm" onClick={() => updateKhutbah(k.id, { status: 'draft' })}>⬇️</button>}
+                          <button className="btn btn--ghost btn--sm" style={{ color: 'red' }} onClick={() => { if (confirm('Hapus?')) deleteKhutbah(k.id); }}>🗑</button>
+                        </div>
+                      )}
+                      {k.isStatic && <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>Static</span>}
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
-
-          {/* Detail Modal */}
-          {selectedKhutbah && (
-            <div className="admin__modal-overlay" onClick={() => setSelectedKhutbah(null)}>
-              <div className="admin__modal" onClick={e => e.stopPropagation()}>
-                <div className="admin__modal-header">
-                  <h3>{selectedKhutbah.title}</h3>
-                  <button onClick={() => setSelectedKhutbah(null)}>✕</button>
-                </div>
-                <div className="admin__modal-body">
-                  <DetailView 
-                    khutbah={selectedKhutbah} 
-                    allKhutbah={khutbahWithStatus} 
-                    onUpdate={(updates) => {
-                      updateKhutbah(selectedKhutbah.id, updates);
-                      setSelectedKhutbah({...selectedKhutbah, ...updates});
-                    }}
-                    onDelete={() => {
-                      if(confirm('Yakin ingin menghapus?')) {
-                        deleteKhutbah(selectedKhutbah.id);
-                        setSelectedKhutbah(null);
-                      }
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       )}
 
@@ -203,28 +427,21 @@ export default function AdminPage() {
       {activeTab === 'sources' && (
         <div className="admin__section">
           <div className="admin__alert admin__alert--info">
-            <strong>ℹ️ Catatan Penting:</strong> Website di bawah ini digunakan HANYA sebagai inspirasi tema dan referensi kualitas.
-            Konten khutbah TIDAK BOLEH disalin mentah. Seluruh naskah harus ditulis ulang secara orisinal.
+            <strong>ℹ️ Catatan:</strong> Sumber di bawah digunakan HANYA sebagai inspirasi. Konten TIDAK BOLEH disalin.
           </div>
-
           <h3>🇮🇩 Sumber Indonesia</h3>
           <div className="admin__source-grid">
             {ALL_SOURCES.filter(s => s.lang === 'id').map(s => (
               <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" className="admin__source-card">
-                <strong>{s.name}</strong>
-                <p>{s.focus}</p>
-                <small>{s.url}</small>
+                <strong>{s.name}</strong><p>{s.focus}</p><small>{s.url}</small>
               </a>
             ))}
           </div>
-
           <h3>🌍 Sumber Internasional</h3>
           <div className="admin__source-grid">
             {ALL_SOURCES.filter(s => s.lang !== 'id').map(s => (
               <a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer" className="admin__source-card">
-                <strong>{s.name}</strong>
-                <p>{s.focus}</p>
-                <small>{s.url}</small>
+                <strong>{s.name}</strong><p>{s.focus}</p><small>{s.url}</small>
               </a>
             ))}
           </div>
@@ -235,7 +452,6 @@ export default function AdminPage() {
       {activeTab === 'themes' && (
         <div className="admin__section">
           <h3>💡 Bank Tema Khutbah</h3>
-          <p style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--sp-4)' }}>Klik tema untuk cek apakah sudah ada khutbah dengan tema serupa.</p>
           <div className="admin__theme-grid">
             {SUGGESTED_THEMES.map(t => {
               const existing = khutbahWithStatus.filter(k => k.category === t.theme || k.tags?.includes(t.theme));
@@ -246,11 +462,6 @@ export default function AdminPage() {
                     <span className="badge badge--primary">{existing.length}</span>
                   </div>
                   <p>{t.description}</p>
-                  {existing.length > 0 && (
-                    <div className="admin__theme-existing">
-                      {existing.map(k => <small key={k.id}>• {k.title}</small>)}
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -262,136 +473,11 @@ export default function AdminPage() {
       {activeTab === 'guide' && (
         <div className="admin__section admin__guide">
           <h3>📖 Panduan Update Materi Khutbah</h3>
-
-          <div className="admin__guide-step">
-            <h4>1. Generate Draft Baru</h4>
-            <p>Jalankan perintah berikut di terminal:</p>
-            <pre><code>node scripts/generateDraft.mjs "Judul Khutbah" --theme taqwa --source muslim-or-id</code></pre>
-            <p>File draft akan dibuat di <code>src/data/drafts/</code></p>
-          </div>
-
-          <div className="admin__guide-step">
-            <h4>2. Lengkapi Konten Draft</h4>
-            <p>Buka file JSON draft, lalu ganti semua placeholder <code>[TULIS...]</code> dengan konten asli. Pastikan:</p>
-            <ul>
-              <li>Minimal 800 kata (±7-10 menit baca)</li>
-              <li>Memiliki mukaddimah, wasiat taqwa, isi utama, dalil, dan penutup</li>
-              <li>Tidak ada singkatan (SAW, SWT, dll)</li>
-              <li>Bahasa formal dan profesional</li>
-            </ul>
-          </div>
-
-          <div className="admin__guide-step">
-            <h4>3. Review dan Validasi</h4>
-            <p>Ubah status menjadi <code>"review"</code> setelah konten selesai. Gunakan tab Validasi untuk memeriksa masalah.</p>
-          </div>
-
-          <div className="admin__guide-step">
-            <h4>4. Publish</h4>
-            <p>Setelah lulus review, ubah status menjadi <code>"published"</code>. Import file draft ke <code>khutbahData.js</code>.</p>
-          </div>
-
-          <div className="admin__guide-step">
-            <h4>5. Status Konten</h4>
-            <div className="admin__status-list">
-              {Object.entries(STATUS_LABELS).map(([key, val]) => (
-                <div key={key} className="admin__status-item">
-                  <span className="admin__status" style={{ background: val.color + '20', color: val.color }}>{val.icon} {val.label}</span>
-                  <span>{key === 'draft' ? 'Baru dibuat, belum lengkap' : key === 'review' ? 'Konten lengkap, perlu dicek' : key === 'ready' ? 'Sudah direview, siap publish' : 'Sudah tayang di website'}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="admin__guide-step">
-            <h4>6. Aturan Penting</h4>
-            <ul>
-              <li>❌ JANGAN copy-paste dari website referensi</li>
-              <li>✅ Gunakan referensi hanya untuk inspirasi tema dan dalil</li>
-              <li>✅ Tulis ulang seluruh konten dengan bahasa sendiri</li>
-              <li>✅ Pastikan setiap khutbah unik (cek duplikasi judul/slug)</li>
-              <li>✅ Gunakan lafaz penghormatan lengkap</li>
-            </ul>
-          </div>
+          <div className="admin__guide-step"><h4>1. Tambah Manual</h4><p>Klik tombol <strong>➕ Tambah Khutbah</strong> di header atau tab Konten untuk menambah naskah khutbah baru secara langsung.</p></div>
+          <div className="admin__guide-step"><h4>2. Review Kiriman User</h4><p>Kiriman dari pengguna akan muncul di tab <strong>📥 Kiriman User</strong> dengan status "Menunggu Review". Klik Approve untuk mempublikasikan.</p></div>
+          <div className="admin__guide-step"><h4>3. Aturan Konten</h4><ul><li>❌ JANGAN copy-paste dari website referensi</li><li>✅ Minimal 800 kata per khutbah</li><li>✅ Gunakan lafaz penghormatan lengkap (tanpa singkatan SAW, SWT, dll)</li><li>✅ Pastikan setiap khutbah unik</li></ul></div>
         </div>
       )}
-    </div>
-  );
-}
-
-/** Sub-component for detail view */
-function DetailView({ khutbah, allKhutbah, onUpdate, onDelete }) {
-  const v = validateKhutbah(khutbah);
-  const words = countWords(khutbah);
-  const dur = estimateReadingDuration(khutbah);
-  const similar = isSimilarTitle(khutbah.title, allKhutbah.filter(k => k.id !== khutbah.id).map(k => k.title));
-
-  return (
-    <div className="admin__detail">
-      {!khutbah.isStatic && (
-        <div className="admin__actions" style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
-          {khutbah.status === 'review' && (
-            <>
-              <button className="btn btn--primary" onClick={() => onUpdate({status: 'published'})}>✅ Approve & Publish</button>
-              <button className="btn btn--ghost" style={{color: 'red', borderColor: 'red'}} onClick={() => onUpdate({status: 'rejected'})}>❌ Reject</button>
-            </>
-          )}
-          {khutbah.status === 'published' && (
-            <button className="btn btn--ghost" onClick={() => onUpdate({status: 'draft'})}>⬇️ Unpublish (Draft)</button>
-          )}
-          {(khutbah.status === 'draft' || khutbah.status === 'rejected') && (
-            <button className="btn btn--primary" onClick={() => onUpdate({status: 'published'})}>⬆️ Publish</button>
-          )}
-          <button className="btn btn--ghost" style={{color: 'red', marginLeft: 'auto'}} onClick={onDelete}>🗑 Delete</button>
-        </div>
-      )}
-
-      {khutbah.contributorName && (
-        <div className="admin__alert admin__alert--info" style={{marginBottom: 16}}>
-          <strong>👤 Kontributor:</strong> {khutbah.contributorName} ({khutbah.contributorEmail}) {khutbah.contributorWa ? ` - WA: ${khutbah.contributorWa}` : ''}
-        </div>
-      )}
-
-      <div className="admin__detail-grid">
-        <div><strong>ID:</strong> {khutbah.id}</div>
-        <div><strong>Slug:</strong> {khutbah.slug}</div>
-        <div><strong>Kategori:</strong> {khutbah.category}</div>
-        <div><strong>Tipe:</strong> {khutbah.type}</div>
-        <div><strong>Kata:</strong> {words}</div>
-        <div><strong>Durasi:</strong> ±{dur} menit</div>
-        <div><strong>Tags:</strong> {khutbah.tags?.join(', ')}</div>
-        <div><strong>Tanggal:</strong> {khutbah.createdAt}</div>
-      </div>
-
-      <h4>Validasi</h4>
-      <p>{v.valid ? '✅ Lulus validasi' : `⚠️ ${v.issues.length} masalah ditemukan`}</p>
-      {v.issues.length > 0 && (
-        <ul className="admin__val-issues">
-          {v.issues.map((issue, i) => (
-            <li key={i}>{issue.severity === 'error' ? '🔴' : '🟡'} {issue.message}</li>
-          ))}
-        </ul>
-      )}
-
-      {similar.similar && (
-        <div className="admin__alert admin__alert--warning" style={{ marginTop: 12 }}>
-          ⚠️ Judul mirip dengan: "{similar.existingTitle}" (kemiripan: {similar.similarity}%)
-        </div>
-      )}
-
-      <h4>Struktur Konten</h4>
-      <div className="admin__blocks">
-        <p><strong>Khutbah 1:</strong> {khutbah.firstKhutbah?.length || 0} blok</p>
-        {khutbah.firstKhutbah?.map((b, i) => (
-          <span key={i} className={`admin__block-tag admin__block-tag--${b.type}`}>{b.type}</span>
-        ))}
-        <p style={{ marginTop: 8 }}><strong>Khutbah 2:</strong> {khutbah.secondKhutbah?.length || 0} blok</p>
-        {khutbah.secondKhutbah?.map((b, i) => (
-          <span key={i} className={`admin__block-tag admin__block-tag--${b.type}`}>{b.type}</span>
-        ))}
-        <p style={{ marginTop: 8 }}><strong>Doa:</strong> {khutbah.dua ? '✅' : '❌'}</p>
-        <p><strong>Referensi:</strong> {khutbah.references?.length || 0} sumber</p>
-      </div>
     </div>
   );
 }
