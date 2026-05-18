@@ -3,8 +3,10 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
 import { PremiumProvider } from './context/PremiumContext';
+import { TilawahProvider } from './context/TilawahContext';
 import Navbar from './components/Navbar/Navbar';
 import BottomNav from './components/BottomNav/BottomNav';
+import GlobalMiniTilawahPlayer from './components/GlobalMiniTilawahPlayer/GlobalMiniTilawahPlayer';
 import Footer from './components/Footer/Footer';
 import PageLoader from './components/PageLoader/PageLoader';
 import PageTransition from './components/PageTransition/PageTransition';
@@ -87,6 +89,7 @@ function AppLayout() {
         <AnimatedRoutes />
       </main>
       {!isDetail && <Footer />}
+      <GlobalMiniTilawahPlayer />
       <BottomNav />
     </>
   );
@@ -97,9 +100,11 @@ export default function App() {
     <AuthProvider>
       <PremiumProvider>
         <AppProvider>
-          <BrowserRouter>
-            <AppLayout />
-          </BrowserRouter>
+          <TilawahProvider>
+            <BrowserRouter>
+              <AppLayout />
+            </BrowserRouter>
+          </TilawahProvider>
         </AppProvider>
       </PremiumProvider>
     </AuthProvider>
