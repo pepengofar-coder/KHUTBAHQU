@@ -1,8 +1,98 @@
-.themes{padding:var(--sp-12) 0}
-.themes__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-3)}
-@media(min-width:640px){.themes__grid{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:1024px){.themes__grid{grid-template-columns:repeat(4,1fr)}}
-.theme-chip{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-lg);font-size:var(--fs-sm);font-weight:500;color:var(--color-text-secondary);transition:all var(--tr-fast);cursor:pointer}
-.theme-chip:hover{border-color:var(--color-primary);color:var(--color-primary);background:var(--color-primary-surface)}
-.theme-chip__icon{font-size:20px}
-.theme-chip__count{margin-left:auto;font-size:.7rem;font-weight:700;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:var(--color-primary-surface,rgba(0,0,0,.06));color:var(--color-text-muted);padding:0 5px}
+/* ============================================
+   ThemeSection — Category Chips with Animations
+   ============================================ */
+
+.themes {
+  padding: var(--sp-12) 0;
+}
+
+.themes__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-3);
+}
+
+@media (min-width: 640px) {
+  .themes__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .themes__grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.theme-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: all 0.3s var(--ease-spring);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-chip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--color-primary-surface) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-chip:hover::after {
+  opacity: 1;
+}
+
+.theme-chip:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 80ms;
+}
+
+.theme-chip__icon {
+  font-size: 20px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.theme-chip:hover .theme-chip__icon {
+  transform: scale(1.15);
+}
+
+.theme-chip__count {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--color-primary-surface, rgba(0,0,0,0.06));
+  color: var(--color-text-muted);
+  padding: 0 5px;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.theme-chip:hover .theme-chip__count {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}

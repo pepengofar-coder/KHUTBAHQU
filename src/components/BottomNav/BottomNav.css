@@ -1,12 +1,130 @@
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;height:var(--bottom-nav-h);background:var(--color-bg-card);border-top:1px solid var(--color-border-light);box-shadow:0 -2px 12px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0)}
-@media(min-width:1024px){.bottom-nav{display:none}}
-.bottom-nav.hidden{transform:translateY(100%);transition:transform var(--tr-base)}
-.bottom-nav__inner{display:flex;align-items:center;justify-content:space-around;width:100%;max-width:480px}
-.bottom-nav__item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-2) var(--sp-4);border-radius:var(--radius-md);position:relative;-webkit-tap-highlight-color:transparent}
-.bottom-nav__item:active{transform:scale(.93)}
-.bottom-nav__icon{font-size:22px;opacity:.5;transition:opacity var(--tr-fast)}
-.bottom-nav__label{font-size:var(--fs-xs);font-weight:500;color:var(--color-text-muted)}
-.bottom-nav__item.active .bottom-nav__icon{opacity:1}
-.bottom-nav__item.active .bottom-nav__label{color:var(--color-primary);font-weight:600}
-.bottom-nav__item.active::before{content:'';position:absolute;top:2px;left:50%;transform:translateX(-50%);width:24px;height:3px;background:var(--color-primary);border-radius:var(--radius-pill)}
-.bottom-nav__badge{position:absolute;top:0;right:8px;min-width:16px;height:16px;padding:0 4px;background:var(--color-gold);color:#fff;font-size:10px;font-weight:700;border-radius:var(--radius-pill);display:flex;align-items:center;justify-content:center}
+/* ============================================
+   BottomNav — iOS Tab Bar Style
+   ============================================ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--bottom-nav-h);
+  background: rgba(248, 243, 231, 0.78);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-top: 0.5px solid rgba(229, 225, 216, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  transition: transform 0.45s var(--ease-spring);
+}
+
+[data-theme="dark"] .bottom-nav {
+  background: rgba(17, 19, 24, 0.82);
+  border-top-color: rgba(46, 48, 56, 0.5);
+}
+
+@media (min-width: 1024px) {
+  .bottom-nav { display: none; }
+}
+
+.bottom-nav.hidden {
+  transform: translateY(100%);
+}
+
+.bottom-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 var(--sp-2);
+}
+
+/* Individual tab item */
+.bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-lg);
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.bottom-nav__item:active {
+  transform: scale(0.88);
+  transition-duration: 100ms;
+}
+
+/* Icon */
+.bottom-nav__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  transition: all 0.35s var(--ease-spring);
+}
+
+.bottom-nav__icon svg {
+  transition: all 0.35s var(--ease-spring);
+}
+
+/* Label */
+.bottom-nav__label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: all 0.3s var(--ease-spring);
+  letter-spacing: 0.01em;
+}
+
+/* Active state */
+.bottom-nav__item.active .bottom-nav__icon {
+  color: var(--color-primary);
+  background: var(--color-primary-surface);
+  width: 44px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+}
+
+.bottom-nav__item.active .bottom-nav__icon svg {
+  transform: scale(1.05);
+  stroke-width: 2.5;
+}
+
+.bottom-nav__item.active .bottom-nav__label {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Badge */
+.bottom-nav__badge {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  background: var(--color-gold);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(214, 168, 79, 0.4);
+  animation: badgePulse 2s ease infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}

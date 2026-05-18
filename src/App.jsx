@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import BottomNav from './components/BottomNav/BottomNav';
 import Footer from './components/Footer/Footer';
 import PageLoader from './components/PageLoader/PageLoader';
+import PageTransition from './components/PageTransition/PageTransition';
 import OfflineBanner from './components/OfflineBanner/OfflineBanner';
 
 // Lazy load pages
@@ -18,6 +19,28 @@ const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const MimbarMode = lazy(() => import('./pages/MimbarMode/MimbarMode'));
 const AdminPage = lazy(() => import('./pages/AdminPage/AdminPage'));
 const SubmitPage = lazy(() => import('./pages/SubmitPage/SubmitPage'));
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <PageTransition key={location.pathname}>
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/khutbah" element={<CatalogPage />} />
+          <Route path="/khutbah/:slug" element={<DetailPage />} />
+          <Route path="/mushaf" element={<MushafPage />} />
+          <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
+          <Route path="/favorit" element={<FavoritesPage />} />
+          <Route path="/tentang" element={<AboutPage />} />
+          <Route path="/admin280292" element={<AdminPage />} />
+          <Route path="/kontribusi" element={<SubmitPage />} />
+        </Routes>
+      </PageTransition>
+    </Suspense>
+  );
+}
 
 function AppLayout() {
   const location = useLocation();
@@ -36,19 +59,7 @@ function AppLayout() {
       <OfflineBanner />
       {(!isAdmin) && <Navbar />}
       <main style={{ flex: 1 }}>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/khutbah" element={<CatalogPage />} />
-            <Route path="/khutbah/:slug" element={<DetailPage />} />
-            <Route path="/mushaf" element={<MushafPage />} />
-            <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
-            <Route path="/favorit" element={<FavoritesPage />} />
-            <Route path="/tentang" element={<AboutPage />} />
-            <Route path="/admin280292" element={<AdminPage />} />
-            <Route path="/kontribusi" element={<SubmitPage />} />
-          </Routes>
-        </Suspense>
+        <AnimatedRoutes />
       </main>
       {!isDetail && <Footer />}
       <BottomNav />
