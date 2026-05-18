@@ -4,7 +4,7 @@ import { DOA_CATEGORIES, DOA_DZIKIR_DATA } from '../../data/doaDzikir';
 import './DoaDzikirPage.css';
 
 export default function DoaDzikirPage() {
-  useSEO({ title: 'Doa & Dzikir Harian — Dzikir Pagi, Petang, dan Doa Islam | KhutbahQu', description: 'Koleksi dzikir pagi, dzikir petang, doa harian, doa tidur, doa masjid, dan doa Islam lainnya dari Hishnul Muslim. Lengkap dengan teks Arab, latin, terjemahan, dan sumber.', path: '/doa-dzikir' });
+  useSEO({ title: 'Doa & Dzikir Harian — Dzikir Pagi, Petang, dan Doa Islam | Islamediaku', description: 'Koleksi dzikir pagi, dzikir petang, doa harian, doa tidur, doa masjid, dan doa Islam lainnya dari Hishnul Muslim. Lengkap dengan teks Arab, latin, terjemahan, dan sumber.', path: '/doa-dzikir' });
 
   const [activeCat, setActiveCat] = useState('pagi');
   const [completed, setCompleted] = useState(() => {

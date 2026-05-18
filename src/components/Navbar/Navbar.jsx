@@ -35,7 +35,7 @@ export default function Navbar() {
       <div className="nav__inner">
         <NavLink to="/" className="nav__brand">
           <span className="nav__logo">🕌</span>
-          <span className="nav__name">KhutbahQu</span>
+          <span className="nav__name">Islamediaku</span>
         </NavLink>
 
         {/* Desktop Links */}

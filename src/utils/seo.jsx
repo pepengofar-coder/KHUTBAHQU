@@ -1,5 +1,5 @@
 /**
- * KhutbahQu — SEO Utilities
+ * Islamediaku — SEO Utilities
  * Custom hook for dynamic meta tags + JSON-LD component
  */
 import { useEffect } from 'react';
@@ -8,10 +8,10 @@ export const SITE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.
   ? import.meta.env.VITE_SITE_URL.replace(/\/$/, '')
   : 'https://khutbahqu.vercel.app';
 
-export const SITE_NAME = 'KhutbahQu';
+export const SITE_NAME = 'Islamediaku';
 
 export const DEFAULT_SEO = {
-  title: 'KhutbahQu - Teks Khutbah Jumat, Kultum, dan Tausiyah Islam Siap Pakai',
+  title: 'Islamediaku - Teks Khutbah Jumat, Kultum, Tausiyah, dan Aplikasi Islami Lengkap',
   description: 'Kumpulan teks khutbah Jumat, kultum Ramadhan, tausiyah Islam, dan rekomendasi tema dakwah berdasarkan kalender Hijriah. Siap pakai untuk khatib, dai, ustaz, dan pengurus masjid.',
   image: `${SITE_URL}/logo.png`,
 };

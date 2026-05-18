@@ -19,7 +19,7 @@ export default function HijriCalendarPage() {
   const { allKhutbah, categories } = useApp();
 
   useSEO({
-    title: 'Kalender Hijriah — Tanggal Islam, Puasa Sunnah & Peristiwa Islam | KhutbahQu',
+    title: 'Kalender Hijriah — Tanggal Islam, Puasa Sunnah & Peristiwa Islam | Islamediaku',
     description: 'Kalender Hijriah interaktif dengan jadwal puasa sunnah, peristiwa Islam terdekat, dan rekomendasi tema khutbah berdasarkan bulan Hijriah. Untuk khatib, dai, dan umat muslim.',
     path: '/kalender-hijriah',
   });

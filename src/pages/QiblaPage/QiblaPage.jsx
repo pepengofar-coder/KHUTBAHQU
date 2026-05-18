@@ -13,7 +13,7 @@ function calcBearing(lat1,lon1,lat2,lon2){
 }
 
 export default function QiblaPage(){
-  useSEO({title:'Arah Kiblat — Kompas Kiblat Digital | KhutbahQu',description:'Temukan arah kiblat dari lokasi Anda menggunakan kompas digital. Deteksi otomatis menggunakan GPS dan sensor orientasi perangkat.',path:'/kiblat'});
+  useSEO({title:'Arah Kiblat — Kompas Kiblat Digital | Islamediaku',description:'Temukan arah kiblat dari lokasi Anda menggunakan kompas digital. Deteksi otomatis menggunakan GPS dan sensor orientasi perangkat.',path:'/kiblat'});
 
   const[bearing,setBearing]=useState(null);
   const[heading,setHeading]=useState(0);

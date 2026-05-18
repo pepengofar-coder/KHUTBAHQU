@@ -25,7 +25,7 @@ export default function DetailPage() {
   // Dynamic SEO for detail page
   const typeLabel = tp ? tp.label : 'Khutbah';
   useSEO({
-    title: k ? `${k.title} — ${typeLabel} | KhutbahQu` : 'Khutbah Tidak Ditemukan | KhutbahQu',
+    title: k ? `${k.title} — ${typeLabel} | Islamediaku` : 'Khutbah Tidak Ditemukan | Islamediaku',
     description: k ? `${k.summary} Teks ${typeLabel.toLowerCase()} siap pakai lengkap dengan dalil Al-Qur'an dan hadis.` : 'Halaman khutbah tidak ditemukan.',
     path: k ? `/khutbah/${k.slug}` : '/khutbah',
     type: 'article',
@@ -71,11 +71,11 @@ export default function DetailPage() {
     dateModified: k.createdAt,
     author: {
       '@type': 'Organization',
-      name: 'KhutbahQu Editorial Team',
+      name: 'Islamediaku Editorial Team',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'KhutbahQu',
+      name: 'Islamediaku',
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
     },
     mainEntityOfPage: {

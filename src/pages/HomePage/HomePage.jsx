@@ -18,7 +18,7 @@ export default function HomePage() {
   const { allKhutbah, recentKhutbah, categories } = useApp();
 
   useSEO({
-    title: 'KhutbahQu - Teks Khutbah Jumat, Kultum, dan Tausiyah Islam Siap Pakai',
+    title: 'Islamediaku - Teks Khutbah Jumat, Kultum, dan Tausiyah Islam Siap Pakai',
     description: 'Kumpulan teks khutbah Jumat, kultum Ramadhan, tausiyah Islam, dan rekomendasi tema dakwah berdasarkan kalender Hijriah. Siap pakai untuk khatib, dai, ustaz, dan pengurus masjid.',
     path: '/',
   });
@@ -215,9 +215,9 @@ export default function HomePage() {
       {/* SEO text section */}
       <section className="home-seo-text container">
         <div className="home-seo-text__inner">
-          <h2 className="home-seo-text__title">Tentang KhutbahQu</h2>
+          <h2 className="home-seo-text__title">Tentang Islamediaku</h2>
           <p>
-            <strong>KhutbahQu</strong> adalah platform Islamic companion app yang menyediakan koleksi lengkap teks khutbah Jumat, kultum Ramadhan, tausiyah singkat, jadwal sholat, arah kiblat, mushaf Al-Qur'an, dzikir pagi petang, dan materi dakwah untuk berbagai momen Islami.
+            <strong>Islamediaku</strong> adalah platform Islamic companion app yang menyediakan koleksi lengkap teks khutbah Jumat, kultum Ramadhan, tausiyah singkat, jadwal sholat, arah kiblat, mushaf Al-Qur'an, dzikir pagi petang, dan materi dakwah untuk berbagai momen Islami.
           </p>
           <p>
             Tersedia lebih dari <strong>{allKhutbah.length} naskah</strong> khutbah dalam berbagai kategori. Setiap materi dilengkapi dalil Al-Qur'an dan hadis shahih, serta fitur <em>Mode Mimbar</em>, <Link to="/kalender-hijriah">kalender Hijriah</Link>, dan <Link to="/tracker">tracker ibadah</Link>.

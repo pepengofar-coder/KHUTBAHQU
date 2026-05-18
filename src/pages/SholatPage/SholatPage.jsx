@@ -11,7 +11,7 @@ function fmt(s){return s?s.substring(0,5):'--:--'}
 function getNext(timings){const now=new Date();for(const k of MAIN_PRAYERS){const t=parseTime(timings[k]);if(t&&t>now)return k}return MAIN_PRAYERS[0]}
 
 export default function SholatPage(){
-  useSEO({title:'Jadwal Sholat Hari Ini — Waktu Sholat Akurat | KhutbahQu',description:'Jadwal waktu sholat hari ini dengan countdown otomatis. Subuh, Dzuhur, Ashar, Maghrib, Isya berdasarkan lokasi Anda.',path:'/sholat'});
+  useSEO({title:'Jadwal Sholat Hari Ini — Waktu Sholat Akurat | Islamediaku',description:'Jadwal waktu sholat hari ini dengan countdown otomatis. Subuh, Dzuhur, Ashar, Maghrib, Isya berdasarkan lokasi Anda.',path:'/sholat'});
 
   const[mode,setMode]=useState('detecting');
   const[coords,setCoords]=useState(null);

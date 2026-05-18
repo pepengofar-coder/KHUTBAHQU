@@ -13,13 +13,13 @@ const FEATURES = [
 ];
 
 export default function PremiumPage() {
-  useSEO({ title: 'KhutbahQu Premium — Fitur Eksklusif | KhutbahQu', description: 'Tingkatkan pengalaman Islami Anda dengan KhutbahQu Premium: tanpa iklan, audio murottal, tema eksklusif, dan banyak lagi.', path: '/premium' });
+  useSEO({ title: 'Islamediaku Premium — Fitur Eksklusif | Islamediaku', description: 'Tingkatkan pengalaman Islami Anda dengan Islamediaku Premium: tanpa iklan, audio murottal, tema eksklusif, dan banyak lagi.', path: '/premium' });
 
   return (
     <div className="premium-page container">
       <div className="premium-hero">
         <span className="premium-hero__badge">👑 Premium</span>
-        <h1 className="premium-hero__title">KhutbahQu Premium</h1>
+        <h1 className="premium-hero__title">Islamediaku Premium</h1>
         <p className="premium-hero__sub">Tingkatkan pengalaman Islami Anda dengan fitur eksklusif</p>
       </div>
 

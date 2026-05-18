@@ -1,4 +1,4 @@
-# Panduan Google Search Console untuk KhutbahQu
+# Panduan Google Search Console untuk Islamediaku
 
 ## 1. Menambahkan Website ke Google Search Console
 
@@ -11,7 +11,7 @@
 
 ## 2. Verifikasi Kepemilikan
 
-KhutbahQu sudah memiliki file verifikasi di:
+Islamediaku sudah memiliki file verifikasi di:
 - `public/google8c31629919a85dd0.html`
 - Meta tag: `<meta name="google-site-verification" content="google8c31629919a85dd0" />`
 

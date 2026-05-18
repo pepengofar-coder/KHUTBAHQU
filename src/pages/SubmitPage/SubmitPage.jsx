@@ -16,8 +16,8 @@ export default function SubmitPage() {
   const { categories, addSubmission } = useApp();
 
   useSEO({
-    title: 'Kirim Naskah Khutbah — Kontribusi Materi Dakwah | KhutbahQu',
-    description: 'Kirimkan naskah khutbah Jumat, kultum, atau tausiyah Anda ke KhutbahQu. Bagikan ilmu dan raih pahala jariyah dengan berkontribusi materi dakwah Islam.',
+    title: 'Kirim Naskah Khutbah — Kontribusi Materi Dakwah | Islamediaku',
+    description: 'Kirimkan naskah khutbah Jumat, kultum, atau tausiyah Anda ke Islamediaku. Bagikan ilmu dan raih pahala jariyah dengan berkontribusi materi dakwah Islam.',
     path: '/kontribusi',
   });
   const [form, setForm] = useState({
@@ -127,7 +127,7 @@ export default function SubmitPage() {
           <div className="submit-success__icon">🎉</div>
           <h2>Alhamdulillah, Khutbah Berhasil Dikirim!</h2>
           <p>Terima kasih atas kontribusi Anda. Khutbah Anda saat ini berstatus <strong>Menunggu Review Admin</strong>.</p>
-          <p>Tim admin kami akan meninjau naskah Anda sebelum diterbitkan di KhutbahQu. Jazakallahu khairan.</p>
+          <p>Tim admin kami akan meninjau naskah Anda sebelum diterbitkan di Islamediaku. Jazakallahu khairan.</p>
           <div className="submit-success__actions">
             <button className="btn btn--primary" onClick={() => setSuccess(false)}>Kirim Khutbah Lainnya</button>
           </div>
@@ -360,7 +360,7 @@ export default function SubmitPage() {
             onChange={handleChange}
           />
           <label htmlFor="agreement">
-            Saya menyatakan bahwa naskah khutbah ini adalah <strong>karya saya sendiri</strong>, bebas dari unsur plagiarisme, dan saya memberikan izin kepada KhutbahQu untuk menerbitkannya (admin berhak mengedit sebelum dipublish).
+            Saya menyatakan bahwa naskah khutbah ini adalah <strong>karya saya sendiri</strong>, bebas dari unsur plagiarisme, dan saya memberikan izin kepada Islamediaku untuk menerbitkannya (admin berhak mengedit sebelum dipublish).
           </label>
         </div>
 

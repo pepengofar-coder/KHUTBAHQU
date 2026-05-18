@@ -8,7 +8,7 @@ const TRANSLATION_ID = 33;
 
 export default function MushafPage() {
   useSEO({
-    title: "Mushaf Al-Qur'an Digital dengan Terjemahan Indonesia | KhutbahQu",
+    title: "Mushaf Al-Qur'an Digital dengan Terjemahan Indonesia | Islamediaku",
     description: "Baca Al-Qur'an digital lengkap dengan terjemahan Bahasa Indonesia. Mushaf Madinah online untuk khatib, dai, dan umat muslim.",
     path: '/mushaf',
   });

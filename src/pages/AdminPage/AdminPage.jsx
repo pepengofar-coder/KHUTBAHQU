@@ -26,7 +26,7 @@ function LoginScreen() {
     <div className="admin-login">
       <div className="admin-login__card">
         <div className="admin-login__logo">🕌</div>
-        <h1 className="admin-login__title">KhutbahQu Admin</h1>
+        <h1 className="admin-login__title">Islamediaku Admin</h1>
         <p className="admin-login__subtitle">Masuk untuk mengelola konten khutbah</p>
         <form onSubmit={handleSubmit} className="admin-login__form">
           {error && <div className="admin-login__error">⚠️ {error}</div>}
@@ -42,7 +42,7 @@ function LoginScreen() {
             {loading ? '⏳ Memverifikasi...' : '🔐 Masuk Panel Admin'}
           </button>
         </form>
-        <p className="admin-login__back"><a href="/">← Kembali ke KhutbahQu</a></p>
+        <p className="admin-login__back"><a href="/">← Kembali ke Islamediaku</a></p>
       </div>
     </div>
   );
@@ -237,7 +237,7 @@ export default function AdminPage() {
     <div className="admin container">
       <div className="admin__header">
         <div>
-          <h1>📋 Admin Panel — KhutbahQu</h1>
+          <h1>📋 Admin Panel — Islamediaku</h1>
           <p className="admin__subtitle">Kelola, validasi, dan monitor materi khutbah</p>
         </div>
         <div className="admin__header-actions">

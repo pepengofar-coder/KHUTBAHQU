@@ -1,5 +1,5 @@
 /**
- * KhutbahQu — Daftar Sumber Referensi Khutbah
+ * Islamediaku — Daftar Sumber Referensi Khutbah
  * Website-website ini digunakan HANYA sebagai inspirasi tema, struktur, dan kualitas.
  * Konten TIDAK boleh disalin mentah. Harus ditulis ulang secara orisinal.
  */

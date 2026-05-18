@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer__inner">
         <div className="footer__brand">
-          <h3>📖 KhutbahQu</h3>
+          <h3>📖 Islamediaku</h3>
           <p>Platform materi khutbah Islam siap pakai untuk khatib, pendakwah, dan umat muslim.</p>
         </div>
         <div className="footer__col">
@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer__bottom">
-        <p>© 2026 KhutbahQu. Semua konten disusun untuk kebaikan umat.</p>
+        <p>© 2026 Islamediaku. Semua konten disusun untuk kebaikan umat.</p>
         <p style={{ marginTop: '8px', fontSize: '0.9em', color: 'var(--color-text-muted)' }}>
           Aplikasi oleh Amirudin Abu Ziyadhmaeda
         </p>

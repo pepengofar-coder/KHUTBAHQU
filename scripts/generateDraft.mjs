@@ -1,5 +1,5 @@
 /**
- * KhutbahQu — Draft Generator
+ * Islamediaku — Draft Generator
  * Script lokal untuk menambah draft khutbah baru.
  *
  * Cara menjalankan:

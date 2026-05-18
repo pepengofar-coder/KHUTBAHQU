@@ -1,5 +1,5 @@
 /**
- * Sitemap Generator for KhutbahQu
+ * Sitemap Generator for Islamediaku
  * Run: node scripts/generate-sitemap.mjs
  * Outputs: public/sitemap.xml
  */

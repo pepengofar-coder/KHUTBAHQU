@@ -6,8 +6,8 @@ export default function FavoritesPage() {
   const { bookmarkedKhutbah, recentKhutbah } = useApp();
 
   useSEO({
-    title: 'Favorit Saya — Khutbah Tersimpan | KhutbahQu',
-    description: 'Daftar khutbah Jumat, kultum, dan tausiyah yang Anda simpan di KhutbahQu.',
+    title: 'Favorit Saya — Khutbah Tersimpan | Islamediaku',
+    description: 'Daftar khutbah Jumat, kultum, dan tausiyah yang Anda simpan di Islamediaku.',
     path: '/favorit',
     robots: 'noindex, follow', // User-specific page
   });

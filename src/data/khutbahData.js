@@ -1,5 +1,5 @@
 /**
- * KhutbahQu — Data Utama Khutbah
+ * Islamediaku — Data Utama Khutbah
  */
 export { CATEGORIES, TYPES } from './parts/header.js';
 

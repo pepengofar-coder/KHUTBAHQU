@@ -25,7 +25,7 @@ function loadTracker() {
 function saveTracker(data) { localStorage.setItem('kq_tracker', JSON.stringify(data)); }
 
 export default function TrackerPage() {
-  useSEO({ title: 'Tracker Ibadah Harian — Checklist Sholat & Amal | KhutbahQu', description: 'Pantau ibadah harian Anda: sholat 5 waktu, tilawah, dzikir pagi petang, sedekah, dan puasa sunnah. Dengan streak harian.', path: '/tracker' });
+  useSEO({ title: 'Tracker Ibadah Harian — Checklist Sholat & Amal | Islamediaku', description: 'Pantau ibadah harian Anda: sholat 5 waktu, tilawah, dzikir pagi petang, sedekah, dan puasa sunnah. Dengan streak harian.', path: '/tracker' });
 
   const today = getDateKey();
   const [data, setData] = useState(loadTracker);

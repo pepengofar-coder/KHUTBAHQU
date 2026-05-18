@@ -23,15 +23,15 @@ export default function CatalogPage() {
   const activeCat = categories.find(c => c.id === activeCategory);
   const activeTypeName = types.find(t => t.id === activeType);
 
-  let seoTitle = `Katalog Teks Khutbah Jumat dan Materi Dakwah Islam | KhutbahQu`;
+  let seoTitle = `Katalog Teks Khutbah Jumat dan Materi Dakwah Islam | Islamediaku`;
   let seoDesc = `Temukan ${allKhutbah.length}+ teks khutbah Jumat, kultum, tausiyah, dan materi dakwah Islam siap pakai. Filter berdasarkan kategori, tipe, dan durasi.`;
 
   if (activeCat) {
-    seoTitle = `Khutbah Jumat tentang ${activeCat.label} | KhutbahQu`;
+    seoTitle = `Khutbah Jumat tentang ${activeCat.label} | Islamediaku`;
     seoDesc = `Koleksi teks khutbah Jumat dan materi dakwah Islam bertema ${activeCat.label}. Siap pakai untuk khatib dan dai.`;
   } else if (activeTypeName) {
-    seoTitle = `${activeTypeName.label} Islam Siap Pakai | KhutbahQu`;
-    seoDesc = `Koleksi ${activeTypeName.label.toLowerCase()} Islam siap pakai. Temukan materi dakwah berkualitas di KhutbahQu.`;
+    seoTitle = `${activeTypeName.label} Islam Siap Pakai | Islamediaku`;
+    seoDesc = `Koleksi ${activeTypeName.label.toLowerCase()} Islam siap pakai. Temukan materi dakwah berkualitas di Islamediaku.`;
   }
 
   useSEO({

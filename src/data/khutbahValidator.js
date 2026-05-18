@@ -1,5 +1,5 @@
 /**
- * KhutbahQu — Content Validation & Utilities
+ * Islamediaku — Content Validation & Utilities
  * Fungsi-fungsi untuk validasi, estimasi durasi, deteksi duplikasi, dan deteksi singkatan.
  */
 

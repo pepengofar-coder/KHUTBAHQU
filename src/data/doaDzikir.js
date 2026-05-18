@@ -1,5 +1,5 @@
 /**
- * KhutbahQu — Doa & Dzikir Data
+ * Islamediaku — Doa & Dzikir Data
  *
  * Sumber utama: Hishnul Muslim (Hisnul Muslim / Fortress of the Muslim)
  * oleh Sa'id bin Ali bin Wahf Al-Qahthani

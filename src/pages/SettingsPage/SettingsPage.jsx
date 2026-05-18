@@ -4,7 +4,7 @@ import { useSEO } from '../../utils/seo';
 import './SettingsPage.css';
 
 export default function SettingsPage() {
-  useSEO({ title: 'Pengaturan | KhutbahQu', description: 'Atur preferensi aplikasi KhutbahQu: tema, lokasi sholat, ukuran font, dan lainnya.', path: '/pengaturan', robots: 'noindex, follow' });
+  useSEO({ title: 'Pengaturan | Islamediaku', description: 'Atur preferensi aplikasi Islamediaku: tema, lokasi sholat, ukuran font, dan lainnya.', path: '/pengaturan', robots: 'noindex, follow' });
 
   const { darkMode, toggleDark, fontSize, setFontSize, fontSizeOptions } = useApp();
   const [city, setCity] = useState(() => localStorage.getItem('kq_prayer_city') || 'Jakarta');
@@ -89,9 +89,9 @@ export default function SettingsPage() {
       </div>
 
       <div className="settings-about">
-        <p><strong>KhutbahQu</strong> v2.0.0</p>
+        <p><strong>Islamediaku</strong> v2.0.0</p>
         <p>Platform Islamic Companion App</p>
-        <p>© 2026 KhutbahQu</p>
+        <p>© 2026 Islamediaku</p>
       </div>
     </div>
   );

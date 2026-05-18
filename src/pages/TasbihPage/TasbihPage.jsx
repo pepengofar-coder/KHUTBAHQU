@@ -5,7 +5,7 @@ import './TasbihPage.css';
 const PRESETS = [33, 99, 1000];
 
 export default function TasbihPage() {
-  useSEO({ title: 'Tasbih Digital — Counter Dzikir | KhutbahQu', description: 'Tasbih digital untuk menghitung dzikir Anda. Target 33, 99, atau custom. Simpan progress otomatis.', path: '/tasbih' });
+  useSEO({ title: 'Tasbih Digital — Counter Dzikir | Islamediaku', description: 'Tasbih digital untuk menghitung dzikir Anda. Target 33, 99, atau custom. Simpan progress otomatis.', path: '/tasbih' });
 
   const [count, setCount] = useState(() => {
     try { return parseInt(localStorage.getItem('kq_tasbih_count') || '0'); } catch { return 0; }
