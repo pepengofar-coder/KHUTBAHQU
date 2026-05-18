@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, useMemo } from 'react';
 import { khutbahList as staticKhutbah, CATEGORIES, TYPES } from '../data/khutbahData';
 
 const AppContext = createContext(null);
