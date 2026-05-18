@@ -1,6 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
+import { AuthProvider } from './context/AuthContext';
+import { PremiumProvider } from './context/PremiumContext';
 import Navbar from './components/Navbar/Navbar';
 import BottomNav from './components/BottomNav/BottomNav';
 import Footer from './components/Footer/Footer';
@@ -26,6 +28,8 @@ const TasbihPage = lazy(() => import('./pages/TasbihPage/TasbihPage'));
 const TrackerPage = lazy(() => import('./pages/TrackerPage/TrackerPage'));
 const PremiumPage = lazy(() => import('./pages/PremiumPage/PremiumPage'));
 const SettingsPage = lazy(() => import('./pages/SettingsPage/SettingsPage'));
+const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
+const AccountPage = lazy(() => import('./pages/AccountPage/AccountPage'));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -49,6 +53,9 @@ function AnimatedRoutes() {
           <Route path="/pengaturan" element={<SettingsPage />} />
           <Route path="/kontribusi" element={<SubmitPage />} />
           <Route path="/tentang" element={<AboutPage />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/register" element={<AuthPage />} />
+          <Route path="/account" element={<AccountPage />} />
           <Route path="/admin280292" element={<AdminPage />} />
         </Routes>
       </PageTransition>
@@ -83,10 +90,14 @@ function AppLayout() {
 
 export default function App() {
   return (
-    <AppProvider>
-      <BrowserRouter>
-        <AppLayout />
-      </BrowserRouter>
-    </AppProvider>
+    <AuthProvider>
+      <PremiumProvider>
+        <AppProvider>
+          <BrowserRouter>
+            <AppLayout />
+          </BrowserRouter>
+        </AppProvider>
+      </PremiumProvider>
+    </AuthProvider>
   );
 }

@@ -1,5 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useSEO } from '../../utils/seo';
+import { usePremium } from '../../context/PremiumContext';
+import { FEATURES } from '../../config/premium';
+import PaywallCard from '../../components/PaywallCard/PaywallCard';
 import { DOA_CATEGORIES, DOA_DZIKIR_DATA } from '../../data/doaDzikir';
 import './DoaDzikirPage.css';
 
@@ -12,8 +15,18 @@ export default function DoaDzikirPage() {
   });
   const [counts, setCounts] = useState({});
 
-  const items = DOA_DZIKIR_DATA.filter(d => d.category === activeCat);
+  const { hasPremiumFeature } = usePremium();
+  const hasFullDhikr = hasPremiumFeature(FEATURES.FULL_DHIKR);
+
+  let items = DOA_DZIKIR_DATA.filter(d => d.category === activeCat);
   const cat = DOA_CATEGORIES.find(c => c.id === activeCat);
+  
+  const isMorningEvening = activeCat === 'pagi' || activeCat === 'petang';
+  const showPaywall = isMorningEvening && !hasFullDhikr && items.length > 3;
+
+  if (showPaywall) {
+    items = items.slice(0, 3);
+  }
   const sessionKey = new Date().toISOString().split('T')[0] + '_' + activeCat;
 
   const toggleDone = useCallback((id) => {
@@ -95,6 +108,13 @@ export default function DoaDzikirPage() {
           );
         })}
       </div>
+
+      {showPaywall && (
+        <PaywallCard 
+          featureName="Dzikir Pagi Petang Lengkap" 
+          description="Akses seluruh rangkaian dzikir pagi dan petang, lengkap dengan fitur tracker progres otomatis." 
+        />
+      )}
 
       <p className="doa-disclaimer">
         ⚠️ Teks doa dan dzikir bersumber dari Hishnul Muslim oleh Sa'id bin Ali bin Wahf Al-Qahthani.

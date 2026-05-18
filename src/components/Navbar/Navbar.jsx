@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import './Navbar.css';
 
 const DESKTOP_LINKS = [
@@ -18,9 +19,11 @@ const DESKTOP_LINKS = [
 
 export default function Navbar() {
   const { darkMode, toggleDark } = useApp();
+  const { user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -51,6 +54,11 @@ export default function Navbar() {
           <button className="nav__dark-btn" onClick={toggleDark} title="Toggle tema" aria-label="Toggle dark mode">
             {darkMode ? '☀️' : '🌙'}
           </button>
+          
+          <button className="nav__auth-btn" onClick={() => navigate(user ? '/account' : '/login')} title="Akun">
+            {user ? '👤' : 'Masuk'}
+          </button>
+
           <button className={`nav__hamburger${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
             <span /><span /><span />
           </button>

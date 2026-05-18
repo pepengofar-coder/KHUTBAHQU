@@ -1,5 +1,8 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSEO } from '../../utils/seo';
+import { usePremium } from '../../context/PremiumContext';
+import { FEATURES } from '../../config/premium';
+import PaywallCard from '../../components/PaywallCard/PaywallCard';
 import './TrackerPage.css';
 
 const IBADAH_LIST = [
@@ -29,6 +32,8 @@ export default function TrackerPage() {
 
   const today = getDateKey();
   const [data, setData] = useState(loadTracker);
+  const { hasPremiumFeature } = usePremium();
+  const hasAdvancedTracker = hasPremiumFeature(FEATURES.ADVANCED_TRACKER);
 
   const todayData = useMemo(() => data[today] || {}, [data, today]);
   const doneCount = IBADAH_LIST.filter(i => todayData[i.id]).length;
@@ -97,18 +102,25 @@ export default function TrackerPage() {
         </div>
       </div>
 
-      {/* 7 Day Calendar */}
-      <div className="tracker-week">
-        {past7.map(d => (
-          <div key={d.key} className={`tracker-day${d.isToday ? ' tracker-day--today' : ''}${d.done === d.total ? ' tracker-day--complete' : ''}`}>
-            <span className="tracker-day__label">{d.label}</span>
-            <span className="tracker-day__num">{d.day}</span>
-            <div className="tracker-day__dots">
-              {d.done > 0 && <span className="tracker-day__dot" style={{ opacity: Math.max(0.3, d.done / d.total) }} />}
+      {/* 7 Day Calendar (Advanced Feature) */}
+      {hasAdvancedTracker ? (
+        <div className="tracker-week">
+          {past7.map(d => (
+            <div key={d.key} className={`tracker-day${d.isToday ? ' tracker-day--today' : ''}${d.done === d.total ? ' tracker-day--complete' : ''}`}>
+              <span className="tracker-day__label">{d.label}</span>
+              <span className="tracker-day__num">{d.day}</span>
+              <div className="tracker-day__dots">
+                {d.done > 0 && <span className="tracker-day__dot" style={{ opacity: Math.max(0.3, d.done / d.total) }} />}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <PaywallCard 
+          featureName="Statistik 7 Hari" 
+          description="Pantau konsistensi ibadah Anda selama 7 hari terakhir dengan statistik interaktif."
+        />
+      )}
 
       {/* Checklist */}
       <div className="tracker-list">
@@ -134,16 +146,25 @@ export default function TrackerPage() {
           </button>
         ))}
 
-        <h2 className="tracker-group__title">💝 Amal Kebaikan</h2>
-        {IBADAH_LIST.filter(i => i.group === 'amal').map(item => (
-          <button key={item.id} className={`tracker-item${todayData[item.id] ? ' tracker-item--done' : ''}`} onClick={() => toggle(item.id)}>
-            <span className="tracker-item__icon">{item.icon}</span>
-            <span className="tracker-item__label">{item.label}</span>
-            <span className={`tracker-item__check${todayData[item.id] ? ' checked' : ''}`}>
-              {todayData[item.id] ? '✓' : ''}
-            </span>
-          </button>
-        ))}
+        {hasAdvancedTracker ? (
+          <>
+            <h2 className="tracker-group__title">💝 Amal Kebaikan</h2>
+            {IBADAH_LIST.filter(i => i.group === 'amal').map(item => (
+              <button key={item.id} className={`tracker-item${todayData[item.id] ? ' tracker-item--done' : ''}`} onClick={() => toggle(item.id)}>
+                <span className="tracker-item__icon">{item.icon}</span>
+                <span className="tracker-item__label">{item.label}</span>
+                <span className={`tracker-item__check${todayData[item.id] ? ' checked' : ''}`}>
+                  {todayData[item.id] ? '✓' : ''}
+                </span>
+              </button>
+            ))}
+          </>
+        ) : (
+          <PaywallCard 
+            featureName="Amal Kebaikan Tambahan" 
+            description="Tambahkan tracker untuk puasa sunnah, sedekah, qiyamul lail, dan amal kebaikan lainnya."
+          />
+        )}
       </div>
     </div>
   );

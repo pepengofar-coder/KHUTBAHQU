@@ -1,6 +1,8 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
+import { usePremium } from '../../context/PremiumContext';
+import { FEATURES } from '../../config/premium';
 import { useSEO, JsonLd, SITE_URL } from '../../utils/seo';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import { MUK_LENGKAP, MUK_KHUTBAH_2, DUA_PENUTUP, khutbahIntroTemplates, secondKhutbahIntroTemplates, closingDuaTemplates } from '../../data/parts/header.js';
@@ -15,6 +17,7 @@ export default function DetailPage() {
   const nav = useNavigate();
   const { getKhutbahBySlug, getRelated, isBookmarked, toggleBookmark, addRecentlyViewed,
     fontSize, cycleFontSize, fontSizeOptions, copyText, shareWhatsApp, categories, types } = useApp();
+  const { hasPremiumFeature } = usePremium();
 
   const k = getKhutbahBySlug(slug);
   const bm = k ? isBookmarked(k.id) : false;
@@ -52,6 +55,17 @@ export default function DetailPage() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [onScroll]);
+
+  const handleDownloadPDF = () => {
+    if (hasPremiumFeature(FEATURES.PDF_DOWNLOAD)) {
+      alert("Memulai download PDF... (Fitur PDF Generator akan segera diimplementasikan)");
+      window.print(); // As a fallback for now
+    } else {
+      if (window.confirm("Download PDF Khutbah adalah fitur Premium. Upgrade sekarang untuk mengunduh naskah ini?")) {
+        nav('/premium');
+      }
+    }
+  };
 
   if (!k) return (
     <div className="detail"><div className="detail__404">
@@ -171,6 +185,7 @@ export default function DetailPage() {
             <button className={`detail__tool-btn${bm?' active':''}`} onClick={() => toggleBookmark(k.id)}>{bm?'★':'☆'}</button>
             <button className="detail__tool-btn" onClick={() => copyText(getAllText())} title="Salin teks">📋</button>
             <button className="detail__tool-btn" onClick={() => shareWhatsApp(k)} title="Bagikan">💬</button>
+            <button className="detail__tool-btn" onClick={handleDownloadPDF} title="Download PDF">📄</button>
             <button className="detail__tool-btn" onClick={() => window.print()} title="Cetak">🖨</button>
             <Link to={`/mimbar?slug=${k.slug}`} className="detail__tool-btn" title="Mode Mimbar">🎤</Link>
           </div>

@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSEO } from '../../utils/seo';
+import { usePremium } from '../../context/PremiumContext';
+import { FEATURES } from '../../config/premium';
+import { useNavigate } from 'react-router-dom';
 import './MushafPage.css';
 
 // Translation ID for Indonesian (Kemenag) is 33 or 134 in quran.com API v4. We use 33 (Tafsir Jalalayn / Kemenag)
@@ -17,6 +20,20 @@ export default function MushafPage() {
   const [ayahs, setAyahs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [focusMode, setFocusMode] = useState(false);
+
+  const { hasPremiumFeature } = usePremium();
+  const navigate = useNavigate();
+
+  const handleFocusToggle = () => {
+    if (hasPremiumFeature(FEATURES.QURAN_FOCUS)) {
+      setFocusMode(!focusMode);
+    } else {
+      if (window.confirm("Mode Fokus Mushaf adalah fitur Premium. Upgrade sekarang untuk pengalaman baca tanpa gangguan?")) {
+        navigate('/premium');
+      }
+    }
+  };
 
   // Fetch list of Surahs on mount
   useEffect(() => {
@@ -78,6 +95,14 @@ export default function MushafPage() {
             </option>
           ))}
         </select>
+        
+        <button 
+          className={`btn ${focusMode ? 'btn--primary' : 'btn--outline'}`} 
+          onClick={handleFocusToggle}
+          title="Sembunyikan terjemahan dan fokus pada teks Arab"
+        >
+          {focusMode ? 'Matikan Fokus' : '🔍 Mode Fokus'}
+        </button>
       </div>
 
       {loading ? (
@@ -107,11 +132,13 @@ export default function MushafPage() {
                   <div className="ayah-card__header">
                     <div className="ayah-card__number">{ayahNum}</div>
                   </div>
-                  <div className="ayah-card__arabic">{ayah.arabic}</div>
-                  <div 
-                    className="ayah-card__translation" 
-                    dangerouslySetInnerHTML={{ __html: ayah.translation }}
-                  />
+                  <div className="ayah-card__arabic" style={focusMode ? {fontSize: '2.5rem', lineHeight: '2'} : {}}>{ayah.arabic}</div>
+                  {!focusMode && (
+                    <div 
+                      className="ayah-card__translation" 
+                      dangerouslySetInnerHTML={{ __html: ayah.translation }}
+                    />
+                  )}
                 </div>
               );
             })}
