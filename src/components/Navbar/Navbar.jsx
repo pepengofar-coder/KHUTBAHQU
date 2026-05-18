@@ -1,128 +1,75 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import './Navbar.css';
 
-const LINKS = [
-  { to: '/', label: 'Home', icon: '🏠' },
-  { to: '/khutbah', label: 'Khutbah Jumat', icon: '📚' },
-  { to: '/mushaf', label: 'Mushaf Al-Qur\'an', icon: '📖' },
-  { to: '/kalender-hijriah', label: 'Kalender Hijriah', icon: '📅' },
-  { to: '/favorit', label: 'Favorit', icon: '⭐' },
-  { to: '/kontribusi', label: 'Kirim Khutbah', icon: '📤' },
-  { to: '/tentang', label: 'Tentang', icon: 'ℹ️' },
+const DESKTOP_LINKS = [
+  { to: '/', label: 'Beranda', end: true },
+  { to: '/sholat', label: 'Sholat' },
+  { to: '/mushaf', label: 'Mushaf' },
+  { to: '/kiblat', label: 'Kiblat' },
+  { to: '/kalender-hijriah', label: 'Kalender' },
+  { to: '/doa-dzikir', label: 'Doa & Dzikir' },
+  { to: '/khutbah', label: 'Khutbah' },
+  { to: '/tracker', label: 'Tracker' },
+  { to: '/favorit', label: 'Favorit' },
+  { to: '/premium', label: 'Premium' },
 ];
 
 export default function Navbar() {
   const { darkMode, toggleDark } = useApp();
-  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [location.pathname]);
-
-  // Scroll detection
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Lock body scroll when menu open
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [menuOpen]);
-
-  const toggleMenu = useCallback(() => setMenuOpen(p => !p), []);
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
   return (
-    <>
-      <header className={`navbar${scrolled ? ' navbar--scrolled' : ''}${menuOpen ? ' navbar--menu-open' : ''}`}>
-        <div className="navbar__inner">
-          <NavLink to="/" className="navbar__logo">
-            <img src="/logo.png" alt="KhutbahQu Logo" className="navbar__logo-img" />
-          </NavLink>
+    <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
+      <div className="nav__inner">
+        <NavLink to="/" className="nav__brand">
+          <span className="nav__logo">🕌</span>
+          <span className="nav__name">KhutbahQu</span>
+        </NavLink>
 
-          <nav className="navbar__links" aria-label="Navigasi utama">
-            {LINKS.map(l => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end={l.to === '/'}
-                className={({isActive}) => `navbar__link${isActive ? ' active' : ''}`}
-              >
-                {l.label}
-              </NavLink>
-            ))}
-          </nav>
-
-          <div className="navbar__actions">
-            <button
-              className="navbar__dark-btn"
-              onClick={toggleDark}
-              aria-label="Toggle dark mode"
-              title={darkMode ? 'Mode terang' : 'Mode gelap'}
-            >
-              <span className="navbar__dark-icon">{darkMode ? '☀️' : '🌙'}</span>
-            </button>
-            <button
-              className="navbar__hamburger"
-              onClick={toggleMenu}
-              aria-label={menuOpen ? 'Tutup menu' : 'Buka menu'}
-              aria-expanded={menuOpen}
-            >
-              <span className="navbar__hamburger-line" />
-              <span className="navbar__hamburger-line" />
-              <span className="navbar__hamburger-line" />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Sheet Menu */}
-      <div className={`mobile-menu-overlay${menuOpen ? ' active' : ''}`} onClick={toggleMenu} aria-hidden="true" />
-      <nav className={`mobile-menu${menuOpen ? ' active' : ''}`} aria-label="Menu mobile">
-        <div className="mobile-menu__header">
-          <span className="mobile-menu__title">Menu</span>
-          <button className="mobile-menu__close" onClick={toggleMenu} aria-label="Tutup menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
-        <div className="mobile-menu__links">
-          {LINKS.map((l, i) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.to === '/'}
-              className={({isActive}) => `mobile-menu__link${isActive ? ' active' : ''}`}
-              onClick={toggleMenu}
-              style={{ animationDelay: menuOpen ? `${i * 50 + 80}ms` : '0ms' }}
-            >
-              <span className="mobile-menu__link-icon">{l.icon}</span>
-              <span className="mobile-menu__link-label">{l.label}</span>
-              <svg className="mobile-menu__link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
+        {/* Desktop Links */}
+        <nav className="nav__links" aria-label="Navigasi desktop">
+          {DESKTOP_LINKS.map(l => (
+            <NavLink key={l.to} to={l.to} end={l.end} className={({isActive}) => `nav__link${isActive ? ' active' : ''}`}>
+              {l.label}
             </NavLink>
           ))}
-        </div>
-        <div className="mobile-menu__footer">
-          <button className="mobile-menu__dark-toggle" onClick={toggleDark}>
-            <span>{darkMode ? '☀️' : '🌙'}</span>
-            <span>{darkMode ? 'Mode Terang' : 'Mode Gelap'}</span>
+        </nav>
+
+        <div className="nav__actions">
+          <button className="nav__dark-btn" onClick={toggleDark} title="Toggle tema" aria-label="Toggle dark mode">
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+          <button className={`nav__hamburger${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            <span /><span /><span />
           </button>
         </div>
-      </nav>
-    </>
+      </div>
+
+      {/* Mobile Menu Sheet */}
+      {menuOpen && <div className="nav__overlay" onClick={() => setMenuOpen(false)} />}
+      <div className={`nav__sheet${menuOpen ? ' open' : ''}`}>
+        {DESKTOP_LINKS.map((l, i) => (
+          <NavLink key={l.to} to={l.to} end={l.end} className={({isActive}) => `nav__sheet-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)} style={{ animationDelay: `${i * 40}ms` }}>
+            {l.label}
+          </NavLink>
+        ))}
+        <div className="nav__sheet-divider" />
+        <NavLink to="/pengaturan" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>⚙️ Pengaturan</NavLink>
+        <NavLink to="/kontribusi" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>📤 Kirim Khutbah</NavLink>
+        <NavLink to="/tentang" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>ℹ️ Tentang</NavLink>
+      </div>
+    </header>
   );
 }

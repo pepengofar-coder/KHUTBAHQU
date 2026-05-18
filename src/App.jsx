@@ -19,6 +19,13 @@ const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const MimbarMode = lazy(() => import('./pages/MimbarMode/MimbarMode'));
 const AdminPage = lazy(() => import('./pages/AdminPage/AdminPage'));
 const SubmitPage = lazy(() => import('./pages/SubmitPage/SubmitPage'));
+const SholatPage = lazy(() => import('./pages/SholatPage/SholatPage'));
+const QiblaPage = lazy(() => import('./pages/QiblaPage/QiblaPage'));
+const DoaDzikirPage = lazy(() => import('./pages/DoaDzikirPage/DoaDzikirPage'));
+const TasbihPage = lazy(() => import('./pages/TasbihPage/TasbihPage'));
+const TrackerPage = lazy(() => import('./pages/TrackerPage/TrackerPage'));
+const PremiumPage = lazy(() => import('./pages/PremiumPage/PremiumPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage/SettingsPage'));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -28,14 +35,21 @@ function AnimatedRoutes() {
       <PageTransition key={location.pathname}>
         <Routes location={location}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/sholat" element={<SholatPage />} />
+          <Route path="/mushaf" element={<MushafPage />} />
+          <Route path="/kiblat" element={<QiblaPage />} />
+          <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
+          <Route path="/doa-dzikir" element={<DoaDzikirPage />} />
+          <Route path="/tasbih" element={<TasbihPage />} />
           <Route path="/khutbah" element={<CatalogPage />} />
           <Route path="/khutbah/:slug" element={<DetailPage />} />
-          <Route path="/mushaf" element={<MushafPage />} />
-          <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
+          <Route path="/tracker" element={<TrackerPage />} />
           <Route path="/favorit" element={<FavoritesPage />} />
+          <Route path="/premium" element={<PremiumPage />} />
+          <Route path="/pengaturan" element={<SettingsPage />} />
+          <Route path="/kontribusi" element={<SubmitPage />} />
           <Route path="/tentang" element={<AboutPage />} />
           <Route path="/admin280292" element={<AdminPage />} />
-          <Route path="/kontribusi" element={<SubmitPage />} />
         </Routes>
       </PageTransition>
     </Suspense>

@@ -1,0 +1,47 @@
+.sholat-page{padding:var(--sp-6) var(--sp-4) var(--sp-16)}
+.sholat-page__header{margin-bottom:var(--sp-6)}
+.sholat-page__title{font-size:var(--fs-2xl);font-weight:800;color:var(--color-text)}
+.sholat-page__date{font-size:var(--fs-sm);color:var(--color-text-muted);margin-top:var(--sp-1)}
+
+.sholat-hero{display:flex;align-items:center;gap:var(--sp-4);padding:var(--sp-6);background:linear-gradient(135deg,var(--color-primary),var(--color-primary-dark));border-radius:var(--radius-2xl);color:#fff;margin-bottom:var(--sp-6);position:relative;overflow:hidden}
+.sholat-hero::after{content:'';position:absolute;top:-30%;right:-10%;width:120px;height:120px;background:rgba(255,255,255,.06);border-radius:50%}
+.sholat-hero__icon{font-size:36px;flex-shrink:0}
+.sholat-hero__info{display:flex;flex-direction:column;flex:1;gap:2px}
+.sholat-hero__label{font-size:var(--fs-xs);opacity:.8;font-weight:500}
+.sholat-hero__name{font-size:var(--fs-xl);font-weight:800}
+.sholat-hero__time{font-size:var(--fs-sm);opacity:.9}
+.sholat-hero__countdown{font-size:var(--fs-2xl);font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:1px}
+
+.sholat-loc{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);margin-bottom:var(--sp-6);flex-wrap:wrap}
+.sholat-loc__pin{font-size:16px}
+.sholat-loc__label{font-size:var(--fs-sm);font-weight:600;color:var(--color-text);flex:1}
+.sholat-loc__badge{font-size:10px;font-weight:700;background:var(--color-primary);color:#fff;padding:2px 8px;border-radius:var(--radius-pill)}
+.sholat-loc__select{font-size:var(--fs-sm);padding:var(--sp-1) var(--sp-2);border-radius:var(--radius-md);border:1px solid var(--color-border-light);background:var(--color-bg);color:var(--color-text)}
+.sholat-loc__btn{font-size:var(--fs-xs);font-weight:600;color:var(--color-primary);background:var(--color-primary-surface);border:none;padding:var(--sp-1) var(--sp-3);border-radius:var(--radius-pill);cursor:pointer;transition:all var(--tr-fast)}
+.sholat-loc__btn:hover{background:var(--color-primary);color:#fff}
+
+.sholat-grid{display:flex;flex-direction:column;gap:var(--sp-2)}
+.sholat-card{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .3s var(--ease-spring)}
+.sholat-card--next{background:var(--color-primary-surface);border-color:var(--color-primary);box-shadow:0 4px 16px rgba(15,61,46,.12)}
+.sholat-card--past{opacity:.5}
+.sholat-card--secondary{opacity:.7}
+.sholat-card__left{display:flex;align-items:center;gap:var(--sp-3)}
+.sholat-card__icon{font-size:24px}
+.sholat-card__name{font-size:var(--fs-base);font-weight:700;color:var(--color-text);display:block}
+.sholat-card__desc{font-size:var(--fs-xs);color:var(--color-text-muted)}
+.sholat-card__right{display:flex;align-items:center;gap:var(--sp-2)}
+.sholat-card__time{font-size:var(--fs-lg);font-weight:700;color:var(--color-text);font-variant-numeric:tabular-nums}
+.sholat-card--next .sholat-card__time{color:var(--color-primary)}
+.sholat-card__badge{font-size:10px;font-weight:700;background:var(--color-primary);color:#fff;padding:2px 8px;border-radius:var(--radius-pill)}
+.sholat-card__done{color:var(--color-primary);font-weight:700;font-size:18px}
+
+.sholat-loading{display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);padding:var(--sp-12) 0;color:var(--color-text-muted)}
+.sholat-loading__dots{display:flex;gap:6px}
+.sholat-loading__dots span{width:8px;height:8px;border-radius:50%;background:var(--color-primary);animation:dotPulse 1.4s ease infinite}
+.sholat-loading__dots span:nth-child(2){animation-delay:.16s}
+.sholat-loading__dots span:nth-child(3){animation-delay:.32s}
+
+.sholat-notif-placeholder{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-4);background:var(--color-bg-alt);border-radius:var(--radius-xl);margin-top:var(--sp-6);font-size:var(--fs-sm);color:var(--color-text-muted)}
+.sholat-notif-placeholder span{font-size:24px}
+.sholat-notif-placeholder strong{color:var(--color-text);display:block;margin-bottom:2px}
+.sholat-notif-placeholder p{font-size:var(--fs-xs);margin:0}

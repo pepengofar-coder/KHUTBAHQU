@@ -1,0 +1,41 @@
+.doa-page{padding:var(--sp-6) var(--sp-4) var(--sp-16)}
+.doa-page__header{margin-bottom:var(--sp-4)}
+.doa-page__title{font-size:var(--fs-2xl);font-weight:800;color:var(--color-text)}
+.doa-page__sub{font-size:var(--fs-sm);color:var(--color-text-muted);margin-top:var(--sp-1)}
+
+.doa-cats{display:flex;gap:var(--sp-2);overflow-x:auto;padding-bottom:var(--sp-2);margin-bottom:var(--sp-4);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.doa-cats::-webkit-scrollbar{display:none}
+.doa-cats__btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:var(--sp-2) var(--sp-3);border-radius:var(--radius-xl);border:1.5px solid var(--color-border-light);background:var(--color-bg-card);min-width:72px;transition:all .25s var(--ease-spring);cursor:pointer;flex-shrink:0}
+.doa-cats__btn.active{border-color:var(--color-primary);background:var(--color-primary-surface);color:var(--color-primary)}
+.doa-cats__btn:active{transform:scale(.94)}
+.doa-cats__icon{font-size:20px}
+.doa-cats__label{font-size:10px;font-weight:600;color:var(--color-text-secondary);white-space:nowrap}
+.doa-cats__btn.active .doa-cats__label{color:var(--color-primary)}
+
+.doa-progress{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4)}
+.doa-progress__bar{flex:1;height:6px;border-radius:3px;background:var(--color-bg-alt);overflow:hidden}
+.doa-progress__fill{height:100%;background:var(--color-primary);border-radius:3px;transition:width .4s var(--ease-spring)}
+.doa-progress__text{font-size:var(--fs-xs);font-weight:600;color:var(--color-text-muted);white-space:nowrap}
+
+.doa-list{display:flex;flex-direction:column;gap:var(--sp-4)}
+.doa-card{background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);padding:var(--sp-5);transition:all .3s var(--ease-spring);animation:doaCardIn .4s ease both}
+.doa-card--done{opacity:.5;border-color:var(--color-primary)}
+.doa-card__top{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4)}
+.doa-card__num{width:28px;height:28px;border-radius:50%;background:var(--color-primary-surface);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:var(--fs-xs);font-weight:800;flex-shrink:0}
+.doa-card__title{flex:1;font-size:var(--fs-base);font-weight:700;color:var(--color-text)}
+.doa-card__check{width:32px;height:32px;border-radius:50%;border:2px solid var(--color-border-light);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--color-text-muted);cursor:pointer;transition:all .25s var(--ease-spring);background:none;flex-shrink:0}
+.doa-card__check.checked{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+.doa-card__check:active{transform:scale(.85)}
+
+.doa-card__arabic{font-family:var(--font-arabic);direction:rtl;text-align:right;font-size:var(--fs-xl);line-height:var(--lh-arabic);color:var(--color-primary);margin-bottom:var(--sp-3);padding:var(--sp-3);background:var(--color-primary-surface);border-radius:var(--radius-lg)}
+.doa-card__latin{font-size:var(--fs-sm);color:var(--color-text-secondary);font-style:italic;line-height:var(--lh-relaxed);margin-bottom:var(--sp-2)}
+.doa-card__translation{font-size:var(--fs-sm);color:var(--color-text-secondary);line-height:var(--lh-relaxed);margin-bottom:var(--sp-3)}
+.doa-card__footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--sp-2)}
+.doa-card__source{font-size:var(--fs-xs);color:var(--color-text-muted)}
+.doa-card__rep{font-size:var(--fs-xs);font-weight:700;color:var(--color-primary)}
+.doa-card__counter-btn{font-size:var(--fs-sm);font-weight:700;color:#fff;background:var(--color-primary);border:none;padding:var(--sp-1) var(--sp-3);border-radius:var(--radius-pill);cursor:pointer;transition:all .2s var(--ease-spring)}
+.doa-card__counter-btn:active{transform:scale(.9)}
+
+.doa-disclaimer{font-size:var(--fs-xs);color:var(--color-text-muted);margin-top:var(--sp-6);padding:var(--sp-4);background:var(--color-bg-alt);border-radius:var(--radius-lg);line-height:var(--lh-relaxed)}
+
+@keyframes doaCardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}

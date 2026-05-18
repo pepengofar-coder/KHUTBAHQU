@@ -1,14 +1,78 @@
-.home-featured{padding:var(--sp-12) 0}
-.home-featured__grid{display:grid;gap:var(--sp-6);grid-template-columns:1fr}
+/* Dashboard Home */
+.home-page{padding-bottom:var(--sp-16)}
+
+/* Hero Greeting */
+.dash-hero{background:linear-gradient(135deg,var(--color-primary),#1a5c40);padding:var(--sp-8) 0 var(--sp-6);color:#fff}
+.dash-hero__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap}
+.dash-hero__salam{font-size:var(--fs-2xl);font-weight:800;margin-bottom:var(--sp-1)}
+@media(min-width:768px){.dash-hero__salam{font-size:var(--fs-3xl)}}
+.dash-hero__date{font-size:var(--fs-sm);opacity:.85}
+.dash-hero__hijri{font-size:var(--fs-sm);opacity:.85;margin-top:2px}
+
+.dash-hero__prayer{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border-radius:var(--radius-xl);padding:var(--sp-4);display:flex;flex-direction:column;align-items:center;min-width:140px}
+.dash-hero__prayer-label{font-size:var(--fs-xs);opacity:.7;margin-bottom:2px}
+.dash-hero__prayer-name{font-size:var(--fs-base);font-weight:700}
+.dash-hero__prayer-time{font-size:var(--fs-sm);opacity:.85}
+.dash-hero__countdown{font-size:var(--fs-xl);font-weight:800;font-variant-numeric:tabular-nums;margin-top:var(--sp-1)}
+
+/* Quick Actions */
+.dash-actions{padding:var(--sp-6) var(--sp-4)}
+.dash-actions__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3)}
+@media(min-width:420px){.dash-actions__grid{grid-template-columns:repeat(6,1fr)}}
+.dash-action{display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);padding:var(--sp-4) var(--sp-2);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring);text-decoration:none}
+.dash-action:hover{border-color:var(--color-primary);transform:translateY(-2px);box-shadow:0 4px 16px rgba(15,61,46,.08)}
+.dash-action:active{transform:scale(.95);transition-duration:80ms}
+.dash-action__icon{font-size:28px}
+.dash-action__label{font-size:var(--fs-xs);font-weight:600;color:var(--color-text-secondary)}
+
+/* Section titles */
+.dash-section-title{font-size:var(--fs-lg);font-weight:700;color:var(--color-text)}
+.dash-link{font-size:var(--fs-sm);font-weight:600;color:var(--color-primary);text-decoration:none}
+.dash-link:hover{text-decoration:underline}
+
+/* Resume cards */
+.dash-resume{padding:0 var(--sp-4) var(--sp-4)}
+.dash-resume__cards{display:flex;flex-direction:column;gap:var(--sp-2);margin-top:var(--sp-3)}
+.dash-resume-card{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);text-decoration:none;transition:all .25s var(--ease-spring)}
+.dash-resume-card:hover{border-color:var(--color-primary);background:var(--color-primary-surface)}
+.dash-resume-card__icon{font-size:24px;flex-shrink:0}
+.dash-resume-card strong{font-size:var(--fs-sm);color:var(--color-text);display:block}
+.dash-resume-card p{font-size:var(--fs-xs);color:var(--color-text-muted);margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
+.dash-resume-card__arrow{font-size:var(--fs-lg);color:var(--color-primary);margin-left:auto;flex-shrink:0}
+
+/* Prayer times mini */
+.dash-prayer{padding:0 var(--sp-4) var(--sp-4)}
+.dash-prayer__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-3)}
+.dash-prayer__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-2)}
+@media(max-width:420px){.dash-prayer__grid{grid-template-columns:repeat(3,1fr)}}
+.dash-prayer-card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-3);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .2s ease}
+.dash-prayer-card--next{border-color:var(--color-primary);background:var(--color-primary-surface)}
+.dash-prayer-card__icon{font-size:18px}
+.dash-prayer-card__name{font-size:10px;font-weight:600;color:var(--color-text-muted)}
+.dash-prayer-card__time{font-size:var(--fs-sm);font-weight:700;color:var(--color-text);font-variant-numeric:tabular-nums}
+.dash-prayer-card--next .dash-prayer-card__time{color:var(--color-primary)}
+
+/* Events */
+.dash-events{padding:0 var(--sp-4) var(--sp-4)}
+.dash-events__list{display:flex;flex-direction:column;gap:var(--sp-2)}
+.dash-event{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-lg);font-size:var(--fs-sm)}
+.dash-event--today{border-color:var(--color-gold);background:var(--color-gold-light)}
+.dash-event__name{font-weight:600;color:var(--color-text)}
+.dash-event__badge{font-size:var(--fs-xs);font-weight:600;color:var(--color-primary)}
+
+/* Khutbah */
+.dash-khutbah{padding:var(--sp-4)}
+.home-featured__grid{display:grid;gap:var(--sp-4);grid-template-columns:1fr;margin-top:var(--sp-3)}
 @media(min-width:640px){.home-featured__grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.home-featured__grid{grid-template-columns:repeat(3,1fr)}}
-.home-calendar{padding:var(--sp-12) 0}
-.home-weekly{padding:var(--sp-8) 0 var(--sp-12)}
-.home-weekly__grid{display:grid;gap:var(--sp-6);grid-template-columns:1fr}
-@media(min-width:640px){.home-weekly__grid{grid-template-columns:repeat(2,1fr)}}
-.home-widgets{display:grid;gap:var(--sp-6);grid-template-columns:1fr}
-@media(min-width:768px){.home-widgets{grid-template-columns:2fr 1fr}}
-.home-seo-text{padding:var(--sp-8) 0 var(--sp-16)}
+
+/* Tracker CTA */
+.dash-tracker{padding:0 var(--sp-4) var(--sp-4)}
+.dash-tracker__card{padding:var(--sp-5);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-3)}
+.dash-tracker__card p{font-size:var(--fs-sm);color:var(--color-text-muted);margin:0}
+
+/* SEO text */
+.home-seo-text{padding:var(--sp-8) var(--sp-4) var(--sp-16)}
 .home-seo-text__inner{background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);padding:var(--sp-8);max-width:var(--max-w-reading);margin:0 auto}
 .home-seo-text__title{font-size:var(--fs-xl);font-weight:700;margin-bottom:var(--sp-4);color:var(--color-text)}
 .home-seo-text__inner p{font-size:var(--fs-base);color:var(--color-text-secondary);line-height:var(--lh-relaxed);margin-bottom:var(--sp-4)}

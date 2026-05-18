@@ -7,10 +7,22 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://khutbahqu.vercel.app/khutbah</loc>
+    <loc>https://khutbahqu.vercel.app/sholat</loc>
     <lastmod>2026-05-18</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://khutbahqu.vercel.app/mushaf</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://khutbahqu.vercel.app/kiblat</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://khutbahqu.vercel.app/kalender-hijriah</loc>
@@ -19,10 +31,34 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://khutbahqu.vercel.app/mushaf</loc>
+    <loc>https://khutbahqu.vercel.app/doa-dzikir</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khutbahqu.vercel.app/khutbah</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://khutbahqu.vercel.app/tasbih</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://khutbahqu.vercel.app/tracker</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://khutbahqu.vercel.app/premium</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://khutbahqu.vercel.app/kontribusi</loc>
@@ -35,12 +71,6 @@
     <lastmod>2026-05-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://khutbahqu.vercel.app/favorit</loc>
-    <lastmod>2026-05-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://khutbahqu.vercel.app/khutbah/akhlak-mulia-timbangan-terberat-kiamat</loc>

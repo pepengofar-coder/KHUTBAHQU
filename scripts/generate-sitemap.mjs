@@ -37,12 +37,17 @@ function generateSitemap() {
 
   const staticPages = [
     { path: '/', priority: '1.0', changefreq: 'weekly' },
-    { path: '/khutbah', priority: '0.9', changefreq: 'weekly' },
+    { path: '/sholat', priority: '0.9', changefreq: 'daily' },
+    { path: '/mushaf', priority: '0.9', changefreq: 'monthly' },
+    { path: '/kiblat', priority: '0.8', changefreq: 'yearly' },
     { path: '/kalender-hijriah', priority: '0.8', changefreq: 'monthly' },
-    { path: '/mushaf', priority: '0.7', changefreq: 'monthly' },
+    { path: '/doa-dzikir', priority: '0.8', changefreq: 'monthly' },
+    { path: '/khutbah', priority: '0.9', changefreq: 'weekly' },
+    { path: '/tasbih', priority: '0.6', changefreq: 'yearly' },
+    { path: '/tracker', priority: '0.6', changefreq: 'yearly' },
+    { path: '/premium', priority: '0.5', changefreq: 'monthly' },
     { path: '/kontribusi', priority: '0.5', changefreq: 'monthly' },
     { path: '/tentang', priority: '0.4', changefreq: 'yearly' },
-    { path: '/favorit', priority: '0.3', changefreq: 'weekly' },
   ];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
