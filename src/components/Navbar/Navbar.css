@@ -6,7 +6,7 @@
 
 .nav__inner{display:flex;align-items:center;justify-content:space-between;max-width:var(--max-w-content);margin:0 auto;padding:var(--sp-2) var(--sp-4);height:56px}
 .nav__brand{display:flex;align-items:center;gap:var(--sp-2);text-decoration:none}
-.nav__logo{font-size:24px}
+.nav__logo-img{width:28px;height:28px;object-fit:contain;flex-shrink:0}
 .nav__name{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:800;color:var(--color-primary);letter-spacing:-.01em}
 
 /* Desktop links */

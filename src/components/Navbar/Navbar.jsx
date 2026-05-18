@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Sun, Moon, User, Settings, Upload, Info, MoonStar } from 'lucide-react';
+import { Sun, Moon, User, Settings, Upload, Info } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import './Navbar.css';
@@ -41,7 +41,7 @@ export default function Navbar() {
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
       <div className="nav__inner">
         <NavLink to="/" className="nav__brand">
-          <MoonStar className="nav__logo-icon" size={24} style={{ color: 'var(--color-primary)' }} />
+          <img src="/logo.png" alt="Islamediaku" className="nav__logo-img" width={28} height={28} />
           <span className="nav__name">Islamediaku</span>
         </NavLink>
 
