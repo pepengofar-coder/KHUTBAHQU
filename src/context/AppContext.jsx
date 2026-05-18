@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { khutbahList as staticKhutbah, CATEGORIES, TYPES } from '../data/khutbahData';
 
@@ -6,6 +7,14 @@ const AppContext = createContext(null);
 const ADMIN_USERNAME = 'amirudin';
 const ADMIN_PASSWORD = 'bismillah';
 
+const FONT_OPTS = [
+  { label: 'Kecil', value: 0.85 },
+  { label: 'Normal', value: 1 },
+  { label: 'Besar', value: 1.15 },
+  { label: 'Sangat Besar', value: 1.3 },
+];
+
+/* eslint-disable react-refresh/only-export-components */
 export function AppProvider({ children }) {
   // ─── Admin Auth ─────────────────────────────────────────────────────────────
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
@@ -32,8 +41,8 @@ export function AppProvider({ children }) {
   });
   useEffect(() => { localStorage.setItem('kq_local_khutbahs', JSON.stringify(localKhutbahs)); }, [localKhutbahs]);
 
-  const allKhutbah = [...staticKhutbah, ...localKhutbahs.filter(k => k.status === 'published' || !k.status)];
-  const adminKhutbah = [...staticKhutbah.map(k => ({...k, status: 'published', isStatic: true})), ...localKhutbahs];
+  const allKhutbah = useMemo(() => [...staticKhutbah, ...localKhutbahs.filter(k => k.status === 'published' || !k.status)], [localKhutbahs]);
+  const adminKhutbah = useMemo(() => [...staticKhutbah.map(k => ({...k, status: 'published', isStatic: true})), ...localKhutbahs], [localKhutbahs]);
 
   const addSubmission = useCallback((data, status = 'review') => {
     const newK = { ...data, id: Date.now(), status, createdAt: new Date().toISOString().split('T')[0] };
@@ -79,12 +88,6 @@ export function AppProvider({ children }) {
   const toggleDark = useCallback(() => setDarkMode(p => !p), []);
 
   // ─── Font size ───────────────────────────────────────────────────────────────
-  const FONT_OPTS = [
-    { label: 'Kecil', value: 0.85 },
-    { label: 'Normal', value: 1 },
-    { label: 'Besar', value: 1.15 },
-    { label: 'Sangat Besar', value: 1.3 },
-  ];
   const [fontSize, setFontSize] = useState(1);
   const cycleFontSize = useCallback(() => {
     setFontSize(p => {

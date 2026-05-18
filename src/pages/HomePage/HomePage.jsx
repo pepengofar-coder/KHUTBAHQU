@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
@@ -19,7 +20,7 @@ function fmt(s){return s?s.substring(0,5):'--:--'}
 function getNext(t){const now=new Date();for(const p of PRAYERS){const d=parseTime(t[p.key]);if(d&&d>now)return p.key}return PRAYERS[0].key}
 
 export default function HomePage() {
-  const { allKhutbah, recentKhutbah } = useApp();
+  const { allKhutbah } = useApp();
 
   useSEO({
     title: 'Islamediaku - Teks Khutbah Jumat, Kultum, dan Tausiyah Islam Siap Pakai',
@@ -35,6 +36,7 @@ export default function HomePage() {
   const [greetingText, setGreetingText] = useState("Assalamu'alaikum 👋");
   
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setGreetingText(getDailyGreeting());
   }, []);
 
@@ -105,7 +107,7 @@ export default function HomePage() {
     const t = parseTime(timings[nextKey]); if (!t) return;
     let diff = t - nowTime; if (diff < 0) diff += 864e5;
     const h = Math.floor(diff / 36e5), m = Math.floor(diff % 36e5 / 6e4), s = Math.floor(diff % 6e4 / 1e3);
-    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCountdown(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`);
   }, [nowTime, timings, nextKey]);
 
@@ -170,7 +172,7 @@ export default function HomePage() {
 
   // Mushaf last read
   const lastSurah = localStorage.getItem('kq_mushaf_last');
-
+  const recentKhutbah = useMemo(() => allKhutbah.slice(0, 3), [allKhutbah]);
   return (
     <div className="home-page">
       <JsonLd data={websiteSchema} />

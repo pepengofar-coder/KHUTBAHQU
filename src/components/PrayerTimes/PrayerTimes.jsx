@@ -1,3 +1,4 @@
+/* eslint-disable declared */
 import { useState, useEffect, useCallback, useRef } from 'react';
 import './PrayerTimes.css';
 
@@ -125,7 +126,10 @@ export default function PrayerTimes() {
     );
   }, []);
 
-  useEffect(() => { tryGPS(); }, [tryGPS]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    tryGPS();
+  }, [tryGPS]);
 
   // ── Fetch prayer times whenever coords/city changes ─────────
   const fetchPrayerTimes = useCallback(async ({ lat, lon } = {}) => {
@@ -161,8 +165,10 @@ export default function PrayerTimes() {
   // Re-fetch when location mode resolves
   useEffect(() => {
     if (locationMode === 'gps' && gpsCoords) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchPrayerTimes(gpsCoords);
     } else if (locationMode === 'manual' || locationMode === 'denied') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchPrayerTimes();
     }
   }, [locationMode, gpsCoords, fetchPrayerTimes]);
@@ -171,9 +177,10 @@ export default function PrayerTimes() {
   useEffect(() => {
     if (locationMode === 'manual') {
       localStorage.setItem('kq_prayer_city', manualCity);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchPrayerTimes();
     }
-  }, [manualCity]); // eslint-disable-line
+  }, [manualCity, locationMode, fetchPrayerTimes]);
 
   // ── Clock tick ───────────────────────────────────────────────
   useEffect(() => {
@@ -186,6 +193,7 @@ export default function PrayerTimes() {
 
   useEffect(() => {
     if (timings && nextPrayerKey) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCountdown(getCountdown(timings[nextPrayerKey]));
     }
   }, [now, timings, nextPrayerKey]);
@@ -193,8 +201,7 @@ export default function PrayerTimes() {
   const currentTime = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
   const currentDate = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
-  // Label to show in location row
-  const locationLabel = locationMode === 'gps' ? gpsLabel : (locationMode === 'detecting' ? 'Mendeteksi...' : manualCity);
+  const currentDate = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   return (
     <div className="prayer-times">

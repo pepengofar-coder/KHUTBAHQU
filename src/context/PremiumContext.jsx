@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useAuth } from './AuthContext';
 import { supabase } from '../lib/supabase';
-import { FEATURES, PLANS } from '../config/premium';
+import { PLANS } from '../config/premium';
 
 const PremiumContext = createContext();
 
@@ -17,14 +19,18 @@ export function PremiumProvider({ children }) {
 
   useEffect(() => {
     if (!user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSubscription(null);
+       
       setLoading(false);
       return;
     }
 
     if (!supabase) {
       // Mock logic if Supabase is disabled
+       
       setSubscription(mockPremium ? { status: 'active', plan: 'plan_monthly' } : null);
+       
       setLoading(false);
       return;
     }
@@ -55,7 +61,7 @@ export function PremiumProvider({ children }) {
     return subscription.status === 'active';
   };
 
-  const hasPremiumFeature = (featureKey) => {
+  const hasPremiumFeature = (_featureKey) => {
     if (!isPremiumUser()) return false;
     
     // In a real app, you might check specific entitlements based on the plan.

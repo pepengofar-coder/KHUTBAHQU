@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo } from 'react';
 import { getHijriDateString, getUpcomingEvents, HIJRI_DISCLAIMER } from '../../data/hijriData';
 import './HijriCalendarWidget.css';

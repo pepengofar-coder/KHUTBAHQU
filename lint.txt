@@ -1,0 +1,151 @@
+﻿
+> islamediaku@0.0.0 lint
+> eslint .
+
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\api\admin\sync.js
+   1:1   error  /* eslint-env */ comments are no longer supported
+   4:21  error  'process' is not defined                           no-undef
+   4:61  error  'process' is not defined                           no-undef
+   5:28  error  'process' is not defined                           no-undef
+  16:18  error  'process' is not defined                           no-undef
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\api\checkout.js
+   1:1   error  /* eslint-env */ comments are no longer supported
+  16:18  error  'process' is not defined                           no-undef
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\api\webhooks\payment.js
+   1:1   error  /* eslint-env */ comments are no longer supported
+   6:3   error  'process' is not defined                           no-undef
+   6:43  error  'process' is not defined                           no-undef
+   7:3   error  'process' is not defined                           no-undef
+  11:18  error  'process' is not defined                           no-undef
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\components\HijriCalendarWidget\HijriCalendarWidget.jsx
+  7:59  warning  React Hook useMemo has a missing dependency: 'now'. Either include it or remove the dependency array                    react-hooks/exhaustive-deps
+  8:76  warning  React Hook useMemo has missing dependencies: 'maxEvents' and 'now'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\components\KhutbahCard\KhutbahCard.jsx
+  7:41  error  'copyText' is assigned a value but never used  no-unused-vars
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\components\PrayerTimes\PrayerTimes.jsx
+  203:9  error  Parsing error: Identifier 'currentDate' has already been declared
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\context\AppContext.jsx
+  43:22  error  'useMemo' is not defined  no-undef
+  44:24  error  'useMemo' is not defined  no-undef
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\context\PremiumContext.jsx
+  23:7   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+  30:7   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+  32:7   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+  63:30  error    '_featureKey' is defined but never used                                                             no-unused-vars
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\data\khutbahValidator.js
+  8:7  error  'IDEAL_WORD_COUNT' is assigned a value but never used  no-unused-vars
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\data\parts\cat_family_5.js
+  16:104  error  Unnecessary escape character: \'  no-useless-escape
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\data\parts\cat_kematian_3.js
+  55:460  error  Unnecessary escape character: \'  no-useless-escape
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\data\parts\cat_kematian_4.js
+  59:170  error  Unnecessary escape character: \'  no-useless-escape
+  59:224  error  Unnecessary escape character: \'  no-useless-escape
+  59:244  error  Unnecessary escape character: \'  no-useless-escape
+  59:379  error  Unnecessary escape character: \'  no-useless-escape
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\data\parts\cat_syukur_5.js
+  17:387  error  Unnecessary escape character: \'  no-useless-escape
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\data\parts\cat_taqwa_4.js
+  17:54  error  Unnecessary escape character: \'  no-useless-escape
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\data\parts\cat_tauhid_1.js
+  21:125  error  Unnecessary escape character: \'  no-useless-escape
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\AdminPage\AdminPage.jsx
+  182:10  error  'selectedKhutbah' is assigned a value but never used     no-unused-vars
+  182:27  error  'setSelectedKhutbah' is assigned a value but never used  no-unused-vars
+  185:10  error  'showAddForm' is assigned a value but never used         no-unused-vars
+  208:16  error  'err' is defined but never used                          no-unused-vars
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\CatalogPage\CatalogPage.jsx
+  21:6  warning  React Hook useEffect has missing dependencies: 'params', 'setActiveCategory', 'setActiveDuration', 'setActiveType', and 'setSearchQuery'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\HijriCalendarPage\HijriCalendarPage.jsx
+  27:54  warning  React Hook useMemo has a missing dependency: 'now'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  35:58  warning  React Hook useMemo has a missing dependency: 'now'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  36:59  warning  React Hook useMemo has a missing dependency: 'now'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  59:9   error    'sunnahInMonth' is assigned a value but never used                                                    no-unused-vars
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\HomePage\HomePage.jsx
+  109:5   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+  271:9   error    'lastSurah' is not defined                                                                      no-undef
+  271:22  error    'recentKhutbah' is not defined                                                                  no-undef
+  275:14  error    'lastSurah' is not defined                                                                      no-undef
+  280:39  error    'lastSurah' is not defined                                                                      no-undef
+  285:14  error    'recentKhutbah' is not defined                                                                  no-undef
+  286:37  error    'recentKhutbah' is not defined                                                                  no-undef
+  290:23  error    'recentKhutbah' is not defined                                                                  no-undef
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\MushafPage\MushafPage.jsx
+  34:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  32 |     const s = searchParams.get('surah');
+  33 |     if (s && !isNaN(parseInt(s))) {
+> 34 |       setSelectedSurah(parseInt(s));
+     |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  35 |     }
+  36 |   }, [searchParams]);
+  37 |         react-hooks/set-state-in-effect
+  59:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  57 |   useEffect(() => {
+  58 |     if (!selectedSurah) return;
+> 59 |     setLoading(true);
+     |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  60 |     setError(null);
+  61 |     
+  62 |     // We need both Arabic text (Uthmani) and translation  react-hooks/set-state-in-effect
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\PremiumPage\PremiumPage.jsx
+  10:11  error  'user' is assigned a value but never used  no-unused-vars
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\QiblaPage\QiblaPage.jsx
+  37:18  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  35 |   },[]);
+  36 |
+> 37 |   useEffect(()=>{getLocation()},[getLocation]);
+     |                  ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  38 |
+  39 |   // Device orientation
+  40 |   useEffect(()=>{  react-hooks/set-state-in-effect
+
+C:\Users\abdul\OneDrive\Dokumen\KHUTBAHQU\src\pages\SholatPage\SholatPage.jsx
+  47:7  warning  Unused eslint-disable directive (no problems were reported from 'no-empty')
+  54:5  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+
+Ô£û 55 problems (43 errors, 12 warnings)
+  0 errors and 6 warnings potentially fixable with the `--fix` option.
+

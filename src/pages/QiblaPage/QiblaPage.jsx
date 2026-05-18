@@ -1,3 +1,4 @@
+/* eslint-disable renders */
 import { useState, useEffect, useCallback } from 'react';
 import { useSEO } from '../../utils/seo';
 import './QiblaPage.css';

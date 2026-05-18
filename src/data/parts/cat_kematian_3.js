@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { khutbahIndonesianOpeningTemplates, khutbahOpeningTemplates, WASIAT_TAQWA, PENUTUP_KHUTBAH_1, MUK_KHUTBAH_2, DUA_PENUTUP } from './header.js';
 
 export const kematian_5 = {

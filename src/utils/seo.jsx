@@ -2,6 +2,7 @@
  * Islamediaku — SEO Utilities
  * Custom hook for dynamic meta tags + JSON-LD component
  */
+/* eslint-disable react-refresh/only-export-components */
 import { useEffect } from 'react';
 
 export const SITE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL)

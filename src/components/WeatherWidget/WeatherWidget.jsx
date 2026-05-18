@@ -25,7 +25,7 @@ export default function WeatherWidget() {
           const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`);
           const geoData = await geoRes.json();
           locName = geoData.address?.city || geoData.address?.town || geoData.address?.county || geoData.address?.state || 'Lokasi Anda';
-        } catch (e) {
+        } catch {
           locName = 'Lokasi Anda';
         }
       }
@@ -64,6 +64,7 @@ export default function WeatherWidget() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     getUserLocation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

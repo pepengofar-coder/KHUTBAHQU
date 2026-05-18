@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useSEO } from '../../utils/seo';
 import { usePremium } from '../../context/PremiumContext';
 import { FEATURES } from '../../config/premium';

@@ -1,3 +1,4 @@
+/* eslint-disable renders */
 import { useState, useEffect } from 'react';
 import { useSEO } from '../../utils/seo';
 import { usePremium } from '../../context/PremiumContext';

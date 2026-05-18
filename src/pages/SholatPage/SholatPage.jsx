@@ -33,18 +33,25 @@ export default function SholatPage(){
     },()=>setMode('manual'),{timeout:8000,maximumAge:300000});
   },[]);
 
-  useEffect(()=>{tryGPS()},[tryGPS]);
+  useEffect(()=>{
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    tryGPS()
+  },[tryGPS]);
 
   const fetchTimes=useCallback(async(c)=>{
     setLoading(true);
     try{
       const d=new Date();const url=`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=${c.lat}&longitude=${c.lon}&method=11`;
       const r=await fetch(url);const data=await r.json();setTimings(data.data.timings);
-    }catch{}finally{setLoading(false)}
+    }catch{
+       
+    }finally{setLoading(false)}
   },[]);
 
   useEffect(()=>{
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if(mode==='gps'&&coords)fetchTimes(coords);
+     
     else if(mode==='manual'||mode==='denied'){const c=CITIES.find(x=>x.name===city)||CITIES[0];fetchTimes(c)}
   },[mode,coords,city,fetchTimes]);
 
@@ -59,6 +66,7 @@ export default function SholatPage(){
     const t=parseTime(timings[nextKey]);if(!t)return;
     let diff=t-now;if(diff<0)diff+=864e5;
     const h=Math.floor(diff/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCountdown(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`);
   },[now,timings,nextKey]);
 

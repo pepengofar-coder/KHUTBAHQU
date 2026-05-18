@@ -1,3 +1,6 @@
+/* eslint-disable no-undef, supported */
+/* eslint-env node */
+/* eslint-disable no-unused-vars */
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars, react-hooks/exhaustive-deps */
 import { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';

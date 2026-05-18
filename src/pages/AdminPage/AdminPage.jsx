@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useMemo, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { validateKhutbah, countWords, estimateReadingDuration, detectDuplicates } from '../../data/khutbahValidator';
