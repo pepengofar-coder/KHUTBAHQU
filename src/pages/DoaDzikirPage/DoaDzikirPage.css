@@ -1,41 +1,262 @@
-.doa-page{padding:var(--sp-6) var(--sp-4) var(--sp-16)}
-.doa-page__header{margin-bottom:var(--sp-4)}
-.doa-page__title{font-size:var(--fs-2xl);font-weight:800;color:var(--color-text)}
-.doa-page__sub{font-size:var(--fs-sm);color:var(--color-text-muted);margin-top:var(--sp-1)}
+/* ═══════════════════════════════════════════════════════════
+   Doa & Dzikir — Al-Ma'tsurat Sughro Experience
+   ═══════════════════════════════════════════════════════════ */
 
-.doa-cats{display:flex;gap:var(--sp-2);overflow-x:auto;padding-bottom:var(--sp-2);margin-bottom:var(--sp-4);-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.doa-cats::-webkit-scrollbar{display:none}
-.doa-cats__btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:var(--sp-2) var(--sp-3);border-radius:var(--radius-xl);border:1.5px solid var(--color-border-light);background:var(--color-bg-card);min-width:72px;transition:all .25s var(--ease-spring);cursor:pointer;flex-shrink:0}
-.doa-cats__btn.active{border-color:var(--color-primary);background:var(--color-primary-surface);color:var(--color-primary)}
-.doa-cats__btn:active{transform:scale(.94)}
-.doa-cats__icon{font-size:20px}
-.doa-cats__label{font-size:10px;font-weight:600;color:var(--color-text-secondary);white-space:nowrap}
-.doa-cats__btn.active .doa-cats__label{color:var(--color-primary)}
+.doa-page { padding: var(--sp-4) var(--sp-4) var(--sp-16); max-width: 640px; margin: 0 auto; }
 
-.doa-progress{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4)}
-.doa-progress__bar{flex:1;height:6px;border-radius:3px;background:var(--color-bg-alt);overflow:hidden}
-.doa-progress__fill{height:100%;background:var(--color-primary);border-radius:3px;transition:width .4s var(--ease-spring)}
-.doa-progress__text{font-size:var(--fs-xs);font-weight:600;color:var(--color-text-muted);white-space:nowrap}
+/* ─── Category Chips ─────────────────────────────────── */
+.doa-cats {
+  display: flex; gap: 8px; overflow-x: auto; padding: var(--sp-2) 0;
+  margin-bottom: var(--sp-4); -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.doa-cats::-webkit-scrollbar { display: none; }
+.doa-cats__btn {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 8px 14px; border-radius: 14px; border: 1.5px solid var(--color-border-light);
+  background: var(--color-bg-card); min-width: 68px; transition: all .25s var(--ease-spring);
+  cursor: pointer; flex-shrink: 0;
+}
+.doa-cats__btn.active {
+  border-color: var(--color-primary); background: var(--color-primary-surface);
+  box-shadow: 0 2px 12px rgba(0, 71, 255, 0.15);
+}
+.doa-cats__btn:active { transform: scale(.94); }
+.doa-cats__icon { font-size: 18px; }
+.doa-cats__label { font-size: 10px; font-weight: 600; color: var(--color-text-secondary); white-space: nowrap; }
+.doa-cats__btn.active .doa-cats__label { color: var(--color-primary); }
 
-.doa-list{display:flex;flex-direction:column;gap:var(--sp-4)}
-.doa-card{background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);padding:var(--sp-5);transition:all .3s var(--ease-spring);animation:doaCardIn .4s ease both}
-.doa-card--done{opacity:.5;border-color:var(--color-primary)}
-.doa-card__top{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4)}
-.doa-card__num{width:28px;height:28px;border-radius:50%;background:var(--color-primary-surface);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:var(--fs-xs);font-weight:800;flex-shrink:0}
-.doa-card__title{flex:1;font-size:var(--fs-base);font-weight:700;color:var(--color-text)}
-.doa-card__check{width:32px;height:32px;border-radius:50%;border:2px solid var(--color-border-light);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--color-text-muted);cursor:pointer;transition:all .25s var(--ease-spring);background:none;flex-shrink:0}
-.doa-card__check.checked{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
-.doa-card__check:active{transform:scale(.85)}
+/* ─── Al-Ma'tsurat Hero Card ────────────────────────── */
+.matsurat-hero {
+  border-radius: 20px; padding: 24px 20px; margin-bottom: var(--sp-4);
+  color: #fff; position: relative; overflow: hidden;
+}
+.matsurat-hero--pagi {
+  background: linear-gradient(135deg, #0047FF 0%, #1D7CFF 50%, #4DA3FF 100%);
+}
+.matsurat-hero--petang {
+  background: linear-gradient(135deg, #002B9A 0%, #0047FF 50%, #1D7CFF 100%);
+}
+.matsurat-hero::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.matsurat-hero::after {
+  content: ''; position: absolute; bottom: -60px; left: -30px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.matsurat-hero > * { position: relative; z-index: 1; }
 
-.doa-card__arabic{font-family:var(--font-arabic);direction:rtl;text-align:right;font-size:var(--fs-xl);line-height:var(--lh-arabic);color:var(--color-primary);margin-bottom:var(--sp-3);padding:var(--sp-3);background:var(--color-primary-surface);border-radius:var(--radius-lg)}
-.doa-card__latin{font-size:var(--fs-sm);color:var(--color-text-secondary);font-style:italic;line-height:var(--lh-relaxed);margin-bottom:var(--sp-2)}
-.doa-card__translation{font-size:var(--fs-sm);color:var(--color-text-secondary);line-height:var(--lh-relaxed);margin-bottom:var(--sp-3)}
-.doa-card__footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--sp-2)}
-.doa-card__source{font-size:var(--fs-xs);color:var(--color-text-muted)}
-.doa-card__rep{font-size:var(--fs-xs);font-weight:700;color:var(--color-primary)}
-.doa-card__counter-btn{font-size:var(--fs-sm);font-weight:700;color:#fff;background:var(--color-primary);border:none;padding:var(--sp-1) var(--sp-3);border-radius:var(--radius-pill);cursor:pointer;transition:all .2s var(--ease-spring)}
-.doa-card__counter-btn:active{transform:scale(.9)}
+.matsurat-hero__badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+  padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  margin-bottom: 12px;
+}
+.matsurat-hero__title { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.matsurat-hero__timing { font-size: 13px; opacity: 0.8; margin-bottom: 16px; }
 
-.doa-disclaimer{font-size:var(--fs-xs);color:var(--color-text-muted);margin-top:var(--sp-6);padding:var(--sp-4);background:var(--color-bg-alt);border-radius:var(--radius-lg);line-height:var(--lh-relaxed)}
+/* Version selector */
+.matsurat-version {
+  display: flex; gap: 8px; margin-bottom: 16px;
+}
+.matsurat-version__btn {
+  padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+  border: 1.5px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7); cursor: pointer; transition: all .2s;
+}
+.matsurat-version__btn.active {
+  background: #fff; color: var(--color-primary); border-color: #fff;
+}
+.matsurat-version__btn.disabled {
+  opacity: 0.5; cursor: not-allowed;
+}
+.matsurat-version__soon {
+  font-size: 9px; background: rgba(255,255,255,0.2); padding: 1px 6px;
+  border-radius: 8px; margin-left: 4px;
+}
 
-@keyframes doaCardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* Progress in hero */
+.matsurat-hero__progress { margin-bottom: 16px; }
+.matsurat-hero__progress-bar {
+  height: 6px; border-radius: 3px; background: rgba(255,255,255,0.15);
+  overflow: hidden; margin-bottom: 8px;
+}
+.matsurat-hero__progress-fill {
+  height: 100%; border-radius: 3px; transition: width .5s var(--ease-spring);
+  background: linear-gradient(90deg, #C6FF00, #A8E600);
+}
+.matsurat-hero__progress-info {
+  display: flex; justify-content: space-between; font-size: 12px; opacity: 0.85;
+}
+.matsurat-hero__pct { font-weight: 700; color: #C6FF00; }
+
+/* Hero actions */
+.matsurat-hero__actions { display: flex; gap: 10px; align-items: center; }
+.matsurat-hero__continue {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.25); color: #fff;
+  padding: 10px 20px; border-radius: 14px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+}
+.matsurat-hero__continue:hover { background: rgba(255,255,255,0.25); }
+.matsurat-hero__continue:active { transform: scale(.97); }
+.matsurat-hero__reset {
+  width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7); cursor: pointer; transition: all .2s; flex-shrink: 0;
+}
+.matsurat-hero__reset:hover { background: rgba(255,100,100,0.2); color: #fff; }
+
+/* ─── Toggle Buttons ─────────────────────────────────── */
+.matsurat-toggles {
+  display: flex; gap: 8px; margin-bottom: var(--sp-4);
+}
+.matsurat-toggle {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+  border: 1.5px solid var(--color-border-light); background: var(--color-bg-card);
+  color: var(--color-text-muted); cursor: pointer; transition: all .2s;
+}
+.matsurat-toggle.active {
+  border-color: var(--color-primary); background: var(--color-primary-surface);
+  color: var(--color-primary);
+}
+.matsurat-toggle:active { transform: scale(.95); }
+
+/* ─── Non-Ma'tsurat Header ───────────────────────────── */
+.doa-page__header { margin-bottom: var(--sp-4); }
+.doa-page__title { font-size: var(--fs-2xl); font-weight: 800; color: var(--color-text); }
+.doa-page__sub { font-size: var(--fs-sm); color: var(--color-text-muted); margin-top: var(--sp-1); }
+
+/* ─── Progress Bar (non-matsurat) ────────────────────── */
+.doa-progress { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-4); }
+.doa-progress__bar { flex: 1; height: 6px; border-radius: 3px; background: var(--color-bg-alt); overflow: hidden; }
+.doa-progress__fill { height: 100%; background: var(--color-primary); border-radius: 3px; transition: width .4s var(--ease-spring); }
+.doa-progress__text { font-size: var(--fs-xs); font-weight: 600; color: var(--color-text-muted); white-space: nowrap; }
+
+/* ─── Card List ──────────────────────────────────────── */
+.doa-list { display: flex; flex-direction: column; gap: 14px; }
+
+/* ─── Doa Card ───────────────────────────────────────── */
+.doa-card {
+  background: var(--color-bg-card); border: 1px solid var(--color-border-light);
+  border-radius: 18px; padding: 20px; transition: all .3s var(--ease-spring);
+  animation: doaCardIn .4s ease both;
+}
+.doa-card--matsurat { border-left: 3px solid var(--color-primary); }
+.doa-card--done {
+  opacity: 0.45; border-color: var(--color-primary);
+  background: var(--color-primary-surface);
+}
+.doa-card--done.doa-card--matsurat { border-left-color: #22c55e; }
+
+/* Card header */
+.doa-card__top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.doa-card__num {
+  width: 30px; height: 30px; border-radius: 10px;
+  background: var(--color-primary-surface); color: var(--color-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0;
+}
+.doa-card__title { flex: 1; font-size: 14px; font-weight: 700; color: var(--color-text); }
+.doa-card__rep-badge {
+  font-size: 11px; font-weight: 700; color: var(--color-primary);
+  background: var(--color-primary-surface); padding: 2px 8px; border-radius: 10px;
+  flex-shrink: 0;
+}
+.doa-card__check {
+  width: 32px; height: 32px; border-radius: 50%; border: none;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-text-muted); cursor: pointer;
+  transition: all .25s var(--ease-spring); background: none; flex-shrink: 0;
+}
+.doa-card__check.checked { color: #22c55e; }
+.doa-card__check:active { transform: scale(.85); }
+
+/* Arabic text */
+.doa-card__arabic {
+  font-family: var(--font-arabic); direction: rtl; text-align: right;
+  font-size: 20px; line-height: 2; color: var(--color-text);
+  margin-bottom: 12px; padding: 16px; background: var(--color-primary-surface);
+  border-radius: 14px; white-space: pre-wrap; word-wrap: break-word;
+}
+.doa-card__arabic--large { font-size: 22px; line-height: 2.2; }
+
+/* Expand toggle */
+.doa-card__expand {
+  display: flex; align-items: center; gap: 4px; margin: -8px auto 12px;
+  font-size: 12px; color: var(--color-primary); font-weight: 600;
+  background: none; border: none; cursor: pointer; padding: 4px 12px;
+}
+.doa-card__expand:hover { text-decoration: underline; }
+
+/* Latin & Translation */
+.doa-card__latin {
+  font-size: 13px; color: var(--color-text-secondary); font-style: italic;
+  line-height: 1.7; margin-bottom: 8px; padding: 0 4px;
+}
+.doa-card__translation {
+  font-size: 13px; color: var(--color-text-secondary); line-height: 1.7;
+  margin-bottom: 12px; padding: 0 4px;
+}
+
+/* Footer */
+.doa-card__footer {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px; padding-top: 12px; border-top: 1px solid var(--color-border-light);
+}
+.doa-card__source { font-size: 11px; color: var(--color-text-muted); flex: 1; min-width: 0; }
+.doa-card__rep { font-size: 11px; font-weight: 700; color: var(--color-primary); }
+
+/* ─── Counter ────────────────────────────────────────── */
+.doa-card__counter { display: flex; align-items: center; gap: 6px; }
+.doa-card__counter-btn {
+  position: relative; width: 44px; height: 44px; border-radius: 50%;
+  border: none; background: var(--color-primary-surface); color: var(--color-primary);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all .2s var(--ease-spring);
+}
+.doa-card__counter-btn:active { transform: scale(.88); }
+.doa-card__counter-btn.complete {
+  background: #22c55e; color: #fff;
+}
+.doa-card__counter-btn:disabled { cursor: default; }
+.doa-card__counter-ring { position: absolute; top: 0; left: 0; }
+.doa-card__counter-progress { transition: stroke-dasharray .3s var(--ease-spring); }
+.doa-card__counter-text {
+  position: relative; z-index: 1; font-size: 13px; font-weight: 800;
+}
+.doa-card__counter-reset {
+  width: 24px; height: 24px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; background: var(--color-bg-alt);
+  border: 1px solid var(--color-border-light); color: var(--color-text-muted);
+  cursor: pointer; transition: all .2s;
+}
+.doa-card__counter-reset:hover { color: var(--color-primary); }
+
+/* ─── Disclaimer ─────────────────────────────────────── */
+.doa-disclaimer {
+  font-size: 11px; color: var(--color-text-muted); margin-top: var(--sp-6);
+  padding: 16px; background: var(--color-bg-alt); border-radius: 14px;
+  line-height: 1.6;
+}
+.doa-disclaimer p { margin: 0; }
+.doa-disclaimer p + p { margin-top: 4px; }
+
+/* ─── Animations ─────────────────────────────────────── */
+@keyframes doaCardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .matsurat-hero { padding: 20px 16px; }
+  .matsurat-hero__title { font-size: 20px; }
+  .doa-card { padding: 16px; }
+  .doa-card__arabic { font-size: 18px; padding: 12px; }
+  .doa-card__arabic--large { font-size: 20px; }
+}
