@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
@@ -10,6 +10,7 @@ export default function CatalogPage() {
     activeCategory, setActiveCategory, activeType, setActiveType,
     activeDuration, setActiveDuration, allKhutbah } = useApp();
   const [params] = useSearchParams();
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     const cat = params.get('cat');
@@ -57,34 +58,68 @@ export default function CatalogPage() {
         </div>
       </div>
 
-      <div className="catalog__search">
-        <span className="catalog__search-icon">🔍</span>
-        <input className="catalog__search-input" type="search" placeholder="Cari judul, tema, atau kata kunci..."
-          value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+      <div className="catalog__search-bar">
+        <div className="catalog__search">
+          <span className="catalog__search-icon">🔍</span>
+          <input className="catalog__search-input" type="search" placeholder="Cari judul, tema, atau kata kunci..."
+            value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
+        </div>
+        <button className="btn btn--secondary" onClick={() => setShowFilter(true)}>
+          <span style={{fontSize: '16px'}}>⚙️</span> Filter
+        </button>
       </div>
 
-      <div className="catalog__filters catalog__filters--wrap">
-        <button className={`filter-btn${!activeCategory?' active':''}`}
-          onClick={() => setActiveCategory(null)}>📋 Semua <span className="filter-count">{allKhutbah.length}</span></button>
-        {categories.map(c => (
-          <button key={c.id} className={`filter-btn${activeCategory===c.id?' active':''}`}
-            onClick={() => toggle(setActiveCategory, activeCategory, c.id)}>
-            {c.icon} {c.label} <span className="filter-count">{catCounts[c.id] || 0}</span>
-          </button>
-        ))}
-      </div>
-      <div className="catalog__filters">
-        {types.map(t => (
-          <button key={t.id} className={`filter-btn${activeType===t.id?' active':''}`}
-            onClick={() => toggle(setActiveType, activeType, t.id)}>{t.label}</button>
-        ))}
-        <button className={`filter-btn${activeDuration==='short'?' active':''}`}
-          onClick={() => toggle(setActiveDuration, activeDuration, 'short')}>⏱ Singkat (≤8m)</button>
-        <button className={`filter-btn${activeDuration==='medium'?' active':''}`}
-          onClick={() => toggle(setActiveDuration, activeDuration, 'medium')}>⏱ Sedang (9-12m)</button>
-        <button className={`filter-btn${activeDuration==='long'?' active':''}`}
-          onClick={() => toggle(setActiveDuration, activeDuration, 'long')}>⏱ Panjang (≥13m)</button>
-      </div>
+      {showFilter && (
+        <div className="filter-modal-overlay" onClick={() => setShowFilter(false)}>
+          <div className="filter-modal" onClick={e => e.stopPropagation()}>
+            <div className="filter-modal__header">
+              <h3>Filter Pencarian</h3>
+              <button onClick={() => setShowFilter(false)} aria-label="Tutup">✖</button>
+            </div>
+            <div className="filter-modal__body">
+              <div className="filter-section">
+                <h4>Kategori Tema</h4>
+                <div className="catalog__filters catalog__filters--wrap">
+                  <button className={`filter-btn${!activeCategory?' active':''}`}
+                    onClick={() => setActiveCategory(null)}>📋 Semua <span className="filter-count">{allKhutbah.length}</span></button>
+                  {categories.map(c => (
+                    <button key={c.id} className={`filter-btn${activeCategory===c.id?' active':''}`}
+                      onClick={() => toggle(setActiveCategory, activeCategory, c.id)}>
+                      {c.icon} {c.label} <span className="filter-count">{catCounts[c.id] || 0}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <h4>Jenis Materi</h4>
+                <div className="catalog__filters catalog__filters--wrap">
+                  {types.map(t => (
+                    <button key={t.id} className={`filter-btn${activeType===t.id?' active':''}`}
+                      onClick={() => toggle(setActiveType, activeType, t.id)}>{t.label}</button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="filter-section">
+                <h4>Durasi</h4>
+                <div className="catalog__filters catalog__filters--wrap">
+                  <button className={`filter-btn${activeDuration==='short'?' active':''}`}
+                    onClick={() => toggle(setActiveDuration, activeDuration, 'short')}>⏱ Singkat (≤8m)</button>
+                  <button className={`filter-btn${activeDuration==='medium'?' active':''}`}
+                    onClick={() => toggle(setActiveDuration, activeDuration, 'medium')}>⏱ Sedang (9-12m)</button>
+                  <button className={`filter-btn${activeDuration==='long'?' active':''}`}
+                    onClick={() => toggle(setActiveDuration, activeDuration, 'long')}>⏱ Panjang (≥13m)</button>
+                </div>
+              </div>
+            </div>
+            <div className="filter-modal__footer">
+              <button className="btn btn--ghost" onClick={() => { setActiveCategory(null); setActiveType(null); setActiveDuration(null); }}>Reset</button>
+              <button className="btn btn--primary" style={{flex: 1}} onClick={() => setShowFilter(false)}>Terapkan Filter</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {filteredKhutbah.length > 0 ? (
         <div className="catalog__grid">
