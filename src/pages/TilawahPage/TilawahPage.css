@@ -1,0 +1,88 @@
+/* Tilawah Live Page — Royal Blue + Lime */
+.tilawah-page { padding-bottom: calc(var(--bottom-nav-h) + 80px); }
+
+/* Hero */
+.tilawah-hero { background: linear-gradient(135deg, #002B9A 0%, #0047FF 40%, #1D7CFF 100%); padding: var(--sp-8) 0 var(--sp-6); color: #fff; position: relative; overflow: hidden; }
+.tilawah-hero::before { content: ''; position: absolute; top: -80px; right: -80px; width: 240px; height: 240px; background: radial-gradient(circle, rgba(198,255,0,.18) 0%, transparent 70%); pointer-events: none; }
+.tilawah-hero::after { content: ''; position: absolute; bottom: -100px; left: -60px; width: 280px; height: 280px; background: radial-gradient(circle, rgba(29,124,255,.3) 0%, transparent 70%); pointer-events: none; }
+.tilawah-hero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: var(--sp-5); }
+@media(min-width:768px) { .tilawah-hero__inner { flex-direction: row; align-items: flex-start; justify-content: space-between; } }
+.tilawah-hero__title { font-size: var(--fs-3xl); font-weight: 800; margin-bottom: var(--sp-1); }
+.tilawah-hero__subtitle { font-size: var(--fs-sm); opacity: .85; max-width: 360px; }
+
+/* Now Playing Card */
+.tilawah-now { background: rgba(255,255,255,.1); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,.15); border-radius: var(--radius-2xl); padding: var(--sp-5); min-width: 260px; display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); position: relative; box-shadow: 0 8px 32px rgba(0,0,0,.15); }
+.tilawah-now__badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: var(--color-accent); background: rgba(198,255,0,.15); padding: 3px 10px; border-radius: var(--radius-pill); }
+.tilawah-now__dot-anim { width: 6px; height: 6px; background: var(--color-accent); border-radius: 50%; animation: livePulse 1.5s ease-in-out infinite; }
+@keyframes livePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(.6); } }
+.tilawah-now__name { font-size: var(--fs-lg); font-weight: 700; text-align: center; }
+.tilawah-now__controls { display: flex; align-items: center; gap: var(--sp-3); }
+.tilawah-now__skip { font-size: 20px; background: rgba(255,255,255,.12); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all .2s; border: none; color: #fff; cursor: pointer; }
+.tilawah-now__skip:hover { background: rgba(255,255,255,.25); transform: scale(1.1); }
+.tilawah-now__play { width: 56px; height: 56px; border-radius: 50%; background: var(--color-accent); color: #002B9A; display: flex; align-items: center; justify-content: center; transition: all .25s var(--ease-spring); box-shadow: 0 4px 20px rgba(198,255,0,.35); border: none; cursor: pointer; }
+.tilawah-now__play:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(198,255,0,.45); }
+.tilawah-now__play:active { transform: scale(.95); }
+.tilawah-now__play.error { background: rgba(255,255,255,.2); color: #fff; box-shadow: none; }
+.tilawah-now__spinner { width: 22px; height: 22px; border: 3px solid rgba(0,43,154,.2); border-top-color: #002B9A; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.tilawah-now__error { font-size: 11px; color: rgba(255,255,255,.7); text-align: center; margin: 0; }
+.tilawah-now__fav { position: absolute; top: var(--sp-3); right: var(--sp-3); font-size: 18px; background: none; border: none; cursor: pointer; transition: transform .2s; }
+.tilawah-now__fav:hover { transform: scale(1.2); }
+
+/* Channel List */
+.tilawah-list { padding: var(--sp-6) var(--sp-4); }
+.tilawah-list__toolbar { display: flex; gap: var(--sp-3); margin-bottom: var(--sp-4); flex-wrap: wrap; }
+.tilawah-list__search { flex: 1; min-width: 200px; position: relative; }
+.tilawah-list__search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none; }
+.tilawah-list__input { width: 100%; padding: var(--sp-3) var(--sp-3) var(--sp-3) 40px; border: 1.5px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-bg-card); color: var(--color-text); font-size: var(--fs-sm); transition: border-color .2s, box-shadow .2s; }
+.tilawah-list__input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-surface); }
+.tilawah-list__filter { padding: var(--sp-2) var(--sp-4); border-radius: var(--radius-pill); font-size: var(--fs-sm); font-weight: 600; border: 1.5px solid var(--color-border); background: var(--color-bg-card); color: var(--color-text-secondary); cursor: pointer; transition: all .2s; white-space: nowrap; }
+.tilawah-list__filter.active { border-color: var(--color-primary); background: var(--color-primary-surface); color: var(--color-primary); }
+.tilawah-list__count { font-size: var(--fs-xs); color: var(--color-text-muted); margin-bottom: var(--sp-3); }
+
+/* States */
+.tilawah-state { display: flex; flex-direction: column; align-items: center; gap: var(--sp-3); padding: var(--sp-12) var(--sp-4); color: var(--color-text-muted); text-align: center; }
+.tilawah-state span { font-size: 40px; }
+.tilawah-state p { font-size: var(--fs-sm); margin: 0; }
+.tilawah-state__spinner { width: 32px; height: 32px; border: 3px solid var(--color-border); border-top-color: var(--color-primary); border-radius: 50%; animation: spin .8s linear infinite; }
+
+/* Grid */
+.tilawah-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-2); }
+@media(min-width:640px) { .tilawah-grid { grid-template-columns: repeat(2,1fr); } }
+@media(min-width:1024px) { .tilawah-grid { grid-template-columns: repeat(3,1fr); } }
+
+/* Card */
+.tilawah-card { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); background: var(--color-bg-card); border: 1.5px solid var(--color-border-light); border-radius: var(--radius-xl); cursor: pointer; transition: all .25s var(--ease-spring); }
+.tilawah-card:hover { border-color: var(--color-primary); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.tilawah-card:active { transform: scale(.98); }
+.tilawah-card--active { border-color: var(--color-primary); background: var(--color-primary-surface); box-shadow: 0 4px 16px rgba(0,71,255,.1); }
+.tilawah-card__avatar { width: 40px; height: 40px; border-radius: var(--radius-lg); background: linear-gradient(135deg, #002B9A, #0047FF); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: var(--fs-base); flex-shrink: 0; }
+.tilawah-card--active .tilawah-card__avatar { background: linear-gradient(135deg, var(--color-accent), #8FB800); color: #002B9A; }
+.tilawah-card__info { flex: 1; min-width: 0; }
+.tilawah-card__name { font-size: var(--fs-sm); font-weight: 600; color: var(--color-text); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tilawah-card__live { display: flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; color: var(--color-primary); margin-top: 2px; }
+.tilawah-card__bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
+.tilawah-card__bars span { width: 3px; background: var(--color-accent); border-radius: 2px; animation: barBounce .8s ease-in-out infinite; }
+.tilawah-card__bars span:nth-child(1) { height: 4px; animation-delay: 0s; }
+.tilawah-card__bars span:nth-child(2) { height: 8px; animation-delay: .15s; }
+.tilawah-card__bars span:nth-child(3) { height: 5px; animation-delay: .3s; }
+@keyframes barBounce { 0%,100% { height: 4px; } 50% { height: 12px; } }
+.tilawah-card__fav { font-size: 16px; background: none; border: none; cursor: pointer; transition: transform .2s; flex-shrink: 0; padding: 4px; }
+.tilawah-card__fav:hover { transform: scale(1.2); }
+
+/* Attribution */
+.tilawah-attribution { text-align: center; font-size: var(--fs-xs); color: var(--color-text-muted); margin-top: var(--sp-8); padding-top: var(--sp-4); border-top: 1px solid var(--color-border-light); }
+.tilawah-attribution a { color: var(--color-primary); text-decoration: underline; }
+
+/* Mini Player */
+.tilawah-mini { position: fixed; bottom: var(--bottom-nav-h); left: 0; right: 0; z-index: 900; background: linear-gradient(135deg, #002B9A, #0047FF); color: #fff; box-shadow: 0 -4px 20px rgba(0,43,154,.25); border-top: 1px solid rgba(255,255,255,.1); }
+.tilawah-mini__inner { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-2) var(--sp-4); gap: var(--sp-3); }
+.tilawah-mini__info { display: flex; align-items: center; gap: var(--sp-2); flex: 1; min-width: 0; }
+.tilawah-mini__dot { width: 6px; height: 6px; background: var(--color-accent); border-radius: 50%; animation: livePulse 1.5s ease-in-out infinite; flex-shrink: 0; }
+.tilawah-mini__name { font-size: var(--fs-sm); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tilawah-mini__controls { display: flex; align-items: center; gap: var(--sp-2); }
+.tilawah-mini__btn { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.12); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 14px; border: none; cursor: pointer; transition: all .2s; }
+.tilawah-mini__btn:hover { background: rgba(255,255,255,.25); }
+.tilawah-mini__btn--main { width: 38px; height: 38px; background: var(--color-accent); color: #002B9A; box-shadow: 0 2px 12px rgba(198,255,0,.3); }
+.tilawah-mini__btn--main:hover { transform: scale(1.08); }
+.tilawah-mini__spinner { width: 16px; height: 16px; border: 2px solid rgba(0,43,154,.2); border-top-color: #002B9A; border-radius: 50%; animation: spin .8s linear infinite; }

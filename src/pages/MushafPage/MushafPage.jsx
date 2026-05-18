@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSEO } from '../../utils/seo';
 import { usePremium } from '../../context/PremiumContext';
 import { FEATURES } from '../../config/premium';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import './MushafPage.css';
 
 // Translation ID for Indonesian (Kemenag) is 33 or 134 in quran.com API v4. We use 33 (Tafsir Jalalayn / Kemenag)
@@ -24,6 +24,16 @@ export default function MushafPage() {
 
   const { hasPremiumFeature } = usePremium();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const targetAyah = searchParams.get('ayah');
+  
+  // Set initial surah if provided in URL
+  useEffect(() => {
+    const s = searchParams.get('surah');
+    if (s && !isNaN(parseInt(s))) {
+      setSelectedSurah(parseInt(s));
+    }
+  }, [searchParams]);
 
   const handleFocusToggle = () => {
     if (hasPremiumFeature(FEATURES.QURAN_FOCUS)) {
@@ -73,6 +83,20 @@ export default function MushafPage() {
       setLoading(false);
     });
   }, [selectedSurah]);
+
+  // Scroll to targeted ayah and highlight it
+  useEffect(() => {
+    if (!loading && targetAyah && ayahs.length > 0) {
+      setTimeout(() => {
+        const el = document.getElementById(`ayah-${targetAyah}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('ayah-card--highlight');
+          setTimeout(() => el.classList.remove('ayah-card--highlight'), 3000);
+        }
+      }, 100);
+    }
+  }, [loading, targetAyah, ayahs.length]);
 
   const currentSurah = surahs.find(s => s.id === parseInt(selectedSurah));
 
@@ -128,7 +152,7 @@ export default function MushafPage() {
             {ayahs.map(ayah => {
               const ayahNum = ayah.verse_key.split(':')[1];
               return (
-                <div key={ayah.id} className="ayah-card">
+                <div key={ayah.id} id={`ayah-${ayahNum}`} className={`ayah-card ${targetAyah === ayahNum ? 'ayah-card--target' : ''}`}>
                   <div className="ayah-card__header">
                     <div className="ayah-card__number">{ayahNum}</div>
                   </div>

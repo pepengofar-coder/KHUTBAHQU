@@ -13,6 +13,7 @@ const DESKTOP_LINKS = [
   { to: '/doa-dzikir', label: 'Doa & Dzikir' },
   { to: '/khutbah', label: 'Khutbah' },
   { to: '/tracker', label: 'Tracker' },
+  { to: '/tilawah', label: 'Tilawah' },
   { to: '/favorit', label: 'Favorit' },
   { to: '/premium', label: 'Premium' },
 ];

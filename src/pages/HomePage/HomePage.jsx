@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useSEO, JsonLd, SITE_URL, SITE_NAME } from '../../utils/seo';
 import { getHijriDateString, getUpcomingEvents } from '../../data/hijriData';
+import { getDailyAyah } from '../../utils/dailyAyah';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import './HomePage.css';
 
@@ -101,6 +102,26 @@ export default function HomePage() {
 
   const featured = allKhutbah.slice(0, 3);
 
+  // Daily Reflection
+  const [dailyAyah, setDailyAyah] = useState(null);
+  const [ayahLoading, setAyahLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    const fetchAyah = async () => {
+      try {
+        const data = await getDailyAyah();
+        if (mounted) setDailyAyah(data);
+      } catch (err) {
+        console.warn('Failed to fetch daily ayah:', err);
+      } finally {
+        if (mounted) setAyahLoading(false);
+      }
+    };
+    fetchAyah();
+    return () => { mounted = false; };
+  }, []);
+
   const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform materi khutbah Islam siap pakai.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/khutbah?q={search_term_string}`, 'query-input': 'required name=search_term_string' } };
   const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/logo.png` };
 
@@ -161,9 +182,17 @@ export default function HomePage() {
             <span className="dash-hero__reflection-icon">✨</span>
             <div className="dash-hero__reflection-text">
               <strong>Renungan Hari Ini</strong>
-              <p>"Barangsiapa bertakwa kepada Allah, niscaya Dia akan mengadakan baginya jalan keluar." (QS. Ath-Thalaq: 2)</p>
+              {ayahLoading ? (
+                <p>Memuat renungan...</p>
+              ) : dailyAyah ? (
+                <p>"{dailyAyah.translation}" ({dailyAyah.reference})</p>
+              ) : (
+                <p>Renungan harian belum tersedia</p>
+              )}
             </div>
-            <Link to="/mushaf" className="dash-hero__reflection-link">Baca</Link>
+            {!ayahLoading && dailyAyah && (
+              <Link to={`/mushaf?surah=${dailyAyah.surah}&ayah=${dailyAyah.ayah}`} className="dash-hero__reflection-link">Baca</Link>
+            )}
           </div>
         </div>
       </section>

@@ -15,6 +15,7 @@ const MORE_ITEMS = [
   { to: '/tasbih', label: 'Tasbih', icon: '📿' },
   { to: '/khutbah', label: 'Khutbah', icon: '🕌' },
   { to: '/tracker', label: 'Tracker Ibadah', icon: '✅' },
+  { to: '/tilawah', label: 'Tilawah Live', icon: '📻' },
   { to: '/favorit', label: 'Favorit', icon: '⭐' },
   { to: '/premium', label: 'Premium', icon: '👑' },
   { to: '/kontribusi', label: 'Kirim Khutbah', icon: '📤' },
