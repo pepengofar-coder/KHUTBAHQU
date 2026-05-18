@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSEO } from '../../utils/seo';
 import './MushafPage.css';
 
 // Translation ID for Indonesian (Kemenag) is 33 or 134 in quran.com API v4. We use 33 (Tafsir Jalalayn / Kemenag)
@@ -6,6 +7,11 @@ import './MushafPage.css';
 const TRANSLATION_ID = 33;
 
 export default function MushafPage() {
+  useSEO({
+    title: "Mushaf Al-Qur'an Digital dengan Terjemahan Indonesia | KhutbahQu",
+    description: "Baca Al-Qur'an digital lengkap dengan terjemahan Bahasa Indonesia. Mushaf Madinah online untuk khatib, dai, dan umat muslim.",
+    path: '/mushaf',
+  });
   const [surahs, setSurahs] = useState([]);
   const [selectedSurah, setSelectedSurah] = useState(1);
   const [ayahs, setAyahs] = useState([]);

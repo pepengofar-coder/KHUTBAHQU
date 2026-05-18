@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom';
+import { useSEO } from '../../utils/seo';
 
 export default function AboutPage() {
+  useSEO({
+    title: 'Tentang KhutbahQu — Platform Materi Khutbah Islam Siap Pakai',
+    description: 'KhutbahQu adalah platform materi khutbah Islam siap pakai untuk khatib, dai, ustaz, dan pengurus masjid. Koleksi khutbah Jumat, kultum, tausiyah, dan kalender Hijriah.',
+    path: '/tentang',
+  });
+
   return (
     <div className="container" style={{ padding: '48px 16px 80px', maxWidth: 720 }}>
-      <h1 className="section__title" style={{ textAlign: 'center', marginBottom: 8 }}>📖 Tentang KhutbahQu</h1>
+      <h1 className="section__title" style={{ textAlign: 'center', marginBottom: 8 }}>Tentang KhutbahQu</h1>
       <p className="section__subtitle" style={{ textAlign: 'center', marginBottom: 32 }}>
-        Platform materi khutbah Islam siap pakai untuk khatib, pendakwah, dan umat muslim.
+        Platform materi khutbah Islam siap pakai untuk khatib, dai, ustaz, dan pengurus masjid.
       </p>
 
       <div className="card" style={{ padding: 24, marginBottom: 24 }}>
@@ -18,7 +25,7 @@ export default function AboutPage() {
       <div className="card" style={{ padding: 24, marginBottom: 24 }}>
         <h2 style={{ fontSize: 'var(--fs-lg)', fontWeight: 700, marginBottom: 12 }}>✨ Fitur Utama</h2>
         <ul style={{ color: 'var(--color-text-secondary)', lineHeight: 2 }}>
-          <li>📚 Koleksi 12+ materi khutbah siap pakai</li>
+          <li>📚 Koleksi 200+ materi khutbah Jumat siap pakai</li>
           <li>🔍 Pencarian dan filter berdasarkan kategori, tipe, dan durasi</li>
           <li>📅 Kalender Hijriah dengan countdown peristiwa Islam</li>
           <li>🎤 Mode Mimbar untuk membaca di atas mimbar</li>

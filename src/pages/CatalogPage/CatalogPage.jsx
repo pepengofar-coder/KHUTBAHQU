@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useSEO } from '../../utils/seo';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import './CatalogPage.css';
 
@@ -18,6 +19,27 @@ export default function CatalogPage() {
     return () => { setActiveCategory(null); setActiveType(null); setActiveDuration(null); setSearchQuery(''); };
   }, []);
 
+  // Dynamic SEO based on active filters
+  const activeCat = categories.find(c => c.id === activeCategory);
+  const activeTypeName = types.find(t => t.id === activeType);
+
+  let seoTitle = `Katalog Teks Khutbah Jumat dan Materi Dakwah Islam | KhutbahQu`;
+  let seoDesc = `Temukan ${allKhutbah.length}+ teks khutbah Jumat, kultum, tausiyah, dan materi dakwah Islam siap pakai. Filter berdasarkan kategori, tipe, dan durasi.`;
+
+  if (activeCat) {
+    seoTitle = `Khutbah Jumat tentang ${activeCat.label} | KhutbahQu`;
+    seoDesc = `Koleksi teks khutbah Jumat dan materi dakwah Islam bertema ${activeCat.label}. Siap pakai untuk khatib dan dai.`;
+  } else if (activeTypeName) {
+    seoTitle = `${activeTypeName.label} Islam Siap Pakai | KhutbahQu`;
+    seoDesc = `Koleksi ${activeTypeName.label.toLowerCase()} Islam siap pakai. Temukan materi dakwah berkualitas di KhutbahQu.`;
+  }
+
+  useSEO({
+    title: seoTitle,
+    description: seoDesc,
+    path: '/khutbah',
+  });
+
   const toggle = (setter, current, val) => setter(current === val ? null : val);
 
   // Count khutbah per category
@@ -30,7 +52,7 @@ export default function CatalogPage() {
     <div className="catalog container">
       <div className="section__header">
         <div>
-          <h1 className="section__title">📚 Katalog Khutbah</h1>
+          <h1 className="section__title">Katalog Teks Khutbah Jumat dan Materi Dakwah Islam</h1>
           <p className="section__subtitle">Temukan materi khutbah yang sesuai kebutuhan Anda — {allKhutbah.length} naskah tersedia</p>
         </div>
       </div>

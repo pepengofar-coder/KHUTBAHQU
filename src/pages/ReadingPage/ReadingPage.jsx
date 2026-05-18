@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useSEO, JsonLd, SITE_URL } from '../../utils/seo';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import { MUK_LENGKAP, MUK_KHUTBAH_2, DUA_PENUTUP, khutbahIntroTemplates, secondKhutbahIntroTemplates, closingDuaTemplates } from '../../data/parts/header.js';
 import './ReadingPage.css';
@@ -20,6 +21,15 @@ export default function DetailPage() {
   const related = k ? getRelated(k) : [];
   const cat = k && categories.find(c => c.id === k.category);
   const tp = k && types.find(t => t.id === k.type);
+
+  // Dynamic SEO for detail page
+  const typeLabel = tp ? tp.label : 'Khutbah';
+  useSEO({
+    title: k ? `${k.title} — ${typeLabel} | KhutbahQu` : 'Khutbah Tidak Ditemukan | KhutbahQu',
+    description: k ? `${k.summary} Teks ${typeLabel.toLowerCase()} siap pakai lengkap dengan dalil Al-Qur'an dan hadis.` : 'Halaman khutbah tidak ditemukan.',
+    path: k ? `/khutbah/${k.slug}` : '/khutbah',
+    type: 'article',
+  });
 
   const [barsHidden, setBarsHidden] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -49,6 +59,42 @@ export default function DetailPage() {
       <Link to="/khutbah" className="btn btn--primary">Kembali ke Katalog</Link>
     </div></div>
   );
+
+  // Article JSON-LD
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: k.title,
+    description: k.summary,
+    url: `${SITE_URL}/khutbah/${k.slug}`,
+    datePublished: k.createdAt,
+    dateModified: k.createdAt,
+    author: {
+      '@type': 'Organization',
+      name: 'KhutbahQu Editorial Team',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'KhutbahQu',
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/khutbah/${k.slug}`,
+    },
+    articleSection: cat ? cat.label : 'Khutbah Islam',
+    inLanguage: 'id-ID',
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Beranda', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Khutbah', item: `${SITE_URL}/khutbah` },
+      { '@type': 'ListItem', position: 3, name: k.title, item: `${SITE_URL}/khutbah/${k.slug}` },
+    ],
+  };
 
   const fLabel = fontSizeOptions.find(o => o.value === fontSize)?.label || 'M';
   const fBadge = fontSize === 0.85 ? 'S' : fontSize === 1 ? 'M' : fontSize === 1.15 ? 'L' : 'XL';
@@ -103,7 +149,7 @@ export default function DetailPage() {
     });
     if (currentDua) {
       t += "Marilah kita menundukkan kepala dan hati sejenak, berdoa kepada Allah subhanahu wa ta'ala, memohon ampunan, hidayah, dan pertolongan-Nya. Sebelumnya marilah kita bershalawat kepada Nabi Muhammad shallallahu 'alaihi wasallam sebagaimana perintah Allah:\n";
-      t += "اِنَّ اللّٰهَ وَمَلٰۤىِٕكَتَهٗ يُصَلُّوْنَ عَلَى النَّبِيِّۗ يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا\n\n";
+      t += "اِنَّ اللّٰهَ وَمَلٰۤىِٕكَتَهٗ يُصَلُّوْنَ عَلَى النَّبِيِّۗ يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا\n\n";
       t += currentDua + '\n';
     }
     return t;
@@ -111,6 +157,9 @@ export default function DetailPage() {
 
   return (
     <div className="detail">
+      <JsonLd data={articleSchema} />
+      <JsonLd data={breadcrumbSchema} />
+
       <div className="detail__progress" style={{ width: `${progress}%` }} />
       <header className={`detail__topbar${barsHidden ? ' hidden' : ''}`}>
         <div className="detail__topbar-inner">
@@ -129,6 +178,19 @@ export default function DetailPage() {
       </header>
 
       <article className="detail__content">
+        {/* Breadcrumb navigation */}
+        <nav className="detail__breadcrumb" aria-label="Breadcrumb">
+          <Link to="/">Beranda</Link>
+          <span className="detail__breadcrumb-sep">›</span>
+          <Link to="/khutbah">Khutbah</Link>
+          {cat && <>
+            <span className="detail__breadcrumb-sep">›</span>
+            <Link to={`/khutbah?cat=${cat.id}`}>{cat.label}</Link>
+          </>}
+          <span className="detail__breadcrumb-sep">›</span>
+          <span className="detail__breadcrumb-current">{k.title}</span>
+        </nav>
+
         <div className="detail__header">
           <h1 className="detail__title" style={{fontSize:`calc(var(--fs-2xl) * ${fontSize})`}}>{k.title}</h1>
           <p className="detail__info">{k.summary}</p>
@@ -156,7 +218,7 @@ export default function DetailPage() {
           <div className="detail__body">
             <p className="detail__p" style={{ fontSize: `calc(var(--fs-base) * ${fontSize})` }}>Marilah kita menundukkan kepala dan hati sejenak, berdoa kepada Allah subhanahu wa ta'ala, memohon ampunan, hidayah, dan pertolongan-Nya. Sebelumnya marilah kita bershalawat kepada Nabi Muhammad shallallahu 'alaihi wasallam sebagaimana perintah Allah:</p>
             <div className="detail__quran">
-              <p className="detail__quran-ar" style={{ fontSize: `calc(var(--fs-2xl) * ${fontSize})` }}>اِنَّ اللّٰهَ وَمَلٰۤىِٕكَتَهٗ يُصَلُّوْنَ عَلَى النَّبِيِّۗ يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا</p>
+              <p className="detail__quran-ar" style={{ fontSize: `calc(var(--fs-2xl) * ${fontSize})` }}>اِنَّ اللّٰهَ وَمَلٰۤىِٕكَتَهٗ يُصَلُّوْنَ عَلَى النَّبِيِّۗ يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْا صَلُّوْا عَلَيْهِ وَسَلِّمُوْا تَسْلِيْمًا</p>
               <p className="detail__quran-tr" style={{ fontSize: `calc(var(--fs-base) * ${fontSize})` }}>"Sesungguhnya Allah dan para malaikat-Nya bershalawat untuk Nabi. Wahai orang-orang yang beriman! Bershalawatlah kamu untuk Nabi dan ucapkanlah salam dengan penuh penghormatan kepadanya."</p>
               <p className="detail__quran-ref">QS. Al-Ahzab: 56</p>
             </div>

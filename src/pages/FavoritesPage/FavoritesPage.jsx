@@ -1,8 +1,16 @@
 import { useApp } from '../../context/AppContext';
+import { useSEO } from '../../utils/seo';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 
 export default function FavoritesPage() {
   const { bookmarkedKhutbah, recentKhutbah } = useApp();
+
+  useSEO({
+    title: 'Favorit Saya — Khutbah Tersimpan | KhutbahQu',
+    description: 'Daftar khutbah Jumat, kultum, dan tausiyah yang Anda simpan di KhutbahQu.',
+    path: '/favorit',
+    robots: 'noindex, follow', // User-specific page
+  });
   return (
     <div className="container" style={{ padding: '32px 16px 80px' }}>
       <div className="section__header"><div>

@@ -8,3 +8,9 @@
 @media(min-width:640px){.home-weekly__grid{grid-template-columns:repeat(2,1fr)}}
 .home-widgets{display:grid;gap:var(--sp-6);grid-template-columns:1fr}
 @media(min-width:768px){.home-widgets{grid-template-columns:2fr 1fr}}
+.home-seo-text{padding:var(--sp-8) 0 var(--sp-16)}
+.home-seo-text__inner{background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);padding:var(--sp-8);max-width:var(--max-w-reading);margin:0 auto}
+.home-seo-text__title{font-size:var(--fs-xl);font-weight:700;margin-bottom:var(--sp-4);color:var(--color-text)}
+.home-seo-text__inner p{font-size:var(--fs-base);color:var(--color-text-secondary);line-height:var(--lh-relaxed);margin-bottom:var(--sp-4)}
+.home-seo-text__inner p:last-child{margin-bottom:0}
+.home-seo-text__inner a{color:var(--color-primary);text-decoration:underline;text-underline-offset:2px}

@@ -11,6 +11,11 @@
 .detail__tool-btn.active{color:var(--color-gold)}
 .detail__tool-badge{position:absolute;bottom:1px;right:1px;font-size:7px;font-weight:800;background:var(--color-primary);color:#fff;padding:0 3px;border-radius:3px}
 .detail__content{max-width:var(--max-w-reading);margin:0 auto;padding:var(--sp-6) var(--sp-4)}
+.detail__breadcrumb{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-1);font-size:var(--fs-xs);color:var(--color-text-muted);margin-bottom:var(--sp-4)}
+.detail__breadcrumb a{color:var(--color-primary);text-decoration:none;transition:color var(--tr-fast)}
+.detail__breadcrumb a:hover{text-decoration:underline;text-underline-offset:2px}
+.detail__breadcrumb-sep{color:var(--color-text-muted);opacity:.5;margin:0 2px}
+.detail__breadcrumb-current{color:var(--color-text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
 .detail__header{margin-bottom:var(--sp-8);padding-bottom:var(--sp-6);border-bottom:1px solid var(--color-divider)}
 .detail__title{font-size:var(--fs-2xl);font-weight:800;color:var(--color-text);margin-bottom:var(--sp-3)}
 @media(min-width:768px){.detail__title{font-size:var(--fs-3xl)}}

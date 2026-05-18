@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useSEO } from '../../utils/seo';
 import './SubmitPage.css';
 
 const SOCIAL_PLATFORMS = [
@@ -13,6 +14,12 @@ const SOCIAL_PLATFORMS = [
 
 export default function SubmitPage() {
   const { categories, addSubmission } = useApp();
+
+  useSEO({
+    title: 'Kirim Naskah Khutbah — Kontribusi Materi Dakwah | KhutbahQu',
+    description: 'Kirimkan naskah khutbah Jumat, kultum, atau tausiyah Anda ke KhutbahQu. Bagikan ilmu dan raih pahala jariyah dengan berkontribusi materi dakwah Islam.',
+    path: '/kontribusi',
+  });
   const [form, setForm] = useState({
     contributorName: '',
     contributorEmail: '',

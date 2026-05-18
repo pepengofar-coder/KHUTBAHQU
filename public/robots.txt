@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khutbahqu.vercel.app/sitemap.xml

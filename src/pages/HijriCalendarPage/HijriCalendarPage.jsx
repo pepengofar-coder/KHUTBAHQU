@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useSEO } from '../../utils/seo';
 import {
   gregorianToHijri, getHijriDateString, getUpcomingEvents,
   getRecommendedThemes, buildMonthCalendar,
@@ -16,6 +17,12 @@ const GREGORIAN_MONTHS = [
 
 export default function HijriCalendarPage() {
   const { allKhutbah, categories } = useApp();
+
+  useSEO({
+    title: 'Kalender Hijriah — Tanggal Islam, Puasa Sunnah & Peristiwa Islam | KhutbahQu',
+    description: 'Kalender Hijriah interaktif dengan jadwal puasa sunnah, peristiwa Islam terdekat, dan rekomendasi tema khutbah berdasarkan bulan Hijriah. Untuk khatib, dai, dan umat muslim.',
+    path: '/kalender-hijriah',
+  });
   const now   = new Date();
   const today = useMemo(() => gregorianToHijri(now), []);
 
