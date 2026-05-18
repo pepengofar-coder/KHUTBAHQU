@@ -1,25 +1,25 @@
 /* ============================================
-   Footer — Polished Professional Design
+   Footer — Royal Blue Premium
    ============================================ */
 
 .footer {
-  background: var(--color-primary-dark);
+  background: linear-gradient(180deg, #001A5C 0%, #07111F 100%);
   color: var(--color-text-inverse);
   padding: var(--sp-12) 0 var(--sp-6);
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle gradient overlay */
+/* Accent line */
 .footer::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--color-gold) 50%, transparent 100%);
-  opacity: 0.4;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--color-accent) 50%, transparent 100%);
+  opacity: 0.5;
 }
 
 .footer__inner {
@@ -46,7 +46,7 @@
 
 .footer__brand p {
   font-size: var(--fs-sm);
-  opacity: 0.7;
+  opacity: 0.6;
   line-height: var(--lh-relaxed);
   max-width: 320px;
 }
@@ -57,13 +57,13 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: var(--sp-3);
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .footer__col a {
   display: block;
   font-size: var(--fs-sm);
-  opacity: 0.75;
+  opacity: 0.7;
   padding: var(--sp-1) 0;
   position: relative;
   transition: all 0.25s var(--ease-spring);
@@ -76,16 +76,17 @@
   left: 0;
   top: 50%;
   width: 0;
-  height: 1px;
-  background: var(--color-gold);
+  height: 2px;
+  background: var(--color-accent);
   transition: width 0.3s var(--ease-spring);
   transform: translateY(-50%);
+  border-radius: 1px;
 }
 
 .footer__col a:hover {
   opacity: 1;
   padding-left: 14px;
-  color: var(--color-gold-light);
+  color: var(--color-accent);
 }
 
 .footer__col a:hover::before {
@@ -96,9 +97,9 @@
   max-width: var(--max-w);
   margin: 0 auto;
   padding: var(--sp-6) var(--sp-4) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   text-align: center;
   font-size: var(--fs-xs);
-  opacity: 0.5;
+  opacity: 0.4;
   margin-top: var(--sp-8);
 }

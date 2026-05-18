@@ -1,28 +1,31 @@
-/* Dashboard Home */
+/* Dashboard Home — Royal Blue + Lime */
 .home-page{padding-bottom:var(--sp-16)}
 
-/* Hero Greeting */
-.dash-hero{background:linear-gradient(135deg,var(--color-primary),#1a5c40);padding:var(--sp-8) 0 var(--sp-6);color:#fff}
-.dash-hero__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap}
+/* Hero Greeting — Royal Blue Gradient */
+.dash-hero{background:linear-gradient(135deg,#002B9A 0%,#0047FF 40%,#1D7CFF 100%);padding:var(--sp-8) 0 var(--sp-6);color:#fff;position:relative;overflow:hidden}
+.dash-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(198,255,0,.15) 0%,transparent 70%);pointer-events:none}
+.dash-hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:250px;height:250px;background:radial-gradient(circle,rgba(29,124,255,.3) 0%,transparent 70%);pointer-events:none}
+.dash-hero__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap;position:relative;z-index:1}
 .dash-hero__salam{font-size:var(--fs-2xl);font-weight:800;margin-bottom:var(--sp-1)}
 @media(min-width:768px){.dash-hero__salam{font-size:var(--fs-3xl)}}
 .dash-hero__date{font-size:var(--fs-sm);opacity:.85}
 .dash-hero__hijri{font-size:var(--fs-sm);opacity:.85;margin-top:2px}
 
-.dash-hero__prayer{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border-radius:var(--radius-xl);padding:var(--sp-4);display:flex;flex-direction:column;align-items:center;min-width:140px}
+.dash-hero__prayer{background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:var(--sp-4);display:flex;flex-direction:column;align-items:center;min-width:148px;border:1px solid rgba(255,255,255,.12)}
 .dash-hero__prayer-label{font-size:var(--fs-xs);opacity:.7;margin-bottom:2px}
 .dash-hero__prayer-name{font-size:var(--fs-base);font-weight:700}
 .dash-hero__prayer-time{font-size:var(--fs-sm);opacity:.85}
-.dash-hero__countdown{font-size:var(--fs-xl);font-weight:800;font-variant-numeric:tabular-nums;margin-top:var(--sp-1)}
+.dash-hero__countdown{font-size:var(--fs-xl);font-weight:800;font-variant-numeric:tabular-nums;margin-top:var(--sp-1);color:var(--color-accent)}
 
 /* Quick Actions */
 .dash-actions{padding:var(--sp-6) var(--sp-4)}
 .dash-actions__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3)}
 @media(min-width:420px){.dash-actions__grid{grid-template-columns:repeat(6,1fr)}}
 .dash-action{display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);padding:var(--sp-4) var(--sp-2);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring);text-decoration:none}
-.dash-action:hover{border-color:var(--color-primary);transform:translateY(-2px);box-shadow:0 4px 16px rgba(15,61,46,.08)}
+.dash-action:hover{border-color:var(--color-primary);transform:translateY(-3px);box-shadow:var(--shadow-card-hover)}
 .dash-action:active{transform:scale(.95);transition-duration:80ms}
-.dash-action__icon{font-size:28px}
+.dash-action__icon{font-size:28px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--color-primary-surface);border-radius:var(--radius-lg);transition:all .25s var(--ease-spring)}
+.dash-action:hover .dash-action__icon{background:var(--color-accent-surface)}
 .dash-action__label{font-size:var(--fs-xs);font-weight:600;color:var(--color-text-secondary)}
 
 /* Section titles */
@@ -34,31 +37,33 @@
 .dash-resume{padding:0 var(--sp-4) var(--sp-4)}
 .dash-resume__cards{display:flex;flex-direction:column;gap:var(--sp-2);margin-top:var(--sp-3)}
 .dash-resume-card{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);text-decoration:none;transition:all .25s var(--ease-spring)}
-.dash-resume-card:hover{border-color:var(--color-primary);background:var(--color-primary-surface)}
-.dash-resume-card__icon{font-size:24px;flex-shrink:0}
+.dash-resume-card:hover{border-color:var(--color-primary);background:var(--color-primary-surface);box-shadow:var(--shadow-md)}
+.dash-resume-card__icon{font-size:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--color-primary-surface);border-radius:var(--radius-md);flex-shrink:0}
 .dash-resume-card strong{font-size:var(--fs-sm);color:var(--color-text);display:block}
 .dash-resume-card p{font-size:var(--fs-xs);color:var(--color-text-muted);margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
 .dash-resume-card__arrow{font-size:var(--fs-lg);color:var(--color-primary);margin-left:auto;flex-shrink:0}
 
-/* Prayer times mini */
-.dash-prayer{padding:0 var(--sp-4) var(--sp-4)}
+/* Prayer times mini — Blue gradient cards */
+.dash-prayer{padding:0 var(--sp-4) var(--sp-6)}
 .dash-prayer__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-3)}
 .dash-prayer__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-2)}
 @media(max-width:420px){.dash-prayer__grid{grid-template-columns:repeat(3,1fr)}}
-.dash-prayer-card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-3);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .2s ease}
-.dash-prayer-card--next{border-color:var(--color-primary);background:var(--color-primary-surface)}
+.dash-prayer-card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-3);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring)}
+.dash-prayer-card--next{background:linear-gradient(135deg,#002B9A,#0047FF);border-color:transparent;color:#fff;box-shadow:0 4px 20px rgba(0,71,255,.18)}
 .dash-prayer-card__icon{font-size:18px}
 .dash-prayer-card__name{font-size:10px;font-weight:600;color:var(--color-text-muted)}
+.dash-prayer-card--next .dash-prayer-card__name{color:rgba(255,255,255,.75)}
 .dash-prayer-card__time{font-size:var(--fs-sm);font-weight:700;color:var(--color-text);font-variant-numeric:tabular-nums}
-.dash-prayer-card--next .dash-prayer-card__time{color:var(--color-primary)}
+.dash-prayer-card--next .dash-prayer-card__time{color:var(--color-accent)}
 
 /* Events */
-.dash-events{padding:0 var(--sp-4) var(--sp-4)}
+.dash-events{padding:0 var(--sp-4) var(--sp-6)}
 .dash-events__list{display:flex;flex-direction:column;gap:var(--sp-2)}
-.dash-event{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-lg);font-size:var(--fs-sm)}
-.dash-event--today{border-color:var(--color-gold);background:var(--color-gold-light)}
+.dash-event{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-lg);font-size:var(--fs-sm);transition:all .2s ease}
+.dash-event--today{border-color:var(--color-accent);background:var(--color-accent-surface)}
 .dash-event__name{font-weight:600;color:var(--color-text)}
 .dash-event__badge{font-size:var(--fs-xs);font-weight:600;color:var(--color-primary)}
+.dash-event--today .dash-event__badge{color:var(--color-accent-dark)}
 
 /* Khutbah */
 .dash-khutbah{padding:var(--sp-4)}
@@ -66,10 +71,10 @@
 @media(min-width:640px){.home-featured__grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.home-featured__grid{grid-template-columns:repeat(3,1fr)}}
 
-/* Tracker CTA */
-.dash-tracker{padding:0 var(--sp-4) var(--sp-4)}
-.dash-tracker__card{padding:var(--sp-5);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-3)}
-.dash-tracker__card p{font-size:var(--fs-sm);color:var(--color-text-muted);margin:0}
+/* Tracker CTA — gradient */
+.dash-tracker{padding:0 var(--sp-4) var(--sp-6)}
+.dash-tracker__card{padding:var(--sp-5);background:linear-gradient(135deg,var(--color-primary-surface),var(--color-accent-surface));border:1px solid var(--color-border-light);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-3)}
+.dash-tracker__card p{font-size:var(--fs-sm);color:var(--color-text-secondary);margin:0}
 
 /* SEO text */
 .home-seo-text{padding:var(--sp-8) var(--sp-4) var(--sp-16)}
