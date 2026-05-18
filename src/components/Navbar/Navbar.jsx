@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Sun, Moon, User, Settings, Upload, Info, MoonStar } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import './Navbar.css';
@@ -15,7 +16,7 @@ const DESKTOP_LINKS = [
   { to: '/tracker', label: 'Tracker' },
   { to: '/tilawah', label: 'Tilawah' },
   { to: '/favorit', label: 'Favorit' },
-  { to: '/premium', label: 'Premium' },
+  { to: '/premium', label: 'Premium (Soon)' },
 ];
 
 export default function Navbar() {
@@ -38,7 +39,7 @@ export default function Navbar() {
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
       <div className="nav__inner">
         <NavLink to="/" className="nav__brand">
-          <span className="nav__logo">🕌</span>
+          <MoonStar className="nav__logo-icon" size={24} style={{ color: 'var(--color-primary)' }} />
           <span className="nav__name">Islamediaku</span>
         </NavLink>
 
@@ -53,11 +54,11 @@ export default function Navbar() {
 
         <div className="nav__actions">
           <button className="nav__dark-btn" onClick={toggleDark} title="Toggle tema" aria-label="Toggle dark mode">
-            {darkMode ? '☀️' : '🌙'}
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           
           <button className="nav__auth-btn" onClick={() => navigate(user ? '/account' : '/login')} title="Akun">
-            {user ? '👤' : 'Masuk'}
+            {user ? <User size={20} /> : 'Masuk'}
           </button>
 
           <button className={`nav__hamburger${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
@@ -75,9 +76,15 @@ export default function Navbar() {
           </NavLink>
         ))}
         <div className="nav__sheet-divider" />
-        <NavLink to="/pengaturan" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>⚙️ Pengaturan</NavLink>
-        <NavLink to="/kontribusi" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>📤 Kirim Khutbah</NavLink>
-        <NavLink to="/tentang" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>ℹ️ Tentang</NavLink>
+        <NavLink to="/pengaturan" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>
+          <Settings size={18} style={{marginRight: 8, color: 'var(--color-text-muted)'}} /> Pengaturan
+        </NavLink>
+        <NavLink to="/kontribusi" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>
+          <Upload size={18} style={{marginRight: 8, color: 'var(--color-text-muted)'}} /> Kirim Khutbah
+        </NavLink>
+        <NavLink to="/tentang" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>
+          <Info size={18} style={{marginRight: 8, color: 'var(--color-text-muted)'}} /> Tentang
+        </NavLink>
       </div>
     </header>
   );

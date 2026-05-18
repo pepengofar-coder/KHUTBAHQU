@@ -110,3 +110,62 @@ export function getDailyAyahRef() {
   const index = getTodayIndex();
   return AYAH_POOL[index];
 }
+
+/**
+ * Get a rotating index based on 5-minute blocks
+ */
+function getRotatingIndex() {
+  const now = Date.now();
+  // 5 minutes in milliseconds
+  const slot = Math.floor(now / (5 * 60 * 1000));
+  return slot % AYAH_POOL.length;
+}
+
+/**
+ * Fetch a reflection ayah that rotates every 5 minutes
+ */
+export async function getRotatingReflectionAyah() {
+  const index = getRotatingIndex();
+  const selected = AYAH_POOL[index];
+
+  try {
+    const [arabicRes, translationRes] = await Promise.all([
+      fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${selected.surah}`),
+      fetch(`https://api.quran.com/api/v4/quran/translations/33?chapter_number=${selected.surah}`)
+    ]);
+
+    if (!arabicRes.ok || !translationRes.ok) {
+      throw new Error('API response not ok');
+    }
+
+    const arabicData = await arabicRes.json();
+    const translationData = await translationRes.json();
+
+    const ayahIndex = selected.ayah - 1;
+    const arabicVerse = arabicData.verses[ayahIndex];
+    const translationVerse = translationData.translations[ayahIndex];
+
+    if (!arabicVerse || !translationVerse) {
+      throw new Error('Ayah not found in API response');
+    }
+
+    const cleanTranslation = translationVerse.text
+      .replace(/<sup.*?<\/sup>/g, '')
+      .replace(/<[^>]*>/g, '')
+      .trim();
+
+    return {
+      arabic: arabicVerse.text_uthmani,
+      translation: cleanTranslation,
+      reference: `QS. ${selected.surahName}: ${selected.ayah}`,
+      surah: selected.surah,
+      ayah: selected.ayah,
+      surahName: selected.surahName,
+      key: `${selected.surah}:${selected.ayah}` // to help with animation triggers
+    };
+  } catch (err) {
+    console.warn('getRotatingReflectionAyah failed:', err);
+    return null;
+  }
+}
+
