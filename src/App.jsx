@@ -11,6 +11,7 @@ import Footer from './components/Footer/Footer';
 import PageLoader from './components/PageLoader/PageLoader';
 import PageTransition from './components/PageTransition/PageTransition';
 import OfflineBanner from './components/OfflineBanner/OfflineBanner';
+import UpdateBanner from './components/UpdateBanner/UpdateBanner';
 import { useAdzanAlarm } from './hooks/useAdzanAlarm';
 
 // Lazy load pages
@@ -90,6 +91,7 @@ function AppLayout() {
       </main>
       {!isDetail && <Footer />}
       <GlobalMiniTilawahPlayer />
+      <UpdateBanner />
       <BottomNav />
     </>
   );

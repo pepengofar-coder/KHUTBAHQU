@@ -1,0 +1,66 @@
+/* ── Update Banner ──────────────────────────────────────────────── */
+.update-banner {
+  position: fixed;
+  bottom: 80px; /* above bottom nav */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--color-primary, #0047FF);
+  color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0, 71, 255, 0.35);
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: updateSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: calc(100vw - 32px);
+}
+
+.update-banner__text {
+  white-space: nowrap;
+}
+
+.update-banner__btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.update-banner__btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.update-banner__dismiss {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  font-size: 1.125rem;
+}
+
+.update-banner__dismiss:hover {
+  color: #fff;
+}
+
+@keyframes updateSlideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
