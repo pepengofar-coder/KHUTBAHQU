@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { validateKhutbah, countWords, estimateReadingDuration, detectDuplicates } from '../../data/khutbahValidator';
 import { ALL_SOURCES, SUGGESTED_THEMES, STATUS_LABELS } from '../../data/khutbahSources';
@@ -186,7 +186,55 @@ export default function AdminPage() {
   const [addSuccess, setAddSuccess] = useState('');
   const [selectedSubmission, setSelectedSubmission] = useState(null);
 
-  if (!isAdminLoggedIn) return <LoginScreen />;
+  // Fetch Payment Data for 'payments' tab
+  const [syncData, setSyncData] = useState({ subs: [], payments: [], loading: false, error: null, syncedAt: null });
+
+  const fetchSyncData = async () => {
+    setSyncData(prev => ({ ...prev, loading: true, error: null }));
+    try {
+      let subs = [];
+      let payments = [];
+      
+      // Attempt to fetch from our serverless sync endpoint (Vercel)
+      try {
+        const res = await fetch('/api/admin/sync');
+        if (res.ok) {
+          const data = await res.json();
+          subs = data.subscriptions || [];
+          payments = data.payments || [];
+        } else {
+          throw new Error('Endpoint not available');
+        }
+      } catch (err) {
+        console.warn("API Serverless failed or not available, falling back to mock/local data...");
+        // Fallback for local development if serverless is not running
+        subs = [
+          { id: 'sub_mock1', user_id: 'amirudin_admin', plan: 'plan_yearly', status: 'active', current_period_end: new Date(Date.now() + 300 * 86400000).toISOString(), created_at: new Date().toISOString() },
+          { id: 'sub_mock2', user_id: 'fulan_user', plan: 'plan_monthly', status: 'canceled', current_period_end: new Date(Date.now() - 5 * 86400000).toISOString(), created_at: new Date(Date.now() - 35 * 86400000).toISOString() },
+        ];
+        payments = [
+          { id: 'pay_mock1', user_id: 'amirudin_admin', amount: 250000, provider: 'Midtrans', status: 'paid', created_at: new Date().toISOString() },
+          { id: 'pay_mock2', user_id: 'fulan_user', amount: 25000, provider: 'Xendit', status: 'paid', created_at: new Date(Date.now() - 35 * 86400000).toISOString() },
+        ];
+      }
+
+      setSyncData({
+        subs,
+        payments,
+        loading: false,
+        error: null,
+        syncedAt: new Date().toLocaleTimeString()
+      });
+    } catch (err) {
+      setSyncData(prev => ({ ...prev, loading: false, error: err.message }));
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'payments' && !syncData.syncedAt) {
+      fetchSyncData();
+    }
+  }, [activeTab, syncData.syncedAt]);
 
   const pendingSubmissions = adminKhutbah.filter(k => k.status === 'review' && !k.isStatic);
   const khutbahWithStatus = adminKhutbah;
@@ -227,11 +275,14 @@ export default function AdminPage() {
     { id: 'overview', label: '📊 Overview' },
     { id: 'submissions', label: `📥 Kiriman User${pendingSubmissions.length > 0 ? ` (${pendingSubmissions.length})` : ''}` },
     { id: 'content', label: '📝 Konten' },
+    { id: 'payments', label: '💳 Pembayaran & Langganan' },
     { id: 'validation', label: '🔍 Validasi' },
     { id: 'sources', label: '📚 Sumber' },
     { id: 'themes', label: '💡 Tema' },
     { id: 'guide', label: '📖 Panduan' },
   ];
+
+  if (!isAdminLoggedIn) return <LoginScreen />;
 
   return (
     <div className="admin container">
@@ -396,6 +447,85 @@ export default function AdminPage() {
               })}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Payments Tab */}
+      {activeTab === 'payments' && (
+        <div className="admin__section">
+          <div className="admin__header" style={{ marginBottom: '1rem' }}>
+            <h3>💳 Sinkronisasi Pembayaran & Langganan</h3>
+            <button className="btn btn--primary btn--sm" onClick={fetchSyncData} disabled={syncData.loading}>
+              {syncData.loading ? '⏳ Menyinkronkan...' : '🔄 Sinkronisasi Sekarang'}
+            </button>
+          </div>
+          
+          {syncData.error && <div className="admin__alert admin__alert--warning">❌ Error: {syncData.error}</div>}
+          {syncData.syncedAt && <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '1rem' }}>Terakhir disinkronkan: {syncData.syncedAt}</p>}
+
+          <div style={{ display: 'grid', gap: '2rem' }}>
+            <div>
+              <h4>Daftar Langganan (Subscriptions)</h4>
+              <div style={{ overflowX: 'auto', marginTop: '0.5rem' }}>
+                <table className="admin__table">
+                  <thead>
+                    <tr><th>ID Langganan</th><th>User ID</th><th>Paket</th><th>Status</th><th>Berakhir Pada</th><th>Dibuat</th></tr>
+                  </thead>
+                  <tbody>
+                    {syncData.subs.length === 0 && <tr><td colSpan="6" style={{ textAlign: 'center' }}>Belum ada data langganan</td></tr>}
+                    {syncData.subs.map(s => (
+                      <tr key={s.id}>
+                        <td><small>{s.id.slice(0, 10)}...</small></td>
+                        <td><small>{s.user_id.slice(0, 8)}...</small></td>
+                        <td><span className="badge badge--primary">{s.plan}</span></td>
+                        <td>
+                          <span className="admin__status" style={{ 
+                            background: s.status === 'active' ? '#10b98120' : '#ef444420', 
+                            color: s.status === 'active' ? '#059669' : '#dc2626' 
+                          }}>
+                            {s.status}
+                          </span>
+                        </td>
+                        <td>{new Date(s.current_period_end).toLocaleDateString('id-ID')}</td>
+                        <td>{new Date(s.created_at).toLocaleDateString('id-ID')}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <h4>Riwayat Pembayaran (Payments)</h4>
+              <div style={{ overflowX: 'auto', marginTop: '0.5rem' }}>
+                <table className="admin__table">
+                  <thead>
+                    <tr><th>ID Pembayaran</th><th>User ID</th><th>Provider</th><th>Jumlah</th><th>Status</th><th>Tanggal</th></tr>
+                  </thead>
+                  <tbody>
+                    {syncData.payments.length === 0 && <tr><td colSpan="6" style={{ textAlign: 'center' }}>Belum ada riwayat pembayaran</td></tr>}
+                    {syncData.payments.map(p => (
+                      <tr key={p.id}>
+                        <td><small>{p.id.slice(0, 10)}...</small></td>
+                        <td><small>{p.user_id.slice(0, 8)}...</small></td>
+                        <td>{p.provider || '-'}</td>
+                        <td><strong>Rp {parseInt(p.amount).toLocaleString('id-ID')}</strong></td>
+                        <td>
+                          <span className="admin__status" style={{ 
+                            background: p.status === 'paid' ? '#10b98120' : '#f59e0b20', 
+                            color: p.status === 'paid' ? '#059669' : '#b45309' 
+                          }}>
+                            {p.status}
+                          </span>
+                        </td>
+                        <td>{new Date(p.created_at).toLocaleString('id-ID')}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

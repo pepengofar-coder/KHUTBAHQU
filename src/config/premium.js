@@ -12,7 +12,7 @@ export const PLANS = {
       'Kalender Hijriah',
       'Jadwal sholat dasar',
       'Kiblat dasar',
-      'Doa harian terbatas',
+      'Dzikir pagi petang & Doa harian',
       'Khutbah gratis',
       'Bookmark lokal'
     ],
@@ -26,7 +26,6 @@ export const PLANS = {
     interval: '/bulan',
     features: [
       'Semua fitur Free',
-      'Dzikir pagi petang lengkap',
       'Tracker ibadah lanjutan',
       'Tema premium',
       'Mode fokus Mushaf',
@@ -56,7 +55,6 @@ export const PLANS = {
 };
 
 export const FEATURES = {
-  FULL_DHIKR: 'full_dhikr_morning_evening',
   ADVANCED_TRACKER: 'advanced_ibadah_tracker',
   PREMIUM_THEMES: 'premium_themes',
   QURAN_FOCUS: 'quran_focus_mode',

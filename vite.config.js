@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['logo.png'],
       manifest: {
-        name: 'KhutbahQu',
-        short_name: 'KhutbahQu',
-        description: 'Materi Khutbah Jumat Pilihan',
+        name: 'Islamediaku',
+        short_name: 'Islamediaku',
+        description: 'Materi Khutbah Jumat Pilihan & Aplikasi Islami',
         theme_color: '#0d9488',
         background_color: '#ffffff',
         display: 'standalone',

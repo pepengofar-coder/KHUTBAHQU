@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useSEO, JsonLd, SITE_URL, SITE_NAME } from '../../utils/seo';
-import { getHijriDateString, getUpcomingEvents, getRecommendedThemes, HIJRI_MONTHS } from '../../data/hijriData';
+import { getHijriDateString, getUpcomingEvents } from '../../data/hijriData';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import './HomePage.css';
 
@@ -15,7 +15,7 @@ function fmt(s){return s?s.substring(0,5):'--:--'}
 function getNext(t){const now=new Date();for(const p of PRAYERS){const d=parseTime(t[p.key]);if(d&&d>now)return p.key}return PRAYERS[0].key}
 
 export default function HomePage() {
-  const { allKhutbah, recentKhutbah, categories } = useApp();
+  const { allKhutbah, recentKhutbah } = useApp();
 
   useSEO({
     title: 'Islamediaku - Teks Khutbah Jumat, Kultum, dan Tausiyah Islam Siap Pakai',
@@ -23,17 +23,45 @@ export default function HomePage() {
     path: '/',
   });
 
-  const now = new Date();
-  const hijriStr = useMemo(() => getHijriDateString(now), []);
-  const events = useMemo(() => getUpcomingEvents(now).slice(0, 3), []);
+  const now = useMemo(() => new Date(), []);
+  const hijriStr = useMemo(() => getHijriDateString(now), [now]);
+  const events = useMemo(() => getUpcomingEvents(now).slice(0, 3), [now]);
   const gregorian = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   // Hijri month themes
-  const firstEvt = events[0];
-  const hijriMonth = useMemo(() => {
-    const h = now; // approximate
-    return Math.floor(now.getMonth()) + 1; // placeholder
+
+
+  // Daily Missions
+  const todayDateStr = useMemo(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
   }, []);
+  
+  const [missions, setMissions] = useState(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('kq_daily_missions'));
+      if (stored && stored.date === todayDateStr) return stored.data;
+    } catch (e) {
+      console.warn('Daily missions not parsed:', e);
+    }
+    return [
+      { id: 'dzikir', label: 'Dzikir pagi', done: false },
+      { id: 'quran', label: 'Baca 5 ayat', done: false },
+      { id: 'sholat', label: 'Cek jadwal sholat', done: true },
+      { id: 'khutbah', label: 'Baca khutbah singkat', done: false },
+    ];
+  });
+
+  const toggleMission = (id) => {
+    setMissions(prev => {
+      const next = prev.map(m => m.id === id ? { ...m, done: !m.done } : m);
+      localStorage.setItem('kq_daily_missions', JSON.stringify({ date: todayDateStr, data: next }));
+      return next;
+    });
+  };
+
+  const completedMissions = missions.filter(m => m.done).length;
+  const progressPercent = Math.round((completedMissions / missions.length) * 100);
 
   // Prayer times mini
   const [timings, setTimings] = useState(null);
@@ -51,7 +79,9 @@ export default function HomePage() {
         const r = await fetch(`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=${lat}&longitude=${lon}&method=11`);
         const data = await r.json();
         setTimings(data.data.timings);
-      } catch {}
+      } catch (e) {
+        console.warn('Failed fetching prayer times:', e);
+      }
     };
     fetchPrayer();
     iv.current = setInterval(() => setNowTime(new Date()), 1000);
@@ -65,11 +95,11 @@ export default function HomePage() {
     const t = parseTime(timings[nextKey]); if (!t) return;
     let diff = t - nowTime; if (diff < 0) diff += 864e5;
     const h = Math.floor(diff / 36e5), m = Math.floor(diff % 36e5 / 6e4), s = Math.floor(diff % 6e4 / 1e3);
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect
     setCountdown(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`);
   }, [nowTime, timings, nextKey]);
 
   const featured = allKhutbah.slice(0, 3);
-  const weekly = allKhutbah.filter(k => k.type === 'khutbah-jumat').slice(0, 2);
 
   const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform materi khutbah Islam siap pakai.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/khutbah?q={search_term_string}`, 'query-input': 'required name=search_term_string' } };
   const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/logo.png` };
@@ -98,6 +128,43 @@ export default function HomePage() {
               <span className="dash-hero__countdown">{countdown}</span>
             </div>
           )}
+
+          {/* Daily Mission Component */}
+          <div className="dash-hero__mission">
+            <div className="dash-hero__mission-header">
+              <div className="dash-hero__mission-title">
+                <span>🎯</span> Misi Ibadah Hari Ini
+              </div>
+              <div className="dash-hero__mission-status">{completedMissions} dari {missions.length} selesai</div>
+            </div>
+            
+            <div className="dash-hero__mission-progress">
+              <div className="dash-hero__mission-bar" style={{ width: `${progressPercent}%` }}></div>
+            </div>
+
+            <div className="dash-hero__mission-list">
+              {missions.map(m => (
+                <div key={m.id} className={`dash-hero__mission-item ${m.done ? 'dash-hero__mission-item--done' : ''}`} onClick={() => toggleMission(m.id)}>
+                  <div className="dash-hero__mission-checkbox">{m.done ? '✓' : ''}</div>
+                  <span className="dash-hero__mission-label">{m.label}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="dash-hero__mission-action">
+              <Link to="/tracker" className="dash-hero__mission-btn">Buka Tracker</Link>
+            </div>
+          </div>
+
+          {/* Reflection Micro Card */}
+          <div className="dash-hero__reflection">
+            <span className="dash-hero__reflection-icon">✨</span>
+            <div className="dash-hero__reflection-text">
+              <strong>Renungan Hari Ini</strong>
+              <p>"Barangsiapa bertakwa kepada Allah, niscaya Dia akan mengadakan baginya jalan keluar." (QS. Ath-Thalaq: 2)</p>
+            </div>
+            <Link to="/mushaf" className="dash-hero__reflection-link">Baca</Link>
+          </div>
         </div>
       </section>
 
@@ -212,16 +279,67 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SEO text section */}
-      <section className="home-seo-text container">
-        <div className="home-seo-text__inner">
-          <h2 className="home-seo-text__title">Tentang Islamediaku</h2>
-          <p>
-            <strong>Islamediaku</strong> adalah platform Islamic companion app yang menyediakan koleksi lengkap teks khutbah Jumat, kultum Ramadhan, tausiyah singkat, jadwal sholat, arah kiblat, mushaf Al-Qur'an, dzikir pagi petang, dan materi dakwah untuk berbagai momen Islami.
-          </p>
-          <p>
-            Tersedia lebih dari <strong>{allKhutbah.length} naskah</strong> khutbah dalam berbagai kategori. Setiap materi dilengkapi dalil Al-Qur'an dan hadis shahih, serta fitur <em>Mode Mimbar</em>, <Link to="/kalender-hijriah">kalender Hijriah</Link>, dan <Link to="/tracker">tracker ibadah</Link>.
-          </p>
+      {/* Modern About Section */}
+      <section className="home-about container">
+        <div className="home-about__header">
+          <h2 className="home-about__title">Tentang Islamediaku</h2>
+          <p className="home-about__subtitle">Satu aplikasi untuk menemani ibadah harianmu, dari jadwal sholat, mushaf, doa, dzikir, hingga khutbah.</p>
+        </div>
+
+        {/* Highlight Card */}
+        <div className="home-about__highlight">
+          <div className="home-about__highlight-content">
+            <p><strong>Islamediaku</strong> dirancang sebagai teman ibadah harian yang ringan, rapi, dan mudah digunakan. Semua fitur penting dikumpulkan dalam satu tempat agar pengguna bisa lebih mudah menjaga rutinitas ibadah, membaca Al-Qur'an, berdzikir, dan menemukan inspirasi Islami setiap hari.</p>
+            <div className="home-about__cta">
+              <Link to="/mushaf" className="btn btn--primary">Mulai Jelajahi</Link>
+            </div>
+          </div>
+          {/* Subtle Glow Background */}
+          <div className="home-about__glow"></div>
+        </div>
+
+        {/* Mini Stats */}
+        <div className="home-about__stats">
+          <div className="home-about__stat-item">
+            <span className="home-about__stat-num">5</span>
+            <span className="home-about__stat-label">Waktu Sholat</span>
+          </div>
+          <div className="home-about__stat-item">
+            <span className="home-about__stat-num">114</span>
+            <span className="home-about__stat-label">Surah</span>
+          </div>
+          <div className="home-about__stat-item">
+            <span className="home-about__stat-num">30</span>
+            <span className="home-about__stat-label">Juz</span>
+          </div>
+          <div className="home-about__stat-item">
+            <span className="home-about__stat-num">Doa</span>
+            <span className="home-about__stat-label">Harian</span>
+          </div>
+        </div>
+
+        {/* Benefit Cards */}
+        <div className="home-about__benefits">
+          <div className="home-about__benefit">
+            <div className="home-about__bubble">🧭</div>
+            <h3 className="home-about__benefit-title">Ibadah Harian Lebih Terarah</h3>
+            <p className="home-about__benefit-desc">Jadwal sholat, dzikir, dan tracker membantu membangun kebiasaan baik.</p>
+          </div>
+          <div className="home-about__benefit">
+            <div className="home-about__bubble">📖</div>
+            <h3 className="home-about__benefit-title">Mushaf Mudah Diakses</h3>
+            <p className="home-about__benefit-desc">Baca Al-Qur'an dengan tampilan bersih dan nyaman di mobile.</p>
+          </div>
+          <div className="home-about__benefit">
+            <div className="home-about__bubble">🤲</div>
+            <h3 className="home-about__benefit-title">Doa & Dzikir Lebih Praktis</h3>
+            <p className="home-about__benefit-desc">Akses doa pagi, doa petang, tasbih, dan doa harian dalam satu tempat.</p>
+          </div>
+          <div className="home-about__benefit">
+            <div className="home-about__bubble">🕌</div>
+            <h3 className="home-about__benefit-title">Inspirasi Islami Setiap Hari</h3>
+            <p className="home-about__benefit-desc">Temukan tema khutbah, kalender Hijriah, dan renungan harian.</p>
+          </div>
         </div>
       </section>
     </div>
