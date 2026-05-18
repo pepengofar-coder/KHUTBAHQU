@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAdzanAlarm } from '../../hooks/useAdzanAlarm';
 import { useSEO } from '../../utils/seo';
 import './SettingsPage.css';
 
@@ -7,6 +8,8 @@ export default function SettingsPage() {
   useSEO({ title: 'Pengaturan | Islamediaku', description: 'Atur preferensi aplikasi Islamediaku: tema, lokasi sholat, ukuran font, dan lainnya.', path: '/pengaturan', robots: 'noindex, follow' });
 
   const { darkMode, toggleDark, fontSize, setFontSize, fontSizeOptions } = useApp();
+  const { adzanEnabled, toggleAdzan } = useAdzanAlarm();
+  
   const [city, setCity] = useState(() => localStorage.getItem('kq_prayer_city') || 'Jakarta');
   const [showTranslation, setShowTranslation] = useState(() => localStorage.getItem('kq_mushaf_trans') !== '0');
 
@@ -61,6 +64,15 @@ export default function SettingsPage() {
               <option key={c} value={c}>{c}</option>
             ))}
           </select>
+        </div>
+        <div className="settings-item">
+          <div>
+            <strong>Alarm Adzan</strong>
+            <p>Putar suara adzan dan notifikasi saat waktu sholat</p>
+          </div>
+          <button className={`settings-toggle${adzanEnabled ? ' active' : ''}`} onClick={toggleAdzan}>
+            <span className="settings-toggle__thumb" />
+          </button>
         </div>
       </div>
 

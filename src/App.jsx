@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer';
 import PageLoader from './components/PageLoader/PageLoader';
 import PageTransition from './components/PageTransition/PageTransition';
 import OfflineBanner from './components/OfflineBanner/OfflineBanner';
+import { useAdzanAlarm } from './hooks/useAdzanAlarm';
 
 // Lazy load pages
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
@@ -64,6 +65,7 @@ function AnimatedRoutes() {
 }
 
 function AppLayout() {
+  useAdzanAlarm(); // Initialize global alarm
   const location = useLocation();
   const isMimbar = location.pathname === '/mimbar';
   const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
