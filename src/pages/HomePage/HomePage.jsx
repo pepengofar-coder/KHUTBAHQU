@@ -8,6 +8,7 @@ import { getRotatingReflectionAyah } from '../../utils/dailyAyah';
 import { getDailyGreeting } from '../../utils/dailyGreeting';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
+import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import { BookOpen, Compass, Sunrise, Sunset, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Heart } from 'lucide-react';
 import './HomePage.css';
 
@@ -442,6 +443,9 @@ export default function HomePage() {
             <p className="home-about__benefit-desc">Temukan tema khutbah, kalender Hijriah, dan renungan harian.</p>
           </div>
         </div>
+
+        {/* Apk Download Component */}
+        <ApkDownloadBar />
       </section>
     </div>
   );
