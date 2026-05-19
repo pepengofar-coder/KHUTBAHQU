@@ -41,7 +41,7 @@ export default function Navbar() {
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
       <div className="nav__inner">
         <NavLink to="/" className="nav__brand">
-          <img src="/logo.png" alt="Islamediaku" className="nav__logo-img" width={28} height={28} />
+          <img src="/logo-icon.png" alt="Islamediaku" className="nav__logo-img" width={32} height={32} />
           <span className="nav__name">Islamediaku</span>
         </NavLink>
 

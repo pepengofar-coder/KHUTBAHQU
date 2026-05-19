@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer__inner">
         <div className="footer__brand">
-          <h3>📖 Islamediaku</h3>
+          <h3><img src="/logo-icon.png" alt="" width={24} height={24} style={{verticalAlign: 'middle', marginRight: '8px', borderRadius: '4px'}} />Islamediaku</h3>
           <p>Platform materi khutbah Islam siap pakai untuk khatib, pendakwah, dan umat muslim.</p>
         </div>
         <div className="footer__col">

@@ -75,7 +75,7 @@ export function useAdzanAlarm() {
             if (Notification.permission === 'granted') {
               new Notification('Waktu Sholat Telah Tiba', {
                 body: `Waktu sholat ${p} telah masuk untuk wilayah Anda.`,
-                icon: '/logo.png' // assumes public/logo.png exists
+                icon: '/icon-192.png'
               });
             }
           }

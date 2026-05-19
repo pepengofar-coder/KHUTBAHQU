@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 export const SITE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SITE_URL)
   ? import.meta.env.VITE_SITE_URL.replace(/\/$/, '')
-  : 'https://khutbahqu.vercel.app';
+  : 'https://islamediaku.vercel.app';
 
 export const SITE_NAME = 'Islamediaku';
 

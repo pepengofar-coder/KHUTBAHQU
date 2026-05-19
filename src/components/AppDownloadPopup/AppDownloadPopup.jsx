@@ -78,7 +78,7 @@ export default function AppDownloadPopup() {
         </button>
 
         <div className="apk-popup__icon">
-          <img src="/logo.png" alt="Islamediaku" width={56} height={56} />
+          <img src="/icon-192.png" alt="Islamediaku" width={56} height={56} style={{borderRadius: '12px'}} />
         </div>
 
         <h3 className="apk-popup__title">Download Aplikasi Islamediaku</h3>
