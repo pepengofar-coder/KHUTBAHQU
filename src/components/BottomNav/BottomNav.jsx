@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, Radio, CheckSquare, Star, Upload, Info, Settings, MoreHorizontal, Download, Headphones } from 'lucide-react';
+import { App as CapacitorApp } from '@capacitor/app';
 import FeatureIcon from '../FeatureIcon/FeatureIcon';
 import './BottomNav.css';
 
@@ -55,6 +56,22 @@ export default function BottomNav() {
 
   const moreActive = ALL_MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
 
+  // Compute dynamic MORE sections
+  const sections = useMemo(() => {
+    const s = [...MORE_SECTIONS];
+    const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
+    if (apkUrl) {
+      s[3] = {
+        ...s[3],
+        items: [
+          ...s[3].items,
+          { to: apkUrl, label: 'Download APK', icon: Download, color: 'green', isExternal: true }
+        ]
+      };
+    }
+    return s;
+  }, []);
+
   // Close sheet automatically when route changes
   useEffect(() => {
     if (sheetOpen) {
@@ -62,30 +79,54 @@ export default function BottomNav() {
     }
   }, [location.pathname]);
 
-  // Mobile back button support for the sheet itself
-  useEffect(() => {
-    const handlePopState = () => {
-      if (sheetOpen) {
-        setSheetOpen(false);
-      }
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [sheetOpen]);
+  const closeSheet = useCallback(() => {
+    setSheetOpen(false);
+  }, []);
 
   const openSheet = () => {
     setSheetOpen(true);
-    // Push a dummy state so the Android back button has something to pop
-    window.history.pushState({ moreSheetOpen: true }, '');
   };
 
-  const closeSheet = useCallback(() => {
-    setSheetOpen(false);
-    // If we close it manually (backdrop/close handle) and the history state is still there, pop it
-    if (window.history.state?.moreSheetOpen) {
-      window.history.back();
-    }
-  }, []);
+  // Capacitor hardware back button and browser popstate handling
+  useEffect(() => {
+    // Web: popstate
+    const handlePopState = () => {
+      if (sheetOpen) setSheetOpen(false);
+    };
+    window.addEventListener('popstate', handlePopState);
+
+    // Capacitor: hardware back button
+    let backListener = null;
+    const setupCapacitor = async () => {
+      try {
+        backListener = await CapacitorApp.addListener('backButton', ({ canGoBack }) => {
+          if (sheetOpen) {
+            // Close the sheet if it's open
+            setSheetOpen(false);
+          } else if (canGoBack) {
+            // Check if we are at home; if so, maybe exit/minimize, otherwise go back
+            if (location.pathname !== '/') {
+              window.history.back();
+            } else {
+              CapacitorApp.minimizeApp();
+            }
+          } else {
+            CapacitorApp.minimizeApp();
+          }
+        });
+      } catch (e) {
+        // Not in Capacitor environment, ignore
+      }
+    };
+    setupCapacitor();
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      if (backListener) {
+        backListener.remove().catch(() => {});
+      }
+    };
+  }, [sheetOpen, location.pathname]);
 
   return (
     <>
@@ -131,20 +172,33 @@ export default function BottomNav() {
         <div className="more-sheet__handle" onClick={closeSheet}><span /></div>
         <h3 className="more-sheet__title">Menu Lainnya</h3>
         
-        {MORE_SECTIONS.map((section, si) => (
+        {sections.map((section, si) => (
           <div key={section.title} className="more-sheet__section" style={{ animationDelay: `${si * 60}ms` }}>
             <h4 className="more-sheet__section-title">{section.title}</h4>
             <div className="more-sheet__section-list">
               {section.items.map((item) => (
-                <NavLink
-                  key={item.to + item.label}
-                  to={item.to}
-                  replace={true} // Critical: Replaces the dummy 'moreSheetOpen' history state so Back button works correctly
-                  className={({isActive}) => `more-sheet__row${isActive ? ' active' : ''}`}
-                >
-                  <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
-                  <span className="more-sheet__row-label">{item.label}</span>
-                </NavLink>
+                item.isExternal ? (
+                  <a
+                    key={item.label}
+                    href={item.to}
+                    className="more-sheet__row"
+                    onClick={closeSheet}
+                  >
+                    <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
+                    <span className="more-sheet__row-label">{item.label}</span>
+                  </a>
+                ) : (
+                  <NavLink
+                    key={item.to + item.label}
+                    to={item.to}
+                    replace={true}
+                    className={({isActive}) => `more-sheet__row${isActive ? ' active' : ''}`}
+                    onClick={closeSheet}
+                  >
+                    <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
+                    <span className="more-sheet__row-label">{item.label}</span>
+                  </NavLink>
+                )
               ))}
             </div>
           </div>

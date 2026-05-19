@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/app": "^8.1.0",
     "@capacitor/core": "^8.3.4",
     "@supabase/supabase-js": "^2.105.4",
     "lucide-react": "^1.16.0",

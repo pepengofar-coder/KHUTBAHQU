@@ -43,10 +43,16 @@ export function TilawahProvider({ children }) {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (c) return;
-        setRadios(data.radios || []);
+        
+        const radiosList = (data?.radios || []).map(r => ({
+          ...r,
+          url: r.url?.replace(/^http:\/\//i, 'https://')
+        }));
+        
+        setRadios(radiosList);
         const lastId = getLastChannel();
-        const found = (data.radios || []).find(r => r.id === lastId);
-        setActiveId(found ? lastId : (data.radios?.[0]?.id || null));
+        const found = radiosList.find(r => r.id === lastId);
+        setActiveId(found ? lastId : (radiosList[0]?.id || null));
       } catch (err) { if (!c) setError('Gagal memuat daftar radio.'); console.error(err); }
       finally { if (!c) setLoading(false); }
     })();
@@ -117,19 +123,13 @@ export function TilawahProvider({ children }) {
   const handlePlaying = () => { setAudioLoading(false); setAudioError(false); };
   const handleWaiting = () => { setAudioLoading(true); };
   const handleError = () => {
-    setAudioLoading(false); setAudioError(true); setPlaying(false);
+    setAudioLoading(false); 
+    setAudioError(true); 
+    setPlaying(false);
+    setIsStopped(true); // Stop auto-retries in Capacitor to prevent memory loops/crashes
     clearTimeout(retryRef.current);
-    retryRef.current = setTimeout(() => { 
-      if (activeRadio && audioRef.current && !isStopped) { 
-        setAudioLoading(true); 
-        setAudioError(false); 
-        audioRef.current.src = activeRadio.url; 
-        audioRef.current.load(); 
-        audioRef.current.play().catch(() => { setAudioError(true); setAudioLoading(false); }); 
-        setPlaying(true); 
-      } 
-    }, 5000);
   };
+
 
   useEffect(() => () => clearTimeout(retryRef.current), []);
 
