@@ -11,7 +11,7 @@ export default defineConfig({
       manifest: {
         name: 'Islamediaku',
         short_name: 'Islamediaku',
-        description: 'Materi Khutbah Jumat Pilihan & Aplikasi Islami',
+        description: 'Islamediaku adalah aplikasi Islami harian untuk jadwal sholat, Mushaf Al-Qur’an, arah kiblat, kalender Hijriah, doa dan dzikir, tasbih, tilawah Qur’an, khutbah, dan tracker ibadah.',
         theme_color: '#0047FF',
         background_color: '#F5F8FF',
         display: 'standalone',
@@ -35,14 +35,14 @@ export default defineConfig({
         ]
       },
       workbox: {
-        // DO NOT precache HTML — always fetch fresh from network
-        globPatterns: ['**/*.{js,css,ico,png,svg,woff,woff2}'],
+        // Precache HTML to prevent unstyled loading issues
+        globPatterns: ['**/*.{html,js,css,ico,png,svg,woff,woff2}'],
         
         // SW takes control immediately without waiting for all tabs to close
         skipWaiting: true,
         clientsClaim: true,
 
-        // SPA fallback for offline — serve index.html for navigation requests
+        // SPA fallback for offline
         navigateFallback: 'index.html',
         navigateFallbackDenylist: [
           /^\/api\//,            // Vercel serverless functions
@@ -52,16 +52,6 @@ export default defineConfig({
         ],
 
         runtimeCaching: [
-          // Navigation requests (HTML) — always go to network first
-          {
-            urlPattern: ({ request }) => request.mode === 'navigate',
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'html-cache',
-              expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 }, // 1 hour max
-              networkTimeoutSeconds: 3, // fallback to cache after 3s if offline
-            }
-          },
           // Quran API — cache for offline reading
           {
             urlPattern: /^https:\/\/api\.quran\.com\/.*/i,

@@ -100,6 +100,29 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      {(import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL) && (
+        <div className="settings-section">
+          <h2 className="settings-section__title">📱 Unduhan</h2>
+          <div className="settings-item">
+            <div>
+              <strong>Aplikasi Android</strong>
+              <p>Download APK Islamediaku</p>
+            </div>
+            <button 
+              className="settings-toggle active" 
+              style={{ padding: '6px 12px', background: 'var(--color-primary)', color: 'white', borderRadius: '8px', border: 'none', fontWeight: 'bold' }}
+              onClick={() => {
+                const url = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
+                window.open(url, '_blank');
+                localStorage.setItem('islamediaku_apk_downloaded', Date.now().toString());
+              }}
+            >
+              Download
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="settings-about">
         <p><strong>Islamediaku</strong> v2.0.0</p>
         <p>Platform Islamic Companion App</p>
