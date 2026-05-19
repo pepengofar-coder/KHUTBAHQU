@@ -1,105 +1,236 @@
-/* ═══════════════════════════════════════════════════════
-   APK Download Popup — Premium Modal
-   ═══════════════════════════════════════════════════════ */
-
+/* Base Overlay */
 .apk-overlay {
-  position: fixed; inset: 0; z-index: 9998;
-  background: rgba(7, 17, 31, 0.5);
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  animation: apkFadeIn .3s ease;
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 17, 31, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  animation: apkFadeIn 0.3s ease forwards;
 }
-.apk-overlay.closing { animation: apkFadeOut .3s ease forwards; }
 
+.apk-overlay.closing {
+  animation: apkFadeOut 0.3s ease forwards;
+}
+
+/* Base Popup Container */
 .apk-popup {
-  position: fixed; z-index: 9999;
-  bottom: 0; left: 0; right: 0;
+  position: fixed;
   background: var(--color-bg-card);
-  border-radius: 24px 24px 0 0;
-  padding: 28px 24px 32px;
-  box-shadow: 0 -8px 40px rgba(0, 43, 154, 0.15);
-  animation: apkSlideUp .4s cubic-bezier(0.16, 1, 0.3, 1);
-  text-align: center;
-  max-width: 480px;
-  margin: 0 auto;
-}
-.apk-popup.closing { animation: apkSlideDown .3s ease forwards; }
-
-/* Desktop: center modal */
-@media (min-width: 640px) {
-  .apk-popup {
-    bottom: auto; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 24px;
-    max-width: 400px; width: 90%;
-  }
-  .apk-popup.closing {
-    animation: apkFadeOut .3s ease forwards;
-  }
+  z-index: 10000;
+  box-shadow: 0 12px 48px rgba(0, 43, 154, 0.15);
+  overflow: hidden;
+  transition: all 0.3s var(--ease-spring);
 }
 
-/* Close button */
 .apk-popup__close {
-  position: absolute; top: 12px; right: 12px;
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--color-bg-alt); border: none;
-  color: var(--color-text-muted); cursor: pointer;
-  transition: all .2s;
-}
-.apk-popup__close:hover { background: var(--color-border-light); color: var(--color-text); }
-
-/* Logo icon */
-.apk-popup__icon {
-  width: 72px; height: 72px; margin: 0 auto 16px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #0047FF 0%, #1D7CFF 100%);
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(0, 71, 255, 0.25);
-}
-.apk-popup__icon img {
-  width: 48px; height: 48px; object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-alt);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 2;
 }
 
-/* Text */
+.apk-popup__close:hover {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+/* Mobile (Bottom Sheet) */
+.apk-popup--mobile {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+  padding: var(--sp-6) var(--sp-5) calc(var(--sp-6) + env(safe-area-inset-bottom, 0));
+  transform: translateY(100%);
+  animation: apkSlideUp 0.4s var(--ease-spring) forwards;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.apk-popup--mobile.closing {
+  animation: apkSlideDown 0.3s ease forwards;
+}
+
+/* Desktop (Floating Card) */
+.apk-popup--desktop {
+  bottom: var(--sp-6);
+  right: var(--sp-6);
+  width: 360px;
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-5);
+  border: 1px solid var(--color-border-light);
+  transform: translateY(20px);
+  opacity: 0;
+  animation: apkFadeSlideUp 0.4s var(--ease-spring) forwards;
+}
+
+.apk-popup--desktop.closing {
+  animation: apkFadeSlideDown 0.3s ease forwards;
+}
+
+/* Header & Typography */
+.apk-popup__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.apk-popup__app-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
 .apk-popup__title {
-  font-size: 18px; font-weight: 800; color: var(--color-text);
-  margin-bottom: 8px;
-}
-.apk-popup__desc {
-  font-size: 14px; color: var(--color-text-muted); line-height: 1.6;
-  margin-bottom: 20px; max-width: 300px; margin-left: auto; margin-right: auto;
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0 0 2px 0;
+  line-height: 1.2;
 }
 
-/* Buttons */
+.apk-popup__subtitle {
+  font-size: var(--fs-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+  margin: 0;
+}
+
+.apk-popup__desc {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-5);
+}
+
+/* Actions */
 .apk-popup__actions {
-  display: flex; flex-direction: column; gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
+
 .apk-popup__btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 12px 24px; border-radius: 14px; font-size: 14px; font-weight: 700;
-  cursor: pointer; transition: all .2s; border: none; width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-xl);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
 }
-.apk-popup__btn:active { transform: scale(.97); }
+
+.apk-popup__btn:active {
+  transform: scale(0.98);
+}
 
 .apk-popup__btn--primary {
-  background: linear-gradient(135deg, #0047FF, #1D7CFF);
-  color: #fff; box-shadow: 0 4px 16px rgba(0, 71, 255, 0.3);
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 16px rgba(0, 71, 255, 0.25);
 }
-.apk-popup__btn--primary:hover { box-shadow: 0 6px 24px rgba(0, 71, 255, 0.4); }
-.apk-popup__btn--primary:disabled {
-  opacity: 0.7; cursor: default; box-shadow: none;
+
+.apk-popup__btn--primary:hover {
+  background: var(--color-primary-dark);
+}
+
+.apk-popup__btn--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
 }
 
 .apk-popup__btn--ghost {
-  background: transparent; color: var(--color-text-muted);
-  border: 1.5px solid var(--color-border-light);
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 12px;
+  font-size: var(--fs-sm);
 }
-.apk-popup__btn--ghost:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+.apk-popup__btn--ghost:hover {
+  color: var(--color-text);
+  background: var(--color-bg-alt);
+}
+
+.apk-popup__help {
+  font-size: 11px;
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-top: var(--sp-3);
+  margin-bottom: 0;
+}
+
+.apk-popup__empty-state {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: var(--sp-2) 0;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-lg);
+}
+
+/* iOS Steps */
+.apk-popup__ios-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  background: var(--color-bg-alt);
+  padding: var(--sp-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+}
+
+.ios-step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.ios-step__num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
 
 /* Animations */
 @keyframes apkFadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes apkFadeOut { from { opacity: 1; } to { opacity: 0; } }
+
 @keyframes apkSlideUp {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
@@ -107,4 +238,13 @@
 @keyframes apkSlideDown {
   from { transform: translateY(0); }
   to { transform: translateY(100%); }
+}
+
+@keyframes apkFadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes apkFadeSlideDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
 }

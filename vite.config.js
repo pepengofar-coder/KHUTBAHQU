@@ -13,7 +13,7 @@ export default defineConfig({
         short_name: 'Islamediaku',
         description: 'Materi Khutbah Jumat Pilihan & Aplikasi Islami',
         theme_color: '#0047FF',
-        background_color: '#ffffff',
+        background_color: '#F5F8FF',
         display: 'standalone',
         icons: [
           {
