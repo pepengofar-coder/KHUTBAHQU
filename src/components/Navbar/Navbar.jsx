@@ -16,7 +16,6 @@ const DESKTOP_LINKS = [
   { to: '/tracker', label: 'Tracker' },
   { to: '/tilawah', label: 'Tilawah' },
   { to: '/favorit', label: 'Favorit' },
-  { to: '/premium', label: 'Premium (Soon)' },
 ];
 
 export default function Navbar() {

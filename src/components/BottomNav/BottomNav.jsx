@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, Radio, CheckSquare, Star, Crown, Upload, Info, Settings, MoreHorizontal } from 'lucide-react';
+import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, Radio, CheckSquare, Star, Upload, Info, Settings, MoreHorizontal, Download, Headphones } from 'lucide-react';
 import FeatureIcon from '../FeatureIcon/FeatureIcon';
 import './BottomNav.css';
 
@@ -11,26 +11,48 @@ const TABS = [
   { to: '/kalender-hijriah', label: 'Kalender', icon: CalendarDays },
 ];
 
-const MORE_ITEMS = [
-  { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue' },
-  { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose' },
-  { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo' },
-  { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green' },
-  { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime' },
-  { to: '/tilawah', label: 'Tilawah Live', icon: Radio, color: 'orange' },
-  { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber' },
-  { to: '/premium', label: 'Premium (Soon)', icon: Crown, color: 'amber' },
-  { to: '/kontribusi', label: 'Kirim Khutbah', icon: Upload, color: 'cyan' },
-  { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue' },
-  { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo' },
+const MORE_SECTIONS = [
+  {
+    title: 'Ibadah',
+    items: [
+      { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose' },
+      { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo' },
+      { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime' },
+    ],
+  },
+  {
+    title: "Al-Qur'an",
+    items: [
+      { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue' },
+      { to: '/tilawah', label: 'Tilawah Live', icon: Headphones, color: 'orange' },
+    ],
+  },
+  {
+    title: 'Konten',
+    items: [
+      { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green' },
+      { to: '/kontribusi', label: 'Kirim Khutbah', icon: Upload, color: 'cyan' },
+    ],
+  },
+  {
+    title: 'Aplikasi',
+    items: [
+      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue' },
+      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber' },
+      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo' },
+      { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue' },
+    ],
+  },
 ];
+
+// Flatten for active checking
+const ALL_MORE_ITEMS = MORE_SECTIONS.flatMap(s => s.items);
 
 export default function BottomNav() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const location = useLocation();
 
-  // Check if any "more" route is active
-  const moreActive = MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
+  const moreActive = ALL_MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
 
   return (
     <>
@@ -63,20 +85,25 @@ export default function BottomNav() {
       <div className={`more-sheet${sheetOpen ? ' open' : ''}`}>
         <div className="more-sheet__handle" onClick={() => setSheetOpen(false)}><span /></div>
         <h3 className="more-sheet__title">Menu Lainnya</h3>
-        <div className="more-sheet__grid">
-          {MORE_ITEMS.map((item, i) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({isActive}) => `more-sheet__item${isActive ? ' active' : ''}`}
-              onClick={() => setSheetOpen(false)}
-              style={{ animationDelay: `${i * 40}ms` }}
-            >
-              <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
-              <span className="more-sheet__item-label">{item.label}</span>
-            </NavLink>
-          ))}
-        </div>
+        
+        {MORE_SECTIONS.map((section, si) => (
+          <div key={section.title} className="more-sheet__section" style={{ animationDelay: `${si * 60}ms` }}>
+            <h4 className="more-sheet__section-title">{section.title}</h4>
+            <div className="more-sheet__section-list">
+              {section.items.map((item) => (
+                <NavLink
+                  key={item.to + item.label}
+                  to={item.to}
+                  className={({isActive}) => `more-sheet__row${isActive ? ' active' : ''}`}
+                  onClick={() => setSheetOpen(false)}
+                >
+                  <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
+                  <span className="more-sheet__row-label">{item.label}</span>
+                </NavLink>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );

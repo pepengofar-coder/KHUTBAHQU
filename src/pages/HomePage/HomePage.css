@@ -1,17 +1,19 @@
 /* Dashboard Home — Royal Blue + Lime */
-.home-page{padding-bottom:var(--sp-16)}
+.home-page{padding-bottom:calc(var(--bottom-nav-h) + var(--sp-8))}
+@media(min-width:1024px){.home-page{padding-bottom:var(--sp-8)}}
 
 /* Hero Greeting — Royal Blue Gradient */
 .dash-hero{background:linear-gradient(135deg,#002B9A 0%,#0047FF 40%,#1D7CFF 100%);padding:var(--sp-8) 0 var(--sp-6);color:#fff;position:relative;overflow:hidden}
 .dash-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(198,255,0,.15) 0%,transparent 70%);pointer-events:none}
 .dash-hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:250px;height:250px;background:radial-gradient(circle,rgba(29,124,255,.3) 0%,transparent 70%);pointer-events:none}
 .dash-hero__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap;position:relative;z-index:1}
-.dash-hero__salam{font-size:var(--fs-2xl);font-weight:800;margin-bottom:var(--sp-1)}
+.dash-hero__salam{font-size:var(--fs-2xl);font-weight:800;margin-bottom:var(--sp-1);text-shadow:0 1px 2px rgba(0,0,0,.1)}
 @media(min-width:768px){.dash-hero__salam{font-size:var(--fs-3xl)}}
 .dash-hero__date{font-size:var(--fs-sm);opacity:.85}
 .dash-hero__hijri{font-size:var(--fs-sm);opacity:.85;margin-top:2px}
 
-.dash-hero__prayer{background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:var(--sp-4);display:flex;flex-direction:column;align-items:center;min-width:148px;border:1px solid rgba(255,255,255,.12)}
+/* Next Prayer Card */
+.dash-hero__prayer{background:rgba(255,255,255,.1);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:var(--radius-xl);padding:var(--sp-4);display:flex;flex-direction:column;align-items:center;min-width:148px;border:1px solid rgba(255,255,255,.15);box-shadow:0 4px 24px rgba(0,0,0,.08)}
 .dash-hero__prayer-label{font-size:var(--fs-xs);opacity:.7;margin-bottom:2px}
 .dash-hero__prayer-name{font-size:var(--fs-base);font-weight:700}
 .dash-hero__prayer-time{font-size:var(--fs-sm);opacity:.85}
@@ -24,38 +26,41 @@
 .dash-hero__mission-title span{font-size:16px}
 .dash-hero__mission-status{font-size:10px;font-weight:600;background:rgba(198,255,0,.2);color:var(--color-accent);padding:2px 8px;border-radius:12px}
 
-.dash-hero__mission-progress{height:4px;background:rgba(255,255,255,.2);border-radius:4px;margin-bottom:var(--sp-3);overflow:hidden}
-.dash-hero__mission-bar{height:100%;background:var(--color-accent);border-radius:4px;transition:width .3s ease}
+.dash-hero__mission-progress{height:4px;background:rgba(255,255,255,.15);border-radius:4px;margin-bottom:var(--sp-3);overflow:hidden}
+.dash-hero__mission-bar{height:100%;background:var(--color-accent);border-radius:4px;transition:width .4s var(--ease-spring);box-shadow:0 0 8px rgba(198,255,0,.4)}
 
+/* Mission grid — 2-col default, 4-col from 640px */
 .dash-hero__mission-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2);margin-bottom:var(--sp-3)}
-@media(min-width:480px){.dash-hero__mission-list{grid-template-columns:repeat(4,1fr)}}
-.dash-hero__mission-item{display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px;border-radius:var(--radius-md);transition:background .2s ease}
+@media(min-width:640px){.dash-hero__mission-list{grid-template-columns:repeat(4,1fr)}}
+.dash-hero__mission-item{display:flex;align-items:center;gap:6px;cursor:pointer;padding:6px 8px;border-radius:var(--radius-md);transition:all .2s ease;-webkit-tap-highlight-color:transparent}
 .dash-hero__mission-item:hover{background:rgba(255,255,255,.1)}
-.dash-hero__mission-checkbox{width:16px;height:16px;border:1px solid rgba(255,255,255,.4);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:var(--color-bg);transition:all .2s ease}
-.dash-hero__mission-item--done .dash-hero__mission-checkbox{background:var(--color-accent);border-color:var(--color-accent)}
+.dash-hero__mission-item:active{transform:scale(.96);transition-duration:80ms}
+.dash-hero__mission-checkbox{width:18px;height:18px;border:1.5px solid rgba(255,255,255,.4);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:var(--color-bg);transition:all .25s var(--ease-spring);flex-shrink:0}
+.dash-hero__mission-item--done .dash-hero__mission-checkbox{background:var(--color-accent);border-color:var(--color-accent);box-shadow:0 2px 8px rgba(198,255,0,.3)}
 .dash-hero__mission-item--done .dash-hero__mission-label{text-decoration:line-through;opacity:.6}
-.dash-hero__mission-label{font-size:11px;font-weight:500;user-select:none;line-height:1.2}
+.dash-hero__mission-label{font-size:12px;font-weight:500;user-select:none;line-height:1.3}
 
 .dash-hero__mission-action{display:flex;justify-content:flex-end}
-.dash-hero__mission-btn{font-size:11px;font-weight:600;color:#002B9A;background:var(--color-accent);padding:4px 12px;border-radius:12px;text-decoration:none;transition:all .2s ease;box-shadow:0 2px 8px rgba(198,255,0,.3)}
+.dash-hero__mission-btn{font-size:11px;font-weight:600;color:#002B9A;background:var(--color-accent);padding:5px 14px;border-radius:12px;text-decoration:none;transition:all .2s ease;box-shadow:0 2px 8px rgba(198,255,0,.3)}
 .dash-hero__mission-btn:hover{transform:scale(1.05)}
 .dash-hero__mission-btn:active{transform:scale(.95)}
 
 /* Reflection Micro Card */
-.dash-hero__reflection{display:flex;flex-direction:column;gap:var(--sp-2);background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-xl);padding:var(--sp-4);width:100%;transition:background .2s ease;box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.dash-hero__reflection{display:flex;flex-direction:column;gap:var(--sp-2);background:rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-xl);padding:var(--sp-4);width:100%;transition:all .25s ease;box-shadow:0 8px 32px rgba(0,0,0,.08)}
 .dash-hero__reflection:hover{background:rgba(255,255,255,.12)}
 .dash-hero__reflection-header{display:flex;align-items:center;gap:var(--sp-2)}
-.dash-hero__reflection-icon{font-size:18px;flex-shrink:0}
+.dash-hero__reflection-icon{font-size:18px;flex-shrink:0;color:var(--color-accent)}
 .dash-hero__reflection-title{display:flex;align-items:center;justify-content:space-between;flex:1}
 .dash-hero__reflection-title strong{font-size:12px;font-weight:700;color:var(--color-accent)}
 .dash-hero__reflection-badge{font-size:9px;font-weight:600;background:rgba(255,255,255,.15);padding:2px 6px;border-radius:10px;opacity:.9}
 .dash-hero__reflection-content{transition:opacity .3s ease;opacity:1}
 .dash-hero__reflection-content.fade-out{opacity:0}
-.dash-hero__reflection-content p{font-size:13px;opacity:.95;margin:0;line-height:1.4;font-style:italic}
+.dash-hero__reflection-content p{font-size:13px;opacity:.95;margin:0;line-height:1.5;font-style:italic}
 .dash-hero__reflection-footer{display:flex;justify-content:space-between;align-items:center;margin-top:var(--sp-2);padding-top:var(--sp-2);border-top:1px solid rgba(255,255,255,.1)}
 .dash-hero__reflection-ref{font-size:11px;opacity:.8;font-weight:500}
-.dash-hero__reflection-link{font-size:11px;font-weight:700;color:#002B9A;background:var(--color-accent);padding:4px 14px;border-radius:12px;text-decoration:none;transition:transform .2s ease;box-shadow:0 2px 8px rgba(198,255,0,.2)}
+.dash-hero__reflection-link{font-size:11px;font-weight:700;color:#002B9A;background:var(--color-accent);padding:4px 14px;border-radius:12px;text-decoration:none;transition:all .2s ease;box-shadow:0 2px 8px rgba(198,255,0,.2)}
 .dash-hero__reflection-link:hover{transform:scale(1.05)}
+.dash-hero__reflection-link:active{transform:scale(.95)}
 
 /* Animations */
 .fade-in-slide { animation: slideInFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -64,18 +69,21 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Quick Actions */
+/* Quick Actions — Premium cards */
 .dash-actions{padding:var(--sp-6) var(--sp-4)}
-.dash-actions__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3)}
-@media(min-width:420px){.dash-actions__grid{grid-template-columns:repeat(6,1fr)}}
-.dash-action{display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);padding:var(--sp-4) var(--sp-2);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring);text-decoration:none}
+.dash-actions__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-3)}
+@media(min-width:480px){.dash-actions__grid{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:640px){.dash-actions__grid{grid-template-columns:repeat(8,1fr)}}
+.dash-action{display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);padding:var(--sp-4) var(--sp-2);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring);text-decoration:none;position:relative;overflow:hidden}
+.dash-action::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,71,255,.02) 0%,rgba(198,255,0,.02) 100%);opacity:0;transition:opacity .25s ease;border-radius:inherit}
 .dash-action:hover{border-color:var(--color-primary);transform:translateY(-3px);box-shadow:var(--shadow-card-hover)}
+.dash-action:hover::after{opacity:1}
 .dash-action:active{transform:scale(.95);transition-duration:80ms}
-.dash-action__label{font-size:var(--fs-xs);font-weight:600;color:var(--color-text-secondary);margin-top:2px}
+.dash-action__label{font-size:var(--fs-xs);font-weight:600;color:var(--color-text-secondary);margin-top:2px;text-align:center;line-height:1.2}
 
 /* Section titles */
 .dash-section-title{font-size:var(--fs-lg);font-weight:700;color:var(--color-text);display:flex;align-items:center}
-.dash-link{font-size:var(--fs-sm);font-weight:600;color:var(--color-primary);text-decoration:none}
+.dash-link{font-size:var(--fs-sm);font-weight:600;color:var(--color-primary);text-decoration:none;white-space:nowrap}
 .dash-link:hover{text-decoration:underline}
 
 /* Resume cards */
@@ -83,9 +91,16 @@
 .dash-resume__cards{display:flex;flex-direction:column;gap:var(--sp-2);margin-top:var(--sp-3)}
 .dash-resume-card{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);text-decoration:none;transition:all .25s var(--ease-spring)}
 .dash-resume-card:hover{border-color:var(--color-primary);background:var(--color-primary-surface);box-shadow:var(--shadow-md)}
+.dash-resume-card:active{transform:scale(.98);transition-duration:80ms}
 .dash-resume-card strong{font-size:var(--fs-sm);color:var(--color-text);display:block}
 .dash-resume-card p{font-size:var(--fs-xs);color:var(--color-text-muted);margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
 .dash-resume-card__arrow{color:var(--color-primary);margin-left:auto;flex-shrink:0}
+
+/* Resume empty state */
+.dash-resume__empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--sp-6) var(--sp-4);background:var(--color-bg-card);border:1px dashed var(--color-border);border-radius:var(--radius-xl);margin-top:var(--sp-3);gap:var(--sp-3)}
+.dash-resume__empty-icon{color:var(--color-text-muted);opacity:.5}
+.dash-resume__empty p{font-size:var(--fs-sm);color:var(--color-text-muted);margin:0;line-height:var(--lh-relaxed)}
+.dash-resume__empty-actions{display:flex;gap:var(--sp-2);flex-wrap:wrap;justify-content:center}
 
 /* Prayer times mini — Blue gradient cards */
 .dash-prayer{padding:0 var(--sp-4) var(--sp-6)}
@@ -149,7 +164,5 @@
 @media(min-width:640px){.home-about__benefits{grid-template-columns:repeat(2,1fr)}}
 .home-about__benefit{background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);padding:var(--sp-6);transition:all .3s var(--ease-spring);position:relative;overflow:hidden}
 .home-about__benefit:hover{transform:translateY(-5px);border-color:var(--color-primary);box-shadow:var(--shadow-card-hover)}
-.home-about__bubble{width:48px;height:48px;background:linear-gradient(135deg,var(--color-primary-surface),var(--color-accent-surface));border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:var(--sp-4);box-shadow:0 4px 12px rgba(0,71,255,.1)}
-.home-about__benefit-title{font-size:var(--fs-base);font-weight:700;color:var(--color-text);margin-bottom:var(--sp-2)}
+.home-about__benefit-title{font-size:var(--fs-base);font-weight:700;color:var(--color-text);margin-bottom:var(--sp-2);margin-top:var(--sp-3)}
 .home-about__benefit-desc{font-size:var(--fs-sm);color:var(--color-text-secondary);line-height:var(--lh-relaxed);margin:0}
-
