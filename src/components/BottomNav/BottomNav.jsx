@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, Radio, CheckSquare, Star, Upload, Info, Settings, MoreHorizontal, Download, Headphones } from 'lucide-react';
 import FeatureIcon from '../FeatureIcon/FeatureIcon';
 import './BottomNav.css';
@@ -51,10 +51,18 @@ const ALL_MORE_ITEMS = MORE_SECTIONS.flatMap(s => s.items);
 export default function BottomNav() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const moreActive = ALL_MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
 
-  // Mobile back button support
+  // Close sheet automatically when route changes
+  useEffect(() => {
+    if (sheetOpen) {
+      setSheetOpen(false);
+    }
+  }, [location.pathname]);
+
+  // Mobile back button support for the sheet itself
   useEffect(() => {
     const handlePopState = () => {
       if (sheetOpen) {
@@ -67,13 +75,13 @@ export default function BottomNav() {
 
   const openSheet = () => {
     setSheetOpen(true);
-    // Push a dummy state so the back button has something to pop
+    // Push a dummy state so the Android back button has something to pop
     window.history.pushState({ moreSheetOpen: true }, '');
   };
 
   const closeSheet = useCallback(() => {
     setSheetOpen(false);
-    // If we closed it via UI but the history state is still there, pop it
+    // If we close it manually (backdrop/close handle) and the history state is still there, pop it
     if (window.history.state?.moreSheetOpen) {
       window.history.back();
     }
@@ -86,14 +94,26 @@ export default function BottomNav() {
           {TABS.map(t => {
             const IconComp = t.icon;
             return (
-              <NavLink key={t.to} to={t.to} end={t.end} className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} onClick={() => sheetOpen && closeSheet()}>
+              <NavLink 
+                key={t.to} 
+                to={t.to} 
+                end={t.end} 
+                className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} 
+                onClick={(e) => {
+                  if (sheetOpen) {
+                    e.preventDefault();
+                    // Replace dummy state and navigate to prevent history junk
+                    navigate(t.to, { replace: true });
+                  }
+                }}
+              >
                 <span className="btm-nav__icon"><IconComp size={24} strokeWidth={2} /></span>
                 <span className="btm-nav__label">{t.label}</span>
               </NavLink>
             );
           })}
           <button
-            className={`btm-nav__item btm-nav__more-btn${moreActive ? ' active' : ''}`}
+            className={`btm-nav__item btm-nav__more-btn${moreActive || sheetOpen ? ' active' : ''}`}
             onClick={sheetOpen ? closeSheet : openSheet}
             aria-label="Menu lainnya"
           >
@@ -119,8 +139,8 @@ export default function BottomNav() {
                 <NavLink
                   key={item.to + item.label}
                   to={item.to}
+                  replace={true} // Critical: Replaces the dummy 'moreSheetOpen' history state so Back button works correctly
                   className={({isActive}) => `more-sheet__row${isActive ? ' active' : ''}`}
-                  onClick={closeSheet}
                 >
                   <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
                   <span className="more-sheet__row-label">{item.label}</span>
