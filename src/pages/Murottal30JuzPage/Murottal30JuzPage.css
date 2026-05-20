@@ -1,0 +1,227 @@
+.murottal-juz-page {
+  min-height: 100vh;
+  background-color: var(--page-bg);
+  padding-bottom: 80px; /* space for global player */
+}
+
+.murottal-juz-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.murottal-juz-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.murottal-juz-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted-text);
+  margin: 0;
+}
+
+.btn-back {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.btn-back:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.murottal-info-banner {
+  display: flex;
+  gap: 1rem;
+  background-color: rgba(234, 88, 12, 0.1);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  align-items: flex-start;
+}
+
+.murottal-info-banner .info-icon {
+  color: #ea580c;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.murottal-info-banner strong {
+  display: block;
+  color: #c2410c;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.murottal-info-banner p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.murottal-qari-select {
+  margin-bottom: 2rem;
+}
+
+.murottal-qari-select label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--dark-text);
+  margin-bottom: 0.5rem;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-wrapper .select-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--color-primary);
+  pointer-events: none;
+}
+
+.select-wrapper select {
+  width: 100%;
+  appearance: none;
+  background-color: var(--card-white);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 1rem 0.8rem 2.75rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: all 0.2s ease;
+}
+
+.select-wrapper select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 71, 255, 0.1);
+}
+
+.murottal-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.juz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.juz-card {
+  background-color: var(--card-white);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.juz-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.juz-card.active {
+  background-color: rgba(0, 71, 255, 0.05);
+  border-color: rgba(0, 71, 255, 0.2);
+}
+
+.juz-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.juz-number {
+  width: 40px;
+  height: 40px;
+  background: var(--light-bg);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 1.1rem;
+}
+
+.juz-card.active .juz-number {
+  background: var(--color-primary);
+  color: white;
+}
+
+.juz-play-btn {
+  background: rgba(0, 71, 255, 0.1);
+  color: var(--color-primary);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.juz-card:hover .juz-play-btn {
+  background: var(--color-primary);
+  color: white;
+  transform: scale(1.05);
+}
+
+.juz-card.active .juz-play-btn {
+  background: var(--color-primary);
+  color: white;
+}
+
+.juz-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.juz-desc {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted-text);
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .juz-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

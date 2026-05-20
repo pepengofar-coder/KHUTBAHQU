@@ -4,6 +4,9 @@ import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { PLAYLISTS, getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
 import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
+import YouTubeEmbedModal from '../../components/YouTubeEmbedModal/YouTubeEmbedModal';
+import { trackUserActivity } from '../../lib/syncService';
+import { useAuth } from '../../context/AuthContext';
 import { 
   Car, Play, Pause, Clock, Heart, 
   Copy, Check, Volume2, X, ChevronRight,
@@ -19,6 +22,7 @@ export default function TravelModePage() {
   });
 
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const {
     playing, audioLoading, activeRadio,
@@ -29,6 +33,10 @@ export default function TravelModePage() {
   // Local states
   const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
   const [showSleepModal, setShowSleepModal] = useState(false);
+  const [youtubeModalOpen, setYoutubeModalOpen] = useState(false);
+  const [activeYoutubeTrack, setActiveYoutubeTrack] = useState(null);
+  const [kajianData, setKajianData] = useState([]);
+
   const [favorites, setFavorites] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('islamediaku_travel_favorites')) || [];
@@ -87,11 +95,41 @@ export default function TravelModePage() {
     });
   }, [showToast]);
 
+  // Fetch YouTube Kajian
+  useEffect(() => {
+    const fetchKajian = async () => {
+      try {
+        const res = await fetch('/api/kajian/youtube');
+        const data = await res.json();
+        if (data.success && data.items) {
+          setKajianData(data.items);
+        }
+      } catch (err) {
+        console.error("Failed to fetch kajian", err);
+      }
+    };
+    fetchKajian();
+  }, []);
+
   // Check if item is favorited
   const isFav = useCallback((id) => favorites.includes(id), [favorites]);
 
   // Handle Play track safely
   const handlePlayItem = useCallback((track, playlistTracks = []) => {
+    if (track.type === 'kajian_youtube' && track.embedUrl) {
+      setActiveYoutubeTrack(track);
+      setYoutubeModalOpen(true);
+      if (user) {
+        trackUserActivity(user.id, 'kajian', 'open_kajian', {
+          videoId: track.videoId,
+          title: track.title,
+          sourceName: track.sourceName,
+          watchUrl: track.watchUrl
+        });
+      }
+      return;
+    }
+
     if (!track.enabled && !track.audioUrl) {
       if (track.sourceUrl) {
         // Safe external redirect for YouTube or web links
@@ -111,7 +149,7 @@ export default function TravelModePage() {
 
     playTrack(track, playlistTracks);
     showToast(`Memutar: ${track.title}`);
-  }, [playTrack, navigate, showToast]);
+  }, [playTrack, navigate, showToast, user]);
 
   // Handle Play All Playlist
   const handlePlayAll = useCallback((playlistId) => {
@@ -135,8 +173,15 @@ export default function TravelModePage() {
 
   const selectedPlaylistTracks = useMemo(() => {
     if (!selectedPlaylistId) return [];
-    return getPlaylistItems(selectedPlaylistId);
-  }, [selectedPlaylistId]);
+    let tracks = getPlaylistItems(selectedPlaylistId);
+    
+    // Inject YouTube Kajian dynamically
+    if (selectedPlaylistId === 'kajian-ringan' && kajianData.length > 0) {
+      tracks = [...kajianData, ...tracks];
+    }
+    
+    return tracks;
+  }, [selectedPlaylistId, kajianData]);
 
   // Doa Safar copy handler
   const handleCopyDoa = useCallback(() => {
@@ -426,7 +471,7 @@ export default function TravelModePage() {
 
                       <div className="track-end-actions">
                         {/* Favorite button */}
-                        {track.enabled && (
+                        {(track.enabled || track.type === 'kajian_youtube') && (
                           <button 
                             className={`track-fav-btn ${isItemFavorited ? 'active' : ''}`}
                             onClick={(e) => toggleFav(track.id, e)}
@@ -437,7 +482,9 @@ export default function TravelModePage() {
 
                         {/* Control Indicator */}
                         <button className="track-play-indicator">
-                          {!track.enabled && !track.audioUrl && !track.route ? (
+                          {track.type === 'kajian_youtube' ? (
+                            <span className="badge-open" style={{background: '#ea4335', color: '#fff', border: 'none'}}>PUTAR</span>
+                          ) : !track.enabled && !track.audioUrl && !track.route ? (
                             <span className="badge-unavailable" title="Audio Belum Tersedia">N/A</span>
                           ) : track.route ? (
                             <span className="badge-open">BUKA</span>
@@ -490,6 +537,14 @@ export default function TravelModePage() {
           </div>
         </div>
       )}
+
+      {/* YouTube Modal */}
+      <YouTubeEmbedModal 
+        isOpen={youtubeModalOpen}
+        onClose={() => setYoutubeModalOpen(false)}
+        videoUrl={activeYoutubeTrack?.embedUrl}
+        title={activeYoutubeTrack?.title}
+      />
     </div>
   );
 }

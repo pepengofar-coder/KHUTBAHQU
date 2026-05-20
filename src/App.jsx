@@ -21,7 +21,9 @@ const CatalogPage = lazy(() => import('./pages/CatalogPage/CatalogPage'));
 const DetailPage = lazy(() => import('./pages/ReadingPage/ReadingPage'));
 const HijriCalendarPage = lazy(() => import('./pages/HijriCalendarPage/HijriCalendarPage'));
 const MushafPage = lazy(() => import('./pages/MushafPage/MushafPage'));
+const MushafPageReader = lazy(() => import('./pages/MushafPage/MushafPageReader'));
 const SurahPage = lazy(() => import('./pages/MushafPage/SurahPage'));
+const Murottal30JuzPage = lazy(() => import('./pages/Murottal30JuzPage/Murottal30JuzPage'));
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const MimbarMode = lazy(() => import('./pages/MimbarMode/MimbarMode'));
@@ -52,7 +54,9 @@ function AnimatedRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/sholat" element={<SholatPage />} />
           <Route path="/mushaf" element={<MushafPage />} />
+          <Route path="/mushaf/page/:pageId?" element={<MushafPageReader />} />
           <Route path="/mushaf/:surahId" element={<SurahPage />} />
+          <Route path="/murottal-30-juz" element={<Murottal30JuzPage />} />
           <Route path="/kiblat" element={<QiblaPage />} />
           <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
           <Route path="/doa-dzikir" element={<DoaDzikirPage />} />

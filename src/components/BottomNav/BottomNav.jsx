@@ -28,6 +28,7 @@ const MORE_SECTIONS = [
     title: "Al-Qur'an",
     items: [
       { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue', desc: 'Membaca mushaf & tafsir' },
+      { to: '/murottal-30-juz', label: 'Murottal 30 Juz', icon: Headphones, color: 'indigo', desc: 'Audio Al-Qur\'an 30 Juz' },
       { to: '/tilawah', label: 'Tilawah Live', icon: Headphones, color: 'orange', desc: 'Stasiun audio murottal 24 jam' },
       { to: '/mode-perjalanan', label: 'Mode Perjalanan', icon: Car, color: 'lime', desc: 'Audio penenang selama perjalanan' },
     ],

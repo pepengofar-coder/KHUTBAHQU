@@ -10,7 +10,7 @@ import {
   syncAllData, getSyncStatus,
 } from '../../lib/syncService';
 import {
-  User, BookOpen, CheckSquare, Star, Headphones,
+  BookOpen, CheckSquare, Star, Headphones,
   ChevronRight, Heart, LogOut, Edit3,
   Check, X, RefreshCw, Cloud, CloudOff,
   Palette, MapPin, Shield, Camera, Trash2,
@@ -98,6 +98,9 @@ export default function RuangUserPage() {
   // ── localStorage reads ──
   const quranLastRead = useMemo(() => {
     try { const d = JSON.parse(localStorage.getItem('islamediaku_quran_last_read')); return d?.surahId ? d : null; } catch { return null; }
+  }, []);
+  const quranLastPage = useMemo(() => {
+    try { const d = JSON.parse(localStorage.getItem('islamediaku_quran_page_state')); return d?.last_page ? d.last_page : null; } catch { return null; }
   }, []);
   const bookmarkCount = useMemo(() => {
     try { const b = JSON.parse(localStorage.getItem('kq_mushaf_bookmarks')); return Array.isArray(b) ? b.length : 0; } catch { return 0; }
@@ -377,9 +380,15 @@ export default function RuangUserPage() {
               ) : (
                 <div className="ruang-user__item">
                   <div className="ruang-user__item-icon" style={{ background: 'rgba(0,71,255,0.1)' }}><BookOpen size={18} style={{ color: 'var(--color-primary)' }} /></div>
-                  <div className="ruang-user__item-content"><strong>Al-Qur'an</strong><p>Belum ada riwayat bacaan</p></div>
+                  <div className="ruang-user__item-content"><strong>Al-Qur'an</strong><p>Belum ada riwayat bacaan surah</p></div>
                 </div>
               )}
+              <div className="ruang-user__divider" />
+              <Link to={quranLastPage ? `/mushaf/page/${quranLastPage}` : '/mushaf/page/1'} className="ruang-user__item">
+                <div className="ruang-user__item-icon" style={{ background: 'rgba(0,71,255,0.1)' }}><BookOpen size={18} style={{ color: 'var(--color-primary)' }} /></div>
+                <div className="ruang-user__item-content"><strong>Mushaf Per Halaman</strong><p>{quranLastPage ? `Terakhir dibaca: Hal ${quranLastPage}` : 'Mulai baca per halaman'}</p></div>
+                <ChevronRight size={18} className="ruang-user__item-right" />
+              </Link>
               <div className="ruang-user__divider" />
               <Link to="/mushaf" className="ruang-user__item">
                 <div className="ruang-user__item-icon" style={{ background: 'rgba(0,71,255,0.1)' }}><Star size={18} style={{ color: 'var(--color-primary)' }} /></div>
