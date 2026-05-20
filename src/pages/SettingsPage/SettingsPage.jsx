@@ -6,7 +6,7 @@ import { useSEO } from '../../utils/seo';
 import { 
   Moon, MapPin, Type, BookOpen, Focus, 
   Trash2, Smartphone, Download, Info, ShieldAlert,
-  ChevronRight, Volume2
+  ChevronRight, Volume2, CheckCircle2
 } from 'lucide-react';
 import './SettingsPage.css';
 
@@ -18,7 +18,15 @@ export default function SettingsPage() {
     robots: 'noindex, follow' 
   });
 
-  const { darkMode, toggleDark, fontSize, setFontSize, fontSizeOptions } = useApp();
+  const { darkMode, toggleDark, appTheme, setAppTheme, fontSize, setFontSize, fontSizeOptions } = useApp();
+  
+  const THEMES = [
+    { id: 'default', name: 'Islamediaku', desc: 'Tema utama Islamediaku dengan biru royal dan aksen lime.', primary: '#0047FF', accent: '#C6FF00' },
+    { id: 'sakura', name: 'Sakura', desc: 'Tema lembut, hangat, dan menenangkan.', primary: '#E85D9E', accent: '#FFE066' },
+    { id: 'cold', name: 'Cold', desc: 'Tema dingin, bersih, dan nyaman untuk membaca lama.', primary: '#0EA5E9', accent: '#A7F3D0' },
+    { id: 'midnight', name: 'Midnight', desc: 'Tema gelap, tegas, dan profesional.', primary: '#1E3A8A', accent: '#84CC16' },
+    { id: 'sajadah', name: 'Sajadah', desc: 'Tema hangat bernuansa Islami klasik dan nyaman.', primary: '#166534', accent: '#FACC15' },
+  ];
   const { adzanEnabled, toggleAdzan } = useAdzanAlarm();
   
   const [city, setCity] = useState(() => localStorage.getItem('kq_prayer_city') || 'Jakarta');
@@ -98,6 +106,35 @@ export default function SettingsPage() {
       </header>
 
       <main className="container settings-main">
+        
+        {/* Tema Aplikasi */}
+        <section className="settings-section">
+          <div className="settings-section__header-text">
+            <h2 className="settings-section__title" style={{ paddingLeft: 0 }}>Tema Aplikasi</h2>
+            <p className="settings-section__subtitle">Pilih tampilan yang paling nyaman untukmu.</p>
+          </div>
+          <div className="theme-grid">
+            {THEMES.map(t => (
+              <button 
+                key={t.id} 
+                className={`theme-card ${appTheme === t.id ? 'active' : ''}`}
+                onClick={() => setAppTheme(t.id)}
+              >
+                <div className="theme-card__header">
+                  <div className="theme-card__colors">
+                    <span className="theme-color-dot" style={{ background: t.primary }} />
+                    <span className="theme-color-dot" style={{ background: t.accent }} />
+                  </div>
+                  {appTheme === t.id && <CheckCircle2 size={18} className="theme-card__check" />}
+                </div>
+                <div className="theme-card__body">
+                  <strong>{t.name}</strong>
+                  <p>{t.desc}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
         
         {/* Tampilan */}
         <section className="settings-section">

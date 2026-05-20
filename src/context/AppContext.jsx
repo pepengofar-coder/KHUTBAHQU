@@ -75,16 +75,27 @@ export function AppProvider({ children }) {
     setLocalKhutbahs(p => p.filter(k => k.id !== id));
   }, []);
 
-  // ─── Dark mode ───────────────────────────────────────────────────────────────
+  // ─── Theme & Dark mode ───────────────────────────────────────────────────────
+  const [appTheme, setAppTheme] = useState(() => {
+    return localStorage.getItem('islamediaku_theme') || 'default';
+  });
+
   const [darkMode, setDarkMode] = useState(() => {
     const s = localStorage.getItem('kq_dark');
     if (s !== null) return s === '1';
     return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
   });
+
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    if (darkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', appTheme === 'default' ? '' : appTheme);
+    }
+    localStorage.setItem('islamediaku_theme', appTheme);
     localStorage.setItem('kq_dark', darkMode ? '1' : '0');
-  }, [darkMode]);
+  }, [appTheme, darkMode]);
+
   const toggleDark = useCallback(() => setDarkMode(p => !p), []);
 
   // ─── Font size ───────────────────────────────────────────────────────────────
@@ -160,6 +171,7 @@ export function AppProvider({ children }) {
       // Admin auth
       isAdminLoggedIn, adminLogin, adminLogout,
       // Theme
+      appTheme, setAppTheme,
       darkMode, toggleDark,
       // Font
       fontSize, setFontSize, cycleFontSize, fontSizeOptions: FONT_OPTS,
