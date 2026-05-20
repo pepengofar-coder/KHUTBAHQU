@@ -5,7 +5,7 @@ import { useApp } from '../../context/AppContext';
 import { useSEO, JsonLd, SITE_URL, SITE_NAME } from '../../utils/seo';
 import { getHijriDateString, getUpcomingEvents } from '../../data/hijriData';
 import { getRotatingReflectionAyah } from '../../utils/dailyAyah';
-import { getDailyGreeting } from '../../utils/dailyGreeting';
+import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
@@ -42,7 +42,8 @@ export default function HomePage() {
     let timer;
 
     const updateGreeting = () => {
-      const newGreeting = getDailyGreeting();
+      const locale = localStorage.getItem('islamediaku_locale') || 'id';
+      const newGreeting = getLocalizedGreeting(locale);
       setGreeting(prev => {
         if (prev.text !== newGreeting.text) {
           if (mounted) setGreetingFade('fade-out');
@@ -60,7 +61,7 @@ export default function HomePage() {
 
     // Initial load
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setGreeting(getDailyGreeting());
+    setGreeting(getLocalizedGreeting(localStorage.getItem('islamediaku_locale') || 'id'));
 
     let lastSlot = Math.floor(Date.now() / (30 * 60 * 1000));
     timer = setInterval(() => {

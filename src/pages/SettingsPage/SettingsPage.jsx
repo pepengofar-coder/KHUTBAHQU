@@ -1,146 +1,304 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useAdzanAlarm } from '../../hooks/useAdzanAlarm';
 import { useSEO } from '../../utils/seo';
+import { 
+  Moon, MapPin, Type, BookOpen, Focus, 
+  Trash2, Smartphone, Download, Info, ShieldAlert,
+  ChevronRight, Volume2
+} from 'lucide-react';
 import './SettingsPage.css';
 
 export default function SettingsPage() {
-  useSEO({ title: 'Pengaturan | Islamediaku', description: 'Atur preferensi aplikasi Islamediaku: tema, lokasi sholat, ukuran font, dan lainnya.', path: '/pengaturan', robots: 'noindex, follow' });
+  useSEO({ 
+    title: 'Pengaturan | Islamediaku', 
+    description: 'Pusat kontrol aplikasi Islamediaku: atur tema, jadwal sholat, mushaf, dan data lokal.', 
+    path: '/pengaturan', 
+    robots: 'noindex, follow' 
+  });
 
   const { darkMode, toggleDark, fontSize, setFontSize, fontSizeOptions } = useApp();
   const { adzanEnabled, toggleAdzan } = useAdzanAlarm();
   
   const [city, setCity] = useState(() => localStorage.getItem('kq_prayer_city') || 'Jakarta');
-  const [showTranslation, setShowTranslation] = useState(() => localStorage.getItem('kq_mushaf_trans') !== '0');
+  const [showTranslation, setShowTranslation] = useState(() => localStorage.getItem('islamediaku_mushaf_trans') !== '0');
+  const [focusMode, setFocusMode] = useState(() => localStorage.getItem('islamediaku_mushaf_focus_default') === '1');
+  const [appVersion, setAppVersion] = useState({ version: '2.0.0', buildTime: '' });
 
-  const saveCity = (v) => { setCity(v); localStorage.setItem('kq_prayer_city', v); };
-  const toggleTrans = () => { const next = !showTranslation; setShowTranslation(next); localStorage.setItem('kq_mushaf_trans', next ? '1' : '0'); };
+  // Fetch version info
+  useEffect(() => {
+    fetch('/version.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data.version) setAppVersion(data);
+      })
+      .catch(e => console.log('No version.json found', e));
+  }, []);
 
-  const resetData = () => {
-    if (window.confirm('Hapus semua data lokal (bookmark, riwayat, tracker, tasbih)? Data tidak dapat dikembalikan.')) {
-      const keys = ['kq_bm', 'kq_rv', 'kq_tracker', 'kq_tasbih_count', 'kq_tasbih_target', 'kq_dzikir_done', 'kq_mushaf_last', 'kq_mushaf_bookmarks'];
-      keys.forEach(k => localStorage.removeItem(k));
+  const saveCity = (v) => { 
+    setCity(v); 
+    localStorage.setItem('kq_prayer_city', v); 
+  };
+
+  const toggleTrans = () => { 
+    const next = !showTranslation; 
+    setShowTranslation(next); 
+    localStorage.setItem('islamediaku_mushaf_trans', next ? '1' : '0'); 
+  };
+
+  const toggleFocus = () => {
+    const next = !focusMode;
+    setFocusMode(next);
+    localStorage.setItem('islamediaku_mushaf_focus_default', next ? '1' : '0');
+  };
+
+  // Reset Actions
+  const resetMission = () => {
+    if (window.confirm('Hapus progres Misi Harian hari ini?')) {
+      localStorage.removeItem('islamediaku_daily_mission_progress');
+      alert('Progres misi harian telah direset.');
+    }
+  };
+
+  const resetTracker = () => {
+    if (window.confirm('Hapus semua riwayat Tracker Ibadah dan Langkah Sehat? Data tidak dapat dikembalikan.')) {
+      localStorage.removeItem('islamediaku_tracker_daily');
+      localStorage.removeItem('islamediaku_steps_daily');
+      localStorage.removeItem('islamediaku_steps_activity_log');
+      localStorage.removeItem('islamediaku_steps_target');
+      alert('Data Tracker berhasil dihapus.');
+    }
+  };
+
+  const resetMushaf = () => {
+    if (window.confirm('Hapus semua Bookmark dan riwayat bacaan terakhir (Lanjut Baca)?')) {
+      localStorage.removeItem('islamediaku_quran_last_read');
+      localStorage.removeItem('kq_mushaf_bookmarks');
+      alert('Data riwayat Mushaf berhasil dihapus.');
+    }
+  };
+
+  const resetAllData = () => {
+    if (window.confirm('PERINGATAN: Apakah Anda yakin ingin mereset seluruh aplikasi? Semua data, pengaturan, tracker, dan bookmark akan dihapus secara permanen.')) {
+      localStorage.clear();
       window.location.reload();
     }
   };
 
+  const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
+
   return (
-    <div className="settings-page container">
-      <div className="settings-page__header">
-        <h1 className="settings-page__title">Pengaturan</h1>
-      </div>
+    <div className="settings-page">
+      <header className="settings-header">
+        <div className="container">
+          <h1 className="settings-header__title">Pengaturan</h1>
+          <p className="settings-header__subtitle">Pusat kontrol aplikasi Islamediaku</p>
+        </div>
+      </header>
 
-      <div className="settings-section">
-        <h2 className="settings-section__title">🎨 Tampilan</h2>
-        <div className="settings-item">
-          <div>
-            <strong>Mode Gelap</strong>
-            <p>Aktifkan tampilan gelap untuk kenyamanan mata</p>
+      <main className="container settings-main">
+        
+        {/* Tampilan */}
+        <section className="settings-section">
+          <h2 className="settings-section__title">Tampilan</h2>
+          <div className="settings-group">
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-blue-light">
+                <Moon size={20} className="text-primary" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Mode Gelap</strong>
+                <p>Tampilan yang nyaman untuk mata</p>
+              </div>
+              <button className={`settings-toggle ${darkMode ? 'active' : ''}`} onClick={toggleDark}>
+                <span className="settings-toggle__thumb" />
+              </button>
+            </div>
           </div>
-          <button className={`settings-toggle${darkMode ? ' active' : ''}`} onClick={toggleDark}>
-            <span className="settings-toggle__thumb" />
-          </button>
-        </div>
-        <div className="settings-item">
-          <div>
-            <strong>Ukuran Font</strong>
-            <p>Atur ukuran teks untuk kenyamanan membaca</p>
-          </div>
-          <select className="settings-select" value={fontSize} onChange={e => setFontSize(parseFloat(e.target.value))}>
-            {fontSizeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-          </select>
-        </div>
-      </div>
+        </section>
 
-      <div className="settings-section">
-        <h2 className="settings-section__title">🕌 Sholat</h2>
-        <div className="settings-item">
-          <div>
-            <strong>Kota Sholat</strong>
-            <p>Pilih kota untuk jadwal sholat</p>
+        {/* Sholat */}
+        <section className="settings-section">
+          <h2 className="settings-section__title">Sholat & Waktu</h2>
+          <div className="settings-group">
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-lime-light">
+                <MapPin size={20} className="text-accent-dark" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Lokasi Sholat</strong>
+                <p>Pilih kota acuan jadwal sholat</p>
+              </div>
+              <select className="settings-select" value={city} onChange={e => saveCity(e.target.value)}>
+                {['Jakarta','Surabaya','Bandung','Medan','Semarang','Makassar','Yogyakarta','Malang','Denpasar','Aceh','Padang','Pekanbaru','Palembang','Bogor','Bekasi','Tangerang','Depok','Banjarmasin','Balikpapan','Manado'].map(c => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+            <div className="settings-divider" />
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-lime-light">
+                <Volume2 size={20} className="text-accent-dark" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Suara Adzan</strong>
+                <p>Putar adzan saat aplikasi terbuka</p>
+              </div>
+              <button className={`settings-toggle ${adzanEnabled ? 'active' : ''}`} onClick={toggleAdzan}>
+                <span className="settings-toggle__thumb" />
+              </button>
+            </div>
           </div>
-          <select className="settings-select" value={city} onChange={e => saveCity(e.target.value)}>
-            {['Jakarta','Surabaya','Bandung','Medan','Semarang','Makassar','Yogyakarta','Malang','Denpasar','Aceh','Padang','Pekanbaru','Palembang','Bogor','Bekasi','Tangerang','Depok','Banjarmasin','Balikpapan','Manado'].map(c => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </select>
-        </div>
-        <div className="settings-item">
-          <div>
-            <strong>Alarm Adzan</strong>
-            <p>Putar suara adzan dan notifikasi saat waktu sholat</p>
-          </div>
-          <button className={`settings-toggle${adzanEnabled ? ' active' : ''}`} onClick={toggleAdzan}>
-            <span className="settings-toggle__thumb" />
-          </button>
-        </div>
-      </div>
+        </section>
 
-      <div className="settings-section">
-        <h2 className="settings-section__title">📖 Mushaf</h2>
-        <div className="settings-item">
-          <div>
-            <strong>Terjemahan</strong>
-            <p>Tampilkan terjemahan Indonesia di bawah ayat</p>
+        {/* Mushaf */}
+        <section className="settings-section">
+          <h2 className="settings-section__title">Mushaf Al-Qur'an</h2>
+          <div className="settings-group">
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-blue-light">
+                <Type size={20} className="text-primary" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Ukuran Font Arab</strong>
+                <p>Sesuaikan besar teks ayat</p>
+              </div>
+              <select className="settings-select" value={fontSize} onChange={e => setFontSize(parseFloat(e.target.value))}>
+                {fontSizeOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+              </select>
+            </div>
+            <div className="settings-divider" />
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-blue-light">
+                <BookOpen size={20} className="text-primary" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Tampilkan Terjemahan</strong>
+                <p>Terjemahan Bahasa Indonesia</p>
+              </div>
+              <button className={`settings-toggle ${showTranslation ? 'active' : ''}`} onClick={toggleTrans}>
+                <span className="settings-toggle__thumb" />
+              </button>
+            </div>
+            <div className="settings-divider" />
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-blue-light">
+                <Focus size={20} className="text-primary" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Mode Fokus Otomatis</strong>
+                <p>Langsung masuk ke Mode Fokus</p>
+              </div>
+              <button className={`settings-toggle ${focusMode ? 'active' : ''}`} onClick={toggleFocus}>
+                <span className="settings-toggle__thumb" />
+              </button>
+            </div>
           </div>
-          <button className={`settings-toggle${showTranslation ? ' active' : ''}`} onClick={toggleTrans}>
-            <span className="settings-toggle__thumb" />
-          </button>
-        </div>
-      </div>
+        </section>
 
-      <div className="settings-section">
-        <h2 className="settings-section__title">⚠️ Data</h2>
-        <div className="settings-item settings-item--danger">
-          <div>
-            <strong>Reset Semua Data</strong>
-            <p>Hapus bookmark, riwayat, tracker, dan tasbih</p>
+        {/* Data Lokal */}
+        <section className="settings-section">
+          <h2 className="settings-section__title">Manajemen Data</h2>
+          <div className="settings-group">
+            <button className="settings-item settings-item--btn" onClick={resetMission}>
+              <div className="settings-item__icon-wrap bg-gray-light">
+                <Trash2 size={20} className="text-muted" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Reset Misi Harian</strong>
+              </div>
+              <ChevronRight size={20} className="text-muted" />
+            </button>
+            <div className="settings-divider" />
+            <button className="settings-item settings-item--btn" onClick={resetTracker}>
+              <div className="settings-item__icon-wrap bg-gray-light">
+                <Trash2 size={20} className="text-muted" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Reset Tracker Ibadah & Langkah</strong>
+              </div>
+              <ChevronRight size={20} className="text-muted" />
+            </button>
+            <div className="settings-divider" />
+            <button className="settings-item settings-item--btn" onClick={resetMushaf}>
+              <div className="settings-item__icon-wrap bg-gray-light">
+                <Trash2 size={20} className="text-muted" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Hapus Bookmark Mushaf</strong>
+              </div>
+              <ChevronRight size={20} className="text-muted" />
+            </button>
+            <div className="settings-divider" />
+            <button className="settings-item settings-item--danger" onClick={resetAllData}>
+              <div className="settings-item__icon-wrap bg-red-light">
+                <ShieldAlert size={20} className="text-error" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Reset Semua Pengaturan</strong>
+                <p>Kembalikan aplikasi ke awal</p>
+              </div>
+            </button>
           </div>
-          <button className="settings-btn-danger" onClick={resetData}>Reset</button>
-        </div>
-      </div>
+        </section>
 
-      <div className="settings-section">
-        <h2 className="settings-section__title">📱 Unduhan</h2>
-        <div className="settings-item">
-          <div>
-            <strong>Aplikasi Android</strong>
-            <p>Download APK Islamediaku</p>
-          </div>
-          {(() => {
-            const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
-            if (apkUrl) {
-              return (
-                <button 
-                  className="settings-toggle active" 
-                  style={{ padding: '6px 12px', background: 'var(--color-primary)', color: 'white', borderRadius: '8px', border: 'none', fontWeight: 'bold' }}
-                  onClick={() => {
-                    window.open(apkUrl, '_blank');
-                    localStorage.setItem('islamediaku_apk_downloaded', Date.now().toString());
-                  }}
-                >
+        {/* Aplikasi */}
+        <section className="settings-section">
+          <h2 className="settings-section__title">Tentang Aplikasi</h2>
+          <div className="settings-group">
+            <Link to="/tentang" className="settings-item settings-item--btn">
+              <div className="settings-item__icon-wrap bg-blue-light">
+                <Info size={20} className="text-primary" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Tentang Islamediaku</strong>
+                <p>Platform pendamping harian muslim</p>
+              </div>
+              <ChevronRight size={20} className="text-muted" />
+            </Link>
+            <div className="settings-divider" />
+            
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-lime-light">
+                <Download size={20} className="text-accent-dark" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Aplikasi Android</strong>
+                <p>Pasang APK untuk pengalaman terbaik</p>
+              </div>
+              {apkUrl ? (
+                <button className="settings-btn-action" onClick={() => window.open(apkUrl, '_blank')}>
                   Download
                 </button>
-              );
-            }
-            return (
-              <button 
-                className="settings-toggle" 
-                style={{ padding: '6px 12px', background: 'var(--color-bg-secondary)', color: 'var(--color-text-tertiary)', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '0.8rem' }}
-                disabled
-              >
-                APK Belum Tersedia
-              </button>
-            );
-          })()}
-        </div>
-      </div>
+              ) : (
+                <span className="settings-badge">Belum Tersedia</span>
+              )}
+            </div>
+            <div className="settings-divider" />
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-gray-light">
+                <Smartphone size={20} className="text-muted" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Versi Aplikasi</strong>
+                <p>{appVersion.buildTime ? new Date(appVersion.buildTime).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Build terbaru'}</p>
+              </div>
+              <span className="settings-version-tag">v{appVersion.version}</span>
+            </div>
+          </div>
+          
+          <div className="settings-attribution">
+            <p>Audio Tilawah Al-Qur'an didukung penuh oleh <strong>MP3Quran.net</strong></p>
+          </div>
+        </section>
 
-      <div className="settings-about">
-        <p><strong>Islamediaku</strong> v2.0.0</p>
-        <p>Platform Islamic Companion App</p>
-        <p>© 2026 Islamediaku</p>
-      </div>
+        <div className="settings-footer">
+          <p>© {new Date().getFullYear()} Islamediaku</p>
+          <p>Dibuat untuk memudahkan ibadah harian.</p>
+        </div>
+
+      </main>
     </div>
   );
 }
