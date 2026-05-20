@@ -29,6 +29,9 @@ export default function Footer() {
         <p style={{ marginTop: '8px', fontSize: '0.9em', color: 'var(--color-text-muted)' }}>
           Aplikasi oleh Amirudin Abu Ziyadhmaeda
         </p>
+        <p style={{ marginTop: '4px', fontSize: '0.8em', color: 'var(--color-text-muted)', opacity: 0.6 }}>
+          UI Build: f84cac1-polished
+        </p>
       </div>
     </footer>
   );
