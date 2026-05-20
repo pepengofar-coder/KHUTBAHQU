@@ -1,0 +1,145 @@
+.surah-page {
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Themes */
+.surah-page.theme-light {
+  background-color: var(--light-bg);
+  --page-bg: var(--light-bg);
+  --text-primary: var(--dark-text);
+  --header-bg: rgba(255, 255, 255, 0.9);
+}
+
+.surah-page.theme-sepia {
+  background-color: #f4ecd8;
+  --page-bg: #f4ecd8;
+  --card-white: #f4ecd8;
+  --text-primary: #5b4636;
+  --dark-text: #5b4636;
+  --muted-text: #8c7664;
+  --header-bg: rgba(244, 236, 216, 0.9);
+}
+
+.surah-page.theme-night {
+  background-color: #121212;
+  --page-bg: #121212;
+  --card-white: #1e1e1e;
+  --text-primary: #e0e0e0;
+  --dark-text: #e0e0e0;
+  --muted-text: #a0a0a0;
+  --light-bg: #2a2a2a;
+  --header-bg: rgba(18, 18, 18, 0.9);
+}
+
+/* Layout */
+.surah-page__header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 1rem 0;
+}
+
+.surah-page__header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.surah-page__back, .surah-page__settings-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.surah-page__title-wrap {
+  text-align: center;
+}
+
+.surah-page__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.surah-page__subtitle {
+  font-size: 0.8rem;
+  color: var(--muted-text);
+}
+
+.surah-page__content {
+  padding-top: 2rem;
+  padding-bottom: 6rem;
+}
+
+.surah-page__bismillah-wrap {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.surah-page__arabic-title {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 2.5rem;
+  color: var(--royal-blue);
+  margin-bottom: 1rem;
+}
+
+.surah-page__bismillah {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  color: var(--text-primary);
+}
+
+.surah-page__ayahs {
+  display: flex;
+  flex-direction: column;
+}
+
+.surah-page__footer {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.surah-page__footer .disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.surah-page__loading, .surah-page__error {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--muted-text);
+}
+
+/* Focus Mode Overrides */
+.surah-page.focus-active {
+  padding-top: 1rem;
+}
+
+.surah-page__focus-exit {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 1rem;
+  z-index: 100;
+}
+
+.surah-page__focus-exit .btn {
+  background: var(--header-bg);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  color: var(--text-primary);
+  border: 1px solid var(--muted-text);
+}

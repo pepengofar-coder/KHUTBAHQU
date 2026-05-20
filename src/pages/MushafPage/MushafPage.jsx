@@ -1,175 +1,173 @@
-/* eslint-disable renders */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams, useNavigate, Link } from 'react-router-dom';
+import { Search, History, BookMarked, BookOpen } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
-import { usePremium } from '../../context/PremiumContext';
-import { FEATURES } from '../../config/premium';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import SurahCard from './components/SurahCard';
 import './MushafPage.css';
-
-// Translation ID for Indonesian (Kemenag) is 33 or 134 in quran.com API v4. We use 33 (Tafsir Jalalayn / Kemenag)
-// For simple Indonesian translation, we use resource_id 33.
-const TRANSLATION_ID = 33;
 
 export default function MushafPage() {
   useSEO({
-    title: "Mushaf Al-Qur'an Digital dengan Terjemahan Indonesia | Islamediaku",
-    description: "Baca Al-Qur'an digital lengkap dengan terjemahan Bahasa Indonesia. Mushaf Madinah online untuk khatib, dai, dan umat muslim.",
+    title: "Al-Qur'an Digital | Islamediaku",
+    description: "Baca, dengarkan, cari, dan renungkan ayat Al-Qur'an. Mushaf Madinah online gratis dengan terjemahan Indonesia.",
     path: '/mushaf',
   });
-  const [surahs, setSurahs] = useState([]);
-  const [selectedSurah, setSelectedSurah] = useState(1);
-  const [ayahs, setAyahs] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [focusMode, setFocusMode] = useState(false);
 
-  const { hasPremiumFeature } = usePremium();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const targetAyah = searchParams.get('ayah');
   
-  // Set initial surah if provided in URL
+  const [surahs, setSurahs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('surah'); // 'surah', 'favorit', 'terakhir'
+
+  const [bookmarks, setBookmarks] = useState([]);
+  const [lastRead, setLastRead] = useState(null);
+
+  // Load from local storage
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    try {
+      const storedBookmarks = JSON.parse(localStorage.getItem('islamediaku_quran_bookmarks') || '[]');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setBookmarks(storedBookmarks);
+      const storedLastRead = JSON.parse(localStorage.getItem('islamediaku_quran_last_read') || 'null');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLastRead(storedLastRead);
+    } catch (err) {
+      console.error("Local storage error", err);
+    }
+  }, []);
+
+  // Backward compatibility for ?surah=X
   useEffect(() => {
     const s = searchParams.get('surah');
     if (s && !isNaN(parseInt(s))) {
-      setSelectedSurah(parseInt(s));
+      navigate(`/mushaf/${s}`, { replace: true });
     }
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
-  const handleFocusToggle = () => {
-    if (hasPremiumFeature(FEATURES.QURAN_FOCUS)) {
-      setFocusMode(!focusMode);
-    } else {
-      if (window.confirm("Mode Fokus Mushaf adalah fitur Premium. Upgrade sekarang untuk pengalaman baca tanpa gangguan?")) {
-        navigate('/premium');
-      }
-    }
-  };
-
-  // Fetch list of Surahs on mount
+  // Fetch list of Surahs
   useEffect(() => {
     fetch('https://api.quran.com/api/v4/chapters?language=id')
       .then(res => res.json())
-      .then(data => setSurahs(data.chapters))
-      .catch(err => console.error("Failed to load surahs", err));
+      .then(data => {
+        setSurahs(data.chapters);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load surahs", err);
+        setError("Gagal memuat daftar surah.");
+        setLoading(false);
+      });
   }, []);
 
-  // Fetch Ayahs when selectedSurah changes
-  useEffect(() => {
-    if (!selectedSurah) return;
-    setLoading(true);
-    setError(null);
+  const filteredSurahs = useMemo(() => {
+    let result = surahs;
     
-    // We need both Arabic text (Uthmani) and translation
-    Promise.all([
-      fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${selectedSurah}`).then(res => res.json()),
-      fetch(`https://api.quran.com/api/v4/quran/translations/${TRANSLATION_ID}?chapter_number=${selectedSurah}`).then(res => res.json())
-    ])
-    .then(([arabicData, translationData]) => {
-      // Merge arabic text and translation based on verse_key
-      const mergedAyahs = arabicData.verses.map((verse, index) => {
-        return {
-          id: verse.id,
-          verse_key: verse.verse_key,
-          arabic: verse.text_uthmani,
-          translation: translationData.translations[index]?.text?.replace(/<sup.*?<\/sup>/g, '') || ''
-        };
-      });
-      setAyahs(mergedAyahs);
-      setLoading(false);
-    })
-    .catch(err => {
-      console.error("Failed to fetch ayahs", err);
-      setError("Gagal memuat ayat Al-Qur'an. Silakan periksa koneksi internet Anda.");
-      setLoading(false);
-    });
-  }, [selectedSurah]);
-
-  // Scroll to targeted ayah and highlight it
-  useEffect(() => {
-    if (!loading && targetAyah && ayahs.length > 0) {
-      setTimeout(() => {
-        const el = document.getElementById(`ayah-${targetAyah}`);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          el.classList.add('ayah-card--highlight');
-          setTimeout(() => el.classList.remove('ayah-card--highlight'), 3000);
-        }
-      }, 100);
+    // Tab Filter
+    if (activeTab === 'favorit') {
+      // Find surahs that have bookmarked ayahs
+      const bookmarkedSurahIds = [...new Set(bookmarks.map(b => parseInt(b.split(':')[0])))];
+      result = result.filter(s => bookmarkedSurahIds.includes(s.id));
+    } else if (activeTab === 'terakhir') {
+      if (lastRead) {
+        result = result.filter(s => s.id === lastRead.surah);
+      } else {
+        result = [];
+      }
     }
-  }, [loading, targetAyah, ayahs.length]);
 
-  const currentSurah = surahs.find(s => s.id === parseInt(selectedSurah));
+    // Search Filter
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(s => 
+        s.name_simple.toLowerCase().includes(q) ||
+        s.translated_name.name.toLowerCase().includes(q) ||
+        s.id.toString() === q
+      );
+    }
+    
+    return result;
+  }, [surahs, activeTab, searchQuery, bookmarks, lastRead]);
 
   return (
-    <div className="mushaf container">
-      <header className="mushaf__header">
-        <h1 className="mushaf__title">القرآن الكريم</h1>
-        <p className="mushaf__desc">Mushaf Madinah dengan Terjemahan Indonesia</p>
+    <div className="mushaf-home container">
+      <header className="mushaf-home__header">
+        <h1 className="mushaf-home__title">Al-Qur'an</h1>
+        <p className="mushaf-home__subtitle">Baca, dengarkan, cari, dan renungkan ayat Al-Qur'an.</p>
       </header>
 
-      <div className="mushaf__controls">
-        <select 
-          className="mushaf__select"
-          value={selectedSurah}
-          onChange={(e) => setSelectedSurah(parseInt(e.target.value))}
-        >
-          {surahs.map(s => (
-            <option key={s.id} value={s.id}>
-              {s.id}. {s.name_simple} ({s.translated_name.name})
-            </option>
-          ))}
-        </select>
-        
+      {lastRead && !searchQuery && activeTab === 'surah' && (
+        <div className="mushaf-home__last-read">
+          <div className="mushaf-home__last-read-content">
+            <span className="mushaf-home__last-read-label">
+              <History size={16} /> Terakhir Dibaca
+            </span>
+            <h3>{lastRead.surahName}</h3>
+            <p>Ayat {lastRead.ayah}</p>
+          </div>
+          <Link to={`/mushaf/${lastRead.surah}`} className="btn btn--primary">
+            Lanjut Baca
+          </Link>
+        </div>
+      )}
+
+      <div className="mushaf-home__search-bar">
+        <Search className="mushaf-home__search-icon" size={20} />
+        <input 
+          type="text" 
+          placeholder="Cari surah (misal: Baqarah, Sapi, 2)"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      <div className="mushaf-home__tabs">
         <button 
-          className={`btn ${focusMode ? 'btn--primary' : 'btn--outline'}`} 
-          onClick={handleFocusToggle}
-          title="Sembunyikan terjemahan dan fokus pada teks Arab"
+          className={`mushaf-home__tab ${activeTab === 'surah' ? 'active' : ''}`}
+          onClick={() => setActiveTab('surah')}
         >
-          {focusMode ? 'Matikan Fokus' : '🔍 Mode Fokus'}
+          <BookOpen size={18} /> Surah
+        </button>
+        <button 
+          className={`mushaf-home__tab ${activeTab === 'favorit' ? 'active' : ''}`}
+          onClick={() => setActiveTab('favorit')}
+        >
+          <BookMarked size={18} /> Favorit
+        </button>
+        <button 
+          className={`mushaf-home__tab ${activeTab === 'terakhir' ? 'active' : ''}`}
+          onClick={() => setActiveTab('terakhir')}
+        >
+          <History size={18} /> Terakhir Dibaca
         </button>
       </div>
 
-      {loading ? (
-        <div className="mushaf__loading">Memuat surah...</div>
-      ) : error ? (
-        <div className="mushaf__loading" style={{color: 'red'}}>{error}</div>
-      ) : (
-        <>
-          {currentSurah && (
-            <div className="mushaf__surah-info">
-              <h2 className="mushaf__surah-name">{currentSurah.name_arabic}</h2>
-              <p className="mushaf__surah-meta">
-                {currentSurah.name_simple} • {currentSurah.verses_count} Ayat • {currentSurah.revelation_place === 'makkah' ? 'Makkiyah' : 'Madaniyah'}
-              </p>
-            </div>
-          )}
-
-          {currentSurah && currentSurah.bismillah_pre && currentSurah.id !== 1 && currentSurah.id !== 9 && (
-            <div className="mushaf__bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
-          )}
-
-          <div className="mushaf__list">
-            {ayahs.map(ayah => {
-              const ayahNum = ayah.verse_key.split(':')[1];
-              return (
-                <div key={ayah.id} id={`ayah-${ayahNum}`} className={`ayah-card ${targetAyah === ayahNum ? 'ayah-card--target' : ''}`}>
-                  <div className="ayah-card__header">
-                    <div className="ayah-card__number">{ayahNum}</div>
-                  </div>
-                  <div className="ayah-card__arabic" style={focusMode ? {fontSize: '2.5rem', lineHeight: '2'} : {}}>{ayah.arabic}</div>
-                  {!focusMode && (
-                    <div 
-                      className="ayah-card__translation" 
-                      dangerouslySetInnerHTML={{ __html: ayah.translation }}
-                    />
-                  )}
-                </div>
-              );
-            })}
+      <main className="mushaf-home__content">
+        {loading && <div className="mushaf-home__loading">Memuat daftar surah...</div>}
+        {error && <div className="mushaf-home__error">{error}</div>}
+        
+        {!loading && !error && filteredSurahs.length === 0 && (
+          <div className="mushaf-home__empty">
+            <p>Tidak ada surah yang ditemukan.</p>
           </div>
-        </>
-      )}
+        )}
+
+        {!loading && !error && filteredSurahs.length > 0 && (
+          <div className="mushaf-home__grid">
+            {filteredSurahs.map(surah => (
+              <SurahCard 
+                key={surah.id} 
+                surah={surah} 
+                isFavorite={bookmarks.some(b => b.startsWith(`${surah.id}:`))}
+                lastReadAyah={lastRead && lastRead.surah === surah.id ? lastRead.ayah : null}
+              />
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 }

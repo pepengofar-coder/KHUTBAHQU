@@ -28,7 +28,6 @@ export const PLANS = {
       'Semua fitur Free',
       'Tracker ibadah lanjutan',
       'Tema premium',
-      'Mode fokus Mushaf',
       'Bookmark cloud',
       'Riwayat baca cloud',
       'Koleksi khutbah premium',
@@ -57,7 +56,6 @@ export const PLANS = {
 export const FEATURES = {
   ADVANCED_TRACKER: 'advanced_ibadah_tracker',
   PREMIUM_THEMES: 'premium_themes',
-  QURAN_FOCUS: 'quran_focus_mode',
   CLOUD_BOOKMARKS: 'cloud_bookmarks',
   CLOUD_HISTORY: 'cloud_reading_history',
   PREMIUM_KHUTBAH: 'premium_khutbah_collection',

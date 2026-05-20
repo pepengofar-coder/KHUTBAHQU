@@ -1,0 +1,110 @@
+.ayah-card {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.ayah-card:last-child {
+  border-bottom: none;
+}
+
+.ayah-card--target {
+  background-color: rgba(0, 71, 255, 0.05);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 12px;
+}
+
+.ayah-card--focus {
+  padding: 1rem 0;
+  border-bottom: 1px dashed rgba(0,0,0,0.1);
+}
+
+.ayah-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ayah-card__number {
+  background: var(--light-bg);
+  color: var(--royal-blue);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.ayah-card__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ayah-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted-text);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s;
+}
+
+.ayah-btn:hover {
+  background: var(--light-bg);
+  color: var(--royal-blue);
+}
+
+.ayah-btn--active {
+  color: var(--royal-blue);
+}
+
+.ayah-btn__label {
+  font-size: 0.8rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .ayah-btn__label {
+    display: inline;
+  }
+  .ayah-btn {
+    border-radius: 20px;
+    padding: 6px 12px;
+  }
+}
+
+.ayah-card__arabic {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  text-align: right;
+  direction: rtl;
+  color: var(--dark-text);
+  margin-bottom: 1rem;
+}
+
+.ayah-card__translation {
+  color: var(--muted-text);
+  line-height: 1.6;
+}
+
+.ayah-card__toast {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark-text);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  z-index: 10;
+}

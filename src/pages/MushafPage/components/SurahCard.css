@@ -1,0 +1,104 @@
+.surah-card {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: var(--card-white);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 71, 255, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.surah-card:active {
+  transform: scale(0.98);
+}
+
+.surah-card__number-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.surah-card__number-bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--light-bg);
+  border-radius: 8px;
+  transform: rotate(45deg);
+  transition: all 0.3s ease;
+}
+
+.surah-card:hover .surah-card__number-bg {
+  background-color: var(--royal-blue);
+}
+
+.surah-card__number {
+  position: relative;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--dark-text);
+  transition: color 0.3s ease;
+  z-index: 1;
+}
+
+.surah-card:hover .surah-card__number {
+  color: white;
+}
+
+.surah-card__info {
+  flex: 1;
+}
+
+.surah-card__latin {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: var(--dark-text);
+}
+
+.surah-card__meaning {
+  font-size: 0.85rem;
+  color: var(--muted-text);
+  margin: 0;
+}
+
+.surah-card__meta {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.surah-card__arabic {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 1.4rem;
+  color: var(--royal-blue);
+  margin: 0 0 0.25rem 0;
+  font-weight: 700;
+}
+
+.surah-card__stats {
+  font-size: 0.75rem;
+  color: var(--muted-text);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.surah-card__badges {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(0, 71, 255, 0.1);
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+}

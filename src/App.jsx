@@ -21,6 +21,7 @@ const CatalogPage = lazy(() => import('./pages/CatalogPage/CatalogPage'));
 const DetailPage = lazy(() => import('./pages/ReadingPage/ReadingPage'));
 const HijriCalendarPage = lazy(() => import('./pages/HijriCalendarPage/HijriCalendarPage'));
 const MushafPage = lazy(() => import('./pages/MushafPage/MushafPage'));
+const SurahPage = lazy(() => import('./pages/MushafPage/SurahPage'));
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const MimbarMode = lazy(() => import('./pages/MimbarMode/MimbarMode'));
@@ -47,6 +48,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<HomePage />} />
           <Route path="/sholat" element={<SholatPage />} />
           <Route path="/mushaf" element={<MushafPage />} />
+          <Route path="/mushaf/:surahId" element={<SurahPage />} />
           <Route path="/kiblat" element={<QiblaPage />} />
           <Route path="/kalender-hijriah" element={<HijriCalendarPage />} />
           <Route path="/doa-dzikir" element={<DoaDzikirPage />} />
