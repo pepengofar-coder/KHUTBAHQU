@@ -1,0 +1,97 @@
+export const greetingsList = [
+  // Wajib
+  { id: "wjb_001", category: "Wajib", text: "Jangan lupa jaga sholat wajib di awal waktu." },
+  { id: "wjb_002", category: "Wajib", text: "Di sela kesibukan, jangan tinggalkan sholat lima waktu." },
+  { id: "wjb_003", category: "Wajib", text: "Sholat adalah tiang agama, dirikanlah dengan sempurna." },
+  { id: "wjb_004", category: "Wajib", text: "Jaga sholat Subuhmu, Allah akan menjaga harimu." },
+  { id: "wjb_005", category: "Wajib", text: "Jangan tunda sholat Asar, ia adalah penengah yang mulia." },
+  { id: "wjb_006", category: "Wajib", text: "Sholat Maghrib jangan sampai terlewat saat sibuk pulang." },
+  { id: "wjb_007", category: "Wajib", text: "Beri hak Allah dulu, niscaya Allah bereskan hakmu." },
+  { id: "wjb_008", category: "Wajib", text: "Tinggalkan urusan dunia sejenak saat panggilan adzan berkumandang." },
+  { id: "wjb_009", category: "Wajib", text: "Seberat apapun masalah, sujudlah kepada-Nya." },
+  { id: "wjb_010", category: "Wajib", text: "Sholat tepat waktu adalah amalan yang paling dicintai Allah." },
+
+  // Sunnah
+  { id: "snh_001", category: "Sunnah", text: "Awali pagi dengan sholat Dhuha pembuka rezeki." },
+  { id: "snh_002", category: "Sunnah", text: "Amalan sunnah kecil bisa menjaga hati tetap dekat kepada Allah." },
+  { id: "snh_003", category: "Sunnah", text: "Tutup hari dengan sholat Witir sebelum tidur." },
+  { id: "snh_004", category: "Sunnah", text: "Jangan remehkan senyum manis, karena ia juga sedekah." },
+  { id: "snh_005", category: "Sunnah", text: "Biasakan menjaga wudhu dalam setiap aktivitas." },
+  { id: "snh_006", category: "Sunnah", text: "Jaga sholat rawatib untuk membangun rumah di surga." },
+  { id: "snh_007", category: "Sunnah", text: "Membiasakan puasa sunnah baik untuk jiwa dan raga." },
+  { id: "snh_008", category: "Sunnah", text: "Luangkan waktu sejenak di sepertiga malam terakhir." },
+  { id: "snh_009", category: "Sunnah", text: "Membaca surah Al-Kahfi di hari Jumat adalah amalan mulia." },
+  { id: "snh_010", category: "Sunnah", text: "Perbanyak sholawat, semoga kelak mendapat syafaat." },
+
+  // Qur'an
+  { id: "qrn_001", category: "Qur'an", text: "Sempatkan membaca Al-Qur’an walau beberapa ayat." },
+  { id: "qrn_002", category: "Qur'an", text: "Al-Qur’an adalah penyembuh bagi hati yang gelisah." },
+  { id: "qrn_003", category: "Qur'an", text: "Malam ini, luangkan waktu untuk membaca Al-Qur’an." },
+  { id: "qrn_004", category: "Qur'an", text: "Satu huruf Al-Qur’an mendatangkan sepuluh kebaikan." },
+  { id: "qrn_005", category: "Qur'an", text: "Jadikan Al-Qur’an sahabat sejatimu di dunia dan akhirat." },
+  { id: "qrn_006", category: "Qur'an", text: "Bacalah Al-Qur’an, kelak ia datang memberi syafaat." },
+  { id: "qrn_007", category: "Qur'an", text: "Jangan biarkan harimu berlalu tanpa membuka mushaf." },
+  { id: "qrn_008", category: "Qur'an", text: "Tadabburi maknanya, bukan hanya membaca teksnya." },
+  { id: "qrn_009", category: "Qur'an", text: "Jadikan Al-Qur’an pedoman dalam mengambil setiap keputusan." },
+  { id: "qrn_010", category: "Qur'an", text: "Menghafal satu ayat hari ini lebih baik dari dunia dan isinya." },
+
+  // Dzikir & Doa
+  { id: "dzk_001", category: "Dzikir", text: "Ringankan lisan dengan dzikir dan istighfar." },
+  { id: "dzk_002", category: "Doa", text: "Sempatkan doa sejenak sebelum melanjutkan aktivitas." },
+  { id: "dzk_003", category: "Dzikir", text: "Pagi ini, sempatkan dzikir dan mulai dengan basmalah." },
+  { id: "dzk_004", category: "Dzikir", text: "Tutup hari dengan istighfar dan rasa syukur." },
+  { id: "dzk_005", category: "Doa", text: "Jangan bosan berdoa, Allah selalu mendengar hamba-Nya." },
+  { id: "dzk_006", category: "Dzikir", text: "Ingatlah Allah di sela kesibukanmu." },
+  { id: "dzk_007", category: "Dzikir", text: "Basahi lisan dengan zikir agar hati menjadi tenang." },
+  { id: "dzk_008", category: "Doa", text: "Doa adalah senjata orang mukmin, gunakanlah di saat sempit." },
+  { id: "dzk_009", category: "Doa", text: "Selipkan doa kebaikan untuk saudara kita tanpa sepengetahuannya." },
+  { id: "dzk_010", category: "Dzikir", text: "Perbanyak kalimat thayyibah, tabungan pahala yang ringan." },
+
+  // Sedekah & Sosial
+  { id: "sdk_001", category: "Sedekah", text: "Sedekah kecil hari ini bisa menjadi kebaikan besar." },
+  { id: "sdk_002", category: "Sosial", text: "Berbuat baiklah, meski hanya dengan senyum yang tulus." },
+  { id: "sdk_003", category: "Sosial", text: "Menolong sesama adalah pintu datangnya pertolongan Allah." },
+  { id: "sdk_004", category: "Sedekah", text: "Jangan remehkan kebaikan kecil yang dilakukan dengan ikhlas." },
+  { id: "sdk_005", category: "Sosial", text: "Luangkan waktu untuk mendoakan dan membahagiakan orang tua." },
+  { id: "sdk_006", category: "Sosial", text: "Sambung silaturahmi, ia melapangkan rezeki dan umur." },
+  { id: "sdk_007", category: "Sedekah", text: "Berbagi makanan dengan tetangga adalah amalan yang berpahala." },
+  { id: "sdk_008", category: "Sosial", text: "Maafkan kesalahan orang lain agar Allah memaafkan kita." },
+  { id: "sdk_009", category: "Sosial", text: "Menyingkirkan duri di jalan adalah cabang iman." },
+  { id: "sdk_010", category: "Sedekah", text: "Sedekah tidak akan pernah mengurangi hartamu." },
+
+  // Akhlak & Lisan
+  { id: "akhl_001", category: "Akhlak", text: "Jaga lisan, jaga hati, jaga niat." },
+  { id: "akhl_002", category: "Akhlak", text: "Ilmu yang bermanfaat dimulai dari niat yang lurus dan akhlak baik." },
+  { id: "akhl_003", category: "Akhlak", text: "Berbicaralah yang baik atau lebih baik diam." },
+  { id: "akhl_004", category: "Akhlak", text: "Jangan biarkan marah menguasai lisanmu." },
+  { id: "akhl_005", category: "Akhlak", text: "Hiasi harimu dengan kejujuran dalam segala urusan." },
+  { id: "akhl_006", category: "Akhlak", text: "Orang kuat bukanlah yang pandai bergulat, tapi yang bisa menahan amarah." },
+  { id: "akhl_007", category: "Akhlak", text: "Jadilah pemaaf, karena hati pendendam tidak akan pernah tenang." },
+  { id: "akhl_008", category: "Akhlak", text: "Hargai orang lain niscaya kamu akan dihargai." },
+  { id: "akhl_009", category: "Akhlak", text: "Jangan mencari-cari kesalahan orang lain, sibuklah perbaiki diri." },
+  { id: "akhl_010", category: "Akhlak", text: "Berprasangka baik kepada Allah dan sesama." },
+
+  // Syukur & Sabar
+  { id: "sykr_001", category: "Syukur", text: "Sabar dan syukur membuat hati lebih lapang." },
+  { id: "sykr_002", category: "Syukur", text: "Hari ini kesempatan baru untuk memperbaiki diri, syukuri nafasmu." },
+  { id: "sykr_003", category: "Syukur", text: "Alhamdulillah atas segala nikmat yang tak terhitung hari ini." },
+  { id: "sykr_004", category: "Sabar", text: "Ujian adalah cara Allah menghapus dosa dan menaikkan derajat." },
+  { id: "sykr_005", category: "Syukur", text: "Bersyukurlah ketika lapang maupun sempit." },
+  { id: "sykr_006", category: "Sabar", text: "Innallaha ma'ashobirin, Allah bersama orang-orang yang sabar." },
+  { id: "sykr_007", category: "Syukur", text: "Jauhkan keluh kesah, hiasi bibir dengan tahmid." },
+  { id: "sykr_008", category: "Sabar", text: "Kesusahan hari ini adalah pelebur dosa bagi yang ikhlas." },
+  { id: "sykr_009", category: "Syukur", text: "Jangan lupa ucapkan Alhamdulillah atas secangkir nikmat pagi ini." },
+  { id: "sykr_010", category: "Syukur", text: "Tanda syukur adalah menggunakan nikmat untuk ketaatan." },
+
+  // Muhasabah & Umum
+  { id: "mhs_001", category: "Muhasabah", text: "Sisihkan sedikit waktu untuk muhasabah hari ini." },
+  { id: "mhs_002", category: "Umum", text: "Mulai hari ini dengan niat baik dan amal sholeh." },
+  { id: "mhs_003", category: "Umum", text: "Awali aktivitas dengan basmalah dan hati yang tenang." },
+  { id: "mhs_004", category: "Umum", text: "Semoga langkahmu hari ini menjadi jalan amal sholeh." },
+  { id: "mhs_005", category: "Umum", text: "Dekatkan hari ini dengan Qur’an, dzikir, dan doa." },
+  { id: "mhs_006", category: "Umum", text: "Semoga Allah mudahkan langkahmu menuju kebaikan." },
+  { id: "mhs_007", category: "Umum", text: "Jadikan pekerjaanmu sebagai ladang ibadah yang penuh berkah." },
+  { id: "mhs_008", category: "Muhasabah", text: "Ingatlah bahwa setiap detik kehidupan kita kelak akan dipertanggungjawabkan." },
+  { id: "mhs_009", category: "Muhasabah", text: "Mari persiapkan akhirat seperti kita akan mati esok hari." },
+  { id: "mhs_010", category: "Umum", text: "Assalamu’alaikum, semoga harimu dipenuhi keberkahan." }
+];

@@ -34,11 +34,47 @@ export default function HomePage() {
   const events = useMemo(() => getUpcomingEvents(now).slice(0, 3), [now]);
   const gregorian = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   
-  const [greetingText, setGreetingText] = useState("Assalamu'alaikum 👋");
+  const [greeting, setGreeting] = useState({ text: "Assalamu'alaikum 👋", category: "" });
+  const [greetingFade, setGreetingFade] = useState('fade-in');
   
   useEffect(() => {
+    let mounted = true;
+    let timer;
+
+    const updateGreeting = () => {
+      const newGreeting = getDailyGreeting();
+      setGreeting(prev => {
+        if (prev.text !== newGreeting.text) {
+          if (mounted) setGreetingFade('fade-out');
+          setTimeout(() => {
+            if (mounted) {
+              setGreeting(newGreeting);
+              setGreetingFade('fade-in');
+            }
+          }, 300);
+          return prev;
+        }
+        return newGreeting;
+      });
+    };
+
+    // Initial load
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setGreetingText(getDailyGreeting());
+    setGreeting(getDailyGreeting());
+
+    let lastSlot = Math.floor(Date.now() / (30 * 60 * 1000));
+    timer = setInterval(() => {
+      const currentSlot = Math.floor(Date.now() / (30 * 60 * 1000));
+      if (currentSlot !== lastSlot) {
+        lastSlot = currentSlot;
+        updateGreeting();
+      }
+    }, 60 * 1000);
+
+    return () => {
+      mounted = false;
+      clearInterval(timer);
+    };
   }, []);
 
   // Daily Missions
@@ -181,8 +217,9 @@ export default function HomePage() {
       {/* Hero / Greeting */}
       <section className="dash-hero">
         <div className="dash-hero__inner container">
-          <div className="dash-hero__greeting fade-in-slide">
-            <h1 className="dash-hero__salam">{greetingText}</h1>
+          <div className={`dash-hero__greeting ${greetingFade}`}>
+            {greeting.category && <span className="dash-hero__category-badge">{greeting.category}</span>}
+            <h1 className="dash-hero__salam">{greeting.text}</h1>
             <p className="dash-hero__date">{gregorian}</p>
             <p className="dash-hero__hijri">📅 {hijriStr}</p>
           </div>
