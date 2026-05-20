@@ -16,6 +16,7 @@ const MORE_SECTIONS = [
   {
     title: 'Ibadah',
     items: [
+      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue' },
       { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose' },
       { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo' },
       { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime' },
@@ -29,16 +30,9 @@ const MORE_SECTIONS = [
     ],
   },
   {
-    title: 'Konten',
-    items: [
-      { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green' },
-      { to: '/kontribusi', label: 'Kirim Khutbah', icon: Upload, color: 'cyan' },
-    ],
-  },
-  {
     title: 'Aplikasi',
     items: [
-      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue' },
+      { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green' },
       { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber' },
       { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo' },
       { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue' },
@@ -61,10 +55,10 @@ export default function BottomNav() {
     const s = [...MORE_SECTIONS];
     const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
     if (apkUrl) {
-      s[3] = {
-        ...s[3],
+      s[2] = {
+        ...s[2],
         items: [
-          ...s[3].items,
+          ...s[2].items,
           { to: apkUrl, label: 'Download APK', icon: Download, color: 'green', isExternal: true }
         ]
       };
@@ -79,37 +73,32 @@ export default function BottomNav() {
     }
   }, [location.pathname]);
 
-  const closeSheet = useCallback(() => {
-    setSheetOpen(false);
+  const openSheet = useCallback(() => {
+    setSheetOpen(true);
+    window.history.pushState({ sheetOpen: true }, '');
   }, []);
 
-  const openSheet = () => {
-    setSheetOpen(true);
-  };
+  const dismissSheet = useCallback((e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    setSheetOpen(false);
+    if (window.history.state?.sheetOpen) {
+      window.history.back();
+    }
+  }, []);
 
   // Capacitor hardware back button and browser popstate handling
   useEffect(() => {
-    // Web: popstate
     const handlePopState = () => {
-      if (sheetOpen) setSheetOpen(false);
+      setSheetOpen(false);
     };
     window.addEventListener('popstate', handlePopState);
 
-    // Capacitor: hardware back button
     let backListener = null;
     const setupCapacitor = async () => {
       try {
         backListener = await CapacitorApp.addListener('backButton', ({ canGoBack }) => {
-          if (sheetOpen) {
-            // Close the sheet if it's open
-            setSheetOpen(false);
-          } else if (canGoBack) {
-            // Check if we are at home; if so, maybe exit/minimize, otherwise go back
-            if (location.pathname !== '/') {
-              window.history.back();
-            } else {
-              CapacitorApp.minimizeApp();
-            }
+          if (canGoBack) {
+            window.history.back();
           } else {
             CapacitorApp.minimizeApp();
           }
@@ -126,7 +115,7 @@ export default function BottomNav() {
         backListener.remove().catch(() => {});
       }
     };
-  }, [sheetOpen, location.pathname]);
+  }, []);
 
   return (
     <>
@@ -155,7 +144,7 @@ export default function BottomNav() {
           })}
           <button
             className={`btm-nav__item btm-nav__more-btn${moreActive || sheetOpen ? ' active' : ''}`}
-            onClick={sheetOpen ? closeSheet : openSheet}
+            onClick={sheetOpen ? dismissSheet : openSheet}
             aria-label="Menu lainnya"
           >
             <span className="btm-nav__icon">
@@ -167,9 +156,9 @@ export default function BottomNav() {
       </nav>
 
       {/* More Sheet */}
-      {sheetOpen && <div className="more-sheet__backdrop" onClick={closeSheet} />}
+      {sheetOpen && <div className="more-sheet__backdrop" onClick={dismissSheet} />}
       <div className={`more-sheet${sheetOpen ? ' open' : ''}`}>
-        <div className="more-sheet__handle" onClick={closeSheet}><span /></div>
+        <div className="more-sheet__handle" onClick={dismissSheet}><span /></div>
         <h3 className="more-sheet__title">Menu Lainnya</h3>
         
         {sections.map((section, si) => (
@@ -182,7 +171,7 @@ export default function BottomNav() {
                     key={item.label}
                     href={item.to}
                     className="more-sheet__row"
-                    onClick={closeSheet}
+                    onClick={() => setSheetOpen(false)}
                   >
                     <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
                     <span className="more-sheet__row-label">{item.label}</span>
@@ -193,7 +182,7 @@ export default function BottomNav() {
                     to={item.to}
                     replace={true}
                     className={({isActive}) => `more-sheet__row${isActive ? ' active' : ''}`}
-                    onClick={closeSheet}
+                    onClick={() => setSheetOpen(false)}
                   >
                     <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
                     <span className="more-sheet__row-label">{item.label}</span>

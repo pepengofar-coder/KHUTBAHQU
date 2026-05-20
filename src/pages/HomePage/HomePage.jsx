@@ -9,7 +9,7 @@ import { getDailyGreeting } from '../../utils/dailyGreeting';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
-import { BookOpen, Compass, Sunrise, Sunset, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Heart } from 'lucide-react';
+import { BookOpen, Compass, Sunrise, Sunset, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare } from 'lucide-react';
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard
@@ -85,7 +85,7 @@ export default function HomePage() {
   
   const [missions, setMissions] = useState(() => {
     try {
-      const stored = JSON.parse(localStorage.getItem('kq_daily_missions'));
+      const stored = JSON.parse(localStorage.getItem('islamediaku_daily_mission_progress'));
       if (stored && stored.date === todayDateStr) return stored.data;
     } catch (e) {
       console.warn('Daily missions not parsed:', e);
@@ -93,7 +93,7 @@ export default function HomePage() {
     return [
       { id: 'dzikir', label: 'Dzikir pagi', done: false },
       { id: 'quran', label: 'Baca 5 ayat', done: false },
-      { id: 'sholat', label: 'Cek jadwal sholat', done: true },
+      { id: 'sholat', label: 'Cek jadwal sholat', done: false },
       { id: 'khutbah', label: 'Baca khutbah singkat', done: false },
     ];
   });
@@ -101,7 +101,7 @@ export default function HomePage() {
   const toggleMission = (id) => {
     setMissions(prev => {
       const next = prev.map(m => m.id === id ? { ...m, done: !m.done } : m);
-      localStorage.setItem('kq_daily_missions', JSON.stringify({ date: todayDateStr, data: next }));
+      localStorage.setItem('islamediaku_daily_mission_progress', JSON.stringify({ date: todayDateStr, data: next }));
       return next;
     });
   };
@@ -200,14 +200,22 @@ export default function HomePage() {
   const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/logo.png` };
 
   // Last read data
-  const lastSurah = localStorage.getItem('kq_mushaf_last');
+  const lastQuranRead = useMemo(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('islamediaku_quran_last_read'));
+      if (stored && stored.surahId) {
+        return stored;
+      }
+      return null;
+    } catch { return null; }
+  }, []);
   const lastTilawah = useMemo(() => {
     try {
       return JSON.parse(localStorage.getItem('kq_last_tilawah'));
     } catch { return null; }
   }, []);
-  const recentKhutbah = useMemo(() => allKhutbah.slice(0, 3), [allKhutbah]);
-  const hasResumeData = lastSurah || lastTilawah || recentKhutbah.length > 0;
+  const recentKhutbah = useMemo(() => allKhutbah.length > 0 ? allKhutbah[0] : null, [allKhutbah]);
+  const hasResumeData = lastQuranRead || lastTilawah || recentKhutbah;
 
   return (
     <div className="home-page">
@@ -276,7 +284,7 @@ export default function HomePage() {
                   <p>"{dailyAyah.translation}"</p>
                   <div className="dash-hero__reflection-footer">
                     <span className="dash-hero__reflection-ref">{dailyAyah.reference}</span>
-                    <Link to={`/mushaf?surah=${dailyAyah.surah}&ayah=${dailyAyah.ayah}`} className="dash-hero__reflection-link">Baca</Link>
+                    <Link to={`/mushaf/${dailyAyah.surah}#ayah-${dailyAyah.ayah}`} className="dash-hero__reflection-link">Baca</Link>
                   </div>
                 </>
               ) : (
@@ -293,12 +301,14 @@ export default function HomePage() {
           {[
             { to: '/mushaf', icon: BookOpen, color: 'blue', label: 'Mushaf' },
             { to: '/kiblat', icon: Compass, color: 'indigo', label: 'Kiblat' },
-            { to: '/doa-dzikir', icon: Sunrise, color: 'lime', label: 'Doa Pagi' },
+            { to: '/doa-dzikir', icon: Sunrise, color: 'rose', label: 'Doa Pagi' },
             { to: '/doa-dzikir', icon: Sunset, color: 'orange', label: 'Doa Petang' },
             { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih' },
             { to: '/khutbah', icon: Mic, color: 'green', label: 'Khutbah' },
-            { to: '/tilawah', icon: Headphones, color: 'orange', label: 'Tilawah' },
-            { to: '/kalender-hijriah', icon: CalendarDays, color: 'amber', label: 'Kalender' },
+            { to: '/tilawah', icon: Headphones, color: 'amber', label: 'Tilawah' },
+            { to: '/kalender-hijriah', icon: CalendarDays, color: 'blue', label: 'Kalender' },
+            { to: '/sholat', icon: Clock, color: 'rose', label: 'Sholat' },
+            { to: '/tracker', icon: CheckSquare, color: 'lime', label: 'Tracker' },
           ].map((a, i) => (
             <Link key={i} to={a.to} className="dash-action">
               <FeatureIcon icon={a.icon} colorMode={a.color} />
@@ -313,44 +323,43 @@ export default function HomePage() {
         <h2 className="dash-section-title"><Bookmark size={20} style={{marginRight: 8, color: 'var(--color-primary)'}} /> Lanjut Baca</h2>
         {hasResumeData ? (
           <div className="dash-resume__cards">
-            {lastSurah && (
-              <Link to="/mushaf" className="dash-resume-card">
+            {lastQuranRead && (
+              <Link to={`/mushaf/${lastQuranRead.surahId}#ayah-${lastQuranRead.ayahNumber}`} className="dash-resume-card">
                 <FeatureIcon icon={BookOpen} colorMode="blue" className="sm" />
-                <div>
+                <div className="dash-resume-card__text">
                   <strong>Mushaf Al-Qur'an</strong>
-                  <p>Surah terakhir: {lastSurah}</p>
+                  <p>Surah {lastQuranRead.surahName || lastQuranRead.surahId} Ayat {lastQuranRead.ayahNumber}</p>
                 </div>
-                <ChevronRight size={18} className="dash-resume-card__arrow" />
+                <span className="dash-resume-card__cta">Lanjutkan <ChevronRight size={16} /></span>
               </Link>
             )}
             {lastTilawah && (
               <Link to="/tilawah" className="dash-resume-card">
                 <FeatureIcon icon={Headphones} colorMode="orange" className="sm" />
-                <div>
+                <div className="dash-resume-card__text">
                   <strong>Tilawah Live</strong>
                   <p>{lastTilawah.name || 'Channel terakhir'}</p>
                 </div>
-                <ChevronRight size={18} className="dash-resume-card__arrow" />
+                <span className="dash-resume-card__cta">Lanjutkan <ChevronRight size={16} /></span>
               </Link>
             )}
-            {recentKhutbah.length > 0 && (
-              <Link to={`/khutbah/${recentKhutbah[0].slug}`} className="dash-resume-card">
+            {recentKhutbah && (
+              <Link to={`/khutbah/${recentKhutbah.slug}`} className="dash-resume-card">
                 <FeatureIcon icon={Mic} colorMode="green" className="sm" />
-                <div>
+                <div className="dash-resume-card__text">
                   <strong>Khutbah Terakhir</strong>
-                  <p>{recentKhutbah[0].title}</p>
+                  <p>{recentKhutbah.title}</p>
                 </div>
-                <ChevronRight size={18} className="dash-resume-card__arrow" />
+                <span className="dash-resume-card__cta">Lanjutkan <ChevronRight size={16} /></span>
               </Link>
             )}
           </div>
         ) : (
           <div className="dash-resume__empty">
-            <BookOpen size={32} className="dash-resume__empty-icon" />
-            <p>Belum ada riwayat baca. Mulai jelajahi mushaf atau dengarkan tilawah!</p>
+            <Bookmark size={32} className="dash-resume__empty-icon" />
+            <p>Belum ada riwayat ibadah. Lanjutkan harimu dengan membaca Al-Qur'an atau dzikir.</p>
             <div className="dash-resume__empty-actions">
               <Link to="/mushaf" className="btn btn--primary btn--sm">Buka Mushaf</Link>
-              <Link to="/tilawah" className="btn btn--outline btn--sm">Tilawah Live</Link>
             </div>
           </div>
         )}
@@ -423,13 +432,13 @@ export default function HomePage() {
       <section className="home-about container">
         <div className="home-about__header">
           <h2 className="home-about__title">Tentang Islamediaku</h2>
-          <p className="home-about__subtitle">Satu aplikasi untuk menemani ibadah harianmu, dari jadwal sholat, mushaf, doa, dzikir, hingga khutbah.</p>
+          <p className="home-about__subtitle">Aplikasi sahabat ibadah harianmu, dirancang untuk kenyamanan tanpa gangguan.</p>
         </div>
 
         {/* Highlight Card */}
         <div className="home-about__highlight">
           <div className="home-about__highlight-content">
-            <p><strong>Islamediaku</strong> dirancang sebagai teman ibadah harian yang ringan, rapi, dan mudah digunakan. Semua fitur penting dikumpulkan dalam satu tempat agar pengguna bisa lebih mudah menjaga rutinitas ibadah, membaca Al-Qur'an, berdzikir, dan menemukan inspirasi Islami setiap hari.</p>
+            <p><strong>Islamediaku</strong> memberikan pengalaman membaca Al-Qur'an, dzikir, dan khutbah dengan antarmuka yang bersih, premium, dan bebas dari fitur berbayar. Mulai tingkatkan kualitas ibadahmu sekarang.</p>
             <div className="home-about__cta">
               <Link to="/mushaf" className="btn btn--primary">Mulai Jelajahi</Link>
             </div>
@@ -437,52 +446,38 @@ export default function HomePage() {
           <div className="home-about__glow"></div>
         </div>
 
-        {/* Mini Stats */}
-        <div className="home-about__stats">
-          <div className="home-about__stat-item">
-            <span className="home-about__stat-num">5</span>
-            <span className="home-about__stat-label">Waktu Sholat</span>
-          </div>
-          <div className="home-about__stat-item">
-            <span className="home-about__stat-num">114</span>
-            <span className="home-about__stat-label">Surah</span>
-          </div>
-          <div className="home-about__stat-item">
-            <span className="home-about__stat-num">30</span>
-            <span className="home-about__stat-label">Juz</span>
-          </div>
-          <div className="home-about__stat-item">
-            <span className="home-about__stat-num">Doa</span>
-            <span className="home-about__stat-label">Harian</span>
-          </div>
-        </div>
-
-        {/* Benefit Cards — Using FeatureIcon instead of emoji */}
+        {/* Benefit Cards */}
         <div className="home-about__benefits">
           <div className="home-about__benefit">
-            <FeatureIcon icon={Compass} colorMode="blue" />
-            <h3 className="home-about__benefit-title">Ibadah Harian Lebih Terarah</h3>
-            <p className="home-about__benefit-desc">Jadwal sholat, dzikir, dan tracker membantu membangun kebiasaan baik.</p>
+            <FeatureIcon icon={BookOpen} colorMode="blue" />
+            <h3 className="home-about__benefit-title">Mushaf & Tilawah</h3>
+            <p className="home-about__benefit-desc">Baca Al-Qur'an dan dengarkan tilawah kapan saja dengan mudah.</p>
           </div>
           <div className="home-about__benefit">
-            <FeatureIcon icon={BookOpen} colorMode="green" />
-            <h3 className="home-about__benefit-title">Mushaf Mudah Diakses</h3>
-            <p className="home-about__benefit-desc">Baca Al-Qur'an dengan tampilan bersih dan nyaman di mobile.</p>
+            <FeatureIcon icon={CheckSquare} colorMode="lime" />
+            <h3 className="home-about__benefit-title">Ibadah Harian</h3>
+            <p className="home-about__benefit-desc">Panduan sholat, dzikir harian, dan tracker amal sholeh.</p>
           </div>
           <div className="home-about__benefit">
-            <FeatureIcon icon={Heart} colorMode="rose" />
-            <h3 className="home-about__benefit-title">Doa & Dzikir Lebih Praktis</h3>
-            <p className="home-about__benefit-desc">Akses doa pagi, doa petang, tasbih, dan doa harian dalam satu tempat.</p>
+            <FeatureIcon icon={Mic} colorMode="green" />
+            <h3 className="home-about__benefit-title">Khutbah & Materi</h3>
+            <p className="home-about__benefit-desc">Kumpulan teks khutbah Jumat dan kultum terbaru setiap bulan.</p>
           </div>
           <div className="home-about__benefit">
             <FeatureIcon icon={Sparkles} colorMode="amber" />
-            <h3 className="home-about__benefit-title">Inspirasi Islami Setiap Hari</h3>
-            <p className="home-about__benefit-desc">Temukan tema khutbah, kalender Hijriah, dan renungan harian.</p>
+            <h3 className="home-about__benefit-title">Tanpa Batas</h3>
+            <p className="home-about__benefit-desc">Semua fitur bisa digunakan sepenuhnya gratis, tanpa langganan Premium.</p>
           </div>
         </div>
 
         {/* Apk Download Component */}
-        <ApkDownloadBar />
+        {import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL ? (
+          <ApkDownloadBar />
+        ) : (
+          <div className="home-about__apk-empty">
+            <p>Aplikasi Android (APK) belum tersedia saat ini.</p>
+          </div>
+        )}
       </section>
     </div>
   );

@@ -37,12 +37,12 @@ export default function TilawahPage() {
               <h2 className="tilawah-now__name">{activeRadio.name}</h2>
               <div className="tilawah-now__controls">
                 <button className="tilawah-now__skip" onClick={() => skipChannel(-1)} aria-label="Sebelumnya"><SkipBack size={24} fill="currentColor" /></button>
-                <button className={`tilawah-now__play ${audioLoading ? 'loading' : ''} ${audioError ? 'error' : ''}`} onClick={togglePlay} aria-label={playing ? 'Jeda' : 'Putar Tilawah'}>
+                <button className={`tilawah-now__play ${audioLoading ? 'loading' : ''} ${audioError ? 'error' : ''}`} disabled={!activeRadio.url} onClick={togglePlay} aria-label={playing ? 'Jeda' : 'Putar Tilawah'}>
                   {audioLoading ? <Loader2 size={24} className="tilawah-now__spinner" /> : audioError ? <AlertTriangle size={24} /> : playing ? <Pause size={24} fill="currentColor" /> : <Play size={24} fill="currentColor" />}
                 </button>
                 <button className="tilawah-now__skip" onClick={() => skipChannel(1)} aria-label="Berikutnya"><SkipForward size={24} fill="currentColor" /></button>
               </div>
-              {audioError && <p className="tilawah-now__error">Stream error — mencoba ulang...</p>}
+              {audioError && <p className="tilawah-now__error">Stream belum tersedia, coba saluran lain.</p>}
               <button className={`tilawah-now__fav ${favorites.includes(activeRadio.id) ? 'active' : ''}`} onClick={() => toggleFavorite(activeRadio.id)}>{favorites.includes(activeRadio.id) ? '❤️' : '🤍'}</button>
             </div>
           )}

@@ -1,8 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useSEO } from '../../utils/seo';
-import { usePremium } from '../../context/PremiumContext';
-import { FEATURES } from '../../config/premium';
-import PaywallCard from '../../components/PaywallCard/PaywallCard';
+import { Target, Footprints, Plus, Trash2, HeartPulse, Sparkles, CheckCircle2, Circle } from 'lucide-react';
 import './TrackerPage.css';
 
 const IBADAH_LIST = [
@@ -11,161 +9,276 @@ const IBADAH_LIST = [
   { id: 'ashar', label: 'Sholat Ashar', icon: '🌤️', group: 'sholat' },
   { id: 'maghrib', label: 'Sholat Maghrib', icon: '🌇', group: 'sholat' },
   { id: 'isya', label: 'Sholat Isya', icon: '🌃', group: 'sholat' },
-  { id: 'tilawah', label: 'Tilawah Al-Qur\'an', icon: '📖', group: 'ibadah' },
-  { id: 'dzikir_pagi', label: 'Dzikir Pagi', icon: '🌅', group: 'ibadah' },
-  { id: 'dzikir_petang', label: 'Dzikir Petang', icon: '🌇', group: 'ibadah' },
-  { id: 'sedekah', label: 'Sedekah', icon: '💝', group: 'amal' },
-  { id: 'puasa', label: 'Puasa Sunnah', icon: '🍽️', group: 'amal' },
+  { id: 'dzikir_pagi', label: 'Dzikir Pagi', icon: '🌅', group: 'sunnah' },
+  { id: 'dzikir_petang', label: 'Dzikir Petang', icon: '🌇', group: 'sunnah' },
+  { id: 'tilawah', label: 'Tilawah', icon: '📖', group: 'sunnah' },
+  { id: 'sedekah', label: 'Sedekah', icon: '💝', group: 'sunnah' },
+];
+
+const MOTIVATIONS = [
+  "Jaga tubuh sebagai amanah.",
+  "Mulai hari ini dengan langkah kecil yang baik.",
+  "Langkah menuju kebaikan dimulai dari niat.",
+  "Sehatkan badan, kuatkan ibadah.",
+  "Kebiasaan baik tumbuh dari langkah kecil yang diulang."
 ];
 
 function getDateKey(d = new Date()) {
   return d.toISOString().split('T')[0];
 }
 
-function loadTracker() {
-  try { return JSON.parse(localStorage.getItem('kq_tracker') || '{}'); } catch { return {}; }
+// Safely load JSON from localStorage
+function safeLoad(key, defaultValue) {
+  try {
+    const val = localStorage.getItem(key);
+    if (val) return JSON.parse(val);
+  } catch (e) {
+    console.error(`Error loading ${key}`, e);
+  }
+  return defaultValue;
 }
-function saveTracker(data) { localStorage.setItem('kq_tracker', JSON.stringify(data)); }
+
+function safeSave(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    console.error(`Error saving ${key}`, e);
+  }
+}
 
 export default function TrackerPage() {
-  useSEO({ title: 'Tracker Ibadah Harian — Checklist Sholat & Amal | Islamediaku', description: 'Pantau ibadah harian Anda: sholat 5 waktu, tilawah, dzikir pagi petang, sedekah, dan puasa sunnah. Dengan streak harian.', path: '/tracker' });
+  useSEO({
+    title: 'Tracker Ibadah & Langkah Sehat | Islamediaku',
+    description: 'Pantau rutinitas ibadah dan kebiasaan baik harianmu.',
+    path: '/tracker'
+  });
 
   const today = getDateKey();
-  const [data, setData] = useState(loadTracker);
-  const { hasPremiumFeature } = usePremium();
-  const hasAdvancedTracker = hasPremiumFeature(FEATURES.ADVANCED_TRACKER);
+  
+  // States
+  const [trackerData, setTrackerData] = useState(() => safeLoad('islamediaku_tracker_daily', {}));
+  const [stepTarget, setStepTarget] = useState(() => safeLoad('islamediaku_steps_target', 5000));
+  const [stepsData, setStepsData] = useState(() => safeLoad('islamediaku_steps_daily', {}));
+  const [activityLog, setActivityLog] = useState(() => safeLoad('islamediaku_steps_activity_log', []));
+  const [motivation] = useState(() => MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)]);
 
-  const todayData = useMemo(() => data[today] || {}, [data, today]);
-  const doneCount = IBADAH_LIST.filter(i => todayData[i.id]).length;
-  const progress = Math.round((doneCount / IBADAH_LIST.length) * 100);
+  // Activity Form States
+  const [activityTitle, setActivityTitle] = useState('');
+  const [activityDuration, setActivityDuration] = useState('');
 
-  // Streak calculation
-  const streak = useMemo(() => {
-    let count = 0;
-    const d = new Date();
-    while (true) {
-      const key = getDateKey(d);
-      const dayData = data[key] || {};
-      const dayDone = IBADAH_LIST.filter(i => dayData[i.id]).length;
-      if (dayDone >= 5) { count++; d.setDate(d.getDate() - 1); }
-      else break;
-    }
-    return count;
-  }, [data]);
+  // Daily Checklists
+  const todayTracker = useMemo(() => trackerData[today] || {}, [trackerData, today]);
+  const doneCount = IBADAH_LIST.filter(i => todayTracker[i.id]).length;
+  const progressPct = Math.round((doneCount / IBADAH_LIST.length) * 100);
 
-  const toggle = useCallback((id) => {
-    setData(prev => {
+  const toggleIbadah = useCallback((id) => {
+    setTrackerData(prev => {
       const next = { ...prev, [today]: { ...(prev[today] || {}), [id]: !(prev[today]?.[id]) } };
-      saveTracker(next);
+      safeSave('islamediaku_tracker_daily', next);
       return next;
     });
   }, [today]);
 
-  // Past 7 days mini calendar
-  const past7 = useMemo(() => {
-    const days = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(); d.setDate(d.getDate() - i);
-      const key = getDateKey(d);
-      const dayData = data[key] || {};
-      const done = IBADAH_LIST.filter(it => dayData[it.id]).length;
-      days.push({ key, label: d.toLocaleDateString('id-ID', { weekday: 'short' }), day: d.getDate(), done, total: IBADAH_LIST.length, isToday: i === 0 });
+  let progressMessage = "Mulai dengan satu kebaikan.";
+  if (doneCount > 0 && doneCount < IBADAH_LIST.length) progressMessage = "MasyaAllah, lanjutkan kebiasaan baik hari ini.";
+  if (doneCount === IBADAH_LIST.length) progressMessage = "Alhamdulillah, semua rutinitas selesai!";
+
+  // Steps
+  const todaySteps = stepsData[today] || 0;
+  const stepPct = Math.min(100, Math.round((todaySteps / stepTarget) * 100));
+
+  let stepMessage = "Mulai dengan langkah kecil";
+  if (stepPct >= 50 && stepPct < 100) stepMessage = "Sedikit lagi";
+  if (stepPct >= 100) stepMessage = "Target tercapai";
+
+  const addSteps = (amount) => {
+    setStepsData(prev => {
+      const current = prev[today] || 0;
+      const next = { ...prev, [today]: Math.max(0, current + amount) };
+      safeSave('islamediaku_steps_daily', next);
+      return next;
+    });
+  };
+
+  const updateTarget = () => {
+    const newTarget = prompt('Masukkan target langkah harian:', stepTarget);
+    if (newTarget !== null && !isNaN(newTarget) && parseInt(newTarget) > 0) {
+      const parsed = parseInt(newTarget);
+      setStepTarget(parsed);
+      safeSave('islamediaku_steps_target', parsed);
     }
-    return days;
-  }, [data]);
+  };
+
+  // Activity Log
+  const addActivity = (e) => {
+    e.preventDefault();
+    if (!activityTitle.trim() || !activityDuration) return;
+    
+    const newLog = {
+      id: Date.now().toString(),
+      title: activityTitle,
+      duration: parseInt(activityDuration),
+      date: today,
+      timestamp: new Date().toISOString()
+    };
+    
+    setActivityLog(prev => {
+      const next = [newLog, ...prev].slice(0, 50); // Keep last 50
+      safeSave('islamediaku_steps_activity_log', next);
+      return next;
+    });
+    setActivityTitle('');
+    setActivityDuration('');
+  };
+
+  const deleteActivity = (id) => {
+    setActivityLog(prev => {
+      const next = prev.filter(log => log.id !== id);
+      safeSave('islamediaku_steps_activity_log', next);
+      return next;
+    });
+  };
 
   return (
-    <div className="tracker-page container">
-      <div className="tracker-page__header">
-        <h1 className="tracker-page__title">Tracker Ibadah</h1>
-        <p className="tracker-page__date">{new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
-      </div>
+    <div className="tracker-page">
+      {/* Header */}
+      <header className="tracker-header">
+        <div className="container">
+          <h1 className="tracker-header__title">Tracker Ibadah</h1>
+          <p className="tracker-header__subtitle">Pantau rutinitas ibadah dan kebiasaan baik harianmu.</p>
+        </div>
+      </header>
 
-      {/* Stats Row */}
-      <div className="tracker-stats">
-        <div className="tracker-stat">
-          <div className="tracker-stat__value">{doneCount}/{IBADAH_LIST.length}</div>
-          <div className="tracker-stat__label">Hari Ini</div>
-        </div>
-        <div className="tracker-stat">
-          <div className="tracker-stat__ring">
-            <svg viewBox="0 0 60 60">
-              <circle cx="30" cy="30" r="26" fill="none" stroke="var(--color-border-light)" strokeWidth="5"/>
-              <circle cx="30" cy="30" r="26" fill="none" stroke="var(--color-primary)" strokeWidth="5" strokeDasharray={`${2*Math.PI*26}`} strokeDashoffset={`${2*Math.PI*26*(1-progress/100)}`} strokeLinecap="round" transform="rotate(-90 30 30)" style={{transition:'stroke-dashoffset .5s var(--ease-spring)'}}/>
-            </svg>
-            <span className="tracker-stat__pct">{progress}%</span>
-          </div>
-        </div>
-        <div className="tracker-stat">
-          <div className="tracker-stat__value">🔥 {streak}</div>
-          <div className="tracker-stat__label">Streak</div>
-        </div>
-      </div>
-
-      {/* 7 Day Calendar (Advanced Feature) */}
-      {hasAdvancedTracker ? (
-        <div className="tracker-week">
-          {past7.map(d => (
-            <div key={d.key} className={`tracker-day${d.isToday ? ' tracker-day--today' : ''}${d.done === d.total ? ' tracker-day--complete' : ''}`}>
-              <span className="tracker-day__label">{d.label}</span>
-              <span className="tracker-day__num">{d.day}</span>
-              <div className="tracker-day__dots">
-                {d.done > 0 && <span className="tracker-day__dot" style={{ opacity: Math.max(0.3, d.done / d.total) }} />}
-              </div>
+      <main className="container tracker-main">
+        {/* Progress Summary */}
+        <section className="tracker-card tracker-progress">
+          <div className="tracker-progress__info">
+            <h2 className="tracker-card__title">Ibadah Hari Ini</h2>
+            <p className="tracker-progress__msg">{progressMessage}</p>
+            <div className="tracker-progress__stats">
+              <span className="tracker-progress__count">{doneCount}</span>
+              <span className="tracker-progress__total">/ {IBADAH_LIST.length} selesai</span>
             </div>
-          ))}
-        </div>
-      ) : (
-        <PaywallCard 
-          featureName="Statistik 7 Hari" 
-          description="Pantau konsistensi ibadah Anda selama 7 hari terakhir dengan statistik interaktif."
-        />
-      )}
+          </div>
+          <div className="tracker-progress__ring">
+            <svg viewBox="0 0 100 100">
+              <circle className="tracker-progress__bg" cx="50" cy="50" r="40" />
+              <circle className="tracker-progress__value" cx="50" cy="50" r="40" 
+                      style={{ strokeDasharray: `${2 * Math.PI * 40}`, strokeDashoffset: `${(2 * Math.PI * 40) * (1 - progressPct / 100)}` }} />
+            </svg>
+            <div className="tracker-progress__pct">{progressPct}%</div>
+          </div>
+        </section>
 
-      {/* Checklist */}
-      <div className="tracker-list">
-        <h2 className="tracker-group__title">🕌 Sholat Wajib</h2>
-        {IBADAH_LIST.filter(i => i.group === 'sholat').map(item => (
-          <button key={item.id} className={`tracker-item${todayData[item.id] ? ' tracker-item--done' : ''}`} onClick={() => toggle(item.id)}>
-            <span className="tracker-item__icon">{item.icon}</span>
-            <span className="tracker-item__label">{item.label}</span>
-            <span className={`tracker-item__check${todayData[item.id] ? ' checked' : ''}`}>
-              {todayData[item.id] ? '✓' : ''}
-            </span>
-          </button>
-        ))}
+        {/* Checklist */}
+        <section className="tracker-list-section">
+          <h3 className="tracker-section__title">Daftar Rutinitas</h3>
+          <div className="tracker-list">
+            {IBADAH_LIST.map(item => {
+              const isDone = todayTracker[item.id];
+              return (
+                <button key={item.id} className={`tracker-item ${isDone ? 'tracker-item--done' : ''}`} onClick={() => toggleIbadah(item.id)}>
+                  <div className="tracker-item__icon-wrap">
+                    <span className="tracker-item__emoji">{item.icon}</span>
+                  </div>
+                  <span className="tracker-item__label">{item.label}</span>
+                  <div className="tracker-item__check">
+                    {isDone ? <CheckCircle2 className="icon-checked" size={24} /> : <Circle className="icon-unchecked" size={24} />}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
 
-        <h2 className="tracker-group__title">📿 Ibadah Sunnah</h2>
-        {IBADAH_LIST.filter(i => i.group === 'ibadah').map(item => (
-          <button key={item.id} className={`tracker-item${todayData[item.id] ? ' tracker-item--done' : ''}`} onClick={() => toggle(item.id)}>
-            <span className="tracker-item__icon">{item.icon}</span>
-            <span className="tracker-item__label">{item.label}</span>
-            <span className={`tracker-item__check${todayData[item.id] ? ' checked' : ''}`}>
-              {todayData[item.id] ? '✓' : ''}
-            </span>
-          </button>
-        ))}
+        {/* Langkah Sehat */}
+        <section className="tracker-card langkah-sehat">
+          <div className="langkah-sehat__header">
+            <div>
+              <h2 className="tracker-card__title flex items-center gap-2">
+                <Footprints size={20} className="text-primary" />
+                Langkah Sehat
+              </h2>
+              <p className="langkah-sehat__subtitle">{stepMessage}</p>
+            </div>
+            <button className="langkah-sehat__edit-target" onClick={updateTarget}>
+              <Target size={14} /> Edit Target
+            </button>
+          </div>
 
-        {hasAdvancedTracker ? (
-          <>
-            <h2 className="tracker-group__title">💝 Amal Kebaikan</h2>
-            {IBADAH_LIST.filter(i => i.group === 'amal').map(item => (
-              <button key={item.id} className={`tracker-item${todayData[item.id] ? ' tracker-item--done' : ''}`} onClick={() => toggle(item.id)}>
-                <span className="tracker-item__icon">{item.icon}</span>
-                <span className="tracker-item__label">{item.label}</span>
-                <span className={`tracker-item__check${todayData[item.id] ? ' checked' : ''}`}>
-                  {todayData[item.id] ? '✓' : ''}
-                </span>
+          <div className="langkah-sehat__stats">
+            <div className="langkah-sehat__count-box">
+              <span className="langkah-sehat__count">{todaySteps.toLocaleString('id-ID')}</span>
+              <span className="langkah-sehat__label">Langkah</span>
+            </div>
+            <div className="langkah-sehat__divider"></div>
+            <div className="langkah-sehat__target-box">
+              <span className="langkah-sehat__target">{stepTarget.toLocaleString('id-ID')}</span>
+              <span className="langkah-sehat__label">Target</span>
+            </div>
+          </div>
+
+          <div className="langkah-sehat__bar-wrap">
+            <div className="langkah-sehat__bar">
+              <div className="langkah-sehat__bar-fill" style={{ width: `${stepPct}%` }}></div>
+            </div>
+            <span className="langkah-sehat__bar-text">{stepPct}%</span>
+          </div>
+
+          <div className="langkah-sehat__actions">
+            <button className="btn-step btn-step--add" onClick={() => addSteps(500)}>+500</button>
+            <button className="btn-step btn-step--add" onClick={() => addSteps(1000)}>+1000</button>
+            <button className="btn-step btn-step--reset" onClick={() => {
+              if(window.confirm('Reset langkah hari ini?')) addSteps(-todaySteps);
+            }}>Reset</button>
+          </div>
+          {/* TODO: Future Android native step sensor integration */}
+          {/* TODO: Future Health Connect / Google Fit integration */}
+        </section>
+
+        {/* Activity Log */}
+        <section className="tracker-card activity-log">
+          <h3 className="tracker-card__title flex items-center gap-2 mb-4">
+            <HeartPulse size={20} className="text-primary" />
+            Catatan Aktivitas
+          </h3>
+          
+          <form className="activity-form" onSubmit={addActivity}>
+            <input type="text" placeholder="Misal: Jalan Pagi" value={activityTitle} onChange={e => setActivityTitle(e.target.value)} required className="activity-input" />
+            <div className="activity-form__row">
+              <input type="number" placeholder="Menit" value={activityDuration} onChange={e => setActivityDuration(e.target.value)} required min="1" className="activity-input activity-input--num" />
+              <button type="submit" className="activity-btn-submit">
+                <Plus size={18} /> Tambah
               </button>
-            ))}
-          </>
-        ) : (
-          <PaywallCard 
-            featureName="Amal Kebaikan Tambahan" 
-            description="Tambahkan tracker untuk puasa sunnah, sedekah, qiyamul lail, dan amal kebaikan lainnya."
-          />
-        )}
-      </div>
+            </div>
+          </form>
+
+          <div className="activity-list">
+            {activityLog.length === 0 ? (
+              <p className="activity-empty">Belum ada aktivitas yang dicatat.</p>
+            ) : (
+              activityLog.map(log => (
+                <div key={log.id} className="activity-item">
+                  <div className="activity-item__info">
+                    <strong className="activity-item__title">{log.title}</strong>
+                    <span className="activity-item__meta">{log.duration} menit • {log.date === today ? 'Hari ini' : log.date}</span>
+                  </div>
+                  <button className="activity-item__del" onClick={() => deleteActivity(log.id)}>
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+
+        {/* Motivation Card */}
+        <section className="motivation-card">
+          <Sparkles className="motivation-icon" size={24} />
+          <p className="motivation-text">"{motivation}"</p>
+        </section>
+
+      </main>
     </div>
   );
 }

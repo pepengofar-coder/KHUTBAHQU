@@ -39,15 +39,22 @@ export function TilawahProvider({ children }) {
       setLoading(true); setError(null);
       try {
         let res;
-        try { res = await fetch('/api/mp3quran/radios'); } catch { res = await fetch('https://mp3quran.net/api/v3/radios?language=id'); }
+        try { 
+          res = await fetch('/api/mp3quran/radios'); 
+          if (!res.ok) throw new Error(`Proxy failed with ${res.status}`);
+        } catch { 
+          res = await fetch('https://mp3quran.net/api/v3/radios?language=id'); 
+        }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (c) return;
         
-        const radiosList = (data?.radios || []).map(r => ({
-          ...r,
-          url: r.url?.replace(/^http:\/\//i, 'https://')
-        }));
+        const radiosList = (data?.radios || [])
+          .map(r => ({
+            ...r,
+            url: r.url?.replace(/^http:\/\//i, 'https://')
+          }))
+          .filter(r => r.url); // Ensure valid stream URL
         
         setRadios(radiosList);
         const lastId = getLastChannel();
@@ -62,6 +69,10 @@ export function TilawahProvider({ children }) {
   const activeRadio = useMemo(() => radios.find(r => r.id === activeId) || null, [radios, activeId]);
 
   const playChannel = useCallback((radio) => {
+    if (!radio || !radio.url) {
+      setAudioError(true);
+      return;
+    }
     setActiveId(radio.id); 
     setPlaying(true); 
     setAudioError(false); 
@@ -76,7 +87,10 @@ export function TilawahProvider({ children }) {
   }, []);
 
   const togglePlay = useCallback(() => {
-    if (!audioRef.current || !activeRadio) return;
+    if (!audioRef.current || !activeRadio || !activeRadio.url) {
+      if (activeRadio && !activeRadio.url) setAudioError(true);
+      return;
+    }
     if (playing) { 
       audioRef.current.pause(); 
       setPlaying(false); 
