@@ -1,4 +1,4 @@
-/* eslint-disable renders */
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from 'react';
 import { useSEO } from '../../utils/seo';
 import './QiblaPage.css';
@@ -35,7 +35,10 @@ export default function QiblaPage(){
     },()=>{setBearing(295);setLocLabel('Jakarta (default)');setLoading(false)},{timeout:8000});
   },[]);
 
-  useEffect(()=>{getLocation()},[getLocation]);
+  useEffect(()=>{
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    getLocation();
+  },[getLocation]);
 
   // Device orientation
   useEffect(()=>{

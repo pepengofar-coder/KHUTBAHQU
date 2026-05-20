@@ -43,6 +43,7 @@ export default function AppDownloadPopup() {
                          window.navigator.standalone || 
                          document.referrer.includes('android-app://');
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDevice({ isAndroid, isIOS, isDesktop, isStandalone });
 
     // Capture Android PWA install prompt

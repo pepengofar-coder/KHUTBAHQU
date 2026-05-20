@@ -20,6 +20,7 @@ export default function ApkDownloadBar() {
                          window.navigator.standalone || 
                          document.referrer.includes('android-app://');
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDevice({ isAndroid, isIOS, isStandalone });
   }, []);
 

@@ -43,8 +43,8 @@ export default function SholatPage(){
     try{
       const d=new Date();const url=`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=${c.lat}&longitude=${c.lon}&method=11`;
       const r=await fetch(url);const data=await r.json();setTimings(data.data.timings);
-    }catch{
-       
+    }catch(err){
+      console.warn('Failed to fetch prayer times:', err);
     }finally{setLoading(false)}
   },[]);
 

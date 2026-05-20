@@ -4,26 +4,19 @@
 
 .doa-page { padding: var(--sp-4) var(--sp-4) var(--sp-16); max-width: 640px; margin: 0 auto; }
 
-/* ─── Category Chips ─────────────────────────────────── */
-.doa-cats {
-  display: flex; gap: 8px; overflow-x: auto; padding: var(--sp-2) 0;
-  margin-bottom: var(--sp-4); -webkit-overflow-scrolling: touch; scrollbar-width: none;
+/* ─── Category Cards Grid ────────────────────────────── */
+.doa-cats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
 }
-.doa-cats::-webkit-scrollbar { display: none; }
-.doa-cats__btn {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  padding: 8px 14px; border-radius: 14px; border: 1.5px solid var(--color-border-light);
-  background: var(--color-bg-card); min-width: 68px; transition: all .25s var(--ease-spring);
-  cursor: pointer; flex-shrink: 0;
+
+@media (min-width: 640px) {
+  .doa-cats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
-.doa-cats__btn.active {
-  border-color: var(--color-primary); background: var(--color-primary-surface);
-  box-shadow: 0 2px 12px rgba(0, 71, 255, 0.15);
-}
-.doa-cats__btn:active { transform: scale(.94); }
-.doa-cats__icon { font-size: 18px; }
-.doa-cats__label { font-size: 10px; font-weight: 600; color: var(--color-text-secondary); white-space: nowrap; }
-.doa-cats__btn.active .doa-cats__label { color: var(--color-primary); }
 
 /* ─── Al-Ma'tsurat Hero Card ────────────────────────── */
 .matsurat-hero {

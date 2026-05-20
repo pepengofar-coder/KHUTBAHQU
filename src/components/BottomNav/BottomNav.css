@@ -26,8 +26,8 @@
 .more-sheet__section{margin-bottom:var(--sp-4);animation:sheetSectionIn .35s ease both}
 .more-sheet__section:last-child{margin-bottom:0}
 .more-sheet__section-title{font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.08em;padding:0 var(--sp-2);margin-bottom:var(--sp-2)}
-.more-sheet__section-list{background:var(--color-bg);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--color-border-light)}
-[data-theme="dark"] .more-sheet__section-list{background:var(--color-bg-alt)}
+.more-sheet__section-list{display:flex;flex-direction:column;gap:8px;background:transparent;border:none;overflow:visible}
+[data-theme="dark"] .more-sheet__section-list{background:transparent}
 
 /* Row item (list style) */
 .more-sheet__row{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);transition:all .2s ease;text-decoration:none;border-bottom:1px solid var(--color-border-light);-webkit-tap-highlight-color:transparent}

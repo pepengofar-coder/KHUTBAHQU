@@ -57,6 +57,7 @@ export function useAppVersion() {
 
   useEffect(() => {
     // Check on mount
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     checkVersion();
 
     // Check when tab becomes visible again

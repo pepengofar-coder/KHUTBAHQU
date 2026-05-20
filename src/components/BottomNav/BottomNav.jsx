@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, Radio, CheckSquare, Star, Upload, Info, Settings, MoreHorizontal, Download, Headphones, Car } from 'lucide-react';
+import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
-import FeatureIcon from '../FeatureIcon/FeatureIcon';
+import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
 import './BottomNav.css';
 
 const TABS = [
@@ -16,27 +16,27 @@ const MORE_SECTIONS = [
   {
     title: 'Ibadah',
     items: [
-      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue' },
-      { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose' },
-      { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo' },
-      { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime' },
+      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue', desc: 'Kompas penunjuk arah kiblat' },
+      { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose', desc: 'Koleksi doa & dzikir pagi petang' },
+      { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo', desc: 'Counter dzikir & tasbih digital' },
+      { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime', desc: 'Catat dan pantau amal harian' },
     ],
   },
   {
     title: "Al-Qur'an",
     items: [
-      { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue' },
-      { to: '/tilawah', label: 'Tilawah Live', icon: Headphones, color: 'orange' },
-      { to: '/mode-perjalanan', label: 'Mode Perjalanan', icon: Car, color: 'lime' },
+      { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue', desc: 'Membaca mushaf & tafsir' },
+      { to: '/tilawah', label: 'Tilawah Live', icon: Headphones, color: 'orange', desc: 'Stasiun audio murottal 24 jam' },
+      { to: '/mode-perjalanan', label: 'Mode Perjalanan', icon: Car, color: 'lime', desc: 'Audio penenang selama perjalanan' },
     ],
   },
   {
     title: 'Aplikasi',
     items: [
-      { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green' },
-      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber' },
-      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo' },
-      { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue' },
+      { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green', desc: 'Teks khutbah & kultum pilihan' },
+      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
+      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },
+      { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue', desc: 'Mengenal aplikasi Islamediaku' },
     ],
   },
 ];
@@ -70,9 +70,10 @@ export default function BottomNav() {
   // Close sheet automatically when route changes
   useEffect(() => {
     if (sheetOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSheetOpen(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, sheetOpen]);
 
   const openSheet = useCallback(() => {
     setSheetOpen(true);
@@ -104,7 +105,7 @@ export default function BottomNav() {
             CapacitorApp.minimizeApp();
           }
         });
-      } catch (e) {
+      } catch {
         // Not in Capacitor environment, ignore
       }
     };
@@ -166,30 +167,24 @@ export default function BottomNav() {
           <div key={section.title} className="more-sheet__section" style={{ animationDelay: `${si * 60}ms` }}>
             <h4 className="more-sheet__section-title">{section.title}</h4>
             <div className="more-sheet__section-list">
-              {section.items.map((item) => (
-                item.isExternal ? (
-                  <a
-                    key={item.label}
-                    href={item.to}
-                    className="more-sheet__row"
-                    onClick={() => setSheetOpen(false)}
-                  >
-                    <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
-                    <span className="more-sheet__row-label">{item.label}</span>
-                  </a>
-                ) : (
-                  <NavLink
+              {section.items.map((item) => {
+                const isActive = location.pathname === item.to || location.pathname.startsWith(item.to + '/');
+                return (
+                  <VariedFeatureCard
                     key={item.to + item.label}
-                    to={item.to}
-                    replace={true}
-                    className={({isActive}) => `more-sheet__row${isActive ? ' active' : ''}`}
+                    title={item.label}
+                    subtitle={item.desc}
+                    icon={item.icon}
+                    to={item.isExternal ? undefined : item.to}
+                    href={item.isExternal ? item.to : undefined}
+                    isExternal={item.isExternal}
+                    colorVariant={item.color || 'blue'}
+                    active={isActive}
                     onClick={() => setSheetOpen(false)}
-                  >
-                    <FeatureIcon icon={item.icon} colorMode={item.color} className="sm" />
-                    <span className="more-sheet__row-label">{item.label}</span>
-                  </NavLink>
-                )
-              ))}
+                    layoutVariant="list-row"
+                  />
+                );
+              })}
             </div>
           </div>
         ))}

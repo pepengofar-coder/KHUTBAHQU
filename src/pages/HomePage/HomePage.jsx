@@ -9,7 +9,8 @@ import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
-import { BookOpen, Compass, Sunrise, Sunset, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare } from 'lucide-react';
+import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
+import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info } from 'lucide-react';
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard
@@ -298,24 +299,90 @@ export default function HomePage() {
 
       {/* Quick Actions */}
       <section className="dash-actions container">
-        <div className="dash-actions__grid">
-          {[
-            { to: '/mushaf', icon: BookOpen, color: 'blue', label: 'Mushaf' },
-            { to: '/kiblat', icon: Compass, color: 'indigo', label: 'Kiblat' },
-            { to: '/doa-dzikir', icon: Sunrise, color: 'rose', label: 'Doa Pagi' },
-            { to: '/doa-dzikir', icon: Sunset, color: 'orange', label: 'Doa Petang' },
-            { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih' },
-            { to: '/khutbah', icon: Mic, color: 'green', label: 'Khutbah' },
-            { to: '/tilawah', icon: Headphones, color: 'amber', label: 'Tilawah' },
-            { to: '/kalender-hijriah', icon: CalendarDays, color: 'blue', label: 'Kalender' },
-            { to: '/sholat', icon: Clock, color: 'rose', label: 'Sholat' },
-            { to: '/tracker', icon: CheckSquare, color: 'lime', label: 'Tracker' },
-          ].map((a, i) => (
-            <Link key={i} to={a.to} className="dash-action">
-              <FeatureIcon icon={a.icon} colorMode={a.color} />
-              <span className="dash-action__label">{a.label}</span>
-            </Link>
-          ))}
+        <h2 className="dash-section-title dash-actions__title">📖 Menu Utama</h2>
+        <div className="dash-actions__grid-main">
+          <VariedFeatureCard
+            to="/mushaf"
+            icon={BookOpen}
+            colorVariant="blue"
+            title="Mushaf"
+            subtitle="Baca Al-Qur’an"
+            layoutVariant="grid-card"
+          />
+          <VariedFeatureCard
+            to="/sholat"
+            icon={Clock}
+            colorVariant="cyan"
+            title="Sholat"
+            subtitle="Jadwal & pengingat"
+            layoutVariant="grid-card"
+          />
+          <VariedFeatureCard
+            to="/tilawah"
+            icon={Headphones}
+            colorVariant="blue"
+            title="Tilawah"
+            subtitle="Dengarkan Qur’an"
+            layoutVariant="grid-card"
+          />
+          <VariedFeatureCard
+            to="/doa-dzikir"
+            icon={Sparkles}
+            colorVariant="mint"
+            title="Doa & Dzikir"
+            subtitle="Pagi, petang, harian"
+            layoutVariant="grid-card"
+          />
+          <VariedFeatureCard
+            to="/kalender-hijriah"
+            icon={CalendarDays}
+            colorVariant="lavender"
+            title="Kalender"
+            subtitle="Hijriah & hari besar"
+            layoutVariant="grid-card"
+          />
+          <VariedFeatureCard
+            to="/kiblat"
+            icon={Compass}
+            colorVariant="gold"
+            title="Kiblat"
+            subtitle="Arah sholat"
+            layoutVariant="grid-card"
+          />
+          <VariedFeatureCard
+            to="/tracker"
+            icon={CheckSquare}
+            colorVariant="lime"
+            title="Tracker"
+            subtitle="Pantau ibadah"
+            layoutVariant="grid-card"
+          />
+          <VariedFeatureCard
+            to="/khutbah"
+            icon={Mic}
+            colorVariant="cream"
+            title="Khutbah"
+            subtitle="Materi pilihan"
+            layoutVariant="grid-card"
+          />
+        </div>
+
+        {/* Secondary Features */}
+        <div className="dash-actions__secondary">
+          <h3 className="dash-actions__secondary-title">Fitur Lainnya</h3>
+          <div className="dash-actions__grid-secondary">
+            {[
+              { to: '/favorit', icon: Star, color: 'blue', label: 'Favorit' },
+              { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih' },
+              { to: '/pengaturan', icon: Settings, color: 'indigo', label: 'Pengaturan' },
+              { to: '/tentang', icon: Info, color: 'slate', label: 'Tentang' }
+            ].map((a, i) => (
+              <Link key={i} to={a.to} className="dash-action-secondary">
+                <FeatureIcon icon={a.icon} colorMode={a.color} className="sm" />
+                <span className="dash-action-secondary__label">{a.label}</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

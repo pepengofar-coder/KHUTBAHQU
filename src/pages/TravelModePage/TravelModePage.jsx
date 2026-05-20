@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { PLAYLISTS, getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
+import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
 import { 
   Car, Play, Pause, Clock, Heart, 
   Copy, Check, Volume2, X, ChevronRight,
@@ -242,29 +243,29 @@ export default function TravelModePage() {
       <section className="travel-playlists container">
         <h2 className="travel-section-title font-bold">Playlist Perjalanan</h2>
         <div className="playlists-grid">
-          {PLAYLISTS.map(p => (
-            <div 
-              key={p.id} 
-              className="playlist-card"
-              onClick={() => handleOpenPlaylist(p.id)}
-              style={{ background: p.gradient }}
-            >
-              <div className="playlist-icon">{p.icon}</div>
-              <div className="playlist-info">
-                <h3 className="playlist-title">{p.title}</h3>
-                <p className="playlist-subtitle">{p.subtitle}</p>
-              </div>
-              <div className="playlist-actions">
-                <button 
-                  className="playlist-action-btn playlist-play"
-                  onClick={(e) => { e.stopPropagation(); handlePlayAll(p.id); }}
-                  aria-label="Putar rekomendasi playlist"
-                >
-                  <Play size={18} fill="currentColor" />
-                </button>
-              </div>
-            </div>
-          ))}
+          {PLAYLISTS.map(p => {
+            const tracks = getPlaylistItems(p.id);
+            const countStr = `${tracks.length} Audio`;
+            const colorMap = {
+              'tenang-perjalanan': 'blue',
+              'tilawah-pilihan': 'cyan',
+              'murottal-juz-amma': 'emerald',
+              'dzikir-doa': 'rose',
+              'kajian-ringan': 'lavender',
+              'radio-quran-live': 'mint',
+            };
+            return (
+              <VariedFeatureCard
+                key={p.id}
+                title={p.title}
+                subtitle={`${countStr} • ${p.subtitle}`}
+                icon={p.icon}
+                colorVariant={colorMap[p.id] || 'blue'}
+                onClick={() => handleOpenPlaylist(p.id)}
+                layoutVariant="playlist-card"
+              />
+            );
+          })}
         </div>
       </section>
 

@@ -1,8 +1,20 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import { useSEO } from '../../utils/seo';
 import { DOA_CATEGORIES, DOA_DZIKIR_DATA } from '../../data/doaDzikir';
+import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
 import { Sun, Moon, BookOpen, RotateCcw, ChevronDown, ChevronUp, CheckCircle2, Circle, Eye, EyeOff } from 'lucide-react';
 import './DoaDzikirPage.css';
+
+const CATEGORY_COLORS = {
+  pagi: 'blue',
+  petang: 'lavender',
+  harian: 'mint',
+  tidur: 'cyan',
+  masjid: 'gold',
+  rezeki: 'lime',
+  ilmu: 'cream',
+  perlindungan: 'rose',
+};
 
 const MATSURAT_CATS = ['pagi', 'petang'];
 const STORAGE_PROGRESS = 'imk_dzikir_progress';
@@ -48,7 +60,7 @@ export default function DoaDzikirPage() {
 
   // Items for active category
   const items = useMemo(() => DOA_DZIKIR_DATA.filter(d => d.category === activeCat), [activeCat]);
-  const doneToday = completed[sessionKey] || {};
+  const doneToday = useMemo(() => completed[sessionKey] || {}, [completed, sessionKey]);
   const countsToday = counts[sessionKey] || {};
   const doneCount = Object.values(doneToday).filter(Boolean).length;
   const totalItems = items.length;
@@ -148,18 +160,23 @@ export default function DoaDzikirPage() {
   return (
     <div className="doa-page container">
 
-      {/* Category Chips */}
-      <div className="doa-cats">
-        {DOA_CATEGORIES.map(c => (
-          <button
-            key={c.id}
-            className={`doa-cats__btn${activeCat === c.id ? ' active' : ''}`}
-            onClick={() => setActiveCat(c.id)}
-          >
-            <span className="doa-cats__icon">{c.icon}</span>
-            <span className="doa-cats__label">{c.label}</span>
-          </button>
-        ))}
+      {/* Category Cards Grid */}
+      <div className="doa-cats-grid">
+        {DOA_CATEGORIES.map(c => {
+          const itemCount = DOA_DZIKIR_DATA.filter(d => d.category === c.id).length;
+          return (
+            <VariedFeatureCard
+              key={c.id}
+              title={c.label}
+              subtitle={`${itemCount} Bacaan`}
+              icon={c.icon}
+              colorVariant={CATEGORY_COLORS[c.id] || 'blue'}
+              active={activeCat === c.id}
+              onClick={() => setActiveCat(c.id)}
+              layoutVariant="grid-card"
+            />
+          );
+        })}
       </div>
 
       {/* Al-Ma'tsurat Summary Card */}
