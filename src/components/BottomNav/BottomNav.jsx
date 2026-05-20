@@ -49,7 +49,6 @@ export default function BottomNav() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const [debugTaps, setDebugTaps] = useState(0);
 
   const moreActive = ALL_MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
 
@@ -137,7 +136,6 @@ export default function BottomNav() {
   }, []);
 
   const handleMoreClick = (e) => {
-    setDebugTaps(prev => prev + 1);
     if (sheetOpen) {
       dismissSheet(e);
     } else {
@@ -195,30 +193,6 @@ export default function BottomNav() {
 
   return (
     <>
-      {/* Temporary Debug Display */}
-      <div style={{
-        position: 'fixed',
-        top: '100px',
-        left: '10px',
-        background: 'red',
-        color: 'white',
-        padding: '10px',
-        zIndex: 99999,
-        fontSize: '12px',
-        borderRadius: '8px',
-        pointerEvents: 'auto'
-      }}>
-        BOTTOM_NAV_PORTAL_FIX_ACTIVE<br/>
-        Taps: {debugTaps}<br/>
-        State: {sheetOpen ? 'OPEN' : 'CLOSED'}<br/>
-        <button 
-          style={{ marginTop: '10px', padding: '5px', background: 'white', color: 'black' }}
-          onClick={() => setSheetOpen(true)}
-        >
-          Open More Test
-        </button>
-      </div>
-
       <nav className="btm-nav" aria-label="Navigasi mobile">
         <div className="btm-nav__inner">
           {TABS.map(t => {

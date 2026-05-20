@@ -98,8 +98,6 @@ function AppLayout() {
       <GlobalMiniTilawahPlayer />
       <UpdateBanner />
       <AppDownloadPopup />
-      {/* DEBUG: APP_RENDERING_BOTTOM_NAV */}
-      <div style={{ position: 'fixed', top: '60px', left: '10px', background: 'blue', color: 'white', padding: '6px 10px', zIndex: 99998, fontSize: '11px', borderRadius: '6px', pointerEvents: 'none' }}>APP_RENDERING_BOTTOM_NAV</div>
       <BottomNav />
     </>
   );
