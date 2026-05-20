@@ -34,18 +34,9 @@ export function getLocalizedGreeting(locale = 'id') {
     
     const greetingObj = bilingualGreetings[selectedIndex];
 
-    // Seed based on the day of the year for the "Selamat datang kembali" logic occasionally
-    const dayOfYear = Math.floor(
-      (now - new Date(new Date().getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24)
-    );
-    const seed = new Date().getFullYear() * 1000 + dayOfYear;
+
 
     let text = locale === 'en' ? greetingObj.enText : greetingObj.idText;
-    
-    // Very occasionally (1 in 4 days) prepend Assalamu'alaikum for returning users
-    if (isReturning && seed % 4 === 0 && !text.includes("Assalamu'alaikum")) {
-      text = "Assalamu'alaikum, " + text.charAt(0).toLowerCase() + text.slice(1);
-    }
 
     return {
       text: text,

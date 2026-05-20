@@ -81,7 +81,7 @@ export const bilingualGreetings = [
   { id: "g_67", category: "Muhasabah", idText: "Perbaiki dirimu hari ini, agar esok lebih baik.", enText: "Improve yourself today, so tomorrow is better." },
   { id: "g_68", category: "Muhasabah", idText: "Setiap hembusan napas adalah kesempatan bertaubat.", enText: "Every breath is an opportunity to repent." },
   { id: "g_69", category: "Muhasabah", idText: "Jangan biarkan hari berlalu tanpa ada amal yang dicatat.", enText: "Do not let the day pass without a recorded good deed." },
-  { id: "g_70", category: "Muhasabah", idText: "Assalamu'alaikum, semoga harimu penuh keberkahan.", enText: "Assalamu'alaikum, may your day be filled with blessings." },
+  { id: "g_70", category: "Muhasabah", idText: "Semoga harimu penuh keberkahan dan kedamaian.", enText: "May your day be filled with blessings and peace." },
 
   // --- ILMU ---
   { id: "g_71", category: "Ilmu", idText: "Menuntut ilmu adalah jalan menuju surga.", enText: "Seeking knowledge is a path to paradise." },

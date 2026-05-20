@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
+import { App } from '@capacitor/app';
 
-const VERSION_KEY = 'imk_app_version';
+const VERSION_KEY = 'islamediaku_app_version';
 
 export function useAppVersion() {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -68,12 +69,20 @@ export function useAppVersion() {
     };
     document.addEventListener('visibilitychange', handleVisibility);
 
+    // Capacitor App State listener
+    const appStateListener = App.addListener('appStateChange', ({ isActive }) => {
+      if (isActive) {
+        checkVersion();
+      }
+    });
+
     // Check periodically (every 5 minutes)
     const interval = setInterval(checkVersion, 5 * 60 * 1000);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibility);
       clearInterval(interval);
+      appStateListener.then(listener => listener.remove()).catch(() => {});
     };
   }, [checkVersion]);
 

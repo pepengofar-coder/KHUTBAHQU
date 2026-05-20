@@ -1,5 +1,9 @@
 {
   "appId": "id.islamediaku.app",
   "appName": "Islamediaku",
-  "webDir": "dist"
+  "webDir": "dist",
+  "server": {
+    "url": "https://islamediaku.vercel.app",
+    "cleartext": true
+  }
 }

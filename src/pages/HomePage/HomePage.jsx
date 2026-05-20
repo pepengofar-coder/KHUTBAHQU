@@ -50,7 +50,7 @@ export default function HomePage() {
   const events = useMemo(() => getUpcomingEvents(now).slice(0, 3), [now]);
   const gregorian = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   
-  const [greeting, setGreeting] = useState({ text: "Assalamu'alaikum 👋", category: "" });
+  const [greeting, setGreeting] = useState({ text: "Selamat datang 👋", category: "" });
   const [greetingFade, setGreetingFade] = useState('fade-in');
   
   useEffect(() => {
@@ -256,6 +256,17 @@ export default function HomePage() {
               <span className="dash-hero__countdown">{countdown}</span>
             </div>
           )}
+
+          {/* Info Kajian Hero Card */}
+          <Link to="/mode-perjalanan" className="dash-hero__kajian-card">
+            <div className="dash-hero__kajian-card-content">
+              <span className="dash-hero__kajian-card-title">Info Kajian</span>
+              <span className="dash-hero__kajian-card-desc">Dengarkan kajian & murottal pilihan</span>
+            </div>
+            <div className="dash-hero__kajian-card-cta">
+              Lihat Kajian <ChevronRight size={14} />
+            </div>
+          </Link>
 
           {/* Daily Mission Component */}
           <div className="dash-hero__mission">
@@ -537,6 +548,33 @@ export default function HomePage() {
           <p className="home-about__subtitle">Sahabat ibadah harian untuk sholat, Al-Qur’an, dzikir, tilawah, dan kebiasaan baik.</p>
         </div>
 
+        {/* Kajian Info Slider */}
+        <div className="home-kajian-slider-wrapper">
+          <h3 className="home-kajian-slider-title">Kajian & Inspirasi</h3>
+          <div className="home-kajian-slider">
+            <Link to="/khutbah" className="kajian-slide-card">
+              <FeatureIcon icon={Mic} colorMode="blue" className="sm" />
+              <span className="kajian-slide-title">Kajian Terbaru</span>
+              <span className="kajian-slide-desc">Materi pilihan terupdate</span>
+            </Link>
+            <Link to="/mode-perjalanan" className="kajian-slide-card">
+              <FeatureIcon icon={Headphones} colorMode="cyan" className="sm" />
+              <span className="kajian-slide-title">Rekomendasi Kajian</span>
+              <span className="kajian-slide-desc">Dengarkan sambil safar</span>
+            </Link>
+            <Link to="/khutbah" className="kajian-slide-card">
+              <FeatureIcon icon={Sparkles} colorMode="gold" className="sm" />
+              <span className="kajian-slide-title">Pengingat Iman</span>
+              <span className="kajian-slide-desc">Renungan harian</span>
+            </Link>
+            <Link to="/khutbah" className="kajian-slide-card">
+              <FeatureIcon icon={BookOpen} colorMode="green" className="sm" />
+              <span className="kajian-slide-title">Kajian Ringan</span>
+              <span className="kajian-slide-desc">Tausiyah menyejukkan</span>
+            </Link>
+          </div>
+        </div>
+
         {/* Hero Card */}
         <div className="home-about__hero">
           <div className="home-about__hero-content">
@@ -563,23 +601,31 @@ export default function HomePage() {
         <div className="home-about__benefits">
           <div className="home-about__benefit">
             <FeatureIcon icon={BookOpen} colorMode="blue" />
-            <h3 className="home-about__benefit-title">Mushaf & Tilawah</h3>
-            <p className="home-about__benefit-desc">Baca Al-Qur'an dan dengarkan tilawah dengan nyaman.</p>
+            <div className="home-about__benefit-text">
+              <h3 className="home-about__benefit-title">Mushaf & Tilawah</h3>
+              <p className="home-about__benefit-desc">Baca Al-Qur'an dan dengarkan tilawah dengan nyaman.</p>
+            </div>
           </div>
           <div className="home-about__benefit">
             <FeatureIcon icon={CheckSquare} colorMode="lime" />
-            <h3 className="home-about__benefit-title">Ibadah Harian</h3>
-            <p className="home-about__benefit-desc">Jadwal sholat, dzikir, dan tracker kebiasaan baik.</p>
+            <div className="home-about__benefit-text">
+              <h3 className="home-about__benefit-title">Ibadah Harian</h3>
+              <p className="home-about__benefit-desc">Jadwal sholat, dzikir, dan tracker kebiasaan baik.</p>
+            </div>
           </div>
           <div className="home-about__benefit">
             <FeatureIcon icon={Compass} colorMode="cyan" />
-            <h3 className="home-about__benefit-title">Mode Perjalanan</h3>
-            <p className="home-about__benefit-desc">Doa safar, audio Islami, kiblat, dan pengingat sholat.</p>
+            <div className="home-about__benefit-text">
+              <h3 className="home-about__benefit-title">Mode Perjalanan</h3>
+              <p className="home-about__benefit-desc">Doa safar, audio Islami, kiblat, dan pengingat sholat.</p>
+            </div>
           </div>
           <div className="home-about__benefit">
             <FeatureIcon icon={Mic} colorMode="green" />
-            <h3 className="home-about__benefit-title">Konten Islami</h3>
-            <p className="home-about__benefit-desc">Khutbah, materi pilihan, dan pengingat iman harian.</p>
+            <div className="home-about__benefit-text">
+              <h3 className="home-about__benefit-title">Konten Islami</h3>
+              <p className="home-about__benefit-desc">Khutbah, materi pilihan, dan pengingat iman harian.</p>
+            </div>
           </div>
         </div>
 

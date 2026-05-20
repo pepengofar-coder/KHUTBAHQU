@@ -457,10 +457,134 @@
 /* Benefit Cards */
 .home-about__benefits{display:grid;grid-template-columns:1fr;gap:var(--sp-4)}
 @media(min-width:640px){.home-about__benefits{grid-template-columns:repeat(2,1fr)}}
-.home-about__benefit{background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);padding:var(--sp-6);transition:all .3s var(--ease-spring);position:relative;overflow:hidden}
-.home-about__benefit:hover{transform:translateY(-5px);border-color:var(--color-primary);box-shadow:var(--shadow-card-hover)}
-.home-about__benefit-title{font-size:var(--fs-base);font-weight:700;color:var(--color-text);margin-bottom:var(--sp-2);margin-top:var(--sp-3)}
+.home-about__benefit{display:flex;align-items:flex-start;gap:var(--sp-4);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);padding:var(--sp-4) var(--sp-5);transition:all .3s var(--ease-spring);position:relative;overflow:hidden}
+.home-about__benefit:hover{transform:translateY(-3px);border-color:var(--color-primary);box-shadow:var(--shadow-card-hover)}
+.home-about__benefit-title{font-size:var(--fs-base);font-weight:700;color:var(--color-text);margin-bottom:4px;margin-top:0}
 .home-about__benefit-desc{font-size:var(--fs-sm);color:var(--color-text-secondary);line-height:var(--lh-relaxed);margin:0}
+
+/* Info Kajian Hero Card */
+.dash-hero__kajian-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  padding: 12px 16px;
+  text-decoration: none;
+  width: 100%;
+  margin-top: var(--sp-2);
+  transition: all 0.25s var(--ease-spring);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 768px) {
+  .dash-hero__kajian-card {
+    position: absolute;
+    top: var(--sp-8);
+    right: 0;
+    width: auto;
+    min-width: 280px;
+    margin-top: 0;
+  }
+}
+.dash-hero__kajian-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.dash-hero__kajian-card:active {
+  transform: scale(0.98);
+}
+.dash-hero__kajian-card-content {
+  display: flex;
+  flex-direction: column;
+}
+.dash-hero__kajian-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.dash-hero__kajian-card-desc {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.85);
+}
+.dash-hero__kajian-card-cta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  background: var(--color-accent);
+  padding: 6px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* Kajian Slider */
+.home-kajian-slider-wrapper {
+  margin-bottom: var(--sp-8);
+}
+.home-kajian-slider-title {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--sp-4);
+  padding: 0 4px;
+}
+.home-kajian-slider {
+  display: flex;
+  gap: var(--sp-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--sp-4);
+  margin: 0 -var(--sp-4);
+  padding-left: var(--sp-4);
+  padding-right: var(--sp-4);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.home-kajian-slider::-webkit-scrollbar {
+  display: none;
+}
+.kajian-slide-card {
+  flex: 0 0 160px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4);
+  text-decoration: none;
+  transition: all 0.25s var(--ease-spring);
+}
+@media (min-width: 640px) {
+  .kajian-slide-card {
+    flex: 0 0 200px;
+  }
+}
+.kajian-slide-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+.kajian-slide-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-top: var(--sp-3);
+  margin-bottom: 4px;
+}
+.kajian-slide-desc {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
 
 /* Premium Desktop Layout Polish */
 @media(min-width: 1024px) {
