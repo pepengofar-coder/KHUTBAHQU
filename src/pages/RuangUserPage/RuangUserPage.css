@@ -1,4 +1,4 @@
-/* Ruang User — Premium Dashboard */
+/* Ruang User — Authenticated Dashboard */
 .ruang-user {
   padding-bottom: calc(var(--bottom-nav-h) + var(--sp-8));
   background-color: var(--color-bg);
@@ -27,7 +27,7 @@
   padding-top: var(--sp-2);
 }
 
-/* Profile Card */
+/* ── Profile Card ── */
 .ruang-user__profile {
   display: flex;
   align-items: center;
@@ -50,6 +50,7 @@
   background: radial-gradient(circle, rgba(198, 255, 0, 0.15) 0%, transparent 70%);
   pointer-events: none;
 }
+
 .ruang-user__avatar {
   width: 56px;
   height: 56px;
@@ -63,17 +64,40 @@
   justify-content: center;
   flex-shrink: 0;
 }
-.ruang-user__avatar-icon {
+.ruang-user__avatar-letter {
+  font-size: var(--fs-xl);
+  font-weight: 800;
   color: var(--color-accent);
 }
+
 .ruang-user__profile-info {
   flex: 1;
   min-width: 0;
+}
+.ruang-user__name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
 }
 .ruang-user__profile-name {
   font-size: var(--fs-lg);
   font-weight: 800;
   margin: 0 0 2px 0;
+}
+.ruang-user__name-edit {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+.ruang-user__name-edit:hover {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
 }
 .ruang-user__profile-email {
   font-size: var(--fs-xs);
@@ -85,37 +109,89 @@
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  background: rgba(198, 255, 0, 0.2);
-  color: var(--color-accent);
   padding: 2px 10px;
   border-radius: 12px;
   margin-top: 6px;
   letter-spacing: 0.5px;
 }
-.ruang-user__profile-actions {
-  flex-shrink: 0;
+.ruang-user__profile-badge.verified {
+  background: rgba(5, 150, 105, 0.25);
+  color: #6EE7B7;
 }
-.ruang-user__login-btn {
-  background: var(--color-accent);
-  color: var(--color-primary-dark);
-  border: none;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: var(--fs-sm);
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-block;
-}
-.ruang-user__login-btn:hover {
-  transform: scale(1.05);
-}
-.ruang-user__login-btn:active {
-  transform: scale(0.95);
+.ruang-user__profile-badge.unverified {
+  background: rgba(245, 158, 11, 0.25);
+  color: #FDE68A;
 }
 
-/* Section titles */
+/* Edit name inline */
+.ruang-user__edit-name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+}
+.ruang-user__edit-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.ruang-user__edit-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+.ruang-user__edit-actions {
+  display: flex;
+  gap: 4px;
+}
+.ruang-user__edit-btn {
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.ruang-user__edit-btn.save {
+  background: rgba(5, 150, 105, 0.4);
+  color: #6EE7B7;
+}
+.ruang-user__edit-btn.cancel {
+  background: rgba(239, 68, 68, 0.3);
+  color: #FCA5A5;
+}
+.ruang-user__edit-error {
+  width: 100%;
+  font-size: var(--fs-xs);
+  color: #FCA5A5;
+  margin: 2px 0 0;
+}
+
+/* Logout button */
+.ruang-user__logout-btn {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.ruang-user__logout-btn:hover {
+  background: rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #FCA5A5;
+}
+
+/* ── Section titles ── */
 .ruang-user__section-title {
   font-size: var(--fs-xs);
   font-weight: 700;
@@ -126,7 +202,7 @@
   margin-bottom: var(--sp-2);
 }
 
-/* Card group */
+/* ── Card group ── */
 .ruang-user__group {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border-light);
@@ -135,7 +211,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Activity items */
+/* ── Activity items ── */
 .ruang-user__item {
   display: flex;
   align-items: center;
@@ -189,7 +265,7 @@
   margin-left: 60px;
 }
 
-/* Stats grid */
+/* ── Stats grid ── */
 .ruang-user__stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -228,46 +304,135 @@
   font-weight: 600;
 }
 
-/* Placeholder cards */
-.ruang-user__placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: var(--sp-6) var(--sp-4);
+/* ── Sync Card ── */
+.ruang-user__sync-card {
   background: var(--color-bg-card);
-  border: 1px dashed var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-xl);
-  gap: var(--sp-2);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-sm);
 }
-.ruang-user__placeholder-icon {
-  color: var(--color-text-muted);
-  opacity: 0.4;
+.ruang-user__sync-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
 }
-.ruang-user__placeholder p {
-  font-size: var(--fs-sm);
-  color: var(--color-text-muted);
-  margin: 0;
+.ruang-user__sync-header strong {
+  font-size: var(--fs-base);
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 2px;
 }
-
-/* Footer */
-.ruang-user__footer {
-  text-align: center;
-  padding: var(--sp-6) 0 var(--sp-2);
-}
-.ruang-user__footer p {
+.ruang-user__sync-header p {
   font-size: var(--fs-xs);
   color: var(--color-text-muted);
-  margin: 2px 0;
+  margin: 0;
+  line-height: var(--lh-relaxed);
+}
+.ruang-user__sync-icon.synced {
+  color: #059669;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ruang-user__sync-icon.not-synced {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
-/* Dark mode adjustments */
+.ruang-user__sync-info {
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+  margin-bottom: var(--sp-4);
+  font-size: var(--fs-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-relaxed);
+}
+.ruang-user__sync-info p {
+  margin: 0 0 var(--sp-1) 0;
+}
+.ruang-user__sync-info ul {
+  margin: var(--sp-1) 0;
+  padding-left: var(--sp-4);
+}
+.ruang-user__sync-info li {
+  margin-bottom: 2px;
+}
+.ruang-user__sync-note {
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-top: var(--sp-2);
+}
+
+.ruang-user__sync-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ruang-user__sync-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.ruang-user__sync-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ruang-user__spin {
+  animation: ru-spin 1s linear infinite;
+}
+@keyframes ru-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ruang-user__sync-result {
+  margin-top: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-align: center;
+}
+.ruang-user__sync-result.success {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+  border: 1px solid rgba(5, 150, 105, 0.2);
+}
+.ruang-user__sync-result.error {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+/* ── Dark mode ── */
 [data-theme="dark"] .ruang-user__group {
   border-color: rgba(255, 255, 255, 0.05);
 }
 [data-theme="dark"] .ruang-user__stat-card {
   border-color: rgba(255, 255, 255, 0.05);
 }
-[data-theme="dark"] .ruang-user__placeholder {
-  border-color: rgba(255, 255, 255, 0.08);
+[data-theme="dark"] .ruang-user__sync-card {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+[data-theme="dark"] .ruang-user__sync-result.success {
+  background: rgba(5, 150, 105, 0.15);
+  color: #6EE7B7;
+}
+[data-theme="dark"] .ruang-user__sync-result.error {
+  background: rgba(239, 68, 68, 0.12);
+  color: #FCA5A5;
 }

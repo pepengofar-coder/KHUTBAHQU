@@ -1,0 +1,50 @@
+.auth-callback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: var(--sp-6) var(--sp-4);
+}
+
+.auth-callback__card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--sp-10) var(--sp-8);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.auth-callback__card h2 {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--color-text);
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+.auth-callback__card p {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--sp-4);
+}
+.auth-callback__card .btn {
+  margin-top: var(--sp-2);
+}
+
+.auth-callback__spinner {
+  color: var(--color-primary);
+  animation: spin 1s linear infinite;
+}
+.auth-callback__success {
+  color: #059669;
+}
+.auth-callback__error {
+  color: #ef4444;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

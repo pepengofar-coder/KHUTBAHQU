@@ -4,6 +4,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
 import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
+import { useAuth } from '../../context/AuthContext';
 import './BottomNav.css';
 
 const TABS = [
@@ -50,12 +51,29 @@ export default function BottomNav() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const moreActive = ALL_MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
 
   // Compute dynamic MORE sections
   const sections = useMemo(() => {
-    const s = [...MORE_SECTIONS];
+    const s = MORE_SECTIONS.map((section, i) => {
+      if (i === 2) {
+        // Aplikasi section — dynamic Ruang User item
+        return {
+          ...section,
+          items: section.items.map(item => {
+            if (item.to === '/ruang-user') {
+              return user
+                ? item // logged in — keep as is
+                : { ...item, to: '/login', label: 'Masuk / Daftar', desc: 'Masuk atau buat akun baru' };
+            }
+            return item;
+          })
+        };
+      }
+      return section;
+    });
     const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
     if (apkUrl) {
       s[2] = {
@@ -67,7 +85,7 @@ export default function BottomNav() {
       };
     }
     return s;
-  }, []);
+  }, [user]);
 
   // Close sheet automatically when route changes
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import { useAdzanAlarm } from '../../hooks/useAdzanAlarm';
 import { useSEO } from '../../utils/seo';
 import { 
@@ -19,6 +20,7 @@ export default function SettingsPage() {
   });
 
   const { darkMode, toggleDark, appTheme, setAppTheme, fontSize, setFontSize, fontSizeOptions } = useApp();
+  const { user } = useAuth();
   
   const THEMES = [
     { id: 'default', name: 'Islamediaku', desc: 'Tema utama Islamediaku dengan biru royal dan aksen lime.', primary: '#0047FF', accent: '#C6FF00' },
@@ -284,13 +286,13 @@ export default function SettingsPage() {
         <section className="settings-section">
           <h2 className="settings-section__title">Tentang Aplikasi</h2>
           <div className="settings-group">
-            <Link to="/ruang-user" className="settings-item settings-item--btn">
+            <Link to={user ? '/ruang-user' : '/login'} className="settings-item settings-item--btn">
               <div className="settings-item__icon-wrap bg-blue-light">
                 <User size={20} className="text-primary" />
               </div>
               <div className="settings-item__content">
-                <strong>Ruang User</strong>
-                <p>Dashboard ibadah dan aktivitas</p>
+                <strong>{user ? 'Ruang User' : 'Masuk / Daftar'}</strong>
+                <p>{user ? 'Dashboard ibadah dan aktivitas' : 'Masuk atau buat akun baru'}</p>
               </div>
               <ChevronRight size={20} className="text-muted" />
             </Link>

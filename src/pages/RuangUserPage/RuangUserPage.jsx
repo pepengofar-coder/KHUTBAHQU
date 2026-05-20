@@ -1,10 +1,14 @@
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useMemo, useCallback } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
+import { syncAllData, getSyncStatus } from '../../lib/syncService';
 import {
   User, BookOpen, CheckSquare, Star, Headphones,
-  ChevronRight, Activity, Heart, LogIn
+  ChevronRight, Activity, Heart, LogOut, Edit3,
+  Check, X, RefreshCw, Cloud, CloudOff,
+  Palette, MapPin, Shield
 } from 'lucide-react';
 import './RuangUserPage.css';
 
@@ -16,8 +20,34 @@ export default function RuangUserPage() {
     robots: 'noindex, follow'
   });
 
-  const { user, loading: authLoading } = useAuth();
-  const isGuest = !user;
+  const { user, profile, logout, updateDisplayName, isEmailConfirmed } = useAuth();
+  const { appTheme } = useApp();
+  const navigate = useNavigate();
+
+  // Edit name state
+  const [editingName, setEditingName] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [nameLoading, setNameLoading] = useState(false);
+  const [nameError, setNameError] = useState(null);
+
+  // Sync state
+  const [syncing, setSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState(null);
+  const [syncStatus, setSyncStatus] = useState(null);
+  const [syncStatusLoaded, setSyncStatusLoaded] = useState(false);
+
+  // Display name from profile or auth metadata
+  const displayName = profile?.display_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Pengguna';
+
+  // Load sync status on mount
+  useState(() => {
+    if (user) {
+      getSyncStatus(user.id).then(s => {
+        setSyncStatus(s);
+        setSyncStatusLoaded(true);
+      });
+    }
+  });
 
   // Last Quran read from localStorage
   const lastQuranRead = useMemo(() => {
@@ -40,21 +70,16 @@ export default function RuangUserPage() {
     try {
       const trackerData = JSON.parse(localStorage.getItem('islamediaku_tracker_daily'));
       if (!trackerData) return { totalDays: 0, todayCompleted: 0 };
-
       const days = Object.keys(trackerData).length;
       const today = new Date();
       const todayKey = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
       const todayData = trackerData[todayKey];
-      const todayCompleted = todayData
-        ? Object.values(todayData).filter(v => v === true).length
-        : 0;
-
+      const todayCompleted = todayData ? Object.values(todayData).filter(v => v === true).length : 0;
       return { totalDays: days, todayCompleted };
     } catch { return { totalDays: 0, todayCompleted: 0 }; }
   }, []);
 
   // Mission progress
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const missionProgress = useMemo(() => {
     try {
       const stored = JSON.parse(localStorage.getItem('islamediaku_daily_mission_progress'));
@@ -83,6 +108,57 @@ export default function RuangUserPage() {
     } catch { return 0; }
   }, []);
 
+  // Prayer city
+  const prayerCity = useMemo(() => {
+    return localStorage.getItem('kq_prayer_city') || 'Jakarta';
+  }, []);
+
+  // Theme names
+  const THEME_NAMES = { default: 'Islamediaku', sakura: 'Sakura', cold: 'Cold', midnight: 'Midnight', sajadah: 'Sajadah' };
+
+  // Handlers
+  const handleLogout = useCallback(async () => {
+    await logout();
+    navigate('/');
+  }, [logout, navigate]);
+
+  const handleStartEdit = useCallback(() => {
+    setNewName(displayName);
+    setEditingName(true);
+    setNameError(null);
+  }, [displayName]);
+
+  const handleSaveName = useCallback(async () => {
+    if (!newName.trim()) return;
+    setNameLoading(true);
+    setNameError(null);
+    try {
+      await updateDisplayName(newName.trim());
+      setEditingName(false);
+    } catch (err) {
+      setNameError(err.message || 'Gagal memperbarui nama.');
+    } finally {
+      setNameLoading(false);
+    }
+  }, [newName, updateDisplayName]);
+
+  const handleSync = useCallback(async () => {
+    if (!user) return;
+    setSyncing(true);
+    setSyncResult(null);
+    try {
+      const result = await syncAllData(user.id);
+      setSyncResult(result);
+      // Refresh sync status
+      const s = await getSyncStatus(user.id);
+      setSyncStatus(s);
+    } catch {
+      setSyncResult({ success: false });
+    } finally {
+      setSyncing(false);
+    }
+  }, [user]);
+
   return (
     <div className="ruang-user">
       <header className="ruang-user__header">
@@ -94,43 +170,57 @@ export default function RuangUserPage() {
 
       <main className="container ruang-user__main">
 
-        {/* Profile Card */}
+        {/* A. Profile Card */}
         <div className="ruang-user__profile">
           <div className="ruang-user__avatar">
-            <User size={28} className="ruang-user__avatar-icon" />
+            <span className="ruang-user__avatar-letter">
+              {displayName.charAt(0).toUpperCase()}
+            </span>
           </div>
           <div className="ruang-user__profile-info">
-            {authLoading ? (
-              <p className="ruang-user__profile-name">Memuat...</p>
-            ) : isGuest ? (
-              <>
-                <p className="ruang-user__profile-name">Tamu</p>
-                <p className="ruang-user__profile-email">Belum masuk ke akun</p>
-                <span className="ruang-user__profile-badge">Mode Tamu</span>
-              </>
+            {editingName ? (
+              <div className="ruang-user__edit-name">
+                <input
+                  type="text"
+                  value={newName}
+                  onChange={e => setNewName(e.target.value)}
+                  className="ruang-user__edit-input"
+                  autoFocus
+                  maxLength={50}
+                />
+                <div className="ruang-user__edit-actions">
+                  <button onClick={handleSaveName} disabled={nameLoading} className="ruang-user__edit-btn save">
+                    <Check size={14} />
+                  </button>
+                  <button onClick={() => setEditingName(false)} className="ruang-user__edit-btn cancel">
+                    <X size={14} />
+                  </button>
+                </div>
+                {nameError && <p className="ruang-user__edit-error">{nameError}</p>}
+              </div>
             ) : (
               <>
-                <p className="ruang-user__profile-name">
-                  {user.user_metadata?.full_name || user.email?.split('@')[0] || 'Pengguna'}
-                </p>
-                <p className="ruang-user__profile-email">{user.email}</p>
-                <span className="ruang-user__profile-badge">Anggota</span>
+                <div className="ruang-user__name-row">
+                  <p className="ruang-user__profile-name">{displayName}</p>
+                  <button className="ruang-user__name-edit" onClick={handleStartEdit} title="Edit nama">
+                    <Edit3 size={13} />
+                  </button>
+                </div>
+                <p className="ruang-user__profile-email">{user?.email}</p>
+                <span className={`ruang-user__profile-badge ${isEmailConfirmed ? 'verified' : 'unverified'}`}>
+                  {isEmailConfirmed ? '✓ Terverifikasi' : '⏳ Belum Dikonfirmasi'}
+                </span>
               </>
             )}
           </div>
-          {isGuest && !authLoading && (
-            <div className="ruang-user__profile-actions">
-              <Link to="/login" className="ruang-user__login-btn">
-                <LogIn size={14} style={{ marginRight: 4, verticalAlign: 'middle' }} />
-                Masuk
-              </Link>
-            </div>
-          )}
+          <button className="ruang-user__logout-btn" onClick={handleLogout} title="Keluar">
+            <LogOut size={16} />
+          </button>
         </div>
 
-        {/* Statistik Singkat */}
+        {/* B. Statistik Ringkasan */}
         <section>
-          <h2 className="ruang-user__section-title">Ringkasan</h2>
+          <h2 className="ruang-user__section-title">Aktivitas Ibadah</h2>
           <div className="ruang-user__stats">
             <div className="ruang-user__stat-card">
               <span className="ruang-user__stat-num">{missionProgress.done}/{missionProgress.total}</span>
@@ -151,9 +241,9 @@ export default function RuangUserPage() {
           </div>
         </section>
 
-        {/* Aktivitas Terakhir */}
+        {/* C. Al-Qur'an */}
         <section>
-          <h2 className="ruang-user__section-title">Aktivitas Terakhir</h2>
+          <h2 className="ruang-user__section-title">Al-Qur'an</h2>
           <div className="ruang-user__group">
             {lastQuranRead ? (
               <Link to={`/mushaf/${lastQuranRead.surahId}#ayah-${lastQuranRead.ayahNumber}`} className="ruang-user__item">
@@ -161,7 +251,7 @@ export default function RuangUserPage() {
                   <BookOpen size={18} style={{ color: 'var(--color-primary)' }} />
                 </div>
                 <div className="ruang-user__item-content">
-                  <strong>Al-Qur'an Terakhir</strong>
+                  <strong>Terakhir Dibaca</strong>
                   <p>Surah {lastQuranRead.surahName || lastQuranRead.surahId} Ayat {lastQuranRead.ayahNumber}</p>
                 </div>
                 <ChevronRight size={18} className="ruang-user__item-right" />
@@ -177,9 +267,24 @@ export default function RuangUserPage() {
                 </div>
               </div>
             )}
-
             <div className="ruang-user__divider" />
+            <Link to="/mushaf" className="ruang-user__item">
+              <div className="ruang-user__item-icon" style={{ background: 'rgba(0,71,255,0.1)' }}>
+                <Star size={18} style={{ color: 'var(--color-primary)' }} />
+              </div>
+              <div className="ruang-user__item-content">
+                <strong>Bookmark Mushaf</strong>
+                <p>{bookmarkCount > 0 ? `${bookmarkCount} ayat ditandai` : 'Belum ada bookmark'}</p>
+              </div>
+              <ChevronRight size={18} className="ruang-user__item-right" />
+            </Link>
+          </div>
+        </section>
 
+        {/* D. Kajian & Mode Perjalanan */}
+        <section>
+          <h2 className="ruang-user__section-title">Kajian & Tilawah</h2>
+          <div className="ruang-user__group">
             {lastTilawah ? (
               <Link to="/tilawah" className="ruang-user__item">
                 <div className="ruang-user__item-icon" style={{ background: 'rgba(249,115,22,0.1)' }}>
@@ -202,9 +307,18 @@ export default function RuangUserPage() {
                 </div>
               </div>
             )}
-
             <div className="ruang-user__divider" />
-
+            <Link to="/favorit" className="ruang-user__item">
+              <div className="ruang-user__item-icon" style={{ background: 'rgba(245,158,11,0.1)' }}>
+                <Heart size={18} style={{ color: '#d97706' }} />
+              </div>
+              <div className="ruang-user__item-content">
+                <strong>Konten Favorit</strong>
+                <p>{favCount > 0 ? `${favCount} item tersimpan` : 'Belum ada favorit'}</p>
+              </div>
+              <ChevronRight size={18} className="ruang-user__item-right" />
+            </Link>
+            <div className="ruang-user__divider" />
             <Link to="/tracker" className="ruang-user__item">
               <div className="ruang-user__item-icon" style={{ background: 'rgba(132,204,22,0.1)' }}>
                 <CheckSquare size={18} style={{ color: '#65a30d' }} />
@@ -215,28 +329,96 @@ export default function RuangUserPage() {
               </div>
               <ChevronRight size={18} className="ruang-user__item-right" />
             </Link>
-
-            <div className="ruang-user__divider" />
-
-            <Link to="/favorit" className="ruang-user__item">
-              <div className="ruang-user__item-icon" style={{ background: 'rgba(245,158,11,0.1)' }}>
-                <Star size={18} style={{ color: '#d97706' }} />
-              </div>
-              <div className="ruang-user__item-content">
-                <strong>Konten Favorit</strong>
-                <p>{favCount > 0 ? `${favCount} item tersimpan` : 'Belum ada favorit'}</p>
-              </div>
-              <ChevronRight size={18} className="ruang-user__item-right" />
-            </Link>
           </div>
         </section>
 
-        {/* Kajian Favorit — placeholder for future */}
+        {/* E. Preferensi */}
         <section>
-          <h2 className="ruang-user__section-title">Kajian Favorit</h2>
-          <div className="ruang-user__placeholder">
-            <Heart size={28} className="ruang-user__placeholder-icon" />
-            <p>Fitur kajian favorit akan segera hadir. Nantikan pembaruan berikutnya!</p>
+          <h2 className="ruang-user__section-title">Preferensi</h2>
+          <div className="ruang-user__group">
+            <div className="ruang-user__item">
+              <div className="ruang-user__item-icon" style={{ background: 'rgba(99,102,241,0.1)' }}>
+                <Palette size={18} style={{ color: '#6366f1' }} />
+              </div>
+              <div className="ruang-user__item-content">
+                <strong>Tema Aktif</strong>
+                <p>{THEME_NAMES[appTheme] || 'Islamediaku'}</p>
+              </div>
+            </div>
+            <div className="ruang-user__divider" />
+            <div className="ruang-user__item">
+              <div className="ruang-user__item-icon" style={{ background: 'rgba(132,204,22,0.1)' }}>
+                <MapPin size={18} style={{ color: '#65a30d' }} />
+              </div>
+              <div className="ruang-user__item-content">
+                <strong>Lokasi Sholat</strong>
+                <p>{prayerCity}</p>
+              </div>
+            </div>
+            <div className="ruang-user__divider" />
+            <div className="ruang-user__item">
+              <div className="ruang-user__item-icon" style={{ background: 'rgba(0,71,255,0.1)' }}>
+                <Shield size={18} style={{ color: 'var(--color-primary)' }} />
+              </div>
+              <div className="ruang-user__item-content">
+                <strong>Status Akun</strong>
+                <p>{isEmailConfirmed ? 'Email terverifikasi' : 'Menunggu konfirmasi email'}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* F. Data Sync Status */}
+        <section>
+          <h2 className="ruang-user__section-title">Sinkronisasi Data</h2>
+          <div className="ruang-user__sync-card">
+            <div className="ruang-user__sync-header">
+              {syncStatusLoaded && syncStatus?.synced ? (
+                <>
+                  <Cloud size={20} className="ruang-user__sync-icon synced" />
+                  <div>
+                    <strong>Data Tersinkronisasi</strong>
+                    <p>Terakhir: {syncStatus.lastSync?.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <CloudOff size={20} className="ruang-user__sync-icon not-synced" />
+                  <div>
+                    <strong>Data Lokal</strong>
+                    <p>Data disimpan di perangkat ini. Sinkronkan untuk menyimpan ke cloud.</p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="ruang-user__sync-info">
+              <p>Sinkronisasi mencakup:</p>
+              <ul>
+                <li>Tema & preferensi</li>
+                <li>Riwayat bacaan Al-Qur'an</li>
+                <li>Bookmark Mushaf</li>
+                <li>Ringkasan tracker ibadah</li>
+              </ul>
+              <p className="ruang-user__sync-note">Data lokal tidak akan dihapus.</p>
+            </div>
+
+            <button
+              className={`ruang-user__sync-btn ${syncing ? 'syncing' : ''}`}
+              onClick={handleSync}
+              disabled={syncing}
+            >
+              <RefreshCw size={16} className={syncing ? 'ruang-user__spin' : ''} />
+              {syncing ? 'Menyinkronkan...' : 'Sinkronkan Data Lokal'}
+            </button>
+
+            {syncResult && (
+              <div className={`ruang-user__sync-result ${syncResult.success ? 'success' : 'error'}`}>
+                {syncResult.success
+                  ? '✓ Data berhasil disinkronkan ke cloud.'
+                  : '✕ Gagal menyinkronkan sebagian data. Coba lagi nanti.'}
+              </div>
+            )}
           </div>
         </section>
 
@@ -254,28 +436,19 @@ export default function RuangUserPage() {
               </div>
               <ChevronRight size={18} className="ruang-user__item-right" />
             </Link>
-            {!isGuest && (
-              <>
-                <div className="ruang-user__divider" />
-                <Link to="/account" className="ruang-user__item">
-                  <div className="ruang-user__item-icon" style={{ background: 'rgba(0,71,255,0.1)' }}>
-                    <User size={18} style={{ color: 'var(--color-primary)' }} />
-                  </div>
-                  <div className="ruang-user__item-content">
-                    <strong>Kelola Akun</strong>
-                    <p>Ubah profil dan keamanan</p>
-                  </div>
-                  <ChevronRight size={18} className="ruang-user__item-right" />
-                </Link>
-              </>
-            )}
+            <div className="ruang-user__divider" />
+            <Link to="/account" className="ruang-user__item">
+              <div className="ruang-user__item-icon" style={{ background: 'rgba(0,71,255,0.1)' }}>
+                <User size={18} style={{ color: 'var(--color-primary)' }} />
+              </div>
+              <div className="ruang-user__item-content">
+                <strong>Kelola Akun</strong>
+                <p>Ubah profil dan keamanan</p>
+              </div>
+              <ChevronRight size={18} className="ruang-user__item-right" />
+            </Link>
           </div>
         </section>
-
-        <div className="ruang-user__footer">
-          <p>Data lokal disimpan di perangkat ini.</p>
-          <p>Sinkronisasi cloud akan hadir segera.</p>
-        </div>
 
       </main>
     </div>
