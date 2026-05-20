@@ -534,18 +534,29 @@ export default function HomePage() {
       <section className="home-about container">
         <div className="home-about__header">
           <h2 className="home-about__title">Tentang Islamediaku</h2>
-          <p className="home-about__subtitle">Aplikasi sahabat ibadah harianmu, dirancang untuk kenyamanan tanpa gangguan.</p>
+          <p className="home-about__subtitle">Sahabat ibadah harian untuk sholat, Al-Qur’an, dzikir, tilawah, dan kebiasaan baik.</p>
         </div>
 
-        {/* Highlight Card */}
-        <div className="home-about__highlight">
-          <div className="home-about__highlight-content">
-            <p><strong>Islamediaku</strong> memberikan pengalaman membaca Al-Qur'an, dzikir, dan khutbah dengan antarmuka yang bersih, premium, dan bebas dari fitur berbayar. Mulai tingkatkan kualitas ibadahmu sekarang.</p>
+        {/* Hero Card */}
+        <div className="home-about__hero">
+          <div className="home-about__hero-content">
+            <h3 className="home-about__hero-title">Teman Ibadah Harianmu</h3>
+            <p className="home-about__hero-desc">Islamediaku membantu kamu menjaga rutinitas ibadah dengan fitur yang ringan, rapi, dan mudah digunakan setiap hari.</p>
             <div className="home-about__cta">
               <Link to="/mushaf" className="btn btn--primary">Mulai Jelajahi</Link>
             </div>
           </div>
-          <div className="home-about__glow"></div>
+          <div className="home-about__hero-visual">
+            <div className="hero-visual-pattern"></div>
+            <div className="hero-chips">
+              <span className="hero-chip">Sholat</span>
+              <span className="hero-chip">Mushaf</span>
+              <span className="hero-chip">Dzikir</span>
+              <span className="hero-chip">Tilawah</span>
+              <span className="hero-chip">Tracker</span>
+            </div>
+            <div className="home-about__glow"></div>
+          </div>
         </div>
 
         {/* Benefit Cards */}
@@ -553,22 +564,22 @@ export default function HomePage() {
           <div className="home-about__benefit">
             <FeatureIcon icon={BookOpen} colorMode="blue" />
             <h3 className="home-about__benefit-title">Mushaf & Tilawah</h3>
-            <p className="home-about__benefit-desc">Baca Al-Qur'an dan dengarkan tilawah kapan saja dengan mudah.</p>
+            <p className="home-about__benefit-desc">Baca Al-Qur'an dan dengarkan tilawah dengan nyaman.</p>
           </div>
           <div className="home-about__benefit">
             <FeatureIcon icon={CheckSquare} colorMode="lime" />
             <h3 className="home-about__benefit-title">Ibadah Harian</h3>
-            <p className="home-about__benefit-desc">Panduan sholat, dzikir harian, dan tracker amal sholeh.</p>
+            <p className="home-about__benefit-desc">Jadwal sholat, dzikir, dan tracker kebiasaan baik.</p>
+          </div>
+          <div className="home-about__benefit">
+            <FeatureIcon icon={Compass} colorMode="cyan" />
+            <h3 className="home-about__benefit-title">Mode Perjalanan</h3>
+            <p className="home-about__benefit-desc">Doa safar, audio Islami, kiblat, dan pengingat sholat.</p>
           </div>
           <div className="home-about__benefit">
             <FeatureIcon icon={Mic} colorMode="green" />
-            <h3 className="home-about__benefit-title">Khutbah & Materi</h3>
-            <p className="home-about__benefit-desc">Kumpulan teks khutbah Jumat dan kultum terbaru setiap bulan.</p>
-          </div>
-          <div className="home-about__benefit">
-            <FeatureIcon icon={Sparkles} colorMode="amber" />
-            <h3 className="home-about__benefit-title">Tanpa Batas</h3>
-            <p className="home-about__benefit-desc">Semua fitur bisa digunakan sepenuhnya gratis, tanpa langganan Premium.</p>
+            <h3 className="home-about__benefit-title">Konten Islami</h3>
+            <p className="home-about__benefit-desc">Khutbah, materi pilihan, dan pengingat iman harian.</p>
           </div>
         </div>
 

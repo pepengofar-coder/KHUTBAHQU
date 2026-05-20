@@ -5,7 +5,7 @@
 
 .sholat-hero{display:flex;align-items:center;gap:var(--sp-4);padding:var(--sp-6);background:linear-gradient(135deg,#002B9A,#0047FF,#1D7CFF);border-radius:var(--radius-2xl);color:#fff;margin-bottom:var(--sp-6);position:relative;overflow:hidden}
 .sholat-hero::after{content:'';position:absolute;top:-30%;right:-10%;width:140px;height:140px;background:radial-gradient(circle,rgba(198,255,0,.12) 0%,transparent 70%);border-radius:50%}
-.sholat-hero__icon{font-size:36px;flex-shrink:0}
+.sholat-hero__icon{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:16px;background:rgba(198,255,0,.18);flex-shrink:0;color:var(--color-accent)}
 .sholat-hero__info{display:flex;flex-direction:column;flex:1;gap:2px}
 .sholat-hero__label{font-size:var(--fs-xs);opacity:.8;font-weight:500}
 .sholat-hero__name{font-size:var(--fs-xl);font-weight:800}
@@ -26,7 +26,30 @@
 .sholat-card--past{opacity:.45}
 .sholat-card--secondary{opacity:.65}
 .sholat-card__left{display:flex;align-items:center;gap:var(--sp-3)}
-.sholat-card__icon{font-size:24px}
+
+/* Glass squircle icon wrapper */
+.sholat-card__icon-wrapper{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;flex-shrink:0;transition:all .3s ease}
+.sholat-card__icon-svg{width:20px;height:20px}
+
+/* Per-prayer time-of-day colors */
+.sholat-card:nth-child(1) .sholat-card__icon-wrapper{background:rgba(99,102,241,.12);color:#6366f1}
+.sholat-card:nth-child(2) .sholat-card__icon-wrapper{background:rgba(14,165,233,.12);color:#0ea5e9}
+.sholat-card:nth-child(3) .sholat-card__icon-wrapper{background:rgba(234,179,8,.12);color:#ca8a04}
+.sholat-card:nth-child(4) .sholat-card__icon-wrapper{background:rgba(249,115,22,.12);color:#ea580c}
+.sholat-card:nth-child(5) .sholat-card__icon-wrapper{background:rgba(244,63,94,.12);color:#e11d48}
+.sholat-card:nth-child(6) .sholat-card__icon-wrapper{background:rgba(99,102,241,.12);color:#6366f1}
+
+/* Dark mode prayer icon overrides */
+[data-theme="dark"] .sholat-card:nth-child(1) .sholat-card__icon-wrapper{background:rgba(165,180,252,.15);color:#a5b4fc}
+[data-theme="dark"] .sholat-card:nth-child(2) .sholat-card__icon-wrapper{background:rgba(56,189,248,.15);color:#38bdf8}
+[data-theme="dark"] .sholat-card:nth-child(3) .sholat-card__icon-wrapper{background:rgba(250,204,21,.15);color:#facc15}
+[data-theme="dark"] .sholat-card:nth-child(4) .sholat-card__icon-wrapper{background:rgba(253,186,116,.15);color:#fdba74}
+[data-theme="dark"] .sholat-card:nth-child(5) .sholat-card__icon-wrapper{background:rgba(253,164,175,.15);color:#fda4af}
+[data-theme="dark"] .sholat-card:nth-child(6) .sholat-card__icon-wrapper{background:rgba(165,180,252,.15);color:#a5b4fc}
+
+/* Next prayer icon highlight */
+.sholat-card--next .sholat-card__icon-wrapper{background:var(--color-accent) !important;color:var(--color-primary-dark) !important;box-shadow:0 2px 8px rgba(198,255,0,.3)}
+
 .sholat-card__name{font-size:var(--fs-base);font-weight:700;color:var(--color-text);display:block}
 .sholat-card--next .sholat-card__name{color:#fff}
 .sholat-card__desc{font-size:var(--fs-xs);color:var(--color-text-muted)}

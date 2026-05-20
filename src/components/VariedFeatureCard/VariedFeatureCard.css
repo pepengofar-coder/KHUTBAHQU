@@ -133,6 +133,18 @@
   height: 104px;
   min-height: 104px;
 }
+@media(min-width: 768px) {
+  .varied-card--grid-card {
+    height: 120px;
+    min-height: 120px;
+  }
+}
+@media(min-width: 1024px) {
+  .varied-card--grid-card {
+    height: 136px;
+    min-height: 136px;
+  }
+}
 
 .varied-card--list-row {
   border-radius: 16px;

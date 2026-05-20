@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
@@ -48,6 +49,7 @@ export default function BottomNav() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const [debugTaps, setDebugTaps] = useState(0);
 
   const moreActive = ALL_MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
 
@@ -69,24 +71,39 @@ export default function BottomNav() {
 
   // Close sheet automatically when route changes
   useEffect(() => {
-    if (sheetOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSheetOpen(false);
-    }
-  }, [location.pathname, sheetOpen]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSheetOpen(false);
+  }, [location.pathname]);
 
-  const openSheet = useCallback(() => {
+  const lastOpenedRef = useRef(0);
+
+  const openSheet = useCallback((e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    lastOpenedRef.current = Date.now();
     setSheetOpen(true);
     window.history.pushState({ sheetOpen: true }, '');
   }, []);
 
   const dismissSheet = useCallback((e) => {
     if (e && e.stopPropagation) e.stopPropagation();
+    // Prevent immediate close from ghost click on touch devices
+    if (Date.now() - lastOpenedRef.current < 350) return;
     setSheetOpen(false);
     if (window.history.state?.sheetOpen) {
       window.history.back();
     }
   }, []);
+
+  // Safe body scroll lock when sheet is open
+  useEffect(() => {
+    if (sheetOpen) {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [sheetOpen]);
 
   // Capacitor hardware back button and browser popstate handling
   useEffect(() => {
@@ -119,46 +136,18 @@ export default function BottomNav() {
     };
   }, []);
 
-  return (
-    <>
-      <nav className="btm-nav" aria-label="Navigasi mobile">
-        <div className="btm-nav__inner">
-          {TABS.map(t => {
-            const IconComp = t.icon;
-            return (
-              <NavLink 
-                key={t.to} 
-                to={t.to} 
-                end={t.end} 
-                className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} 
-                onClick={(e) => {
-                  if (sheetOpen) {
-                    e.preventDefault();
-                    // Replace dummy state and navigate to prevent history junk
-                    navigate(t.to, { replace: true });
-                  }
-                }}
-              >
-                <span className="btm-nav__icon"><IconComp size={24} strokeWidth={2} /></span>
-                <span className="btm-nav__label">{t.label}</span>
-              </NavLink>
-            );
-          })}
-          <button
-            className={`btm-nav__item btm-nav__more-btn${moreActive || sheetOpen ? ' active' : ''}`}
-            onClick={sheetOpen ? dismissSheet : openSheet}
-            aria-label="Menu lainnya"
-          >
-            <span className="btm-nav__icon">
-              <MoreHorizontal size={24} strokeWidth={2} />
-            </span>
-            <span className="btm-nav__label">Lainnya</span>
-          </button>
-        </div>
-      </nav>
+  const handleMoreClick = (e) => {
+    setDebugTaps(prev => prev + 1);
+    if (sheetOpen) {
+      dismissSheet(e);
+    } else {
+      openSheet(e);
+    }
+  };
 
-      {/* More Sheet */}
-      {sheetOpen && <div className="more-sheet__backdrop" onClick={dismissSheet} />}
+  const moreSheetContent = (
+    <>
+      <div className={`more-sheet__backdrop${sheetOpen ? ' open' : ''}`} onClick={dismissSheet} />
       <div className={`more-sheet${sheetOpen ? ' open' : ''}`}>
         <div className="more-sheet__handle" onClick={dismissSheet}><span /></div>
         <h3 className="more-sheet__title">Menu Lainnya</h3>
@@ -183,10 +172,14 @@ export default function BottomNav() {
                     onClick={(e) => {
                       if (!item.isExternal) {
                         e.preventDefault();
+                        e.stopPropagation();
                         setSheetOpen(false);
                         navigate(item.to, { replace: true });
                       } else {
                         setSheetOpen(false);
+                        if (window.history.state?.sheetOpen) {
+                          window.history.back();
+                        }
                       }
                     }}
                     layoutVariant="list-row"
@@ -197,6 +190,75 @@ export default function BottomNav() {
           </div>
         ))}
       </div>
+    </>
+  );
+
+  return (
+    <>
+      {/* Temporary Debug Display */}
+      <div style={{
+        position: 'fixed',
+        top: '100px',
+        left: '10px',
+        background: 'red',
+        color: 'white',
+        padding: '10px',
+        zIndex: 99999,
+        fontSize: '12px',
+        borderRadius: '8px',
+        pointerEvents: 'auto'
+      }}>
+        BOTTOM_NAV_PORTAL_FIX_ACTIVE<br/>
+        Taps: {debugTaps}<br/>
+        State: {sheetOpen ? 'OPEN' : 'CLOSED'}<br/>
+        <button 
+          style={{ marginTop: '10px', padding: '5px', background: 'white', color: 'black' }}
+          onClick={() => setSheetOpen(true)}
+        >
+          Open More Test
+        </button>
+      </div>
+
+      <nav className="btm-nav" aria-label="Navigasi mobile">
+        <div className="btm-nav__inner">
+          {TABS.map(t => {
+            const IconComp = t.icon;
+            return (
+              <NavLink 
+                key={t.to} 
+                to={t.to} 
+                end={t.end} 
+                className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} 
+                onClick={(e) => {
+                  if (sheetOpen) {
+                    e.preventDefault();
+                    setSheetOpen(false);
+                    navigate(t.to, { replace: true });
+                  }
+                }}
+              >
+                <span className="btm-nav__icon"><IconComp size={24} strokeWidth={2} /></span>
+                <span className="btm-nav__label">{t.label}</span>
+              </NavLink>
+            );
+          })}
+          <button
+            type="button"
+            className={`btm-nav__item btm-nav__more-btn${moreActive || sheetOpen ? ' active' : ''}`}
+            onClick={handleMoreClick}
+            aria-label="Menu lainnya"
+            aria-expanded={sheetOpen}
+          >
+            <span className="btm-nav__icon">
+              <MoreHorizontal size={24} strokeWidth={2} />
+            </span>
+            <span className="btm-nav__label">Lainnya</span>
+          </button>
+        </div>
+      </nav>
+
+      {/* More Sheet rendered via Portal to escape any transformed ancestors */}
+      {createPortal(moreSheetContent, document.body)}
     </>
   );
 }
