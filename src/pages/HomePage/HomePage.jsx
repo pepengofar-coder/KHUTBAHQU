@@ -257,17 +257,6 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* Info Kajian Hero Card */}
-          <Link to="/mode-perjalanan" className="dash-hero__kajian-card">
-            <div className="dash-hero__kajian-card-content">
-              <span className="dash-hero__kajian-card-title">Info Kajian</span>
-              <span className="dash-hero__kajian-card-desc">Dengarkan kajian & murottal pilihan</span>
-            </div>
-            <div className="dash-hero__kajian-card-cta">
-              Lihat Kajian <ChevronRight size={14} />
-            </div>
-          </Link>
-
           {/* Daily Mission Component */}
           <div className="dash-hero__mission">
             <div className="dash-hero__mission-header">
