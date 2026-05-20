@@ -180,7 +180,15 @@ export default function BottomNav() {
                     isExternal={item.isExternal}
                     colorVariant={item.color || 'blue'}
                     active={isActive}
-                    onClick={() => setSheetOpen(false)}
+                    onClick={(e) => {
+                      if (!item.isExternal) {
+                        e.preventDefault();
+                        setSheetOpen(false);
+                        navigate(item.to, { replace: true });
+                      } else {
+                        setSheetOpen(false);
+                      }
+                    }}
                     layoutVariant="list-row"
                   />
                 );

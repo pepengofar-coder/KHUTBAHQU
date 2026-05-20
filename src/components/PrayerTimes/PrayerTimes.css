@@ -240,30 +240,54 @@
 }
 
 .prayer-times__item {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius-lg);
-  padding: var(--sp-3) var(--sp-2);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-4) var(--sp-2);
   text-align: center;
   transition: all var(--tr-base);
   position: relative;
+  overflow: hidden;
 }
 
 .prayer-times__item--next {
-  background: rgba(214, 168, 79, 0.25);
-  border-color: rgba(214, 168, 79, 0.6);
-  box-shadow: 0 0 20px rgba(214,168,79,0.2);
-  transform: translateY(-2px);
+  background: rgba(255,255,255,0.15);
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 24px rgba(198,255,0,0.25);
+  transform: translateY(-4px);
 }
 
 .prayer-times__item--past {
-  opacity: 0.45;
+  opacity: 0.5;
 }
 
-.prayer-times__prayer-icon {
-  display: block;
-  font-size: 1.4rem;
-  margin-bottom: var(--sp-1);
+.prayer-times__item-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  margin: 0 auto var(--sp-2) auto;
+  transition: all 0.3s ease;
+}
+
+/* Individual prayer icon wrapper backgrounds */
+.prayer-times__item:nth-child(1) .prayer-times__item-icon-wrapper { background: rgba(14, 165, 233, 0.15); color: #38bdf8; } /* Subuh */
+.prayer-times__item:nth-child(2) .prayer-times__item-icon-wrapper { background: rgba(234, 179, 8, 0.15); color: #facc15; } /* Dzuhur */
+.prayer-times__item:nth-child(3) .prayer-times__item-icon-wrapper { background: rgba(249, 115, 22, 0.15); color: #fdba74; } /* Ashar */
+.prayer-times__item:nth-child(4) .prayer-times__item-icon-wrapper { background: rgba(244, 63, 94, 0.15); color: #fda4af; } /* Maghrib */
+.prayer-times__item:nth-child(5) .prayer-times__item-icon-wrapper { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; } /* Isya */
+
+.prayer-times__item--next .prayer-times__item-icon-wrapper {
+  background: var(--color-accent) !important;
+  color: var(--color-primary-dark) !important;
+  box-shadow: 0 4px 12px rgba(198,255,0,0.3);
+}
+
+.prayer-times__item-icon {
+  width: 20px;
+  height: 20px;
 }
 
 .prayer-times__prayer-name {

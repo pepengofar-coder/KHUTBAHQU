@@ -10,13 +10,28 @@ import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
-import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info } from 'lucide-react';
+import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon } from 'lucide-react';
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard
 import { useState, useEffect, useRef } from 'react';
 
-const PRAYERS=[{key:'Fajr',label:'Subuh',icon:'🌙'},{key:'Dhuhr',label:'Dzuhur',icon:'☀️'},{key:'Asr',label:'Ashar',icon:'🌤️'},{key:'Maghrib',label:'Maghrib',icon:'🌇'},{key:'Isha',label:'Isya',icon:'🌃'}];
+const PRAYERS = [
+  { key: 'Fajr',    label: 'Subuh' },
+  { key: 'Dhuhr',   label: 'Dzuhur' },
+  { key: 'Asr',     label: 'Ashar' },
+  { key: 'Maghrib', label: 'Maghrib' },
+  { key: 'Isha',    label: 'Isya' },
+];
+
+const PRAYER_ICONS = {
+  Fajr: Sunrise,
+  Dhuhr: Sun,
+  Asr: CloudSun,
+  Maghrib: Sunset,
+  Isha: Moon
+};
+
 function parseTime(s){if(!s)return null;const[h,m]=s.split(':').map(Number);const d=new Date();d.setHours(h,m,0,0);return d}
 function fmt(s){return s?s.substring(0,5):'--:--'}
 function getNext(t){const now=new Date();for(const p of PRAYERS){const d=parseTime(t[p.key]);if(d&&d>now)return p.key}return PRAYERS[0].key}
@@ -314,7 +329,7 @@ export default function HomePage() {
             icon={Clock}
             colorVariant="cyan"
             title="Sholat"
-            subtitle="Jadwal & pengingat"
+            subtitle="Jadwal & Pengingat"
             layoutVariant="grid-card"
           />
           <VariedFeatureCard
@@ -330,7 +345,7 @@ export default function HomePage() {
             icon={Sparkles}
             colorVariant="mint"
             title="Doa & Dzikir"
-            subtitle="Pagi, petang, harian"
+            subtitle="Pagi, Petang, Harian"
             layoutVariant="grid-card"
           />
           <VariedFeatureCard
@@ -338,7 +353,7 @@ export default function HomePage() {
             icon={CalendarDays}
             colorVariant="lavender"
             title="Kalender"
-            subtitle="Hijriah & hari besar"
+            subtitle="Hijriah & Hari Besar"
             layoutVariant="grid-card"
           />
           <VariedFeatureCard
@@ -346,7 +361,7 @@ export default function HomePage() {
             icon={Compass}
             colorVariant="gold"
             title="Kiblat"
-            subtitle="Arah sholat"
+            subtitle="Arah Sholat"
             layoutVariant="grid-card"
           />
           <VariedFeatureCard
@@ -354,7 +369,7 @@ export default function HomePage() {
             icon={CheckSquare}
             colorVariant="lime"
             title="Tracker"
-            subtitle="Pantau ibadah"
+            subtitle="Pantau Ibadah"
             layoutVariant="grid-card"
           />
           <VariedFeatureCard
@@ -362,7 +377,7 @@ export default function HomePage() {
             icon={Mic}
             colorVariant="cream"
             title="Khutbah"
-            subtitle="Materi pilihan"
+            subtitle="Materi Pilihan"
             layoutVariant="grid-card"
           />
         </div>
@@ -459,9 +474,12 @@ export default function HomePage() {
           <div className="dash-prayer__grid">
             {PRAYERS.map(p => {
               const isNext = p.key === nextKey;
+              const IconComp = PRAYER_ICONS[p.key] || Sun;
               return (
                 <div key={p.key} className={`dash-prayer-card${isNext ? ' dash-prayer-card--next' : ''}`}>
-                  <span className="dash-prayer-card__icon">{p.icon}</span>
+                  <span className="dash-prayer-card__icon-wrapper">
+                    <IconComp size={16} className="dash-prayer-card__icon" />
+                  </span>
                   <span className="dash-prayer-card__name">{p.label}</span>
                   <span className="dash-prayer-card__time">{fmt(timings[p.key])}</span>
                 </div>

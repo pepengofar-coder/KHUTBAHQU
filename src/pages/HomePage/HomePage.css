@@ -265,7 +265,41 @@
 @media(max-width:420px){.dash-prayer__grid{grid-template-columns:repeat(3,1fr)}}
 .dash-prayer-card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-3);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring)}
 .dash-prayer-card--next{background:linear-gradient(135deg,#002B9A,#0047FF);border-color:transparent;color:#fff;box-shadow:0 4px 20px rgba(0,71,255,.18)}
-.dash-prayer-card__icon{font-size:18px}
+.dash-prayer-card__icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  margin-bottom: var(--sp-1);
+  transition: all 0.3s ease;
+}
+
+/* Individual mini prayer icon wrapper backgrounds */
+.dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(14, 165, 233, 0.12); color: #0284c7; }
+.dash-prayer-card:nth-child(2) .dash-prayer-card__icon-wrapper { background: rgba(234, 179, 8, 0.12); color: #ca8a04; }
+.dash-prayer-card:nth-child(3) .dash-prayer-card__icon-wrapper { background: rgba(249, 115, 22, 0.12); color: #ea580c; }
+.dash-prayer-card:nth-child(4) .dash-prayer-card__icon-wrapper { background: rgba(244, 63, 94, 0.12); color: #e11d48; }
+.dash-prayer-card:nth-child(5) .dash-prayer-card__icon-wrapper { background: rgba(99, 102, 241, 0.12); color: #4f46e5; }
+
+/* Dark mode overrides for high contrast */
+[data-theme="dark"] .dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+[data-theme="dark"] .dash-prayer-card:nth-child(2) .dash-prayer-card__icon-wrapper { background: rgba(250, 204, 21, 0.15); color: #facc15; }
+[data-theme="dark"] .dash-prayer-card:nth-child(3) .dash-prayer-card__icon-wrapper { background: rgba(253, 186, 116, 0.15); color: #fdba74; }
+[data-theme="dark"] .dash-prayer-card:nth-child(4) .dash-prayer-card__icon-wrapper { background: rgba(253, 164, 175, 0.15); color: #fda4af; }
+[data-theme="dark"] .dash-prayer-card:nth-child(5) .dash-prayer-card__icon-wrapper { background: rgba(165, 180, 252, 0.15); color: #a5b4fc; }
+
+.dash-prayer-card--next .dash-prayer-card__icon-wrapper {
+  background: var(--color-accent) !important;
+  color: var(--color-primary-dark) !important;
+  box-shadow: 0 2px 8px rgba(198,255,0,0.3);
+}
+
+.dash-prayer-card__icon {
+  width: 16px;
+  height: 16px;
+}
 .dash-prayer-card__name{font-size:10px;font-weight:600;color:var(--color-text-muted)}
 .dash-prayer-card--next .dash-prayer-card__name{color:rgba(255,255,255,.75)}
 .dash-prayer-card__time{font-size:var(--fs-sm);font-weight:700;color:var(--color-text);font-variant-numeric:tabular-nums}

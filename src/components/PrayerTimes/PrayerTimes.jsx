@@ -1,6 +1,15 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { Moon, Sun, CloudSun, Sunset, Sunrise, MapPin, Target, RefreshCw } from 'lucide-react';
 import './PrayerTimes.css';
+
+const PRAYER_ICONS = {
+  Fajr: Sunrise,
+  Dhuhr: Sun,
+  Asr: CloudSun,
+  Maghrib: Sunset,
+  Isha: Moon
+};
 
 const INDONESIAN_CITIES = [
   { name: 'Jakarta', lat: -6.2088, lon: 106.8456 },
@@ -30,11 +39,11 @@ const INDONESIAN_CITIES = [
 ];
 
 const PRAYERS = [
-  { key: 'Fajr',    label: 'Subuh',   icon: '🌙' },
-  { key: 'Dhuhr',   label: 'Dzuhur',  icon: '☀️' },
-  { key: 'Asr',     label: 'Ashar',   icon: '🌤️' },
-  { key: 'Maghrib', label: 'Maghrib', icon: '🌅' },
-  { key: 'Isha',    label: 'Isya',    icon: '🌃' },
+  { key: 'Fajr',    label: 'Subuh' },
+  { key: 'Dhuhr',   label: 'Dzuhur' },
+  { key: 'Asr',     label: 'Ashar' },
+  { key: 'Maghrib', label: 'Maghrib' },
+  { key: 'Isha',    label: 'Isya' },
 ];
 
 function parseTime(timeStr) {
@@ -205,7 +214,7 @@ export default function PrayerTimes() {
     <div className="prayer-times">
       <div className="prayer-times__header">
         <div className="prayer-times__title-area">
-          <h2 className="prayer-times__title">🕌 Jadwal Waktu Sholat</h2>
+          <h2 className="prayer-times__title"> JADWAL WAKTU SHOLAT</h2>
           <p className="prayer-times__date">{currentDate}</p>
           {hijriDate && <p className="prayer-times__hijri">{hijriDate}</p>}
         </div>
@@ -217,13 +226,15 @@ export default function PrayerTimes() {
         {locationMode === 'gps' ? (
           // GPS mode
           <>
-            <span className="prayer-times__city-label">📍 {gpsLabel}</span>
+            <span className="prayer-times__city-label">
+              <MapPin size={16} className="prayer-times__loc-icon" /> {gpsLabel}
+            </span>
             <span className="prayer-times__gps-badge">GPS</span>
             <button
               className="prayer-times__switch-btn"
               onClick={() => setLocationMode('manual')}
               title="Pilih kota manual"
-            >🔄 Pilih Kota</button>
+            >Pilih Kota</button>
           </>
         ) : locationMode === 'detecting' ? (
           // Detecting
@@ -237,7 +248,9 @@ export default function PrayerTimes() {
         ) : (
           // Manual / denied
           <>
-            <span className="prayer-times__city-label">📍 Kota:</span>
+            <span className="prayer-times__city-label">
+              <MapPin size={16} className="prayer-times__loc-icon" /> Kota:
+            </span>
             <select
               className="prayer-times__city-select"
               value={manualCity}
@@ -251,14 +264,18 @@ export default function PrayerTimes() {
               className="prayer-times__refresh"
               onClick={tryGPS}
               title="Coba gunakan lokasi GPS"
-            >📡</button>
+            >
+              <Target size={16} />
+            </button>
           </>
         )}
         <button
           className="prayer-times__refresh"
           onClick={() => locationMode === 'gps' ? fetchPrayerTimes(gpsCoords) : fetchPrayerTimes()}
           title="Refresh"
-        >🔄</button>
+        >
+          <RefreshCw size={14} />
+        </button>
       </div>
 
       {locationMode === 'denied' && (
@@ -280,27 +297,34 @@ export default function PrayerTimes() {
 
       {!loading && !error && timings && (
         <>
-          {nextPrayer && (
-            <div className="prayer-times__next">
-              <div className="prayer-times__next-label">Sholat berikutnya</div>
-              <div className="prayer-times__next-name">
-                {nextPrayer.icon} {nextPrayer.label} — {formatTime(timings[nextPrayer.key])}
+          {nextPrayer && (() => {
+            const NextIcon = PRAYER_ICONS[nextPrayer.key] || Sun;
+            return (
+              <div className="prayer-times__next">
+                <div className="prayer-times__next-label">Sholat berikutnya</div>
+                <div className="prayer-times__next-name">
+                  <NextIcon size={20} className="prayer-times__next-icon-spin" style={{ verticalAlign: 'middle', marginRight: '6px', color: 'var(--color-accent)' }} />
+                  {nextPrayer.label} — {formatTime(timings[nextPrayer.key])}
+                </div>
+                <div className="prayer-times__countdown">{countdown}</div>
               </div>
-              <div className="prayer-times__countdown">{countdown}</div>
-            </div>
-          )}
+            );
+          })()}
 
           <div className="prayer-times__grid">
             {PRAYERS.map(p => {
               const isNext = p.key === nextPrayerKey;
               const t = parseTime(timings[p.key]);
               const isPast = t && t < now && !isNext;
+              const IconComponent = PRAYER_ICONS[p.key] || Sun;
               return (
                 <div
                   key={p.key}
                   className={`prayer-times__item${isNext ? ' prayer-times__item--next' : ''}${isPast ? ' prayer-times__item--past' : ''}`}
                 >
-                  <span className="prayer-times__prayer-icon">{p.icon}</span>
+                  <div className="prayer-times__item-icon-wrapper">
+                    <IconComponent size={20} className="prayer-times__item-icon" />
+                  </div>
                   <span className="prayer-times__prayer-name">{p.label}</span>
                   <span className="prayer-times__prayer-time">{formatTime(timings[p.key])}</span>
                   {isNext && <span className="prayer-times__next-badge">Berikutnya</span>}

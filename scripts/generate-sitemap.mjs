@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 
-const SITE_URL = 'https://khutbahqu.vercel.app';
+const SITE_URL = 'https://islamediaku.vercel.app';
 const TODAY = new Date().toISOString().split('T')[0];
 
 // Extract slugs from data files by parsing export objects
