@@ -3,12 +3,12 @@
 @media(min-width:1024px){.home-page{padding-bottom:var(--sp-8)}}
 
 /* Hero Greeting — Royal Blue Gradient */
-.dash-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 40%,var(--color-primary-light) 100%);padding:var(--sp-8) 0 var(--sp-6);color:#fff;position:relative;overflow:hidden}
+.dash-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 40%,var(--color-primary-light) 100%);padding:var(--sp-5) 0 var(--sp-4);color:#fff;position:relative;overflow:hidden}
 .dash-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(198,255,0,.15) 0%,transparent 70%);pointer-events:none}
 .dash-hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:250px;height:250px;background:radial-gradient(circle,rgba(29,124,255,.3) 0%,transparent 70%);pointer-events:none}
 .dash-hero__inner{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap;position:relative;z-index:1}
-.dash-hero__salam{font-size:28px;font-weight:900;color:#fff;margin-bottom:var(--sp-2);text-shadow:0 4px 16px rgba(0,0,0,0.15);letter-spacing:-0.03em;line-height:1.2;display:block}
-@media (min-width: 768px) { .dash-hero__salam{font-size:36px} }
+.dash-hero__salam{font-size:20px;font-weight:800;color:#fff;margin-bottom:var(--sp-1);text-shadow:0 2px 12px rgba(0,0,0,0.12);letter-spacing:-0.02em;line-height:1.25;display:block;font-feature-settings:'ss01','cv01'}
+@media (min-width: 768px) { .dash-hero__salam{font-size:26px} }
 .dash-hero__date{font-size:var(--fs-sm);opacity:.85}
 .dash-hero__hijri{font-size:var(--fs-sm);opacity:.85;margin-top:2px}
 

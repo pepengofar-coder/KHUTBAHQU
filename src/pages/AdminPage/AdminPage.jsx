@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
 import { validateKhutbah, countWords, estimateReadingDuration, detectDuplicates } from '../../data/khutbahValidator';
 import { ALL_SOURCES, SUGGESTED_THEMES, STATUS_LABELS } from '../../data/khutbahSources';
+import { supabaseClient, isSupabaseConfigured } from '../../lib/supabaseClient';
 import './AdminPage.css';
 
 // ── Login Screen ─────────────────────────────────────────────
@@ -45,6 +46,213 @@ function LoginScreen() {
         </form>
         <p className="admin-login__back"><a href="/">← Kembali ke Islamediaku</a></p>
       </div>
+    </div>
+  );
+}
+
+// ── Kajian Banner Admin ──────────────────────────────────────
+function KajianBannerAdmin() {
+  const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [msg, setMsg] = useState('');
+  const [form, setForm] = useState({
+    title: '', description: '', target_url: '', is_active: true
+  });
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const configured = isSupabaseConfigured();
+
+  const fetchBanners = async () => {
+    if (!supabaseClient) return;
+    setLoading(true);
+    try {
+      const { data, error } = await supabaseClient
+        .from('kajian_banners')
+        .select('*')
+        .order('sort_order', { ascending: true })
+        .order('created_at', { ascending: false });
+      if (!error && data) setBanners(data);
+    } catch (err) {
+      console.warn('Failed to fetch banners:', err);
+    }
+    setLoading(false);
+  };
+
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { if (configured) fetchBanners(); }, [configured]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageFile(file);
+    const reader = new FileReader();
+    reader.onload = (ev) => setImagePreview(ev.target.result);
+    reader.readAsDataURL(file);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!supabaseClient) { setMsg('❌ Supabase belum dikonfigurasi.'); return; }
+    if (!form.title) { setMsg('❌ Judul wajib diisi.'); return; }
+
+    setUploading(true);
+    setMsg('');
+
+    try {
+      let image_url = '';
+
+      // Upload image if selected
+      if (imageFile) {
+        const ext = imageFile.name.split('.').pop();
+        const fileName = `banner_${Date.now()}.${ext}`;
+        const { data: uploadData, error: uploadError } = await supabaseClient.storage
+          .from('kajian-banners')
+          .upload(fileName, imageFile, { cacheControl: '3600', upsert: false });
+
+        if (uploadError) {
+          setMsg(`❌ Upload gagal: ${uploadError.message}`);
+          setUploading(false);
+          return;
+        }
+
+        const { data: urlData } = supabaseClient.storage
+          .from('kajian-banners')
+          .getPublicUrl(fileName);
+        image_url = urlData?.publicUrl || '';
+      }
+
+      // Insert to database
+      const { error: insertError } = await supabaseClient
+        .from('kajian_banners')
+        .insert({
+          title: form.title,
+          description: form.description,
+          image_url,
+          target_url: form.target_url || '/mode-perjalanan',
+          is_active: form.is_active,
+          sort_order: banners.length,
+        });
+
+      if (insertError) {
+        setMsg(`❌ Gagal menyimpan: ${insertError.message}`);
+      } else {
+        setMsg('✅ Banner kajian berhasil disimpan!');
+        setForm({ title: '', description: '', target_url: '', is_active: true });
+        setImageFile(null);
+        setImagePreview(null);
+        fetchBanners();
+      }
+    } catch (err) {
+      setMsg(`❌ Error: ${err.message}`);
+    }
+    setUploading(false);
+  };
+
+  const toggleActive = async (id, currentActive) => {
+    if (!supabaseClient) return;
+    const { error } = await supabaseClient
+      .from('kajian_banners')
+      .update({ is_active: !currentActive, updated_at: new Date().toISOString() })
+      .eq('id', id);
+    if (!error) fetchBanners();
+  };
+
+  const deleteBanner = async (id) => {
+    if (!supabaseClient) return;
+    if (!confirm('Hapus banner ini?')) return;
+    const { error } = await supabaseClient.from('kajian_banners').delete().eq('id', id);
+    if (!error) fetchBanners();
+  };
+
+  if (!configured) {
+    return (
+      <div className="admin__section">
+        <div className="admin__alert admin__alert--warning">
+          <strong>⚠️ Supabase belum dikonfigurasi.</strong>
+          <p>Fitur Kajian Banner memerlukan <code>VITE_SUPABASE_URL</code> dan <code>VITE_SUPABASE_ANON_KEY</code> di file <code>.env</code>.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin__section">
+      <div className="admin__alert admin__alert--warning" style={{ marginBottom: 16 }}>
+        <strong>⚠️ Admin protection should be added before public release.</strong>
+      </div>
+
+      <h3>🖼️ Upload Banner Kajian</h3>
+      {msg && <div className={`admin__alert ${msg.startsWith('✅') ? 'admin__alert--success' : 'admin__alert--warning'}`}>{msg}</div>}
+
+      <form onSubmit={handleSubmit} className="admin-add-form">
+        <div className="admin-add-form__row">
+          <div className="admin-add-form__group">
+            <label>Judul Banner *</label>
+            <input type="text" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} placeholder="Judul banner kajian..." required />
+          </div>
+          <div className="admin-add-form__group">
+            <label>Target URL</label>
+            <input type="text" value={form.target_url} onChange={e => setForm(p => ({ ...p, target_url: e.target.value }))} placeholder="/mode-perjalanan atau https://..." />
+          </div>
+        </div>
+        <div className="admin-add-form__group">
+          <label>Deskripsi</label>
+          <textarea value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} rows="2" placeholder="Deskripsi singkat banner..." />
+        </div>
+        <div className="admin-add-form__group">
+          <label>Upload Gambar</label>
+          <input type="file" accept="image/*" onChange={handleImageChange} className="admin-banner__file-input" />
+        </div>
+        {imagePreview && (
+          <div className="admin-banner__preview">
+            <img src={imagePreview} alt="Preview" />
+            <span>Preview Banner</span>
+          </div>
+        )}
+        <div className="admin-add-form__group">
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+            <input type="checkbox" checked={form.is_active} onChange={e => setForm(p => ({ ...p, is_active: e.target.checked }))} />
+            Aktifkan banner ini
+          </label>
+        </div>
+        <div className="admin-add-form__actions">
+          <button type="submit" className="btn btn--primary" disabled={uploading}>
+            {uploading ? '⏳ Mengupload...' : '✅ Simpan Banner'}
+          </button>
+        </div>
+      </form>
+
+      <h3 style={{ marginTop: 32 }}>📋 Daftar Banner</h3>
+      {loading ? (
+        <p>Memuat data banner...</p>
+      ) : banners.length === 0 ? (
+        <div className="admin__empty"><p>Belum ada banner kajian.</p></div>
+      ) : (
+        <div className="admin-banner__list">
+          {banners.map(b => (
+            <div key={b.id} className={`admin-banner__card ${b.is_active ? 'admin-banner__card--active' : ''}`}>
+              {b.image_url && (
+                <div className="admin-banner__card-img">
+                  <img src={b.image_url} alt={b.title} />
+                </div>
+              )}
+              <div className="admin-banner__card-body">
+                <strong>{b.title}</strong>
+                {b.description && <p>{b.description}</p>}
+                <small>URL: {b.target_url || '/mode-perjalanan'}</small>
+              </div>
+              <div className="admin-banner__card-actions">
+                <button className="btn btn--ghost btn--sm" onClick={() => toggleActive(b.id, b.is_active)}>
+                  {b.is_active ? '🟢 Aktif' : '⚪ Nonaktif'}
+                </button>
+                <button className="btn btn--ghost btn--sm" style={{ color: 'red' }} onClick={() => deleteBanner(b.id)}>🗑</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -276,6 +484,7 @@ export default function AdminPage() {
     { id: 'overview', label: '📊 Overview' },
     { id: 'submissions', label: `📥 Kiriman User${pendingSubmissions.length > 0 ? ` (${pendingSubmissions.length})` : ''}` },
     { id: 'content', label: '📝 Konten' },
+    { id: 'kajian-banners', label: '🖼️ Kajian Banner' },
     { id: 'payments', label: '💳 Pembayaran & Langganan' },
     { id: 'validation', label: '🔍 Validasi' },
     { id: 'sources', label: '📚 Sumber' },
@@ -318,6 +527,9 @@ export default function AdminPage() {
           <AddKhutbahForm categories={categories} onAdd={handleAddKhutbah} onCancel={() => setActiveTab('content')} />
         </div>
       )}
+
+      {/* Kajian Banner Tab */}
+      {activeTab === 'kajian-banners' && <KajianBannerAdmin />}
 
       {/* Submissions Tab */}
       {activeTab === 'submissions' && (

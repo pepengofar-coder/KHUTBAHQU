@@ -701,3 +701,85 @@
   color: var(--color-text-muted);
 }
 
+/* ── Kajian Banner Admin ── */
+.admin-banner__file-input {
+  padding: var(--sp-2);
+  font-size: var(--fs-sm);
+}
+.admin-banner__preview {
+  margin-bottom: var(--sp-4);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-bg-secondary);
+  text-align: center;
+}
+.admin-banner__preview img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.admin-banner__preview span {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  padding: var(--sp-2);
+}
+.admin-banner__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+.admin-banner__card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3);
+  transition: all 0.2s;
+}
+.admin-banner__card--active {
+  border-left: 4px solid #059669;
+}
+.admin-banner__card-img {
+  width: 80px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.admin-banner__card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.admin-banner__card-body {
+  flex: 1;
+  min-width: 0;
+}
+.admin-banner__card-body strong {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+.admin-banner__card-body p {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin: 2px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-banner__card-body small {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.admin-banner__card-actions {
+  display: flex;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+}

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car } from 'lucide-react';
+import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
 import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
 import './BottomNav.css';
@@ -34,6 +34,7 @@ const MORE_SECTIONS = [
   {
     title: 'Aplikasi',
     items: [
+      { to: '/ruang-user', label: 'Ruang User', icon: User, color: 'cyan', desc: 'Dashboard dan profil pengguna' },
       { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green', desc: 'Teks khutbah & kultum pilihan' },
       { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
       { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },

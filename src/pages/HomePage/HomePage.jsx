@@ -10,6 +10,7 @@ import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
+import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
 import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon } from 'lucide-react';
 import './HomePage.css';
 
@@ -537,32 +538,8 @@ export default function HomePage() {
           <p className="home-about__subtitle">Sahabat ibadah harian untuk sholat, Al-Qur’an, dzikir, tilawah, dan kebiasaan baik.</p>
         </div>
 
-        {/* Kajian Info Slider */}
-        <div className="home-kajian-slider-wrapper">
-          <h3 className="home-kajian-slider-title">Kajian & Inspirasi</h3>
-          <div className="home-kajian-slider">
-            <Link to="/khutbah" className="kajian-slide-card">
-              <FeatureIcon icon={Mic} colorMode="blue" className="sm" />
-              <span className="kajian-slide-title">Kajian Terbaru</span>
-              <span className="kajian-slide-desc">Materi pilihan terupdate</span>
-            </Link>
-            <Link to="/mode-perjalanan" className="kajian-slide-card">
-              <FeatureIcon icon={Headphones} colorMode="cyan" className="sm" />
-              <span className="kajian-slide-title">Rekomendasi Kajian</span>
-              <span className="kajian-slide-desc">Dengarkan sambil safar</span>
-            </Link>
-            <Link to="/khutbah" className="kajian-slide-card">
-              <FeatureIcon icon={Sparkles} colorMode="gold" className="sm" />
-              <span className="kajian-slide-title">Pengingat Iman</span>
-              <span className="kajian-slide-desc">Renungan harian</span>
-            </Link>
-            <Link to="/khutbah" className="kajian-slide-card">
-              <FeatureIcon icon={BookOpen} colorMode="green" className="sm" />
-              <span className="kajian-slide-title">Kajian Ringan</span>
-              <span className="kajian-slide-desc">Tausiyah menyejukkan</span>
-            </Link>
-          </div>
-        </div>
+        {/* Kajian Banner Card — fetched from Supabase */}
+        <KajianBannerCard />
 
         {/* Main Layout Area for About Section */}
         <div className="home-about__layout">

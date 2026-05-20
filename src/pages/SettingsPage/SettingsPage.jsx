@@ -6,7 +6,7 @@ import { useSEO } from '../../utils/seo';
 import { 
   Moon, MapPin, Type, BookOpen, Focus, 
   Trash2, Smartphone, Download, Info, ShieldAlert,
-  ChevronRight, Volume2, CheckCircle2
+  ChevronRight, Volume2, CheckCircle2, User
 } from 'lucide-react';
 import './SettingsPage.css';
 
@@ -284,6 +284,17 @@ export default function SettingsPage() {
         <section className="settings-section">
           <h2 className="settings-section__title">Tentang Aplikasi</h2>
           <div className="settings-group">
+            <Link to="/ruang-user" className="settings-item settings-item--btn">
+              <div className="settings-item__icon-wrap bg-blue-light">
+                <User size={20} className="text-primary" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Ruang User</strong>
+                <p>Dashboard ibadah dan aktivitas</p>
+              </div>
+              <ChevronRight size={20} className="text-muted" />
+            </Link>
+            <div className="settings-divider" />
             <Link to="/tentang" className="settings-item settings-item--btn">
               <div className="settings-item__icon-wrap bg-blue-light">
                 <Info size={20} className="text-primary" />
