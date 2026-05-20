@@ -41,12 +41,26 @@ VITE_SUPABASE_ANON_KEY=eyJ...your_anon_key_here
 
 ## 4. Supabase Auth Configuration
 
-In Supabase Dashboard → **Authentication → Settings**:
+In Supabase Dashboard → **Authentication → URL Configuration**:
+
+### Site URL
+```
+https://islamediaku.vercel.app
+```
+
+### Redirect URLs
+Add ALL of these:
+```
+https://islamediaku.vercel.app/auth/callback
+https://islamediaku.vercel.app/login
+https://islamediaku.vercel.app/ruang-user
+http://localhost:5173/auth/callback
+```
 
 ### Email Settings
+In **Authentication → Settings → Email**:
 - ✅ Enable email confirmations: **ON**
-- Site URL: `https://islamediaku.vercel.app`
-- Redirect URLs: Add `https://islamediaku.vercel.app/auth/callback`
+- ✅ Secure email change: **ON** (recommended)
 
 ### Email Templates (optional)
 Customize the confirmation email template in **Authentication → Email Templates → Confirm signup**

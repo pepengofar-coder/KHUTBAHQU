@@ -1,12 +1,13 @@
-import { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { useNavigate, useLocation, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useSEO } from '../../utils/seo';
-import { Mail, Lock, User as UserIcon, Eye, EyeOff, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Mail, Lock, User as UserIcon, Eye, EyeOff, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react';
 import './AuthPage.css';
 
 export default function AuthPage() {
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const isRegisterRoute = location.pathname === '/register';
 
   const [mode, setMode] = useState(isRegisterRoute ? 'register' : 'login');
@@ -24,6 +25,20 @@ export default function AuthPage() {
   const { login, register, resetPassword, isSupabaseReady } = useAuth();
   const navigate = useNavigate();
 
+  // URL-based status messages from /auth/callback redirect
+  const confirmed = searchParams.get('confirmed') === 'true';
+  const confirmationError = searchParams.get('confirmation_error') === 'true';
+
+  // Dismiss URL banner by clearing search params
+  const dismissUrlBanner = useMemo(() => {
+    return () => {
+      const url = new URL(window.location);
+      url.searchParams.delete('confirmed');
+      url.searchParams.delete('confirmation_error');
+      window.history.replaceState(null, '', url.pathname);
+    };
+  }, []);
+
   useSEO({
     title: mode === 'register' ? 'Daftar | Islamediaku'
          : mode === 'forgot' ? 'Lupa Kata Sandi | Islamediaku'
@@ -36,17 +51,18 @@ export default function AuthPage() {
     setMode(newMode);
     setError(null);
     setSuccessMessage(null);
+    dismissUrlBanner();
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    dismissUrlBanner();
     setLoading(true);
 
     try {
       const { error: authError } = await login(email, password);
       if (authError) {
-        // Map common Supabase error messages to Indonesian
         const msg = authError.message;
         if (msg.includes('Invalid login credentials')) {
           setError('Email atau kata sandi salah.');
@@ -70,7 +86,6 @@ export default function AuthPage() {
     e.preventDefault();
     setError(null);
 
-    // Validate
     if (!name.trim()) {
       setError('Nama lengkap wajib diisi.');
       return;
@@ -96,7 +111,6 @@ export default function AuthPage() {
         }
         return;
       }
-      // Success — show email confirmation message
       setSuccessMessage('register');
     } catch (err) {
       setError(err.message || 'Terjadi kesalahan saat mendaftar.');
@@ -127,7 +141,7 @@ export default function AuthPage() {
     }
   };
 
-  // Supabase not configured
+  // ── Supabase not configured ──
   if (!isSupabaseReady) {
     return (
       <div className="auth-page container">
@@ -137,20 +151,12 @@ export default function AuthPage() {
             <h2>Fitur Autentikasi</h2>
             <p>Fitur autentikasi belum tersedia. Hubungi administrator.</p>
           </div>
-          {/* Temporary debug — safe, no secrets exposed */}
-          <div className="auth-dev-warning" style={{ marginTop: 'var(--sp-4)' }}>
-            <strong>🔍 Debug Info:</strong>
-            <ul style={{ margin: '8px 0 0', padding: '0 0 0 16px', fontSize: '12px', lineHeight: '1.6' }}>
-              <li>VITE_SUPABASE_URL exists: <strong>{String(!!import.meta.env.VITE_SUPABASE_URL)}</strong></li>
-              <li>VITE_SUPABASE_ANON_KEY exists: <strong>{String(!!import.meta.env.VITE_SUPABASE_ANON_KEY)}</strong></li>
-              <li>Mode: <strong>{import.meta.env.MODE}</strong></li>
-              <li>Base URL: <strong>{import.meta.env.BASE_URL}</strong></li>
-            </ul>
-            <p style={{ marginTop: '8px', fontSize: '11px' }}>
-              Jika kedua env bernilai false, pastikan variabel sudah ditambahkan
-              di Vercel <strong>sebelum</strong> build terakhir, lalu <strong>redeploy</strong> (bukan hanya restart).
-            </p>
-          </div>
+          {import.meta.env.DEV && (
+            <div className="auth-dev-warning">
+              <strong>⚠️ Development:</strong> Supabase env belum dikonfigurasi.
+              Tambahkan <code>VITE_SUPABASE_URL</code> dan <code>VITE_SUPABASE_ANON_KEY</code> ke file <code>.env</code>
+            </div>
+          )}
           <div className="auth-footer">
             <Link to="/" className="auth-back-link">
               <ArrowLeft size={14} /> Kembali ke Beranda
@@ -161,16 +167,66 @@ export default function AuthPage() {
     );
   }
 
-  // Registration success
-  if (successMessage === 'register') {
+  // ── Email confirmed success (from /auth/callback redirect) ──
+  if (confirmed) {
     return (
       <div className="auth-page container">
         <div className="auth-card">
           <div className="auth-success">
             <CheckCircle2 size={48} className="auth-success-icon" />
+            <h2>Selamat, akun Anda berhasil dikonfirmasi!</h2>
+            <p>
+              Akun Anda sudah aktif. Selamat bergabung di Islamediaku, sahabat ibadah harian
+              untuk sholat, Al-Qur'an, dzikir, tilawah, dan kebiasaan baik.
+            </p>
+          </div>
+          <button
+            className="btn btn--primary auth-submit"
+            onClick={() => { dismissUrlBanner(); switchMode('login'); }}
+          >
+            Masuk ke Akun
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Email confirmation failed (from /auth/callback redirect) ──
+  if (confirmationError) {
+    return (
+      <div className="auth-page container">
+        <div className="auth-card">
+          <div className="auth-success">
+            <AlertCircle size={48} style={{ color: '#ef4444', marginBottom: 'var(--sp-4)' }} />
+            <h2>Konfirmasi Gagal</h2>
+            <p>
+              Konfirmasi email gagal atau link sudah kedaluwarsa.
+              Silakan daftar ulang atau minta link konfirmasi baru.
+            </p>
+          </div>
+          <div className="auth-footer" style={{ display: 'flex', gap: 'var(--sp-3)', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button className="btn btn--primary" onClick={() => { dismissUrlBanner(); switchMode('register'); }}>
+              Daftar Ulang
+            </button>
+            <button className="text-btn" onClick={() => { dismissUrlBanner(); switchMode('login'); }}>
+              Kembali ke Masuk
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Registration success — email pending ──
+  if (successMessage === 'register') {
+    return (
+      <div className="auth-page container">
+        <div className="auth-card">
+          <div className="auth-success">
+            <Mail size={48} className="auth-success-icon" />
             <h2>Pendaftaran Berhasil!</h2>
             <p>
-              Silakan cek email <strong>{email}</strong> untuk konfirmasi akun Anda.
+              Pendaftaran berhasil. Silakan cek email <strong>{email}</strong> untuk konfirmasi akun.
               Periksa juga folder spam jika tidak ditemukan di inbox.
             </p>
             <p className="auth-success-note">
@@ -187,7 +243,7 @@ export default function AuthPage() {
     );
   }
 
-  // Password reset email sent
+  // ── Password reset email sent ──
   if (successMessage === 'forgot') {
     return (
       <div className="auth-page container">
@@ -209,6 +265,7 @@ export default function AuthPage() {
     );
   }
 
+  // ── Main auth forms ──
   return (
     <div className="auth-page container">
       <div className="auth-card">
