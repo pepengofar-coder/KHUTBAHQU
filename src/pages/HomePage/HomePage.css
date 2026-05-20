@@ -103,6 +103,82 @@
 .dash-link{font-size:var(--fs-sm);font-weight:600;color:var(--color-primary);text-decoration:none;white-space:nowrap}
 .dash-link:hover{text-decoration:underline}
 
+/* Travel banner */
+.dash-travel-banner {
+  padding: 0 var(--sp-4) var(--sp-3);
+}
+.travel-banner-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: linear-gradient(135deg, rgba(0, 71, 255, 0.06), rgba(198, 255, 0, 0.05));
+  border: 1px solid rgba(0, 71, 255, 0.15);
+  border-radius: var(--radius-xl);
+  text-decoration: none;
+  transition: all 0.25s var(--ease-spring);
+}
+[data-theme="dark"] .travel-banner-card {
+  background: linear-gradient(135deg, rgba(0, 71, 255, 0.1), rgba(198, 255, 0, 0.03));
+  border-color: rgba(31, 42, 69, 0.8);
+}
+.travel-banner-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+.travel-banner-card:active {
+  transform: scale(0.98);
+}
+.travel-banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  font-size: 20px;
+}
+.travel-car-icon {
+  display: inline-block;
+}
+.travel-banner-text {
+  flex: 1;
+  min-width: 0;
+}
+.travel-banner-text strong {
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  display: block;
+  font-weight: 700;
+}
+.travel-banner-text p {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin: 4px 0 0 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.travel-banner-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-surface);
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.travel-banner-card:hover .travel-banner-action {
+  background: var(--color-primary);
+  color: #fff;
+}
+
 /* Resume cards */
 .dash-resume{padding:0 var(--sp-4) var(--sp-4)}
 .dash-resume__cards{display:flex;flex-direction:column;gap:var(--sp-2);margin-top:var(--sp-3)}

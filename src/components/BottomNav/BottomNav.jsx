@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, Radio, CheckSquare, Star, Upload, Info, Settings, MoreHorizontal, Download, Headphones } from 'lucide-react';
+import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, Radio, CheckSquare, Star, Upload, Info, Settings, MoreHorizontal, Download, Headphones, Car } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
 import FeatureIcon from '../FeatureIcon/FeatureIcon';
 import './BottomNav.css';
@@ -27,6 +27,7 @@ const MORE_SECTIONS = [
     items: [
       { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue' },
       { to: '/tilawah', label: 'Tilawah Live', icon: Headphones, color: 'orange' },
+      { to: '/mode-perjalanan', label: 'Mode Perjalanan', icon: Car, color: 'lime' },
     ],
   },
   {

@@ -37,6 +37,7 @@ const SettingsPage = lazy(() => import('./pages/SettingsPage/SettingsPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
 const AccountPage = lazy(() => import('./pages/AccountPage/AccountPage'));
 const TilawahPage = lazy(() => import('./pages/TilawahPage/TilawahPage'));
+const TravelModePage = lazy(() => import('./pages/TravelModePage/TravelModePage'));
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -57,6 +58,7 @@ function AnimatedRoutes() {
           <Route path="/khutbah/:slug" element={<DetailPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
           <Route path="/tilawah" element={<TilawahPage />} />
+          <Route path="/mode-perjalanan" element={<TravelModePage />} />
           <Route path="/favorit" element={<FavoritesPage />} />
           <Route path="/premium" element={<PremiumPage />} />
           <Route path="/pengaturan" element={<SettingsPage />} />

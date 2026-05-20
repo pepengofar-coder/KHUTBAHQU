@@ -319,6 +319,22 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Travel Mode Shortcut Banner */}
+      <section className="dash-travel-banner container">
+        <Link to="/mode-perjalanan" className="travel-banner-card">
+          <div className="travel-banner-icon">
+            <span className="travel-car-icon">🚗</span>
+          </div>
+          <div className="travel-banner-text">
+            <strong>Sedang perjalanan? Buka Mode Perjalanan</strong>
+            <p>Dengarkan murottal, kajian, dzikir, dan doa safar penenang safarmu.</p>
+          </div>
+          <div className="travel-banner-action">
+            Buka <ChevronRight size={16} />
+          </div>
+        </Link>
+      </section>
+
       {/* Last Read Resume */}
       <section className="dash-resume container">
         <h2 className="dash-section-title"><Bookmark size={20} style={{marginRight: 8, color: 'var(--color-primary)'}} /> Lanjut Baca</h2>
