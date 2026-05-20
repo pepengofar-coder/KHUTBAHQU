@@ -137,12 +137,20 @@ export default function AuthPage() {
             <h2>Fitur Autentikasi</h2>
             <p>Fitur autentikasi belum tersedia. Hubungi administrator.</p>
           </div>
-          {import.meta.env.DEV && (
-            <div className="auth-dev-warning">
-              <strong>⚠️ Development:</strong> Supabase env belum dikonfigurasi.
-              Tambahkan <code>VITE_SUPABASE_URL</code> dan <code>VITE_SUPABASE_ANON_KEY</code> ke file <code>.env</code>
-            </div>
-          )}
+          {/* Temporary debug — safe, no secrets exposed */}
+          <div className="auth-dev-warning" style={{ marginTop: 'var(--sp-4)' }}>
+            <strong>🔍 Debug Info:</strong>
+            <ul style={{ margin: '8px 0 0', padding: '0 0 0 16px', fontSize: '12px', lineHeight: '1.6' }}>
+              <li>VITE_SUPABASE_URL exists: <strong>{String(!!import.meta.env.VITE_SUPABASE_URL)}</strong></li>
+              <li>VITE_SUPABASE_ANON_KEY exists: <strong>{String(!!import.meta.env.VITE_SUPABASE_ANON_KEY)}</strong></li>
+              <li>Mode: <strong>{import.meta.env.MODE}</strong></li>
+              <li>Base URL: <strong>{import.meta.env.BASE_URL}</strong></li>
+            </ul>
+            <p style={{ marginTop: '8px', fontSize: '11px' }}>
+              Jika kedua env bernilai false, pastikan variabel sudah ditambahkan
+              di Vercel <strong>sebelum</strong> build terakhir, lalu <strong>redeploy</strong> (bukan hanya restart).
+            </p>
+          </div>
           <div className="auth-footer">
             <Link to="/" className="auth-back-link">
               <ArrowLeft size={14} /> Kembali ke Beranda
