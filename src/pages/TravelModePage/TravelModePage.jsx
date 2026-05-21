@@ -37,6 +37,7 @@ export default function TravelModePage() {
   const [youtubeModalOpen, setYoutubeModalOpen] = useState(false);
   const [activeYoutubeTrack, setActiveYoutubeTrack] = useState(null);
   const [kajianData, setKajianData] = useState([]);
+  const [mp3QuranRadios, setMp3QuranRadios] = useState([]);
 
   const [favorites, setFavorites] = useState(() => {
     try {
@@ -110,6 +111,37 @@ export default function TravelModePage() {
       }
     };
     fetchKajian();
+
+    // Fetch MP3Quran Radios
+    const fetchRadios = async () => {
+      try {
+        const res = await fetch('https://mp3quran.net/api/v3/radios?language=ind');
+        const data = await res.json();
+        if (data && data.radios) {
+          const formatted = data.radios.slice(0, 15).map(r => ({
+            id: `radio-mp3quran-${r.id}`,
+            type: 'radio',
+            title: r.name,
+            subtitle: 'Siaran Radio MP3Quran',
+            playlistIds: ['radio-dakwah'],
+            sourceName: 'MP3Quran.net API',
+            sourceUrl: 'https://mp3quran.net',
+            apiProvider: 'MP3Quran',
+            audioUrl: r.url,
+            isLive: true,
+            isVerified: true,
+            enabled: true,
+            attribution: 'Sumber: MP3Quran.net',
+            duration: null,
+            notes: 'Siaran streaming 24 jam.'
+          }));
+          setMp3QuranRadios(formatted);
+        }
+      } catch (err) {
+        console.error("Failed to fetch MP3Quran radios", err);
+      }
+    };
+    fetchRadios();
   }, []);
 
   // Check if item is favorited
@@ -180,9 +212,32 @@ export default function TravelModePage() {
     if (selectedPlaylistId === 'kajian-ringan' && kajianData.length > 0) {
       tracks = [...kajianData, ...tracks];
     }
+
+    // Inject MP3Quran Radios
+    if (selectedPlaylistId === 'radio-dakwah' && mp3QuranRadios.length > 0) {
+      tracks = [...tracks, ...mp3QuranRadios];
+    }
+    
+    // Daily deterministic sort for Tilawah Pilihan
+    if (selectedPlaylistId === 'tilawah-pilihan') {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const diff = now - start;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+      
+      tracks = [...tracks].sort((a, b) => {
+        const hashA = [...a.id].reduce((acc, char) => acc + char.charCodeAt(0), 0) + dayOfYear;
+        const hashB = [...b.id].reduce((acc, char) => acc + char.charCodeAt(0), 0) + dayOfYear;
+        // Deterministic pseudo-random sorting
+        const pseudoA = (Math.sin(hashA) * 10000) % 1;
+        const pseudoB = (Math.sin(hashB) * 10000) % 1;
+        return pseudoA - pseudoB;
+      });
+    }
     
     return tracks;
-  }, [selectedPlaylistId, kajianData]);
+  }, [selectedPlaylistId, kajianData, mp3QuranRadios]);
 
   // Doa Safar copy handler
   const handleCopyDoa = useCallback(() => {
@@ -240,7 +295,7 @@ export default function TravelModePage() {
               <button className="travel-chip" onClick={() => handleOpenPlaylist('tilawah-pilihan')}>Tilawah</button>
               <button className="travel-chip" onClick={() => handleOpenPlaylist('kajian-ringan')}>Kajian</button>
               <a href="#doa-safar-card" className="travel-chip">Doa Safar</a>
-              <button className="travel-chip" onClick={() => handleOpenPlaylist('radio-quran-live')}>Radio Qur'an</button>
+              <button className="travel-chip" onClick={() => handleOpenPlaylist('radio-dakwah')}>Radio Dakwah</button>
               <Link to="/sholat" className="travel-chip">Jadwal Sholat</Link>
             </div>
 
@@ -373,7 +428,7 @@ export default function TravelModePage() {
 
       {/* Interactive Active Player (Bottom Sticky bar if track is loaded) */}
       {activeRadio && !currentTrack?.route && (
-        <div className="travel-player-bar">
+        <div className="travel-player-bar expanded-hover">
           <div className="tpb-inner">
             <div className="tpb-track-info">
               <span className="tpb-badge">{activeRadio.isLive ? 'LIVE' : activeRadio.type?.toUpperCase() || 'TILAWAH'}</span>

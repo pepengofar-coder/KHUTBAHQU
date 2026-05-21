@@ -1,16 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { getHijriDateString } from '../../data/hijriData';
 import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import {
   Target, BookOpen, Headphones, Heart, ChevronRight,
-  Star, Settings, Trash2, Download, Bookmark,
-  CheckSquare, Compass, Smartphone, Clock
+  Star, Settings, Trash2, Smartphone, Clock,
+  CheckCircle, Plus, X, ListTodo, Activity
 } from 'lucide-react';
 import './RuangSayaPage.css';
 
-// ── Safe localStorage reader ──
+// ── Safe localStorage helpers ──
 function safeJsonParse(key, fallback = null) {
   try {
     const raw = localStorage.getItem(key);
@@ -19,6 +19,11 @@ function safeJsonParse(key, fallback = null) {
   } catch {
     return fallback;
   }
+}
+
+function getTodayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
 }
 
 export default function RuangSayaPage() {
@@ -30,6 +35,8 @@ export default function RuangSayaPage() {
   });
 
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [gratitudeText, setGratitudeText] = useState('');
+  const [gratitudeNotes, setGratitudeNotes] = useState(() => safeJsonParse('islamediaku_gratitude_notes', []));
 
   // ── Date & Greeting ──
   const now = useMemo(() => new Date(), []);
@@ -40,46 +47,67 @@ export default function RuangSayaPage() {
     return getLocalizedGreeting(locale);
   }, []);
 
-  // ── LocalStorage data reads ──
-  const todayDateStr = useMemo(() => {
-    const d = new Date();
-    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-  }, []);
+  const todayKey = getTodayKey();
 
+  // ── Sync Tracker & Stats ──
+  const trackerData = useMemo(() => safeJsonParse('islamediaku_tracker_daily', {}), []);
+  const todayTracker = trackerData[todayKey] || {};
+  
   const missions = useMemo(() => {
     const stored = safeJsonParse('islamediaku_daily_mission_progress');
-    if (stored && stored.date === todayDateStr) return stored.data;
+    if (stored && stored.date === todayKey) return stored.data;
     return null;
-  }, [todayDateStr]);
+  }, [todayKey]);
 
   const completedMissions = missions ? missions.filter(m => m.done).length : 0;
-  const totalMissions = missions ? missions.length : 4;
+  const totalMissions = missions ? missions.length : 0;
 
-  const quranLastRead = useMemo(() => {
-    const d = safeJsonParse('islamediaku_quran_last_read');
-    return d?.surahId ? d : null;
-  }, []);
+  // Dzikir Progress (Pagi & Petang merged simplified)
+  const dzikirPagi = safeJsonParse('islamediaku_dzikir_pagi_progress', { date: null, completed: [] });
+  const dzikirPetang = safeJsonParse('islamediaku_dzikir_petang_progress', { date: null, completed: [] });
+  const dzikirCompletedToday = (dzikirPagi.date === todayKey ? dzikirPagi.completed.length : 0) + 
+                               (dzikirPetang.date === todayKey ? dzikirPetang.completed.length : 0);
 
-  const quranLastPage = useMemo(() => {
-    const d = safeJsonParse('islamediaku_quran_page_state');
-    return d?.last_page || null;
-  }, []);
+  // Steps
+  const stepsData = safeJsonParse('islamediaku_steps_daily', {});
+  const todaySteps = stepsData[todayKey] || 0;
+  const stepTarget = parseInt(localStorage.getItem('islamediaku_steps_target') || '5000', 10);
 
-  const bookmarkCount = useMemo(() => {
-    const b = safeJsonParse('kq_mushaf_bookmarks', []);
-    return Array.isArray(b) ? b.length : 0;
-  }, []);
+  // Quran
+  const quranLastPage = safeJsonParse('islamediaku_quran_page_state')?.last_page || null;
+  const quranLastRead = safeJsonParse('islamediaku_quran_last_read');
+  const favCount = safeJsonParse('islamediaku_favorites', []).length;
+  const lastTilawah = safeJsonParse('kq_last_tilawah');
+  
+  // Calculate Overall Today Progress
+  const totalTrackerItems = Object.keys(todayTracker).length > 0 ? Object.keys(todayTracker).length : 5; // fallback denominator
+  const completedTrackerItems = Object.values(todayTracker).filter(Boolean).length;
+  
+  const totalTasks = totalMissions + totalTrackerItems + 1; // +1 for basic dzikir assumption
+  const completedTasks = completedMissions + completedTrackerItems + (dzikirCompletedToday > 0 ? 1 : 0);
+  const progressPercent = totalTasks > 0 ? Math.min(Math.round((completedTasks / totalTasks) * 100), 100) : 0;
 
-  const favCount = useMemo(() => {
-    const f = safeJsonParse('islamediaku_favorites', []);
-    return Array.isArray(f) ? f.length : 0;
-  }, []);
+  const encourageMessage = progressPercent === 0 ? 'Mulai dengan satu kebaikan hari ini.' 
+                         : progressPercent < 50 ? 'MasyaAllah, lanjutkan rutinitas baikmu.'
+                         : progressPercent < 100 ? 'Sedikit lagi, semoga istiqamah.'
+                         : 'Alhamdulillah, target hari ini tercapai!';
 
-  const lastTilawah = useMemo(() => safeJsonParse('kq_last_tilawah'), []);
+  // ── Catatan Syukur Handlers ──
+  const handleAddGratitude = (e) => {
+    e.preventDefault();
+    if (!gratitudeText.trim()) return;
+    const newNote = { id: Date.now(), date: gregorian, text: gratitudeText.trim() };
+    const updated = [newNote, ...gratitudeNotes].slice(0, 10); // Keep last 10
+    setGratitudeNotes(updated);
+    localStorage.setItem('islamediaku_gratitude_notes', JSON.stringify(updated));
+    setGratitudeText('');
+  };
 
-  const prayerCity = useMemo(() => {
-    try { return localStorage.getItem('kq_prayer_city') || 'Jakarta'; } catch { return 'Jakarta'; }
-  }, []);
+  const handleDeleteGratitude = (id) => {
+    const updated = gratitudeNotes.filter(n => n.id !== id);
+    setGratitudeNotes(updated);
+    localStorage.setItem('islamediaku_gratitude_notes', JSON.stringify(updated));
+  };
 
   // ── Reset handler ──
   const handleResetData = () => {
@@ -91,13 +119,13 @@ export default function RuangSayaPage() {
       'islamediaku_favorites',
       'kq_last_tilawah',
       'islamediaku_tracker_daily',
+      'islamediaku_gratitude_notes',
+      'islamediaku_steps_daily'
     ];
     keysToReset.forEach(k => { try { localStorage.removeItem(k); } catch { /* safe */ } });
     setShowResetConfirm(false);
     window.location.reload();
   };
-
-  const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL || null;
 
   return (
     <div className="ruang-saya">
@@ -122,158 +150,218 @@ export default function RuangSayaPage() {
               <p className="rs-header__greeting">"{greeting.text}"</p>
             )}
             <p className="rs-header__local-note">
-              <Smartphone size={11} /> Data disimpan di perangkat ini.
+              <Smartphone size={11} /> Data Ruang Saya disimpan di perangkat ini.
             </p>
           </div>
         </div>
       </header>
 
-      <main className="container">
+      <main className="container rs-main">
         <div className="rs-grid">
 
           {/* ═══ RINGKASAN HARI INI ═══ */}
-          <section className="rs-card rs-grid-span-full">
-            <h2 className="rs-card__title"><Target size={16} /> Ringkasan Hari Ini</h2>
-            <div className="rs-summary-grid">
-              <div className={`rs-summary-item ${completedMissions >= totalMissions && missions ? 'rs-summary-item--done' : ''}`}>
-                <span className="rs-summary-item__icon">🎯</span>
-                <span className="rs-summary-item__label">Misi Ibadah</span>
-                <span className="rs-summary-item__value">
-                  {missions ? `${completedMissions}/${totalMissions}` : 'Belum mulai'}
-                </span>
+          <section className="rs-card rs-card--highlight rs-grid-span-full">
+            <div className="rs-card__header-flex">
+              <h2 className="rs-card__title"><Target size={18} /> Ringkasan Ibadah Hari Ini</h2>
+              <span className="rs-progress-badge">{progressPercent}% Selesai</span>
+            </div>
+            
+            <div className="rs-summary-message">{encourageMessage}</div>
+
+            <div className="rs-summary-bars">
+              <div className="rs-bar-container">
+                <div className="rs-bar-label">
+                  <span>Misi & Tracker</span>
+                  <span>{completedTasks}/{totalTasks}</span>
+                </div>
+                <div className="rs-bar-track">
+                  <div className="rs-bar-fill rs-bar-fill--blue" style={{ width: `${progressPercent}%` }}></div>
+                </div>
               </div>
-              <div className="rs-summary-item">
-                <span className="rs-summary-item__icon">🕌</span>
-                <span className="rs-summary-item__label">Lokasi Sholat</span>
-                <span className="rs-summary-item__value">{prayerCity}</span>
+              
+              {todaySteps > 0 && (
+                <div className="rs-bar-container mt-2">
+                  <div className="rs-bar-label">
+                    <span>Langkah Sehat</span>
+                    <span>{todaySteps.toLocaleString('id-ID')} / {stepTarget.toLocaleString('id-ID')}</span>
+                  </div>
+                  <div className="rs-bar-track">
+                    <div className="rs-bar-fill rs-bar-fill--green" style={{ width: `${Math.min((todaySteps/stepTarget)*100, 100)}%` }}></div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="rs-quick-stats">
+              <div className="rs-quick-stat">
+                <span className="rs-quick-stat__val">{dzikirCompletedToday > 0 ? '✓' : '-'}</span>
+                <span className="rs-quick-stat__lbl">Dzikir</span>
               </div>
-              <div className="rs-summary-item">
-                <span className="rs-summary-item__icon">📖</span>
-                <span className="rs-summary-item__label">Mushaf</span>
-                <span className="rs-summary-item__value">
-                  {quranLastRead ? `QS ${quranLastRead.surahName || quranLastRead.surahId}` : 'Belum dibaca'}
-                </span>
-              </div>
-              <div className="rs-summary-item">
-                <span className="rs-summary-item__icon">🎧</span>
-                <span className="rs-summary-item__label">Tilawah</span>
-                <span className="rs-summary-item__value">
-                  {lastTilawah ? (lastTilawah.name || 'Terakhir diputar') : 'Belum ada'}
-                </span>
-              </div>
-              <div className="rs-summary-item">
-                <span className="rs-summary-item__icon">🔖</span>
-                <span className="rs-summary-item__label">Bookmark</span>
-                <span className="rs-summary-item__value">{bookmarkCount} ayat</span>
-              </div>
-              <div className="rs-summary-item">
-                <span className="rs-summary-item__icon">❤️</span>
-                <span className="rs-summary-item__label">Favorit</span>
-                <span className="rs-summary-item__value">{favCount} item</span>
+              <div className="rs-quick-stat">
+                <span className="rs-quick-stat__val">{quranLastRead || quranLastPage ? '✓' : '-'}</span>
+                <span className="rs-quick-stat__lbl">Tilawah</span>
               </div>
             </div>
           </section>
 
-          {/* ═══ LANJUTKAN ═══ */}
+          {/* ═══ TRACKER WIDGET ═══ */}
           <section className="rs-card">
-            <h2 className="rs-card__title"><CheckSquare size={16} /> Lanjutkan</h2>
-            <div className="rs-shortcuts">
-              <Link
-                to={quranLastRead ? `/mushaf/${quranLastRead.surahId}` : '/mushaf'}
-                className="rs-shortcut"
-              >
-                <span className="rs-shortcut__icon rs-shortcut__icon--blue"><BookOpen size={18} /></span>
-                Mushaf
-              </Link>
-              <Link to="/tilawah" className="rs-shortcut">
-                <span className="rs-shortcut__icon rs-shortcut__icon--orange"><Headphones size={18} /></span>
-                Tilawah
-              </Link>
-              <Link to="/doa-dzikir" className="rs-shortcut">
-                <span className="rs-shortcut__icon rs-shortcut__icon--purple"><Heart size={18} /></span>
-                Dzikir
-              </Link>
-              <Link to="/tracker" className="rs-shortcut">
-                <span className="rs-shortcut__icon rs-shortcut__icon--green"><Compass size={18} /></span>
-                Tracker
-              </Link>
-            </div>
-          </section>
-
-          {/* ═══ FAVORIT & BOOKMARK ═══ */}
-          <section className="rs-card">
-            <h2 className="rs-card__title"><Star size={16} /> Favorit & Bookmark</h2>
-            {(bookmarkCount > 0 || favCount > 0) ? (
-              <div className="rs-fav-stats">
-                {bookmarkCount > 0 && (
-                  <Link to="/mushaf" className="rs-fav-stat">
-                    <Bookmark size={16} style={{ color: '#0047FF' }} />
-                    {bookmarkCount} bookmark
-                  </Link>
-                )}
-                {favCount > 0 && (
-                  <Link to="/favorit" className="rs-fav-stat">
-                    <Star size={16} style={{ color: '#d97706' }} />
-                    {favCount} favorit
-                  </Link>
-                )}
+            <h2 className="rs-card__title"><ListTodo size={16} /> Tracker Ibadah</h2>
+            {totalTasks > 0 ? (
+              <div className="rs-tracker-preview">
+                <p>Kamu telah menyelesaikan <strong>{completedTasks}</strong> dari <strong>{totalTasks}</strong> target hari ini.</p>
+                <Link to="/tracker" className="btn btn--primary rs-full-btn">Buka Tracker</Link>
               </div>
             ) : (
-              <p className="rs-card__empty">
-                Belum ada favorit. Simpan ayat, kajian, atau materi yang ingin kamu baca lagi.
-              </p>
+              <div className="rs-tracker-preview">
+                <p className="rs-empty-text">Belum ada progres hari ini. Mulai isi Tracker untuk melihat ringkasanmu di sini.</p>
+                <Link to="/tracker" className="btn btn--outline rs-full-btn">Mulai Tracker</Link>
+              </div>
             )}
           </section>
 
-          {/* ═══ MUSHAF PER HALAMAN ═══ */}
-          <section className="rs-card rs-grid-span-full">
-            <h2 className="rs-card__title"><BookOpen size={16} /> Mushaf Per Halaman</h2>
-            <Link
-              to={quranLastPage ? `/mushaf/page/${quranLastPage}` : '/mushaf/page/1'}
-              className="rs-mushaf-card"
-            >
-              <div className="rs-mushaf-card__icon">
-                <BookOpen size={24} />
+          {/* ═══ LANGKAH SEHAT WIDGET ═══ */}
+          <section className="rs-card">
+            <h2 className="rs-card__title"><Activity size={16} /> Langkah Sehat</h2>
+            {todaySteps > 0 ? (
+              <div className="rs-tracker-preview">
+                <div className="rs-step-circle">
+                  <span className="rs-step-count">{todaySteps.toLocaleString('id-ID')}</span>
+                  <span className="rs-step-lbl">langkah</span>
+                </div>
+                <Link to="/tracker?tab=langkah" className="btn btn--outline rs-full-btn">Buka Tracker</Link>
               </div>
-              <div className="rs-mushaf-card__content">
-                <p className="rs-mushaf-card__title">
-                  {quranLastPage ? `Lanjut Hal. ${quranLastPage}` : 'Mulai Baca'}
-                </p>
-                <p className="rs-mushaf-card__desc">
-                  Baca Al-Qur'an per halaman seperti mushaf cetak
-                </p>
+            ) : (
+              <div className="rs-tracker-preview">
+                <p className="rs-empty-text">Langkah sehat belum dicatat hari ini.</p>
+                <Link to="/tracker?tab=langkah" className="btn btn--outline rs-full-btn">Catat Langkah</Link>
               </div>
-              <ChevronRight size={20} className="rs-mushaf-card__arrow" />
-            </Link>
+            )}
           </section>
 
-          {/* ═══ PENGATURAN CEPAT ═══ */}
+          {/* ═══ PREMIUM MENU CARDS ═══ */}
+          <section className="rs-grid-span-full mt-4">
+            <h2 className="rs-section-title">Menu Pribadi</h2>
+            <div className="rs-menu-grid">
+              
+              <Link to={`/mushaf/page/${quranLastPage || 1}`} className="rs-menu-card">
+                <div className="rs-menu-card__icon rs-icon--blue"><BookOpen size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Mushaf Per Halaman</h3>
+                  <p>Baca seperti mushaf cetak dan lanjutkan halaman terakhir.</p>
+                </div>
+              </Link>
+
+              <Link to={quranLastRead ? `/mushaf/${quranLastRead.surahId}` : '/mushaf'} className="rs-menu-card">
+                <div className="rs-menu-card__icon rs-icon--cyan"><Clock size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Riwayat Baca</h3>
+                  <p>Lanjutkan bacaan Al-Qur'an dan materi terakhir.</p>
+                </div>
+              </Link>
+
+              <Link to="/favorit" className="rs-menu-card">
+                <div className="rs-menu-card__icon rs-icon--gold"><Star size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Favorit Saya</h3>
+                  <p>Ayat, kajian, dan materi yang kamu simpan.</p>
+                </div>
+              </Link>
+
+              <Link to="/tracker" className="rs-menu-card">
+                <div className="rs-menu-card__icon rs-icon--green"><Target size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Target Harian</h3>
+                  <p>Atur kebiasaan ibadah yang ingin dijaga.</p>
+                </div>
+              </Link>
+
+              <Link to="/pengaturan" className="rs-menu-card">
+                <div className="rs-menu-card__icon rs-icon--purple"><Settings size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Pengaturan Ibadah</h3>
+                  <p>Atur Mushaf, notifikasi sholat, dan tampilan.</p>
+                </div>
+              </Link>
+
+              <Link to="/mode-perjalanan" className="rs-menu-card">
+                <div className="rs-menu-card__icon rs-icon--orange"><Headphones size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Mode Safar</h3>
+                  <p>Audio Islami dan doa safar saat perjalanan.</p>
+                </div>
+              </Link>
+
+              <div className="rs-menu-card" onClick={() => document.getElementById('syukur-input').focus()}>
+                <div className="rs-menu-card__icon rs-icon--pink"><Heart size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Catatan Syukur</h3>
+                  <p>Simpan catatan kebaikan dan rasa syukur harian.</p>
+                </div>
+              </div>
+
+              <Link to="/tracker" className="rs-menu-card">
+                <div className="rs-menu-card__icon rs-icon--lime"><CheckCircle size={24} /></div>
+                <div className="rs-menu-card__content">
+                  <h3>Pencapaian Hari Ini</h3>
+                  <p>Lihat kebiasaan baik yang sudah selesai.</p>
+                </div>
+              </Link>
+
+            </div>
+          </section>
+
+          {/* ═══ CATATAN SYUKUR WIDGET ═══ */}
           <section className="rs-card rs-grid-span-full">
-            <h2 className="rs-card__title"><Settings size={16} /> Pengaturan Cepat</h2>
-            <div className="rs-settings-list">
-              <Link to="/pengaturan" className="rs-settings-item">
-                <Settings size={18} />
-                <span>Pengaturan Aplikasi</span>
-                <ChevronRight size={16} />
-              </Link>
-              <div className="rs-settings-divider" />
-              <Link to="/sholat" className="rs-settings-item">
-                <Clock size={18} />
-                <span>Jadwal Sholat ({prayerCity})</span>
-                <ChevronRight size={16} />
-              </Link>
-              <div className="rs-settings-divider" />
+            <h2 className="rs-card__title"><Heart size={16} /> Catatan Syukur</h2>
+            <p className="rs-card__subtitle">Tuliskan hal baik yang kamu syukuri hari ini.</p>
+            
+            <form onSubmit={handleAddGratitude} className="rs-syukur-form">
+              <input 
+                id="syukur-input"
+                type="text" 
+                value={gratitudeText}
+                onChange={(e) => setGratitudeText(e.target.value)}
+                placeholder="Alhamdulillah hari ini..." 
+                className="rs-syukur-input"
+                maxLength={100}
+              />
+              <button type="submit" className="rs-syukur-btn" disabled={!gratitudeText.trim()}>
+                <Plus size={18} />
+              </button>
+            </form>
+
+            {gratitudeNotes.length > 0 && (
+              <div className="rs-syukur-list">
+                {gratitudeNotes.map(note => (
+                  <div key={note.id} className="rs-syukur-item">
+                    <div className="rs-syukur-item__content">
+                      <p className="rs-syukur-item__text">{note.text}</p>
+                      <span className="rs-syukur-item__date">{note.date}</span>
+                    </div>
+                    <button type="button" className="rs-syukur-item__del" onClick={() => handleDeleteGratitude(note.id)}>
+                      <X size={16} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* ═══ RESET WIDGET ═══ */}
+          <section className="rs-card rs-grid-span-full">
+            <div className="rs-settings-list" style={{ marginTop: 0 }}>
               <button
                 type="button"
                 className="rs-settings-item"
                 onClick={() => setShowResetConfirm(!showResetConfirm)}
               >
                 <Trash2 size={18} style={{ color: '#dc2626' }} />
-                <span style={{ color: '#dc2626' }}>Reset Data Lokal</span>
+                <span style={{ color: '#dc2626' }}>Reset Data Lokal Ruang Saya</span>
               </button>
               {showResetConfirm && (
                 <div className="rs-reset-confirm">
-                  <p>Semua data lokal (bookmark, progress, riwayat baca) akan dihapus. Tindakan ini tidak bisa dibatalkan.</p>
+                  <p>Semua data lokal (tracker, catatan syukur, bookmark, progress) akan dihapus. Tindakan ini tidak bisa dibatalkan.</p>
                   <div className="rs-reset-confirm__actions">
                     <button className="rs-reset-confirm__btn rs-reset-confirm__btn--danger" onClick={handleResetData}>
                       Ya, Hapus Semua
@@ -283,16 +371,6 @@ export default function RuangSayaPage() {
                     </button>
                   </div>
                 </div>
-              )}
-              {apkUrl && (
-                <>
-                  <div className="rs-settings-divider" />
-                  <a href={apkUrl} className="rs-settings-item" target="_blank" rel="noopener noreferrer">
-                    <Download size={18} />
-                    <span>Download APK</span>
-                    <ChevronRight size={16} />
-                  </a>
-                </>
               )}
             </div>
           </section>

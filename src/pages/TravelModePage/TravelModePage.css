@@ -615,7 +615,7 @@
   bottom: calc(var(--bottom-nav-h) + 12px);
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 990; /* High z-index but just under modals (usually 1000) */
   padding: 0 var(--sp-4);
   pointer-events: none;
   animation: slideUp 0.4s var(--ease-spring);
@@ -631,13 +631,23 @@
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  background: rgba(7, 17, 31, 0.88);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(7, 17, 31, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 28px;
   padding: var(--sp-3) var(--sp-4);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   color: #FFFFFF;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+/* Expand-on-hover effect */
+.travel-player-bar.expanded-hover .tpb-inner:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 194, 216, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(198, 255, 0, 0.4);
 }
 
 .tpb-track-info {

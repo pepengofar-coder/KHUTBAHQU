@@ -1,13 +1,6 @@
 /**
  * Islamediaku — Travel Audio Content Database
  * Menyediakan daftar playlist dan item audio yang aman dan terverifikasi.
- * 
- * Aturan Akses Audio:
- * 1. Jika audioUrl bernilai null/kosong dan route bernilai null/kosong, tombol Putar akan dinonaktifkan
- *    dan menampilkan pesan "Audio belum tersedia."
- * 2. Jika isVerified = false atau enabled = false, audio tidak dapat diputar langsung.
- *    Jika item memiliki sourceUrl, akan diarahkan ke link eksternal resmi.
- * 3. Jika item memiliki route, tombol akan berfungsi sebagai "Buka Fitur" yang mengarahkan ke halaman internal.
  */
 
 export const PLAYLISTS = [
@@ -52,23 +45,54 @@ export const PLAYLISTS = [
     coverStyle: 'indigo'
   },
   {
-    id: 'radio-quran-live',
-    title: 'Radio Qur\'an Live',
-    subtitle: 'Siaran tilawah Al-Qur\'an 24 jam langsung dari qari dunia.',
+    id: 'radio-dakwah',
+    title: 'Radio Dakwah',
+    subtitle: 'Siaran tilawah Al-Qur\'an dan kajian Sunnah 24 jam.',
     gradient: 'linear-gradient(135deg, #06B6D4, #0891B2)',
     icon: '📻',
     coverStyle: 'cyan'
   }
 ];
 
-export const TRAVEL_AUDIO_ITEMS = [
+const JUZ_AMMA_NAMES = [
+  "An-Naba'", "An-Nazi'at", "'Abasa", "At-Takwir", "Al-Infitar", "Al-Mutaffifin", 
+  "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr",
+  "Al-Balad", "Ash-Shams", "Al-Lail", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-'Alaq",
+  "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat", "Al-Qari'ah", "At-Takathur",
+  "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraish", "Al-Ma'un", "Al-Kauthar", "Al-Kafirun",
+  "An-Nasr", "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas"
+];
+
+const juzAmmaItems = JUZ_AMMA_NAMES.map((name, index) => {
+  const surahNumber = 78 + index;
+  const formattedNumber = String(surahNumber).padStart(3, '0');
+  return {
+    id: `tilawah-alafasy-${surahNumber}`,
+    type: 'tilawah',
+    title: `Surah ${name}`,
+    subtitle: 'Syaikh Mishary Rashid Alafasy',
+    playlistIds: ['murottal-juz-amma', 'tenang-perjalanan'],
+    sourceName: 'MP3Quran.net',
+    sourceUrl: 'https://mp3quran.net',
+    apiProvider: 'MP3Quran.net',
+    audioUrl: `https://server8.mp3quran.net/afs/${formattedNumber}.mp3`,
+    isLive: false,
+    isVerified: true,
+    enabled: true,
+    attribution: 'Sumber audio: MP3Quran.net',
+    duration: null,
+    notes: `Surah ke-${surahNumber} dalam Al-Qur'an.`
+  };
+});
+
+const baseItems = [
   // 1. Radio & Live
   {
     id: 'radio-rodja-live',
     type: 'radio',
     title: 'Radio Rodja 756 AM',
     subtitle: 'Live kajian Islam & tilawah Al-Qur\'an',
-    playlistIds: ['kajian-ringan', 'radio-quran-live'],
+    playlistIds: ['kajian-ringan', 'radio-dakwah'],
     sourceName: 'Radio Rodja 756 AM',
     sourceUrl: 'https://radiorodja.com',
     apiProvider: 'Radio Rodja',
@@ -97,40 +121,6 @@ export const TRAVEL_AUDIO_ITEMS = [
     attribution: 'Sumber audio: MP3Quran.net',
     duration: 180, // Sekitar 3 menit
     notes: 'Surah pelindung dari siksa kubur, dilantunkan imam Masjidil Haram.'
-  },
-  {
-    id: 'tilawah-alafasy-naba',
-    type: 'tilawah',
-    title: 'Surah An-Naba\'',
-    subtitle: 'Syaikh Mishary Rashid Alafasy',
-    playlistIds: ['tilawah-pilihan', 'murottal-juz-amma', 'tenang-perjalanan'],
-    sourceName: 'MP3Quran.net',
-    sourceUrl: 'https://mp3quran.net',
-    apiProvider: 'MP3Quran.net',
-    audioUrl: 'https://server8.mp3quran.net/afs/078.mp3',
-    isLive: false,
-    isVerified: true,
-    enabled: true,
-    attribution: 'Sumber audio: MP3Quran.net',
-    duration: 320,
-    notes: 'Surah pembuka Juz 30.'
-  },
-  {
-    id: 'tilawah-ghamdi-nas',
-    type: 'tilawah',
-    title: 'Surah An-Nas',
-    subtitle: 'Syaikh Saad Al-Ghamdi',
-    playlistIds: ['murottal-juz-amma', 'tenang-perjalanan'],
-    sourceName: 'MP3Quran.net',
-    sourceUrl: 'https://mp3quran.net',
-    apiProvider: 'MP3Quran.net',
-    audioUrl: 'https://server7.mp3quran.net/s_gmd/114.mp3',
-    isLive: false,
-    isVerified: true,
-    enabled: true,
-    attribution: 'Sumber audio: MP3Quran.net',
-    duration: 65,
-    notes: 'Perlindungan diri dari bisikan syaitan.'
   },
   // 3. Doa & Dzikir Intern / Route Shortcuts
   {
@@ -218,6 +208,8 @@ export const TRAVEL_AUDIO_ITEMS = [
     notes: 'Audio belum tersedia. Gunakan tombol YouTube untuk membuka konten resmi.'
   }
 ];
+
+export const TRAVEL_AUDIO_ITEMS = [ ...baseItems, ...juzAmmaItems ];
 
 export const getPlaylistItems = (playlistId) => 
   TRAVEL_AUDIO_ITEMS.filter(item => item.playlistIds.includes(playlistId));
