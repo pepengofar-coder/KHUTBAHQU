@@ -52,8 +52,13 @@ export function useAppVersion() {
     } catch {
       // Best effort cleanup
     }
-    // Force reload from server
-    window.location.reload();
+    // Force reload from server only once per session
+    if (!sessionStorage.getItem('islamediaku_update_reloaded')) {
+      sessionStorage.setItem('islamediaku_update_reloaded', 'true');
+      window.location.reload();
+    } else {
+      console.warn('Update reload loop prevented by guard.');
+    }
   }, []);
 
   useEffect(() => {
