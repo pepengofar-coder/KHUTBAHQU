@@ -32,7 +32,11 @@ export default function ReadingModeView({
   // Fetch Ayahs when surahId changes
   useEffect(() => {
     if (!surahId) return;
+    
+    let isMounted = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null);
     
     // Attempt to save last read
@@ -41,11 +45,21 @@ export default function ReadingModeView({
       setLastRead({ surahId: parseInt(surahId), surahName: sName });
     }
 
+    // 3. Add safe timeout fallback
+    const timeoutGuard = setTimeout(() => {
+      if (isMounted) {
+        setLoading(false);
+        setError("Waktu pemuatan habis. Pastikan koneksi internet stabil.");
+      }
+    }, 5000);
+
     Promise.all([
       fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${surahId}`).then(res => res.json()),
       fetch(`https://api.quran.com/api/v4/quran/translations/${TRANSLATION_ID}?chapter_number=${surahId}`).then(res => res.json())
     ])
     .then(([arabicData, translationData]) => {
+      if (!isMounted) return;
+      clearTimeout(timeoutGuard);
       const merged = arabicData.verses.map((verse, index) => {
         const [sNum, aNum] = verse.verse_key.split(':');
         return {
@@ -64,10 +78,17 @@ export default function ReadingModeView({
       }
     })
     .catch(err => {
+      if (!isMounted) return;
+      clearTimeout(timeoutGuard);
       console.error(err);
       setError("Gagal memuat surah. Periksa koneksi internet Anda.");
       setLoading(false);
     });
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutGuard);
+    };
   }, [surahId, surahNames, setLastRead]);
 
   const handleNext = () => {

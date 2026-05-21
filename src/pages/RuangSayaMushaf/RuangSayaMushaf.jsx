@@ -28,8 +28,14 @@ export default function RuangSayaMushaf() {
   // Settings State
   const [mode, setMode] = useState(() => localStorage.getItem('islamediaku_user_mushaf_mode') || 'reading');
   const [theme, setTheme] = useState(() => localStorage.getItem('islamediaku_user_mushaf_theme') || 'light');
-  const [arabicFontSize, setArabicFontSize] = useState(() => Number(localStorage.getItem('islamediaku_user_mushaf_arabic_size')) || 32);
-  const [translationFontSize, setTranslationFontSize] = useState(() => Number(localStorage.getItem('islamediaku_user_mushaf_trans_size')) || 15);
+  const [arabicFontSize, setArabicFontSize] = useState(() => {
+    const val = parseInt(localStorage.getItem('islamediaku_user_mushaf_arabic_size'), 10);
+    return isNaN(val) ? 32 : val;
+  });
+  const [translationFontSize, setTranslationFontSize] = useState(() => {
+    const val = parseInt(localStorage.getItem('islamediaku_user_mushaf_trans_size'), 10);
+    return isNaN(val) ? 15 : val;
+  });
   const [showTranslation, setShowTranslation] = useState(() => localStorage.getItem('islamediaku_user_mushaf_show_trans') !== 'false');
 
   const [settingsOpen, setSettingsOpen] = useState(false);
