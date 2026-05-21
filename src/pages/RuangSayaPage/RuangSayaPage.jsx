@@ -189,9 +189,7 @@ export default function RuangSayaPage() {
     <div className="ruang-saya">
       {/* ═══ PREMIUM HERO ═══ */}
       <header className="rs-hero">
-        <div className="rs-hero__bg-orb rs-hero__bg-orb--1" />
-        <div className="rs-hero__bg-orb rs-hero__bg-orb--2" />
-        <div className="rs-hero__inner container">
+        <div className="rs-hero__inner">
           <div className="rs-hero__top">
             <img
               src="/logo-icon.png"
@@ -199,7 +197,7 @@ export default function RuangSayaPage() {
               className="rs-hero__logo"
               onError={e => { e.target.style.display = 'none'; }}
             />
-            <div className="rs-hero__text">
+            <div className="rs-hero__title-wrap">
               <h1 className="rs-hero__title">Ruang Saya</h1>
               <p className="rs-hero__subtitle">{personalSubtitle}</p>
             </div>
@@ -209,7 +207,7 @@ export default function RuangSayaPage() {
             <div className="rs-hero__date-card">
               <p className="rs-hero__date">📅 {gregorian}</p>
               <p className="rs-hero__hijri">{hijriStr}</p>
-              {greeting.text && (
+              {greeting?.text && (
                 <p className="rs-hero__greeting">"{greeting.text}"</p>
               )}
             </div>
@@ -221,16 +219,14 @@ export default function RuangSayaPage() {
         </div>
       </header>
 
-      <main className="container rs-main">
+      <main className="rs-main">
         {/* ═══ PROGRESS FOCUS CARD ═══ */}
         <section className="rs-progress-card">
-          <div className="rs-progress-card__left">
-            <div className="rs-progress-card__ring-wrap">
-              <ProgressRing percent={progressPercent} size={130} stroke={10} />
-              <div className="rs-progress-card__ring-text">
-                <span className="rs-progress-card__pct">{progressPercent}%</span>
-                <span className="rs-progress-card__pct-label">Selesai</span>
-              </div>
+          <div className="rs-progress-card__ring-wrap">
+            <ProgressRing percent={progressPercent} size={120} stroke={8} />
+            <div className="rs-progress-card__ring-text">
+              <span className="rs-progress-card__pct">{progressPercent}%</span>
+              <span className="rs-progress-card__pct-label">Selesai</span>
             </div>
           </div>
           <div className="rs-progress-card__right">
@@ -241,39 +237,41 @@ export default function RuangSayaPage() {
             </div>
             <Link to="/tracker" className="rs-progress-card__btn">
               {completedTasks > 0 ? 'Buka Tracker' : 'Mulai Tracker'}
-              <ChevronRight size={16} />
+              <ChevronRight size={18} />
             </Link>
           </div>
         </section>
 
         {/* ═══ DASHBOARD SUMMARY STATS ═══ */}
-        <section className="rs-stats-row">
-          <div className="rs-stat-card rs-stat-card--blue">
-            <div className="rs-stat-card__icon"><Sun size={20} /></div>
-            <div className="rs-stat-card__body">
-              <span className="rs-stat-card__value">{sholatDone}/{sholatTotal}</span>
-              <span className="rs-stat-card__label">Sholat Hari Ini</span>
+        <section className="rs-section">
+          <div className="rs-stats-row">
+            <div className="rs-stat-card rs-stat-card--blue">
+              <div className="rs-stat-card__icon"><Sun size={20} /></div>
+              <div className="rs-stat-card__body">
+                <span className="rs-stat-card__value">{sholatDone}/{sholatTotal}</span>
+                <span className="rs-stat-card__label">Sholat Hari Ini</span>
+              </div>
             </div>
-          </div>
-          <div className="rs-stat-card rs-stat-card--emerald">
-            <div className="rs-stat-card__icon"><Moon size={20} /></div>
-            <div className="rs-stat-card__body">
-              <span className="rs-stat-card__value">{dzikirCompletedToday > 0 ? dzikirCompletedToday : '-'}</span>
-              <span className="rs-stat-card__label">Dzikir {pagiDone > 0 ? 'Pagi ✓' : petangDone > 0 ? 'Petang ✓' : ''}</span>
+            <div className="rs-stat-card rs-stat-card--emerald">
+              <div className="rs-stat-card__icon"><Moon size={20} /></div>
+              <div className="rs-stat-card__body">
+                <span className="rs-stat-card__value">{dzikirCompletedToday > 0 ? 'Selesai' : 'Belum'}</span>
+                <span className="rs-stat-card__label">Dzikir {pagiDone > 0 ? 'Pagi' : petangDone > 0 ? 'Petang' : 'Harian'}</span>
+              </div>
             </div>
-          </div>
-          <div className="rs-stat-card rs-stat-card--indigo">
-            <div className="rs-stat-card__icon"><Volume2 size={20} /></div>
-            <div className="rs-stat-card__body">
-              <span className="rs-stat-card__value">{lastTilawah ? '✓' : quranLastRead ? '✓' : '-'}</span>
-              <span className="rs-stat-card__label">Tilawah</span>
+            <div className="rs-stat-card rs-stat-card--indigo">
+              <div className="rs-stat-card__icon"><Volume2 size={20} /></div>
+              <div className="rs-stat-card__body">
+                <span className="rs-stat-card__value">{lastTilawah ? 'Ada' : quranLastRead ? 'Ada' : '-'}</span>
+                <span className="rs-stat-card__label">Tilawah Terakhir</span>
+              </div>
             </div>
-          </div>
-          <div className="rs-stat-card rs-stat-card--green">
-            <div className="rs-stat-card__icon"><Footprints size={20} /></div>
-            <div className="rs-stat-card__body">
-              <span className="rs-stat-card__value">{todaySteps > 0 ? todaySteps.toLocaleString('id-ID') : '-'}</span>
-              <span className="rs-stat-card__label">Langkah Sehat</span>
+            <div className="rs-stat-card rs-stat-card--green">
+              <div className="rs-stat-card__icon"><Footprints size={20} /></div>
+              <div className="rs-stat-card__body">
+                <span className="rs-stat-card__value">{todaySteps > 0 ? todaySteps.toLocaleString('id-ID') : '-'}</span>
+                <span className="rs-stat-card__label">Langkah Sehat</span>
+              </div>
             </div>
           </div>
         </section>
@@ -282,43 +280,41 @@ export default function RuangSayaPage() {
         <section className="rs-section">
           <h2 className="rs-section__title">Lanjutkan Aktivitas</h2>
           <div className="rs-activity-grid">
-
             <Link to={quranLastRead ? `/mushaf/${quranLastRead.surahId}` : '/mushaf'} className="rs-activity-card">
-              <div className="rs-activity-card__icon rs-icon--blue"><BookOpen size={22} /></div>
+              <div className="rs-activity-card__icon rs-icon--blue"><BookOpen size={24} /></div>
               <div className="rs-activity-card__body">
                 <h3>Lanjut Baca Mushaf</h3>
                 <p>{quranLastRead ? `Surah ${quranLastRead.surahName || 'terakhir'}` : quranLastPage ? `Halaman ${quranLastPage}` : 'Mulai membaca Al-Qur\'an'}</p>
               </div>
-              <ChevronRight size={18} className="rs-activity-card__arrow" />
+              <ChevronRight size={20} className="rs-activity-card__arrow" />
             </Link>
 
             <Link to="/tilawah" className="rs-activity-card">
-              <div className="rs-activity-card__icon rs-icon--cyan"><Headphones size={22} /></div>
+              <div className="rs-activity-card__icon rs-icon--cyan"><Headphones size={24} /></div>
               <div className="rs-activity-card__body">
                 <h3>Lanjut Tilawah</h3>
                 <p>{lastTilawah?.name ? lastTilawah.name : 'Dengarkan lantunan Al-Qur\'an'}</p>
               </div>
-              <ChevronRight size={18} className="rs-activity-card__arrow" />
+              <ChevronRight size={20} className="rs-activity-card__arrow" />
             </Link>
 
             <Link to="/doa-dzikir" className="rs-activity-card">
-              <div className="rs-activity-card__icon rs-icon--emerald"><Compass size={22} /></div>
+              <div className="rs-activity-card__icon rs-icon--emerald"><Compass size={24} /></div>
               <div className="rs-activity-card__body">
                 <h3>Lanjut Dzikir</h3>
                 <p>{dzikirCompletedToday > 0 ? `${dzikirCompletedToday} dzikir selesai hari ini` : 'Baca dzikir pagi atau petang'}</p>
               </div>
-              <ChevronRight size={18} className="rs-activity-card__arrow" />
+              <ChevronRight size={20} className="rs-activity-card__arrow" />
             </Link>
 
-            <Link to="/mode-perjalanan" className="rs-activity-card">
-              <div className="rs-activity-card__icon rs-icon--orange"><Headphones size={22} /></div>
+            <Link to="/tracker" className="rs-activity-card">
+              <div className="rs-activity-card__icon rs-icon--orange"><Target size={24} /></div>
               <div className="rs-activity-card__body">
-                <h3>Buka Mode Safar</h3>
-                <p>{lastTravelAudio?.title ? `Terakhir: ${lastTravelAudio.title}` : 'Audio Islami dan doa perjalanan'}</p>
+                <h3>Buka Tracker</h3>
+                <p>Pantau kebiasaan ibadahmu</p>
               </div>
-              <ChevronRight size={18} className="rs-activity-card__arrow" />
+              <ChevronRight size={20} className="rs-activity-card__arrow" />
             </Link>
-
           </div>
         </section>
 
@@ -328,37 +324,37 @@ export default function RuangSayaPage() {
           {(totalBookmarks > 0 || totalFavorites > 0 || gratitudeNotes.length > 0) ? (
             <div className="rs-collection-grid">
               <Link to="/mushaf" className="rs-collection-card">
-                <Bookmark size={20} className="rs-collection-card__icon" />
+                <div className="rs-collection-card__icon"><Bookmark size={20} /></div>
                 <div>
-                  <h3>Bookmark Ayat</h3>
+                  <h3>Favorit Saya</h3>
                   <p>{totalBookmarks > 0 ? `${totalBookmarks} ayat disimpan` : 'Belum ada bookmark'}</p>
                 </div>
               </Link>
-              <Link to="/favorit" className="rs-collection-card">
-                <Star size={20} className="rs-collection-card__icon" />
-                <div>
-                  <h3>Favorit Kajian/Audio</h3>
-                  <p>{totalFavorites > 0 ? `${totalFavorites} item disimpan` : 'Belum ada favorit'}</p>
-                </div>
-              </Link>
-              <a href="#syukur-section" className="rs-collection-card">
-                <Heart size={20} className="rs-collection-card__icon" />
-                <div>
-                  <h3>Catatan Syukur</h3>
-                  <p>{gratitudeNotes.length > 0 ? `${gratitudeNotes.length} catatan` : 'Belum ada catatan'}</p>
-                </div>
-              </a>
               <Link to={quranLastRead ? `/mushaf/${quranLastRead.surahId}` : '/mushaf'} className="rs-collection-card">
-                <Clock size={20} className="rs-collection-card__icon" />
+                <div className="rs-collection-card__icon"><Clock size={20} /></div>
                 <div>
                   <h3>Riwayat Baca</h3>
                   <p>{quranLastRead ? `Surah ${quranLastRead.surahName || 'terakhir'}` : 'Belum ada riwayat'}</p>
                 </div>
               </Link>
+              <a href="#syukur-section" className="rs-collection-card">
+                <div className="rs-collection-card__icon"><Heart size={20} /></div>
+                <div>
+                  <h3>Catatan Syukur</h3>
+                  <p>{gratitudeNotes.length > 0 ? `${gratitudeNotes.length} catatan` : 'Belum ada catatan'}</p>
+                </div>
+              </a>
+              <Link to={`/mushaf/page/${quranLastPage || 1}`} className="rs-collection-card">
+                <div className="rs-collection-card__icon"><BookOpen size={20} /></div>
+                <div>
+                  <h3>Mushaf Per Halaman</h3>
+                  <p>Lanjutkan bacaan terakhir</p>
+                </div>
+              </Link>
             </div>
           ) : (
             <div className="rs-empty-state">
-              <Star size={32} className="rs-empty-state__icon" />
+              <Bookmark size={36} className="rs-empty-state__icon" />
               <p>Belum ada koleksi. Simpan ayat, kajian, atau catatan agar mudah dibuka lagi.</p>
             </div>
           )}
@@ -366,9 +362,8 @@ export default function RuangSayaPage() {
 
         {/* ═══ PREMIUM MENU CARDS ═══ */}
         <section className="rs-section">
-          <h2 className="rs-section__title">Menu Pribadi</h2>
+          <h2 className="rs-section__title">Menu Personal</h2>
           <div className="rs-menu-grid">
-
             <Link to={`/mushaf/page/${quranLastPage || 1}`} className="rs-menu-card">
               <div className="rs-menu-card__icon rs-icon--blue"><BookOpen size={24} /></div>
               <div className="rs-menu-card__content">
@@ -416,13 +411,12 @@ export default function RuangSayaPage() {
                 <p>Lihat kebiasaan baik yang sudah selesai.</p>
               </div>
             </Link>
-
           </div>
         </section>
 
         {/* ═══ CATATAN SYUKUR ═══ */}
-        <section className="rs-card rs-card--wide" id="syukur-section">
-          <h2 className="rs-card__title"><Heart size={16} /> Catatan Syukur</h2>
+        <section className="rs-card" id="syukur-section">
+          <h2 className="rs-card__title"><Heart size={20} className="rs-icon--pink" style={{ background: 'transparent' }}/> Catatan Syukur</h2>
           <p className="rs-card__subtitle">Tuliskan hal baik yang kamu syukuri hari ini.</p>
 
           <form onSubmit={handleAddGratitude} className="rs-syukur-form">
@@ -436,7 +430,7 @@ export default function RuangSayaPage() {
               maxLength={100}
             />
             <button type="submit" className="rs-syukur-btn" disabled={!gratitudeText.trim()}>
-              <Plus size={18} />
+              <Plus size={20} />
             </button>
           </form>
 
@@ -458,7 +452,7 @@ export default function RuangSayaPage() {
         </section>
 
         {/* ═══ RESET ═══ */}
-        <section className="rs-card rs-card--wide rs-card--reset">
+        <section className="rs-card rs-card--reset">
           <button
             type="button"
             className="rs-reset-trigger"
