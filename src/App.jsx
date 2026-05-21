@@ -41,6 +41,7 @@ const AccountPage = lazy(() => import('./pages/AccountPage/AccountPage'));
 const TilawahPage = lazy(() => import('./pages/TilawahPage/TilawahPage'));
 const TravelModePage = lazy(() => import('./pages/TravelModePage/TravelModePage'));
 const RuangUserPage = lazy(() => import('./pages/RuangUserPage/RuangUserPage'));
+const RuangSayaPage = lazy(() => import('./pages/RuangSayaPage/RuangSayaPage'));
 const AuthCallbackPage = lazy(() => import('./pages/AuthCallbackPage/AuthCallbackPage'));
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
@@ -75,6 +76,7 @@ function AnimatedRoutes() {
           <Route path="/register" element={<AuthPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/admin280292" element={<AdminPage />} />
+          <Route path="/ruang-saya" element={<RuangSayaPage />} />
           <Route path="/ruang-user" element={<ProtectedRoute><RuangUserPage /></ProtectedRoute>} />
           <Route path="/auth/callback" element={<AuthCallbackPage />} />
         </Routes>

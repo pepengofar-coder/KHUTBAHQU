@@ -246,8 +246,12 @@ export default function HomePage() {
       <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
           <div className={`dash-hero__greeting ${greetingFade}`}>
-            <span className="dash-hero__category-badge">{(greeting.category || 'Hari Ini').toUpperCase()}</span>
+            <span className="dash-hero__category-badge">{(() => {
+              const badgeMap = { "Al-Qur'an": "AL-QUR'AN", "Sholat": "SHOLAT", "Dzikir": "DZIKIR", "Sedekah": "SEDEKAH", "Sunnah": "SUNNAH", "Akhlak": "AKHLAK", "Muhasabah": "HARI INI", "Ilmu": "ILMU" };
+              return badgeMap[greeting.category] || 'HARI INI';
+            })()}</span>
             <h1 className="dash-hero__salam">Sahabat Ibadah Harianmu</h1>
+            <p className="dash-hero__motivasi">{greeting.text}</p>
             <p className="dash-hero__desc">Baca Al-Qur'an, cek jadwal sholat, dengarkan tilawah, dan jaga rutinitas ibadah setiap hari.</p>
             <p className="dash-hero__date">{gregorian} &bull; <span>📅 {hijriStr}</span></p>
           </div>

@@ -36,7 +36,7 @@ const MORE_SECTIONS = [
   {
     title: 'Aplikasi',
     items: [
-      { to: '/ruang-user', label: 'Ruang User', icon: User, color: 'cyan', desc: 'Dashboard dan profil pengguna' },
+      { to: '/ruang-saya', label: 'Ruang Saya', icon: User, color: 'cyan', desc: 'Dashboard pribadi dan progres ibadah' },
       { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green', desc: 'Teks khutbah & kultum pilihan' },
       { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
       { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },
@@ -58,23 +58,7 @@ export default function BottomNav() {
 
   // Compute dynamic MORE sections
   const sections = useMemo(() => {
-    const s = MORE_SECTIONS.map((section, i) => {
-      if (i === 2) {
-        // Aplikasi section — dynamic Ruang User item
-        return {
-          ...section,
-          items: section.items.map(item => {
-            if (item.to === '/ruang-user') {
-              return user
-                ? item // logged in — keep as is
-                : { ...item, to: '/login', label: 'Masuk / Daftar', desc: 'Masuk atau buat akun baru' };
-            }
-            return item;
-          })
-        };
-      }
-      return section;
-    });
+    const s = [...MORE_SECTIONS];
     const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
     if (apkUrl) {
       s[2] = {
@@ -86,7 +70,7 @@ export default function BottomNav() {
       };
     }
     return s;
-  }, [user]);
+  }, []);
 
   // Close sheet automatically when route changes
   useEffect(() => {

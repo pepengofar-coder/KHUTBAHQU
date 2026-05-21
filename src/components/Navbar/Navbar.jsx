@@ -101,8 +101,19 @@ export default function Navbar() {
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           
-          <button className="nav__auth-btn" onClick={() => navigate(user ? '/account' : '/login')} title="Akun">
-            {user ? <User size={20} /> : 'Masuk'}
+          <button
+            className="nav__brand-btn"
+            onClick={() => navigate('/ruang-saya')}
+            aria-label="Buka Ruang Saya"
+            title="Ruang Saya"
+          >
+            <img
+              src="/logo-icon.png"
+              alt=""
+              className="nav__brand-btn-img"
+              onError={e => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+            />
+            <span className="nav__brand-btn-fallback" style={{ display: 'none' }}>🕌</span>
           </button>
 
           <button className={`nav__hamburger${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
