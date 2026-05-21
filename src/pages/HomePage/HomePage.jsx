@@ -259,7 +259,10 @@ export default function HomePage() {
                 <Link to="/sholat" className="dash-hero__prayer-link">Lihat Jadwal <ChevronRight size={14} /></Link>
               </div>
               <div className="dash-hero__prayer-main">
-                <span className="dash-hero__prayer-name"><nextP.icon size={20} /> {nextP.label}</span>
+                {(() => {
+                  const NextPIcon = PRAYER_ICONS[nextP.key] || Sun;
+                  return <span className="dash-hero__prayer-name"><NextPIcon size={20} /> {nextP.label}</span>;
+                })()}
                 <span className="dash-hero__prayer-time">{fmt(timings[nextP.key])}</span>
               </div>
               <span className="dash-hero__countdown">{countdown}</span>
