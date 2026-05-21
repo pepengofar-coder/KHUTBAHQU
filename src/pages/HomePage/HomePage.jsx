@@ -241,74 +241,83 @@ export default function HomePage() {
       <JsonLd data={orgSchema} />
 
       {/* Hero / Greeting */}
-      <section className="dash-hero">
+      <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
           <div className={`dash-hero__greeting ${greetingFade}`}>
-            {greeting.category && <span className="dash-hero__category-badge">{greeting.category}</span>}
-            <h1 className="dash-hero__salam">{greeting.text}</h1>
-            <p className="dash-hero__date">{gregorian}</p>
-            <p className="dash-hero__hijri">📅 {hijriStr}</p>
+            <span className="dash-hero__category-badge">{greeting.category || 'Momen'}</span>
+            <h1 className="dash-hero__salam">Islamediaku</h1>
+            <p className="dash-hero__tagline">Pendamping Islami harian dalam satu aplikasi.</p>
+            <p className="dash-hero__desc">Baca Al-Qur'an, cek jadwal sholat, dengarkan tilawah, pantau ibadah, dan temukan renungan Islami setiap hari.</p>
+            <p className="dash-hero__date">{gregorian} &bull; <span>📅 {hijriStr}</span></p>
           </div>
+
           {timings && nextP && (
-            <div className="dash-hero__prayer">
+            <div className="dash-hero__prayer glass-card">
               <span className="dash-hero__prayer-label">Sholat berikutnya</span>
               <span className="dash-hero__prayer-name">{nextP.icon} {nextP.label}</span>
               <span className="dash-hero__prayer-time">{fmt(timings[nextP.key])}</span>
               <span className="dash-hero__countdown">{countdown}</span>
             </div>
           )}
+        </div>
+      </section>
 
-          {/* Daily Mission Component */}
-          <div className="dash-hero__mission">
-            <div className="dash-hero__mission-header">
-              <div className="dash-hero__mission-title">
-                <Target size={16} style={{marginRight: 6}} className="dash-hero__mission-title-icon" /> Misi Ibadah Hari Ini
-              </div>
-              <div className="dash-hero__mission-status">{completedMissions}/{missions.length}</div>
+      {/* Daily Mission Section */}
+      <section className="home-section dash-mission container">
+        <div className="dash-mission__card">
+          <div className="dash-mission__header">
+            <div className="dash-mission__title-wrap">
+              <h2 className="dash-mission__title"><Target size={18} className="text-accent" /> Misi Ibadah Hari Ini</h2>
+              <p className="dash-mission__subtitle">Mulai dengan satu amalan kecil hari ini.</p>
             </div>
-            
-            <div className="dash-hero__mission-progress">
-              <div className="dash-hero__mission-bar" style={{ width: `${progressPercent}%` }}></div>
-            </div>
-
-            <div className="dash-hero__mission-list">
-              {missions.map(m => (
-                <div key={m.id} className={`dash-hero__mission-item ${m.done ? 'dash-hero__mission-item--done' : ''}`} onClick={() => toggleMission(m.id)}>
-                  <div className="dash-hero__mission-checkbox">{m.done ? <Check size={12} strokeWidth={3} /> : null}</div>
-                  <span className="dash-hero__mission-label">{m.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="dash-hero__mission-action">
-              <Link to="/tracker" className="dash-hero__mission-btn">Buka Tracker</Link>
-            </div>
+            <div className="dash-mission__status">{completedMissions} dari {missions.length} selesai</div>
+          </div>
+          
+          <div className="dash-mission__progress">
+            <div className="dash-mission__bar" style={{ width: `${progressPercent}%` }}></div>
           </div>
 
-          {/* Reflection Micro Card */}
-          <div className="dash-hero__reflection">
-            <div className="dash-hero__reflection-header">
-              <Sparkles size={18} className="dash-hero__reflection-icon" />
-              <div className="dash-hero__reflection-title">
-                <strong>Renungan Hari Ini</strong>
-                <span className="dash-hero__reflection-badge">Berganti tiap 5 menit</span>
-              </div>
+          <div className="dash-mission__list">
+            {missions.map(m => (
+              <label key={m.id} className={`dash-mission__item ${m.done ? 'dash-mission__item--done' : ''}`}>
+                <div className="dash-mission__checkbox-wrap">
+                  <input type="checkbox" className="sr-only" checked={m.done} onChange={() => toggleMission(m.id)} aria-label={m.label} />
+                  <div className="dash-mission__checkbox">{m.done ? <Check size={12} strokeWidth={3} /> : null}</div>
+                </div>
+                <span className="dash-mission__label">{m.label}</span>
+              </label>
+            ))}
+          </div>
+
+          <div className="dash-mission__action">
+            <Link to="/tracker" className="btn btn--primary btn--sm">Mulai Misi Tracker</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Reflection Section */}
+      <section className="home-section dash-reflection container">
+        <div className="dash-reflection__card">
+          <div className="dash-reflection__header">
+            <Sparkles size={20} className="dash-reflection__icon" />
+            <div className="dash-reflection__title-wrap">
+              <h2 className="dash-reflection__title">Renungan Hari Ini</h2>
             </div>
-            <div className={`dash-hero__reflection-content ${fadeAnim}`}>
-              {ayahLoading ? (
-                <p>Memuat renungan...</p>
-              ) : dailyAyah ? (
-                <>
-                  <p>"{dailyAyah.translation}"</p>
-                  <div className="dash-hero__reflection-footer">
-                    <span className="dash-hero__reflection-ref">{dailyAyah.reference}</span>
-                    <Link to={`/mushaf/${dailyAyah.surah}#ayah-${dailyAyah.ayah}`} className="dash-hero__reflection-link">Baca</Link>
-                  </div>
-                </>
-              ) : (
-                <p>Renungan harian belum tersedia</p>
-              )}
-            </div>
+          </div>
+          <div className={`dash-reflection__content ${fadeAnim}`}>
+            {ayahLoading ? (
+              <p className="dash-reflection__text">Memuat renungan...</p>
+            ) : dailyAyah ? (
+              <>
+                <p className="dash-reflection__text">"{dailyAyah.translation}"</p>
+                <div className="dash-reflection__footer">
+                  <span className="dash-reflection__ref">{dailyAyah.reference}</span>
+                  <Link to={`/mushaf/${dailyAyah.surah}#ayah-${dailyAyah.ayah}`} className="dash-reflection__link">Baca Ayat</Link>
+                </div>
+              </>
+            ) : (
+              <p className="dash-reflection__text">Renungan harian belum tersedia</p>
+            )}
           </div>
         </div>
       </section>
@@ -385,17 +394,21 @@ export default function HomePage() {
 
         {/* Secondary Features */}
         <div className="dash-actions__secondary">
-          <h3 className="dash-actions__secondary-title">Fitur Lainnya</h3>
+          <h3 className="dash-actions__secondary-title">Fitur Tambahan</h3>
           <div className="dash-actions__grid-secondary">
             {[
-              { to: '/favorit', icon: Star, color: 'blue', label: 'Favorit' },
-              { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih' },
-              { to: '/pengaturan', icon: Settings, color: 'indigo', label: 'Pengaturan' },
-              { to: '/tentang', icon: Info, color: 'slate', label: 'Tentang' }
+              { to: '/favorit', icon: Star, color: 'blue', label: 'Favorit', desc: 'Konten tersimpan' },
+              { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih', desc: 'Dzikir digital' },
+              { to: '/pengaturan', icon: Settings, color: 'indigo', label: 'Pengaturan', desc: 'Preferensi app' },
+              { to: '/tentang', icon: Info, color: 'slate', label: 'Tentang', desc: 'Info developer' }
             ].map((a, i) => (
               <Link key={i} to={a.to} className="dash-action-secondary">
                 <FeatureIcon icon={a.icon} colorMode={a.color} className="sm" />
-                <span className="dash-action-secondary__label">{a.label}</span>
+                <div className="dash-action-secondary__text">
+                  <span className="dash-action-secondary__label">{a.label}</span>
+                  <span className="dash-action-secondary__desc">{a.desc}</span>
+                </div>
+                <ChevronRight size={14} className="dash-action-secondary__arrow" />
               </Link>
             ))}
           </div>
@@ -403,14 +416,17 @@ export default function HomePage() {
       </section>
 
       {/* Travel Mode Shortcut Banner */}
-      <section className="dash-travel-banner container">
+      {/* Travel Mode Shortcut Banner */}
+      <section className="home-section dash-travel-banner container">
         <Link to="/mode-perjalanan" className="travel-banner-card">
-          <div className="travel-banner-icon">
-            <span className="travel-car-icon">🚗</span>
-          </div>
-          <div className="travel-banner-text">
-            <strong>Sedang perjalanan? Buka Mode Perjalanan</strong>
-            <p>Dengarkan murottal, kajian, dzikir, dan doa safar penenang safarmu.</p>
+          <div className="travel-banner-content">
+            <div className="travel-banner-icon-wrap">
+              <span className="travel-car-icon">🚗</span>
+            </div>
+            <div className="travel-banner-text">
+              <strong>Mode Perjalanan</strong>
+              <p>Dengarkan murottal & doa safar penenang jalan.</p>
+            </div>
           </div>
           <div className="travel-banner-action">
             Buka <ChevronRight size={16} />
@@ -419,7 +435,7 @@ export default function HomePage() {
       </section>
 
       {/* Last Read Resume */}
-      <section className="dash-resume container">
+      <section className="home-section dash-resume container">
         <h2 className="dash-section-title"><Bookmark size={20} style={{marginRight: 8, color: 'var(--color-primary)'}} /> Lanjut Baca</h2>
         {hasResumeData ? (
           <div className="dash-resume__cards">
@@ -467,9 +483,12 @@ export default function HomePage() {
 
       {/* Prayer Times Mini */}
       {timings && (
-        <section className="dash-prayer container">
+        <section className="home-section dash-prayer container">
           <div className="dash-prayer__header">
-            <h2 className="dash-section-title">🕌 Jadwal Sholat</h2>
+            <div>
+              <h2 className="dash-section-title">🕌 Jadwal Sholat</h2>
+              {locationName && <p className="dash-prayer__location" style={{fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px'}}><MapPin size={12} /> {locationName}</p>}
+            </div>
             <Link to="/sholat" className="dash-link">Selengkapnya →</Link>
           </div>
           <div className="dash-prayer__grid">
@@ -492,7 +511,7 @@ export default function HomePage() {
 
       {/* Upcoming Events */}
       {events.length > 0 && (
-        <section className="dash-events container">
+        <section className="home-section dash-events container">
           <div className="dash-prayer__header">
             <h2 className="dash-section-title">🕌 Peristiwa Islam</h2>
             <Link to="/kalender-hijriah" className="dash-link">Kalender →</Link>

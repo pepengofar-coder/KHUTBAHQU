@@ -11,7 +11,7 @@ const TABS = [
   { to: '/', end: true, label: 'Home', icon: House },
   { to: '/sholat', label: 'Sholat', icon: Clock },
   { to: '/mushaf', label: 'Mushaf', icon: BookOpen },
-  { to: '/kalender-hijriah', label: 'Kalender', icon: CalendarDays },
+  { to: '/doa-dzikir', label: 'Doa', icon: Heart },
 ];
 
 const MORE_SECTIONS = [

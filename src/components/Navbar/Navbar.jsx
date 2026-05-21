@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Sun, Moon, User, Settings, Upload, Info } from 'lucide-react';
+import { Sun, Moon, User, Settings, Upload, Info, ChevronDown } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import './Navbar.css';
@@ -9,13 +9,19 @@ const DESKTOP_LINKS = [
   { to: '/', label: 'Beranda', end: true },
   { to: '/sholat', label: 'Sholat' },
   { to: '/mushaf', label: 'Mushaf' },
-  { to: '/kiblat', label: 'Kiblat' },
-  { to: '/kalender-hijriah', label: 'Kalender' },
   { to: '/doa-dzikir', label: 'Doa & Dzikir' },
   { to: '/khutbah', label: 'Khutbah' },
   { to: '/tracker', label: 'Tracker' },
+];
+
+const MORE_LINKS = [
+  { to: '/kiblat', label: 'Kiblat' },
+  { to: '/kalender-hijriah', label: 'Kalender' },
   { to: '/tilawah', label: 'Tilawah' },
   { to: '/favorit', label: 'Favorit' },
+  { to: '/tasbih', label: 'Tasbih' },
+  { to: '/pengaturan', label: 'Pengaturan' },
+  { to: '/tentang', label: 'Tentang' },
 ];
 
 export default function Navbar() {
@@ -23,6 +29,8 @@ export default function Navbar() {
   const { user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,7 +43,22 @@ export default function Navbar() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false);
+    setDropdownOpen(false);
   }, [location.pathname]);
+
+  // Click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const isMoreActive = MORE_LINKS.some(link => location.pathname === link.to);
+
   return (
     <header className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
       <div className="nav__inner">
@@ -51,6 +74,26 @@ export default function Navbar() {
               {l.label}
             </NavLink>
           ))}
+          
+          <div className="nav__dropdown-container" ref={dropdownRef}>
+            <button 
+              className={`nav__link nav__dropdown-btn ${isMoreActive ? 'active' : ''}`}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              aria-expanded={dropdownOpen}
+            >
+              Lainnya <ChevronDown size={14} style={{ marginLeft: 4, transition: 'transform 0.2s', transform: dropdownOpen ? 'rotate(180deg)' : 'none' }} />
+            </button>
+            
+            {dropdownOpen && (
+              <div className="nav__dropdown-menu">
+                {MORE_LINKS.map(l => (
+                  <NavLink key={l.to} to={l.to} className={({isActive}) => `nav__dropdown-item${isActive ? ' active' : ''}`}>
+                    {l.label}
+                  </NavLink>
+                ))}
+              </div>
+            )}
+          </div>
         </nav>
 
         <div className="nav__actions">
@@ -71,8 +114,8 @@ export default function Navbar() {
       {/* Mobile Menu Sheet */}
       {menuOpen && <div className="nav__overlay" onClick={() => setMenuOpen(false)} />}
       <div className={`nav__sheet${menuOpen ? ' open' : ''}`}>
-        {DESKTOP_LINKS.map((l, i) => (
-          <NavLink key={l.to} to={l.to} end={l.end} className={({isActive}) => `nav__sheet-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)} style={{ animationDelay: `${i * 40}ms` }}>
+        {[...DESKTOP_LINKS, ...MORE_LINKS.slice(0, 4)].map((l, i) => (
+          <NavLink key={l.to} to={l.to} end={l.end} className={({isActive}) => `nav__sheet-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)} style={{ animationDelay: `${i * 30}ms` }}>
             {l.label}
           </NavLink>
         ))}

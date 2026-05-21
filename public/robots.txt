@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
+Disallow: /admin280292
+Disallow: /login
+Disallow: /register
+Disallow: /auth/callback
+Disallow: /account
+Disallow: /ruang-user
 
+# Crawl politely
+Crawl-delay: 1
+
+# Sitemap location
 Sitemap: https://islamediaku.vercel.app/sitemap.xml
