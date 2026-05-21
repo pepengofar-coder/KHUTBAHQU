@@ -344,7 +344,7 @@ export default function RuangSayaPage() {
                   <p>{gratitudeNotes.length > 0 ? `${gratitudeNotes.length} catatan` : 'Belum ada catatan'}</p>
                 </div>
               </a>
-              <Link to={`/mushaf/page/${quranLastPage || 1}`} className="rs-collection-card">
+              <Link to="/ruang-saya/mushaf" className="rs-collection-card">
                 <div className="rs-collection-card__icon"><BookOpen size={20} /></div>
                 <div>
                   <h3>Mushaf Per Halaman</h3>
@@ -364,11 +364,12 @@ export default function RuangSayaPage() {
         <section className="rs-section">
           <h2 className="rs-section__title">Menu Personal</h2>
           <div className="rs-menu-grid">
-            <Link to={`/mushaf/page/${quranLastPage || 1}`} className="rs-menu-card">
+            <Link to="/ruang-saya/mushaf" className="rs-menu-card">
               <div className="rs-menu-card__icon rs-icon--blue"><BookOpen size={24} /></div>
               <div className="rs-menu-card__content">
                 <h3>Mushaf Per Halaman</h3>
-                <p>Baca seperti mushaf cetak dan lanjutkan halaman terakhir.</p>
+                <p>Baca Al-Qur'an dengan mode fokus seperti mushaf cetak.</p>
+                <span style={{fontSize: '12px', fontWeight: 'bold', color: 'var(--color-primary)', marginTop: '4px', display: 'inline-block'}}>Buka Reading Mode</span>
               </div>
             </Link>
 
