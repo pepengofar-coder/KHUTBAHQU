@@ -5,8 +5,8 @@ import { getHijriDateString } from '../../data/hijriData';
 import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import {
   Target, BookOpen, Headphones, Heart, ChevronRight,
-  Star, Settings, Trash2, Smartphone, Clock,
-  CheckCircle, Plus, X, Activity, Bookmark,
+  Settings, Trash2, Smartphone, Clock,
+  CheckCircle, Plus, X, Bookmark,
   Volume2, Compass, Sun, Moon, Footprints
 } from 'lucide-react';
 import './RuangSayaPage.css';
@@ -24,7 +24,9 @@ function safeJsonParse(key, fallback = null) {
 
 function getTodayKey() {
   const d = new Date();
-  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+  const offset = d.getTimezoneOffset();
+  const localD = new Date(d.getTime() - (offset * 60 * 1000));
+  return localD.toISOString().split('T')[0];
 }
 
 // ── SVG Progress Ring ──
@@ -113,7 +115,6 @@ export default function RuangSayaPage() {
   // Steps
   const stepsData = safeJsonParse('islamediaku_steps_daily', {});
   const todaySteps = stepsData[todayKey] || 0;
-  const stepTarget = parseInt(localStorage.getItem('islamediaku_steps_target') || '5000', 10);
 
   // Quran
   const quranLastPage = safeJsonParse('islamediaku_quran_page_state')?.last_page || null;
@@ -123,7 +124,6 @@ export default function RuangSayaPage() {
   const favCount = safeJsonParse('islamediaku_favorites', []).length;
   const lastTilawah = safeJsonParse('kq_last_tilawah');
   const travelFavs = safeJsonParse('islamediaku_travel_favorites', []);
-  const lastTravelAudio = safeJsonParse('islamediaku_travel_last_audio');
 
   // Overall Progress
   const totalTrackerItems = Object.keys(todayTracker).length > 0 ? Object.keys(todayTracker).length : 5;

@@ -24,7 +24,9 @@ const MOTIVATIONS = [
 ];
 
 function getDateKey(d = new Date()) {
-  return d.toISOString().split('T')[0];
+  const offset = d.getTimezoneOffset();
+  const localD = new Date(d.getTime() - (offset * 60 * 1000));
+  return localD.toISOString().split('T')[0];
 }
 
 // Safely load JSON from localStorage
