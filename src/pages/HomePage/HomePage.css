@@ -11,7 +11,7 @@
 }
 
 /* Hero Greeting — Royal Blue Gradient */
-.dash-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 40%,var(--color-primary-light) 100%);padding:var(--sp-8) 0 var(--sp-12);color:#fff;position:relative;overflow:hidden;margin-bottom:calc(var(--sp-6) * -1)}
+.dash-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 100%);padding:var(--sp-8) 0 var(--sp-12);color:#fff;position:relative;overflow:hidden;margin-bottom:calc(var(--sp-6) * -1)}
 @media (min-width: 768px) {
   .dash-hero { padding: var(--sp-12) 0 var(--sp-16); margin-bottom:calc(var(--sp-10) * -1); }
 }
@@ -30,8 +30,8 @@
 .dash-hero__date span{opacity:.8}
 
 /* Glass Card Utility */
-.glass-card { background:rgba(255,255,255,.1);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-xl);box-shadow:0 8px 32px rgba(0,43,154,.15) }
-[data-theme="dark"] .glass-card { background:rgba(0,0,0,.2); border-color:rgba(255,255,255,.05); box-shadow:0 8px 32px rgba(0,0,0,.3) }
+.glass-card { background:rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);box-shadow:0 12px 40px rgba(0,0,0,.08) }
+[data-theme="dark"] .glass-card { background:rgba(0,0,0,.25); border-color:rgba(255,255,255,.05); box-shadow:0 12px 40px rgba(0,0,0,.35) }
 
 /* Next Prayer Card (Hero) */
 .dash-hero__prayer{padding:var(--sp-5) var(--sp-6);display:flex;flex-direction:column;align-items:flex-start;min-width:180px;text-align:left}
@@ -69,8 +69,9 @@
 .dash-mission__action { display: flex; justify-content: flex-end; }
 
 /* Reflection Section */
-.dash-reflection__card { background: var(--color-bg-elevated); border: 1px solid var(--color-gold); border-radius: var(--radius-xl); padding: var(--sp-5); box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
-.dash-reflection__card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--color-gold-light), var(--color-gold), var(--color-gold-light)); }
+.dash-reflection__card { background: var(--color-bg-elevated); border: 1px solid var(--color-border-light); border-radius: var(--radius-xl); padding: var(--sp-5); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; transition: all var(--tr-base); }
+.dash-reflection__card:hover { border-color: var(--color-gold); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.dash-reflection__card::before { content:''; position:absolute; top:0; left:0; bottom:0; width:4px; background:linear-gradient(to bottom, var(--color-gold-light), var(--color-gold), var(--color-gold-light)); }
 .dash-reflection__header { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); }
 .dash-reflection__icon { color: var(--color-gold); flex-shrink: 0; }
 .dash-reflection__title { font-size: var(--fs-base); font-weight: 700; color: var(--color-gold-dark); margin: 0; }
@@ -115,11 +116,6 @@
   }
 }
 
-/* Secondary Features */
-.dash-actions__secondary {
-  margin-top: var(--sp-6);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
 /* Secondary Actions (List) */
 .dash-actions__secondary{margin-top:var(--sp-6);border-top:1px solid var(--color-border-light);padding-top:var(--sp-4)}
 .dash-actions__secondary-title{font-size:var(--fs-xs);font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:var(--sp-3)}
@@ -450,15 +446,13 @@
 /* Premium Desktop Layout Polish */
 @media(min-width: 1024px) {
   .home-page .container {
-    max-width: 1080px !important;
-    padding-left: var(--sp-6) !important;
-    padding-right: var(--sp-6) !important;
+    max-width: 1200px !important;
+    padding-left: var(--sp-8) !important;
+    padding-right: var(--sp-8) !important;
   }
   .dash-actions__grid-secondary {
     grid-template-columns: repeat(4, 1fr) !important;
-    max-width: 640px !important;
-    margin: 0 auto !important;
-    gap: var(--sp-6) !important;
+    gap: var(--sp-4) !important;
   }
 }
 
