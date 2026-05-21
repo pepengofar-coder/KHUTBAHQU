@@ -4,15 +4,20 @@ import { useSEO } from '../../utils/seo';
 import { getHijriDateString } from '../../data/hijriData';
 import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import {
+  getRuangSayaSummary,
+  getMotivation,
+  safeParseJSON,
+  getTodayKey,
+} from '../../utils/dailyProgress';
+import {
   Target, BookOpen, Headphones, Heart, ChevronRight,
   Settings, Trash2, Smartphone, Clock,
   CheckCircle, Plus, X, Bookmark,
   Volume2, Compass, Sun, Moon, Footprints
 } from 'lucide-react';
-import { DEFAULT_MISSIONS, safeJsonParse as sharedSafeJsonParse, getTodayDateStr } from '../../hooks/useDailyMission';
 import './RuangSayaPage.css';
 
-// ── Safe localStorage helpers ──
+// ── Safe localStorage helper (for non-progress data) ──
 function safeJsonParse(key, fallback = null) {
   try {
     const raw = localStorage.getItem(key);
@@ -21,13 +26,6 @@ function safeJsonParse(key, fallback = null) {
   } catch {
     return fallback;
   }
-}
-
-function getTodayKey() {
-  const d = new Date();
-  const offset = d.getTimezoneOffset();
-  const localD = new Date(d.getTime() - (offset * 60 * 1000));
-  return localD.toISOString().split('T')[0];
 }
 
 // ── SVG Progress Ring ──
@@ -88,31 +86,20 @@ export default function RuangSayaPage() {
     ? 'Satu langkah baik hari ini tetap berarti.'
     : 'Akhiri harimu dengan kebaikan dan syukur.';
 
-  // ── Sync Tracker & Stats ──
-  const trackerData = useMemo(() => safeJsonParse('islamediaku_tracker_daily', {}), []);
-  const todayTracker = trackerData[todayKey] || {};
+  // ── Unified Progress Summary ──
+  const summary = useMemo(() => getRuangSayaSummary(), []);
 
-  // Read mission data using shared date format for consistency
-  const missionDateStr = useMemo(() => getTodayDateStr(), []);
-  const missions = useMemo(() => {
-    const stored = safeJsonParse('islamediaku_daily_mission_progress');
-    if (stored && stored.date === missionDateStr && Array.isArray(stored.data)) return stored.data;
-    return null;
-  }, [missionDateStr]);
+  const completedMissions = summary.missionDone;
+  const totalMissions = summary.missionTotal;
+  const sholatDone = summary.sholatDone;
+  const sholatTotal = summary.sholatTotal;
+  const completedTrackerItems = summary.trackerDone;
 
-  const completedMissions = missions ? missions.filter(m => m.done).length : 0;
-  const totalMissions = missions ? missions.length : DEFAULT_MISSIONS.length;
-
-  // Sholat count from tracker (keys containing 'sholat' or 'shalat')
-  const sholatKeys = Object.keys(todayTracker).filter(k => /shol|shal|subuh|dzuhur|ashar|maghrib|isya/i.test(k));
-  const sholatDone = sholatKeys.filter(k => todayTracker[k]).length;
-  const sholatTotal = Math.max(sholatKeys.length, 5);
-
-  // Dzikir Progress
+  // Dzikir Progress (from dedicated dzikir page — independent source)
   const dzikirPagi = safeJsonParse('islamediaku_dzikir_pagi_progress', { date: null, completed: [] });
   const dzikirPetang = safeJsonParse('islamediaku_dzikir_petang_progress', { date: null, completed: [] });
-  const pagiDone = dzikirPagi.date === todayKey ? dzikirPagi.completed.length : 0;
-  const petangDone = dzikirPetang.date === todayKey ? dzikirPetang.completed.length : 0;
+  const pagiDone = dzikirPagi.date === todayKey ? (Array.isArray(dzikirPagi.completed) ? dzikirPagi.completed.length : Object.keys(dzikirPagi.completed || {}).filter(k => dzikirPagi.completed[k]).length) : 0;
+  const petangDone = dzikirPetang.date === todayKey ? (Array.isArray(dzikirPetang.completed) ? dzikirPetang.completed.length : Object.keys(dzikirPetang.completed || {}).filter(k => dzikirPetang.completed[k]).length) : 0;
   const dzikirCompletedToday = pagiDone + petangDone;
 
   // Steps
@@ -128,12 +115,9 @@ export default function RuangSayaPage() {
   const lastTilawah = safeJsonParse('kq_last_tilawah');
   const travelFavs = safeJsonParse('islamediaku_travel_favorites', []);
 
-  // Overall Progress
-  const totalTrackerItems = Object.keys(todayTracker).length > 0 ? Object.keys(todayTracker).length : 5;
-  const completedTrackerItems = Object.values(todayTracker).filter(Boolean).length;
-
-  const totalTasks = totalMissions + totalTrackerItems + 1;
-  const completedTasks = completedMissions + completedTrackerItems + (dzikirCompletedToday > 0 ? 1 : 0);
+  // Overall Progress — use unified summary + dzikir bonus
+  const totalTasks = summary.totalAll + 1; // +1 for dzikir page
+  const completedTasks = summary.doneAll + (dzikirCompletedToday > 0 ? 1 : 0);
   const progressPercent = totalTasks > 0 ? Math.min(Math.round((completedTasks / totalTasks) * 100), 100) : 0;
 
   const encourageMessage = progressPercent === 0
@@ -168,6 +152,7 @@ export default function RuangSayaPage() {
   // ── Reset handler ──
   const handleResetData = () => {
     const keysToReset = [
+      'islamediaku_daily_progress',
       'islamediaku_daily_mission_progress',
       'islamediaku_quran_last_read',
       'islamediaku_quran_page_state',

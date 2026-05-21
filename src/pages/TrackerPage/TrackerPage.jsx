@@ -1,19 +1,16 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useSEO } from '../../utils/seo';
+import {
+  getDailyProgress,
+  updateTrackerItem,
+  getMotivation,
+  TRACKER_ITEMS,
+  safeParseJSON,
+  safeSaveJSON,
+  getTodayKey,
+} from '../../utils/dailyProgress';
 import { Target, Footprints, Plus, Trash2, HeartPulse, Sparkles, CheckCircle2, Circle } from 'lucide-react';
 import './TrackerPage.css';
-
-const IBADAH_LIST = [
-  { id: 'subuh', label: 'Sholat Subuh', icon: '🌙', group: 'sholat' },
-  { id: 'dzuhur', label: 'Sholat Dzuhur', icon: '☀️', group: 'sholat' },
-  { id: 'ashar', label: 'Sholat Ashar', icon: '🌤️', group: 'sholat' },
-  { id: 'maghrib', label: 'Sholat Maghrib', icon: '🌇', group: 'sholat' },
-  { id: 'isya', label: 'Sholat Isya', icon: '🌃', group: 'sholat' },
-  { id: 'dzikir_pagi', label: 'Dzikir Pagi', icon: '🌅', group: 'sunnah' },
-  { id: 'dzikir_petang', label: 'Dzikir Petang', icon: '🌇', group: 'sunnah' },
-  { id: 'tilawah', label: 'Tilawah', icon: '📖', group: 'sunnah' },
-  { id: 'sedekah', label: 'Sedekah', icon: '💝', group: 'sunnah' },
-];
 
 const MOTIVATIONS = [
   "Jaga tubuh sebagai amanah.",
@@ -23,31 +20,6 @@ const MOTIVATIONS = [
   "Kebiasaan baik tumbuh dari langkah kecil yang diulang."
 ];
 
-function getDateKey(d = new Date()) {
-  const offset = d.getTimezoneOffset();
-  const localD = new Date(d.getTime() - (offset * 60 * 1000));
-  return localD.toISOString().split('T')[0];
-}
-
-// Safely load JSON from localStorage
-function safeLoad(key, defaultValue) {
-  try {
-    const val = localStorage.getItem(key);
-    if (val) return JSON.parse(val);
-  } catch (e) {
-    console.error(`Error loading ${key}`, e);
-  }
-  return defaultValue;
-}
-
-function safeSave(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch (e) {
-    console.error(`Error saving ${key}`, e);
-  }
-}
-
 export default function TrackerPage() {
   useSEO({
     title: 'Tracker Ibadah & Langkah Sehat | Islamediaku',
@@ -55,37 +27,35 @@ export default function TrackerPage() {
     path: '/tracker'
   });
 
-  const today = getDateKey();
-  
-  // States
-  const [trackerData, setTrackerData] = useState(() => safeLoad('islamediaku_tracker_daily', {}));
-  const [stepTarget, setStepTarget] = useState(() => safeLoad('islamediaku_steps_target', 5000));
-  const [stepsData, setStepsData] = useState(() => safeLoad('islamediaku_steps_daily', {}));
-  const [activityLog, setActivityLog] = useState(() => safeLoad('islamediaku_steps_activity_log', []));
+  const today = getTodayKey();
+
+  // ── Unified Daily Progress ──
+  const [progressData, setProgressData] = useState(() => getDailyProgress());
+
+  // Steps & Activity (remain independent — not mission/tracker data)
+  const [stepTarget, setStepTarget] = useState(() => safeParseJSON('islamediaku_steps_target', 5000));
+  const [stepsData, setStepsData] = useState(() => safeParseJSON('islamediaku_steps_daily', {}));
+  const [activityLog, setActivityLog] = useState(() => safeParseJSON('islamediaku_steps_activity_log', []));
   const [motivation] = useState(() => MOTIVATIONS[Math.floor(Math.random() * MOTIVATIONS.length)]);
 
   // Activity Form States
   const [activityTitle, setActivityTitle] = useState('');
   const [activityDuration, setActivityDuration] = useState('');
 
-  // Daily Checklists
-  const todayTracker = useMemo(() => trackerData[today] || {}, [trackerData, today]);
-  const doneCount = IBADAH_LIST.filter(i => todayTracker[i.id]).length;
-  const progressPct = Math.round((doneCount / IBADAH_LIST.length) * 100);
+  // ── Ibadah Checklist from unified data ──
+  const todayTracker = progressData.tracker || {};
+  const doneCount = TRACKER_ITEMS.filter(i => todayTracker[i.id]).length;
+  const progressPct = Math.round((doneCount / TRACKER_ITEMS.length) * 100);
 
   const toggleIbadah = useCallback((id) => {
-    setTrackerData(prev => {
-      const next = { ...prev, [today]: { ...(prev[today] || {}), [id]: !(prev[today]?.[id]) } };
-      safeSave('islamediaku_tracker_daily', next);
-      return next;
-    });
-  }, [today]);
+    setProgressData(prev => updateTrackerItem(id, prev));
+  }, []);
 
   let progressMessage = "Mulai dengan satu kebaikan.";
-  if (doneCount > 0 && doneCount < IBADAH_LIST.length) progressMessage = "MasyaAllah, lanjutkan kebiasaan baik hari ini.";
-  if (doneCount === IBADAH_LIST.length) progressMessage = "Alhamdulillah, semua rutinitas selesai!";
+  if (doneCount > 0 && doneCount < TRACKER_ITEMS.length) progressMessage = "MasyaAllah, lanjutkan kebiasaan baik hari ini.";
+  if (doneCount === TRACKER_ITEMS.length) progressMessage = "Alhamdulillah, semua rutinitas selesai!";
 
-  // Steps
+  // ── Steps ──
   const todaySteps = stepsData[today] || 0;
   const stepPct = Math.min(100, Math.round((todaySteps / stepTarget) * 100));
 
@@ -97,7 +67,7 @@ export default function TrackerPage() {
     setStepsData(prev => {
       const current = prev[today] || 0;
       const next = { ...prev, [today]: Math.max(0, current + amount) };
-      safeSave('islamediaku_steps_daily', next);
+      safeSaveJSON('islamediaku_steps_daily', next);
       return next;
     });
   };
@@ -107,11 +77,11 @@ export default function TrackerPage() {
     if (newTarget !== null && !isNaN(newTarget) && parseInt(newTarget) > 0) {
       const parsed = parseInt(newTarget);
       setStepTarget(parsed);
-      safeSave('islamediaku_steps_target', parsed);
+      safeSaveJSON('islamediaku_steps_target', parsed);
     }
   };
 
-  // Activity Log
+  // ── Activity Log ──
   const addActivity = (e) => {
     e.preventDefault();
     if (!activityTitle.trim() || !activityDuration) return;
@@ -125,8 +95,8 @@ export default function TrackerPage() {
     };
     
     setActivityLog(prev => {
-      const next = [newLog, ...prev].slice(0, 50); // Keep last 50
-      safeSave('islamediaku_steps_activity_log', next);
+      const next = [newLog, ...prev].slice(0, 50);
+      safeSaveJSON('islamediaku_steps_activity_log', next);
       return next;
     });
     setActivityTitle('');
@@ -136,7 +106,7 @@ export default function TrackerPage() {
   const deleteActivity = (id) => {
     setActivityLog(prev => {
       const next = prev.filter(log => log.id !== id);
-      safeSave('islamediaku_steps_activity_log', next);
+      safeSaveJSON('islamediaku_steps_activity_log', next);
       return next;
     });
   };
@@ -159,7 +129,7 @@ export default function TrackerPage() {
             <p className="tracker-progress__msg">{progressMessage}</p>
             <div className="tracker-progress__stats">
               <span className="tracker-progress__count">{doneCount}</span>
-              <span className="tracker-progress__total">/ {IBADAH_LIST.length} selesai</span>
+              <span className="tracker-progress__total">/ {TRACKER_ITEMS.length} selesai</span>
             </div>
           </div>
           <div className="tracker-progress__ring">
@@ -176,7 +146,7 @@ export default function TrackerPage() {
         <section className="tracker-list-section">
           <h3 className="tracker-section__title">Daftar Rutinitas</h3>
           <div className="tracker-list">
-            {IBADAH_LIST.map(item => {
+            {TRACKER_ITEMS.map(item => {
               const isDone = todayTracker[item.id];
               return (
                 <button key={item.id} className={`tracker-item ${isDone ? 'tracker-item--done' : ''}`} onClick={() => toggleIbadah(item.id)}>

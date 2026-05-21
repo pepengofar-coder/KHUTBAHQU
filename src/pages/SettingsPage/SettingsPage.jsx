@@ -66,6 +66,7 @@ export default function SettingsPage() {
   // Reset Actions
   const resetMission = () => {
     if (window.confirm('Hapus progres Misi Harian hari ini?')) {
+      localStorage.removeItem('islamediaku_daily_progress');
       localStorage.removeItem('islamediaku_daily_mission_progress');
       alert('Progres misi harian telah direset.');
     }
@@ -73,6 +74,7 @@ export default function SettingsPage() {
 
   const resetTracker = () => {
     if (window.confirm('Hapus semua riwayat Tracker Ibadah dan Langkah Sehat? Data tidak dapat dikembalikan.')) {
+      localStorage.removeItem('islamediaku_daily_progress');
       localStorage.removeItem('islamediaku_tracker_daily');
       localStorage.removeItem('islamediaku_steps_daily');
       localStorage.removeItem('islamediaku_steps_activity_log');
