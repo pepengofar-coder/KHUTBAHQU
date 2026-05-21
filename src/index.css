@@ -4,58 +4,58 @@
    ============================================ */
 
 :root {
-  /* Primary palette — Royal Blue */
-  --color-primary: #0047FF;
-  --color-primary-light: #1D7CFF;
-  --color-primary-dark: #002B9A;
-  --color-primary-surface: rgba(0,71,255,0.06);
+  /* Primary palette — Deep Royal Blue */
+  --color-primary: #1A56DB;
+  --color-primary-light: #3F83F8;
+  --color-primary-dark: #1E429F;
+  --color-primary-surface: rgba(26, 86, 219, 0.06);
 
-  /* Accent — Neon Lime */
-  --color-accent: #C6FF00;
-  --color-accent-soft: #E9FF8A;
-  --color-accent-dark: #8FB800;
-  --color-accent-surface: rgba(198,255,0,0.1);
+  /* Accent — Emerald Green */
+  --color-accent: #10B981;
+  --color-accent-soft: #A7F3D0;
+  --color-accent-dark: #047857;
+  --color-accent-surface: rgba(16, 185, 129, 0.1);
 
   /* Islamic Green (subtle accent) */
-  --color-islamic: #064E3B;
-  --color-islamic-surface: rgba(6,78,59,0.06);
+  --color-islamic: #059669;
+  --color-islamic-surface: rgba(5, 150, 105, 0.06);
 
   /* Gold (events/badges) */
-  --color-gold: #D6A84F;
-  --color-gold-light: #FFF8E7;
-  --color-gold-dark: #B8892E;
+  --color-gold: #D4AF37;
+  --color-gold-light: #FEF3C7;
+  --color-gold-dark: #B45309;
 
   /* Backgrounds */
-  --color-bg: #F5F8FF;
-  --color-bg-alt: #EBF0FA;
+  --color-bg: #F8FAFC;
+  --color-bg-alt: #F1F5F9;
   --color-bg-card: #FFFFFF;
-  --color-bg-elevated: #FAFCFF;
+  --color-bg-elevated: #FDFDFD;
 
   /* Text */
-  --color-text: #07111F;
+  --color-text: #0F172A;
   --color-text-secondary: #334155;
   --color-text-muted: #64748B;
   --color-text-inverse: #FFFFFF;
 
   /* Borders & dividers */
-  --color-border: #D5DFEE;
-  --color-border-light: #E8EDF6;
-  --color-divider: #DEE5F0;
+  --color-border: #E2E8F0;
+  --color-border-light: #F1F5F9;
+  --color-divider: #CBD5E1;
 
   /* Semantic */
-  --color-success: #059669;
-  --color-warning: #D97706;
-  --color-error: #DC2626;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
 
-  /* Shadow — blue-tinted */
-  --shadow-xs: 0 1px 2px rgba(0,43,154,0.04);
-  --shadow-sm: 0 1px 3px rgba(0,43,154,0.06), 0 1px 2px rgba(0,43,154,0.04);
-  --shadow-md: 0 4px 6px rgba(0,43,154,0.05), 0 2px 4px rgba(0,43,154,0.04);
-  --shadow-lg: 0 10px 15px rgba(0,43,154,0.06), 0 4px 6px rgba(0,43,154,0.04);
-  --shadow-xl: 0 20px 25px rgba(0,43,154,0.08), 0 8px 10px rgba(0,43,154,0.04);
-  --shadow-card-hover: 0 12px 28px rgba(0,71,255,0.12), 0 4px 10px rgba(0,43,154,0.06);
-  --shadow-glow-accent: 0 0 20px rgba(198,255,0,0.3), 0 0 40px rgba(198,255,0,0.1);
-  --shadow-glow-primary: 0 0 20px rgba(0,71,255,0.2), 0 0 40px rgba(0,71,255,0.08);
+  /* Shadow — subtle blue/slate-tinted */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.05), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px rgba(15, 23, 42, 0.06), 0 4px 6px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 25px rgba(15, 23, 42, 0.08), 0 8px 10px rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 12px 28px rgba(26, 86, 219, 0.08), 0 4px 10px rgba(15, 23, 42, 0.04);
+  --shadow-glow-accent: 0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1);
+  --shadow-glow-primary: 0 0 20px rgba(26, 86, 219, 0.2), 0 0 40px rgba(26, 86, 219, 0.08);
 
   /* Typography */
   --font-heading: 'Outfit', 'Inter', sans-serif;

@@ -246,18 +246,22 @@ export default function HomePage() {
       <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
           <div className={`dash-hero__greeting ${greetingFade}`}>
-            <span className="dash-hero__category-badge">{greeting.category || 'Momen'}</span>
-            <h1 className="dash-hero__salam">Islamediaku</h1>
-            <p className="dash-hero__tagline">Pendamping Islami harian dalam satu aplikasi.</p>
-            <p className="dash-hero__desc">Baca Al-Qur'an, cek jadwal sholat, dengarkan tilawah, pantau ibadah, dan temukan renungan Islami setiap hari.</p>
+            <span className="dash-hero__category-badge">{(greeting.category || 'Hari Ini').toUpperCase()}</span>
+            <h1 className="dash-hero__salam">Sahabat Ibadah Harianmu</h1>
+            <p className="dash-hero__desc">Baca Al-Qur'an, cek jadwal sholat, dengarkan tilawah, dan jaga rutinitas ibadah setiap hari.</p>
             <p className="dash-hero__date">{gregorian} &bull; <span>📅 {hijriStr}</span></p>
           </div>
 
           {timings && nextP && (
             <div className="dash-hero__prayer glass-card">
-              <span className="dash-hero__prayer-label">Sholat berikutnya</span>
-              <span className="dash-hero__prayer-name">{nextP.icon} {nextP.label}</span>
-              <span className="dash-hero__prayer-time">{fmt(timings[nextP.key])}</span>
+              <div className="dash-hero__prayer-header">
+                <span className="dash-hero__prayer-label">Sholat berikutnya</span>
+                <Link to="/sholat" className="dash-hero__prayer-link">Lihat Jadwal <ChevronRight size={14} /></Link>
+              </div>
+              <div className="dash-hero__prayer-main">
+                <span className="dash-hero__prayer-name"><nextP.icon size={20} /> {nextP.label}</span>
+                <span className="dash-hero__prayer-time">{fmt(timings[nextP.key])}</span>
+              </div>
               <span className="dash-hero__countdown">{countdown}</span>
             </div>
           )}
@@ -292,7 +296,7 @@ export default function HomePage() {
           </div>
 
           <div className="dash-mission__action">
-            <Link to="/tracker" className="btn btn--primary btn--sm">Mulai Misi Tracker</Link>
+            <Link to="/tracker" className="btn btn--primary btn--sm">Buka Tracker Ibadah</Link>
           </div>
         </div>
       </section>
@@ -399,10 +403,10 @@ export default function HomePage() {
           <h3 className="dash-actions__secondary-title">Fitur Tambahan</h3>
           <div className="dash-actions__grid-secondary">
             {[
-              { to: '/favorit', icon: Star, color: 'blue', label: 'Favorit', desc: 'Konten tersimpan' },
-              { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih', desc: 'Dzikir digital' },
-              { to: '/pengaturan', icon: Settings, color: 'indigo', label: 'Pengaturan', desc: 'Preferensi app' },
-              { to: '/tentang', icon: Info, color: 'slate', label: 'Tentang', desc: 'Info developer' }
+              { to: '/favorit', icon: Star, color: 'blue', label: 'Favorit', desc: 'Simpan ayat, doa, dan khutbah' },
+              { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih', desc: 'Hitung dzikir dengan mudah' },
+              { to: '/pengaturan', icon: Settings, color: 'indigo', label: 'Pengaturan', desc: 'Sesuaikan preferensi app' },
+              { to: '/tentang', icon: Info, color: 'slate', label: 'Tentang', desc: 'Mengenal Islamediaku' }
             ].map((a, i) => (
               <Link key={i} to={a.to} className="dash-action-secondary">
                 <FeatureIcon icon={a.icon} colorMode={a.color} className="sm" />
@@ -426,12 +430,12 @@ export default function HomePage() {
               <span className="travel-car-icon">🚗</span>
             </div>
             <div className="travel-banner-text">
-              <strong>Mode Perjalanan</strong>
-              <p>Dengarkan murottal & doa safar penenang jalan.</p>
+              <strong>Sedang dalam perjalanan?</strong>
+              <p>Aktifkan Mode Safar untuk akses cepat doa, arah kiblat, dan murottal penenang jalan.</p>
             </div>
           </div>
           <div className="travel-banner-action">
-            Buka <ChevronRight size={16} />
+            Aktifkan Mode Safar <ChevronRight size={16} />
           </div>
         </Link>
       </section>
