@@ -1,0 +1,48 @@
+.ifc-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 18px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 30px rgba(7,17,31,0.06);
+}
+
+.ifc-card:hover { transform: translateY(-4px); box-shadow: 0 18px 50px rgba(7,17,31,0.08); }
+
+.ifc-card__text { flex: 1; min-width: 0; z-index: 2; }
+.ifc-card__title { margin: 0 0 6px 0; font-size: 18px; font-weight: 800; color: var(--color-text-dark, #07111F); }
+.ifc-card__subtitle { margin: 0; font-size: 13px; color: var(--color-text-muted); }
+
+.ifc-card__visual { width: 96px; height: 72px; position: relative; display:flex;align-items:center;justify-content:center;flex-shrink:0; z-index:1 }
+.ifc-card__visual-bg { position:absolute; right:-20px; top:-10px; width:220px; height:160px; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.18), transparent 20%), radial-gradient(circle at 80% 80%, rgba(0,0,0,0.04), transparent 30%); filter: blur(18px); transform: rotate(-6deg); border-radius:20px; }
+.ifc-card__visual-icon { width:64px; height:64px; color: rgba(255,255,255,0.95); filter: drop-shadow(0 8px 20px rgba(0,0,0,0.18)); }
+.ifc-card__emoji { font-size:34px; }
+.ifc-card__placeholder { width:52px; height:52px; border-radius:12px; background:rgba(255,255,255,0.12); }
+
+/* Size variants */
+.ifc-card--featured { padding: 24px; border-radius: 28px; }
+.ifc-card--featured .ifc-card__title { font-size: 22px; }
+.ifc-card--featured .ifc-card__visual { width: 140px; height: 110px; }
+
+/* Color variants (subtle gradients tuned to app palette) */
+.ifc-card--blue { background: linear-gradient(135deg,#EAF3FF 0%,#D7E8FF 100%); }
+.ifc-card--cyan { background: linear-gradient(135deg,#E8FBFF 0%,#D9F6FF 100%); }
+.ifc-card--mint { background: linear-gradient(135deg,#E6FFF8 0%,#D8FFF2 100%); }
+.ifc-card--lavender { background: linear-gradient(135deg,#F5EEFF 0%,#EDE0FF 100%); }
+.ifc-card--gold { background: linear-gradient(135deg,#FFF7EA 0%,#FFF1DC 100%); }
+.ifc-card--cream { background: linear-gradient(135deg,#FFFDF2 0%,#FFF6E0 100%); }
+.ifc-card--lime { background: linear-gradient(135deg,#F8FFE6 0%,#F1FFCF 100%); }
+
+/* Dark mode tweaks */
+[data-theme="dark"] .ifc-card { box-shadow: 0 10px 40px rgba(2,6,23,0.6); }
+[data-theme="dark"] .ifc-card__title { color: #F8FAFC; }
+
+@media(min-width:768px){
+  .ifc-card { padding: 20px 20px; }
+}

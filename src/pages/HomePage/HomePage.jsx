@@ -9,7 +9,7 @@ import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
-import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
+import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
 import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
 import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
@@ -339,69 +339,71 @@ export default function HomePage() {
       <section className="dash-actions container">
         <h2 className="dash-section-title dash-actions__title">📖 Menu Utama</h2>
         <div className="dash-actions__grid-main">
-          <VariedFeatureCard
-            to="/mushaf"
-            icon={BookOpen}
-            colorVariant="blue"
-            title="Mushaf"
-            subtitle="Baca Al-Qur’an"
-            layoutVariant="grid-card"
-          />
-          <VariedFeatureCard
+          <div className="featured-card-wrap">
+            <IllustratedFeatureCard
+              to="/mushaf"
+              visual={BookOpen}
+              colorVariant="blue"
+              title="Mushaf"
+              subtitle="Baca Al-Qur’an"
+              featured
+            />
+          </div>
+
+          <IllustratedFeatureCard
             to="/sholat"
-            icon={Clock}
+            visual={Clock}
             colorVariant="cyan"
             title="Sholat"
             subtitle="Jadwal & Pengingat"
-            layoutVariant="grid-card"
           />
-          <VariedFeatureCard
+
+          <IllustratedFeatureCard
             to="/tilawah"
-            icon={Headphones}
+            visual={Headphones}
             colorVariant="blue"
             title="Tilawah"
             subtitle="Dengarkan Qur’an"
-            layoutVariant="grid-card"
           />
-          <VariedFeatureCard
+
+          <IllustratedFeatureCard
             to="/doa-dzikir"
-            icon={Sparkles}
+            visual={Sparkles}
             colorVariant="mint"
             title="Doa & Dzikir"
             subtitle="Pagi, Petang, Harian"
-            layoutVariant="grid-card"
           />
-          <VariedFeatureCard
+
+          <IllustratedFeatureCard
             to="/kalender-hijriah"
-            icon={CalendarDays}
+            visual={CalendarDays}
             colorVariant="lavender"
             title="Kalender"
             subtitle="Hijriah & Hari Besar"
-            layoutVariant="grid-card"
           />
-          <VariedFeatureCard
+
+          <IllustratedFeatureCard
             to="/kiblat"
-            icon={Compass}
+            visual={Compass}
             colorVariant="gold"
             title="Kiblat"
             subtitle="Arah Sholat"
-            layoutVariant="grid-card"
           />
-          <VariedFeatureCard
+
+          <IllustratedFeatureCard
             to="/tracker"
-            icon={CheckSquare}
+            visual={CheckSquare}
             colorVariant="lime"
             title="Tracker"
             subtitle="Pantau Ibadah"
-            layoutVariant="grid-card"
           />
-          <VariedFeatureCard
+
+          <IllustratedFeatureCard
             to="/khutbah"
-            icon={Mic}
+            visual={Mic}
             colorVariant="cream"
             title="Khutbah"
             subtitle="Materi Pilihan"
-            layoutVariant="grid-card"
           />
         </div>
 
