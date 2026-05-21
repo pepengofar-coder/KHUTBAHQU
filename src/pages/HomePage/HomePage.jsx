@@ -11,7 +11,8 @@ import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
 import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
-import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
+import DailyMission from '../../components/DailyMission/DailyMission';
+import { BookOpen, Compass, CircleDot, Mic, Target, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard
@@ -95,37 +96,7 @@ export default function HomePage() {
     };
   }, []);
 
-  // Daily Missions
-  const todayDateStr = useMemo(() => {
-    const d = new Date();
-    return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-  }, []);
-  
-  const [missions, setMissions] = useState(() => {
-    try {
-      const stored = JSON.parse(localStorage.getItem('islamediaku_daily_mission_progress'));
-      if (stored && stored.date === todayDateStr) return stored.data;
-    } catch (e) {
-      console.warn('Daily missions not parsed:', e);
-    }
-    return [
-      { id: 'dzikir', label: 'Dzikir pagi', done: false },
-      { id: 'quran', label: 'Baca 5 ayat', done: false },
-      { id: 'sholat', label: 'Cek jadwal sholat', done: false },
-      { id: 'khutbah', label: 'Baca khutbah singkat', done: false },
-    ];
-  });
-
-  const toggleMission = (id) => {
-    setMissions(prev => {
-      const next = prev.map(m => m.id === id ? { ...m, done: !m.done } : m);
-      localStorage.setItem('islamediaku_daily_mission_progress', JSON.stringify({ date: todayDateStr, data: next }));
-      return next;
-    });
-  };
-
-  const completedMissions = missions.filter(m => m.done).length;
-  const progressPercent = Math.round((completedMissions / missions.length) * 100);
+  // Daily Missions — now handled by DailyMission component
 
   // Prayer times mini
   const [timings, setTimings] = useState(null);
@@ -276,37 +247,7 @@ export default function HomePage() {
       </section>
 
       {/* Daily Mission Section */}
-      <section className="home-section dash-mission container">
-        <div className="dash-mission__card">
-          <div className="dash-mission__header">
-            <div className="dash-mission__title-wrap">
-              <h2 className="dash-mission__title"><Target size={18} className="text-accent" /> Misi Ibadah Hari Ini</h2>
-              <p className="dash-mission__subtitle">Mulai dengan satu amalan kecil hari ini.</p>
-            </div>
-            <div className="dash-mission__status">{completedMissions} dari {missions.length} selesai</div>
-          </div>
-          
-          <div className="dash-mission__progress">
-            <div className="dash-mission__bar" style={{ width: `${progressPercent}%` }}></div>
-          </div>
-
-          <div className="dash-mission__list">
-            {missions.map(m => (
-              <label key={m.id} className={`dash-mission__item ${m.done ? 'dash-mission__item--done' : ''}`}>
-                <div className="dash-mission__checkbox-wrap">
-                  <input type="checkbox" className="sr-only" checked={m.done} onChange={() => toggleMission(m.id)} aria-label={m.label} />
-                  <div className="dash-mission__checkbox">{m.done ? <Check size={12} strokeWidth={3} /> : null}</div>
-                </div>
-                <span className="dash-mission__label">{m.label}</span>
-              </label>
-            ))}
-          </div>
-
-          <div className="dash-mission__action">
-            <Link to="/tracker" className="btn btn--primary btn--sm">Buka Tracker Ibadah</Link>
-          </div>
-        </div>
-      </section>
+      <DailyMission />
 
       {/* Reflection Section */}
       <section className="home-section dash-reflection container">

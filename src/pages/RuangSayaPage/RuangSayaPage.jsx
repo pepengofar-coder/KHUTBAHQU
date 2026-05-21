@@ -9,6 +9,7 @@ import {
   CheckCircle, Plus, X, Bookmark,
   Volume2, Compass, Sun, Moon, Footprints
 } from 'lucide-react';
+import { DEFAULT_MISSIONS, safeJsonParse as sharedSafeJsonParse, getTodayDateStr } from '../../hooks/useDailyMission';
 import './RuangSayaPage.css';
 
 // ── Safe localStorage helpers ──
@@ -91,14 +92,16 @@ export default function RuangSayaPage() {
   const trackerData = useMemo(() => safeJsonParse('islamediaku_tracker_daily', {}), []);
   const todayTracker = trackerData[todayKey] || {};
 
+  // Read mission data using shared date format for consistency
+  const missionDateStr = useMemo(() => getTodayDateStr(), []);
   const missions = useMemo(() => {
     const stored = safeJsonParse('islamediaku_daily_mission_progress');
-    if (stored && stored.date === todayKey) return stored.data;
+    if (stored && stored.date === missionDateStr && Array.isArray(stored.data)) return stored.data;
     return null;
-  }, [todayKey]);
+  }, [missionDateStr]);
 
   const completedMissions = missions ? missions.filter(m => m.done).length : 0;
-  const totalMissions = missions ? missions.length : 0;
+  const totalMissions = missions ? missions.length : DEFAULT_MISSIONS.length;
 
   // Sholat count from tracker (keys containing 'sholat' or 'shalat')
   const sholatKeys = Object.keys(todayTracker).filter(k => /shol|shal|subuh|dzuhur|ashar|maghrib|isya/i.test(k));
