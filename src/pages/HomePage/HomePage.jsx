@@ -131,6 +131,7 @@ export default function HomePage() {
   const [timings, setTimings] = useState(null);
   const [countdown, setCountdown] = useState('');
   const [nowTime, setNowTime] = useState(new Date());
+  const [locationName, setLocationName] = useState('Jakarta');
   const iv = useRef(null);
 
   useEffect(() => {
@@ -138,6 +139,7 @@ export default function HomePage() {
       try {
         const d = new Date();
         const city = localStorage.getItem('kq_prayer_city') || 'Jakarta';
+        setLocationName(city);
         const cities = { Jakarta: [-6.2088, 106.8456], Surabaya: [-7.2575, 112.7521], Bandung: [-6.9175, 107.6191] };
         const [lat, lon] = cities[city] || cities.Jakarta;
         const r = await fetch(`https://api.aladhan.com/v1/timings/${d.getDate()}-${d.getMonth()+1}-${d.getFullYear()}?latitude=${lat}&longitude=${lon}&method=11`);
