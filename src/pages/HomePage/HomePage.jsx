@@ -11,7 +11,7 @@ import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
 import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
-import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon } from 'lucide-react';
+import { BookOpen, Compass, CircleDot, Mic, Target, Check, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard

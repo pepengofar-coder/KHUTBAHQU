@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { House, Clock, BookOpen, CalendarDays, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User } from 'lucide-react';
+import { House, Clock, BookOpen, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
 import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
 import { useAuth } from '../../context/AuthContext';
