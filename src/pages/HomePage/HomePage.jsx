@@ -361,7 +361,7 @@ export default function HomePage() {
           <IllustratedFeatureCard
             to="/tilawah"
             visual={Headphones}
-            colorVariant="blue"
+            colorVariant="indigo"
             title="Tilawah"
             subtitle="Dengarkan Qur’an"
           />
