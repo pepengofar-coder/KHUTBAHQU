@@ -565,95 +565,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Modern About Section */}
-      <section className="home-about container">
-        <div className="home-about__header">
-          <h2 className="home-about__title">Tentang Islamediaku</h2>
-          <p className="home-about__subtitle">Sahabat ibadah harian untuk sholat, Al-Qur’an, dzikir, tilawah, dan kebiasaan baik.</p>
-        </div>
-
-        {/* Kajian Banner Card — fetched from Supabase */}
+      {/* Kajian Banner */}
+      <section className="home-section container" style={{ marginTop: 'var(--sp-4)' }}>
         <KajianBannerCard />
-
-        {/* Main Layout Area for About Section */}
-        <div className="home-about__layout">
-          <div className="home-about__main">
-            {/* Hero Card */}
-            <div className="home-about__hero">
-              <div className="home-about__hero-content">
-                <h3 className="home-about__hero-title">Teman Ibadah Harianmu</h3>
-                <p className="home-about__hero-desc">Islamediaku membantu kamu menjaga rutinitas ibadah dengan fitur yang ringan, rapi, dan mudah digunakan setiap hari.</p>
-                <div className="home-about__cta">
-                  <Link to="/mushaf" className="btn btn--primary">Mulai Jelajahi</Link>
-                </div>
-              </div>
-              <div className="home-about__hero-visual">
-                <div className="hero-visual-pattern"></div>
-                <div className="hero-chips">
-                  <span className="hero-chip">Sholat</span>
-                  <span className="hero-chip">Mushaf</span>
-                  <span className="hero-chip">Dzikir</span>
-                  <span className="hero-chip">Tilawah</span>
-                  <span className="hero-chip">Tracker</span>
-                </div>
-                <div className="home-about__glow"></div>
-              </div>
-            </div>
-
-            {/* Benefit Cards */}
-            <div className="home-about__benefits">
-              <div className="home-about__benefit">
-                <FeatureIcon icon={BookOpen} colorMode="blue" />
-                <div className="home-about__benefit-text">
-                  <h3 className="home-about__benefit-title">Mushaf & Tilawah</h3>
-                  <p className="home-about__benefit-desc">Baca Al-Qur'an dan dengarkan tilawah dengan nyaman.</p>
-                </div>
-              </div>
-              <div className="home-about__benefit">
-                <FeatureIcon icon={CheckSquare} colorMode="lime" />
-                <div className="home-about__benefit-text">
-                  <h3 className="home-about__benefit-title">Ibadah Harian</h3>
-                  <p className="home-about__benefit-desc">Jadwal sholat, dzikir, dan tracker kebiasaan baik.</p>
-                </div>
-              </div>
-              <div className="home-about__benefit">
-                <FeatureIcon icon={Compass} colorMode="cyan" />
-                <div className="home-about__benefit-text">
-                  <h3 className="home-about__benefit-title">Mode Perjalanan</h3>
-                  <p className="home-about__benefit-desc">Doa safar, audio Islami, kiblat, dan pengingat sholat.</p>
-                </div>
-              </div>
-              <div className="home-about__benefit">
-                <FeatureIcon icon={Mic} colorMode="green" />
-                <div className="home-about__benefit-text">
-                  <h3 className="home-about__benefit-title">Konten Islami</h3>
-                  <p className="home-about__benefit-desc">Khutbah, materi pilihan, dan pengingat iman harian.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="home-about__sidebar">
-            <Link to="/mode-perjalanan" className="home-about__kajian-card-new">
-              <div className="kajian-card-new__icon">
-                <Headphones size={24} />
-              </div>
-              <h3 className="kajian-card-new__title">Kajian Pilihan</h3>
-              <p className="kajian-card-new__text">Temukan kajian ringan dan pengingat iman harian untuk menemani aktivitasmu.</p>
-              <span className="kajian-card-new__cta">Lihat Kajian</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Apk Download Component */}
-        {import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL ? (
-          <ApkDownloadBar />
-        ) : (
-          <div className="home-about__apk-empty">
-            <p>Aplikasi Android (APK) belum tersedia saat ini.</p>
-          </div>
-        )}
       </section>
+
+      {/* Apk Download Component */}
+      {import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL ? (
+        <section className="home-section container" style={{ paddingBottom: 'var(--sp-12)' }}>
+          <ApkDownloadBar />
+        </section>
+      ) : null}
     </div>
   );
 }
