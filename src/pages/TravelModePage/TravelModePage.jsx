@@ -12,6 +12,7 @@ import {
   Copy, Check, Volume2, X, ChevronRight,
   AlertCircle
 } from 'lucide-react';
+import PrayerTimes from '../../components/PrayerTimes/PrayerTimes';
 import './TravelModePage.css';
 
 export default function TravelModePage() {
@@ -224,20 +225,36 @@ export default function TravelModePage() {
         {toastMessage}
       </div>
 
-      {/* Page Header */}
+      {/* Page Header & Dashboard */}
       <header className="travel-header container">
-        <div className="travel-brand">
-          <Car className="travel-brand-icon animate-bounce" size={28} />
-          <div>
-            <h1 className="travel-title">Mode Perjalanan</h1>
-            <p className="travel-subtitle">Spotify-like Islamic Audio Companion</p>
-          </div>
-        </div>
+        <div className="travel-hero-desktop-grid">
+          {/* Left Column: Hero & Actions */}
+          <div className="travel-hero-content">
+            <div className="travel-brand">
+              <span className="travel-hero-badge">AUDIO ISLAMI</span>
+              <h1 className="travel-title">Mode Perjalanan</h1>
+              <p className="travel-subtitle">Temani perjalananmu dengan tilawah, kajian ringan, doa safar, dan audio Islami.</p>
+            </div>
+            
+            <div className="travel-chips-container">
+              <button className="travel-chip" onClick={() => handleOpenPlaylist('tilawah-pilihan')}>Tilawah</button>
+              <button className="travel-chip" onClick={() => handleOpenPlaylist('kajian-ringan')}>Kajian</button>
+              <a href="#doa-safar-card" className="travel-chip">Doa Safar</a>
+              <button className="travel-chip" onClick={() => handleOpenPlaylist('radio-quran-live')}>Radio Qur'an</button>
+              <Link to="/sholat" className="travel-chip">Jadwal Sholat</Link>
+            </div>
 
-        {/* Safety Banner */}
-        <div className="travel-safety-badge" role="alert">
-          <AlertCircle className="safety-icon" size={16} />
-          <span>Gunakan audio dengan aman. Jika sedang mengemudi, atur playlist sebelum berangkat atau saat berhenti.</span>
+            {/* Safety Banner */}
+            <div className="travel-safety-badge" role="alert">
+              <AlertCircle className="safety-icon" size={16} />
+              <span>Gunakan audio dengan aman. Jika sedang mengemudi, atur playlist sebelum berangkat atau saat berhenti.</span>
+            </div>
+          </div>
+          
+          {/* Right Column: Prayer Times Dashboard */}
+          <div className="travel-hero-widget">
+            <PrayerTimes />
+          </div>
         </div>
       </header>
 

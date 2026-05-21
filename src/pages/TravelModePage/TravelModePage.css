@@ -5,9 +5,13 @@
 
 .travel-mode-page {
   padding-bottom: 120px; /* Space for the active player sticky bar */
-  background-color: var(--color-bg-alt);
+  background: radial-gradient(circle at 15% 15%, rgba(216, 169, 40, 0.28), transparent 35%),
+              radial-gradient(circle at 85% 20%, rgba(0, 194, 216, 0.20), transparent 35%),
+              linear-gradient(135deg, #06111F 0%, #002B9A 45%, #003B46 100%);
+  background-attachment: fixed;
   min-height: 100vh;
   animation: fadeIn 0.4s ease-out;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 @keyframes fadeIn {
@@ -48,51 +52,105 @@
   padding-bottom: var(--sp-4);
 }
 
-.travel-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
+/* Hero Area Redesign */
+.travel-hero-desktop-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
   margin-bottom: var(--sp-4);
 }
 
-.travel-brand-icon {
-  color: var(--color-primary);
+@media (min-width: 992px) {
+  .travel-hero-desktop-grid {
+    grid-template-columns: 1fr 380px;
+    align-items: start;
+    margin-bottom: var(--sp-8);
+  }
+}
+
+.travel-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.travel-brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.travel-hero-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #C6FF00; /* Neon Lime */
+  background: rgba(198, 255, 0, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  letter-spacing: 1px;
 }
 
 .travel-title {
   font-size: var(--fs-2xl);
   font-weight: 800;
-  color: var(--color-text);
+  color: #FFFFFF;
   margin: 0;
   letter-spacing: -0.5px;
 }
 
 .travel-subtitle {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: var(--lh-relaxed);
+}
+
+.travel-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.travel-chip {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
   font-size: var(--fs-xs);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  margin: 2px 0 0 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+}
+
+.travel-chip:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #00C2D8;
+  transform: translateY(-2px);
 }
 
 .travel-safety-badge {
   display: flex;
   align-items: flex-start;
   gap: var(--sp-3);
-  background: rgba(0, 71, 255, 0.05);
-  border: 1px solid rgba(0, 71, 255, 0.12);
+  background: rgba(0, 71, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 71, 255, 0.3);
   border-radius: var(--radius-xl);
   padding: var(--sp-3) var(--sp-4);
   font-size: var(--fs-xs);
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: var(--lh-relaxed);
 }
 
 [data-theme="dark"] .travel-safety-badge {
-  background: rgba(30, 41, 59, 0.5);
-  border-color: rgba(31, 42, 69, 0.6);
-  color: var(--color-text-muted);
+  background: rgba(0, 71, 255, 0.15);
+  border-color: rgba(0, 71, 255, 0.3);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .safety-icon {
@@ -105,7 +163,7 @@
 .travel-section-title {
   font-size: var(--fs-md);
   font-weight: 800;
-  color: var(--color-text);
+  color: #FFFFFF;
   margin: 0 0 var(--sp-3) 0;
   letter-spacing: -0.2px;
 }
@@ -153,7 +211,7 @@
 
 .shortcut-card strong {
   font-size: var(--fs-xs);
-  color: var(--color-text);
+  color: #FFFFFF;
   font-weight: 700;
   display: block;
 }
@@ -192,16 +250,17 @@
   align-items: center;
   gap: var(--sp-4);
   padding: var(--sp-4);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-2xl);
   cursor: pointer;
   transition: all 0.25s var(--ease-spring);
 }
 
 .continue-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md);
+  border-color: #C6FF00;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   transform: scale(1.01);
 }
 
@@ -249,7 +308,7 @@
 .continue-title {
   font-size: var(--fs-sm);
   font-weight: 700;
-  color: var(--color-text);
+  color: #FFFFFF;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -258,7 +317,7 @@
 
 .continue-subtitle {
   font-size: var(--fs-xs);
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   margin: 2px 0 0 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -267,7 +326,7 @@
 
 .continue-attribution {
   font-size: 9px;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.5);
   margin: 4px 0 0 0;
 }
 
@@ -313,18 +372,21 @@
   align-items: center;
   gap: var(--sp-4);
   padding: var(--sp-4);
-  border-radius: var(--radius-2xl);
+  border-radius: 24px;
   color: #FFFFFF;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.25s var(--ease-spring);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .playlist-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 43, 154, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 194, 216, 0.2);
+  border-color: #00C2D8;
 }
 
 .playlist-icon {
@@ -390,20 +452,22 @@
 }
 
 .doa-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
   padding: var(--sp-5);
   transition: all 0.25s var(--ease-spring);
+  color: #FFFFFF;
 }
 
 .doa-card--read {
-  border-color: var(--color-accent);
-  background: rgba(198, 255, 0, 0.02);
+  border-color: #C6FF00;
+  background: rgba(198, 255, 0, 0.05);
 }
 
 [data-theme="dark"] .doa-card--read {
-  background: rgba(198, 255, 0, 0.01);
+  background: rgba(198, 255, 0, 0.05);
 }
 
 .doa-card-header {
@@ -453,7 +517,7 @@
   font-weight: 500;
   text-align: right;
   line-height: 1.8;
-  color: var(--color-text);
+  color: #FFFFFF;
   margin: 0 0 var(--sp-4) 0;
   direction: rtl;
 }
@@ -461,14 +525,14 @@
 .doa-transliteration {
   font-size: var(--fs-sm);
   font-style: italic;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   line-height: var(--lh-relaxed);
   margin: 0 0 var(--sp-3) 0;
 }
 
 .doa-translation {
   font-size: var(--fs-xs);
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   line-height: var(--lh-relaxed);
   margin: 0;
 }
@@ -514,16 +578,17 @@
   align-items: center;
   gap: var(--sp-4);
   padding: var(--sp-4);
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-2xl);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .sleep-shortcut-card:hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary-surface);
+  border-color: #00C2D8;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .sleep-icon {
@@ -533,14 +598,14 @@
 
 .sleep-shortcut-card strong {
   font-size: var(--fs-sm);
-  color: var(--color-text);
+  color: #FFFFFF;
   font-weight: 700;
   display: block;
 }
 
 .sleep-shortcut-card p {
   font-size: var(--fs-xs);
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   margin: 2px 0 0 0;
 }
 
@@ -566,10 +631,10 @@
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  background: rgba(7, 17, 31, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(198, 255, 0, 0.25);
-  border-radius: var(--radius-2xl);
+  background: rgba(7, 17, 31, 0.88);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
   padding: var(--sp-3) var(--sp-4);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   color: #FFFFFF;
@@ -876,26 +941,27 @@
   align-items: center;
   gap: var(--sp-3);
   padding: var(--sp-3) var(--sp-4);
-  background: var(--color-bg-alt);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid transparent;
   border-radius: var(--radius-xl);
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 64px; /* Large click target */
+  color: #FFFFFF;
 }
 
 .track-item:hover {
-  background: var(--color-bg-card);
-  border-color: var(--color-border-light);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .track-item.active {
-  border-color: var(--color-primary);
-  background: var(--color-primary-surface);
+  border-color: #C6FF00;
+  background: rgba(198, 255, 0, 0.1);
 }
 
 [data-theme="dark"] .track-item.active {
-  background: rgba(0, 71, 255, 0.1);
+  background: rgba(198, 255, 0, 0.1);
 }
 
 .track-number-box {
@@ -1166,4 +1232,52 @@
 @keyframes trackWave {
   0%, 100% { height: 2px; }
   50% { height: 12px; }
+}
+
+/* Prayer Times Widget Overrides for Travel Mode */
+.travel-mode-page .prayer-times {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  color: #FFFFFF;
+  margin: 0;
+  box-shadow: none;
+}
+
+.travel-mode-page .prayer-times__title,
+.travel-mode-page .prayer-times__date,
+.travel-mode-page .prayer-times__hijri,
+.travel-mode-page .prayer-times__clock,
+.travel-mode-page .prayer-times__city-label,
+.travel-mode-page .prayer-times__prayer-name,
+.travel-mode-page .prayer-times__prayer-time,
+.travel-mode-page .prayer-times__next-label {
+  color: #FFFFFF !important;
+}
+
+.travel-mode-page .prayer-times__item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.travel-mode-page .prayer-times__item--next {
+  border-color: #C6FF00;
+  background: rgba(198, 255, 0, 0.1);
+}
+
+.travel-mode-page .prayer-times__next-badge {
+  background: #C6FF00;
+  color: #07111F;
+}
+
+.travel-mode-page .prayer-times__next {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.travel-mode-page .prayer-times__switch-btn,
+.travel-mode-page .prayer-times__refresh {
+  background: rgba(255,255,255,0.1);
+  color: #FFFFFF;
 }
