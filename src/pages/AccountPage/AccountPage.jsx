@@ -7,7 +7,7 @@ import { PLANS } from '../../config/premium';
 import './AccountPage.css';
 
 export default function AccountPage() {
-  const { user, logout } = useAuth();
+  const { user, loading, logout } = useAuth();
   const { subscription, isPremiumUser, toggleMockPremium } = usePremium();
   const navigate = useNavigate();
 
@@ -18,10 +18,18 @@ export default function AccountPage() {
   });
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       navigate('/login', { replace: true });
     }
-  }, [user, navigate]);
+  }, [loading, user, navigate]);
+
+  if (loading) {
+    return (
+      <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        Memuat...
+      </div>
+    );
+  }
 
   if (!user) return null;
 

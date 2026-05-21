@@ -22,12 +22,20 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
 
-  const { login, register, resetPassword, isSupabaseReady } = useAuth();
+  const { user, loading: authLoading, login, register, resetPassword, isSupabaseReady } = useAuth();
   const navigate = useNavigate();
 
   // URL-based status messages from /auth/callback redirect
   const confirmed = searchParams.get('confirmed') === 'true';
   const confirmationError = searchParams.get('confirmation_error') === 'true';
+
+  // Auto-redirect if already logged in
+  useEffect(() => {
+    if (!authLoading && user && !confirmed && !confirmationError && successMessage === null) {
+      const from = location.state?.from?.pathname || '/ruang-user';
+      navigate(from, { replace: true });
+    }
+  }, [user, authLoading, navigate, location, confirmed, confirmationError, successMessage]);
 
   // Dismiss URL banner by clearing search params
   const dismissUrlBanner = useMemo(() => {
@@ -73,8 +81,9 @@ export default function AuthPage() {
         }
         return;
       }
-      const from = location.state?.from?.pathname || '/ruang-user';
-      navigate(from, { replace: true });
+      // Do not navigate manually here. 
+      // The onAuthStateChange event in AuthContext will update the `user` state,
+      // and the useEffect above will automatically navigate to the intended route.
     } catch (err) {
       setError(err.message || 'Terjadi kesalahan saat masuk.');
     } finally {
