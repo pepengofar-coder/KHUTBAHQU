@@ -1,0 +1,224 @@
+.habit-sheet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+.habit-sheet {
+  background: var(--bg-card, #ffffff);
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .habit-sheet-overlay {
+    align-items: center;
+  }
+  .habit-sheet {
+    border-radius: 24px;
+    max-height: 80vh;
+  }
+}
+
+.habit-sheet-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color, #f1f5f9);
+}
+
+.habit-sheet-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.habit-sheet-icon {
+  background: var(--bg-hover, #f8fafc);
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.habit-sheet-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-color, #1e293b);
+  margin: 0;
+}
+
+.habit-sheet-badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  background: var(--color-primary-light, #e0e7ff);
+  color: var(--color-primary, #4338ca);
+}
+
+.habit-sheet-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.habit-sheet-close:hover {
+  background: var(--bg-hover, #f1f5f9);
+}
+
+.habit-sheet-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.habit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.habit-section-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-color, #334155);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.habit-section-text {
+  font-size: 0.95rem;
+  color: var(--text-muted, #475569);
+  line-height: 1.5;
+  background: var(--bg-hover, #f8fafc);
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+
+.habit-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.habit-stat-box {
+  background: var(--bg-hover, #f8fafc);
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.habit-stat-val {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary, #4338ca);
+}
+
+.habit-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted, #64748b);
+}
+
+.habit-progress-msg {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.habit-note-area {
+  width: 100%;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 12px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s;
+  background: var(--bg-card, #ffffff);
+  color: var(--text-color, #1e293b);
+}
+
+.habit-note-area:focus {
+  outline: none;
+  border-color: var(--color-primary, #4338ca);
+}
+
+.habit-sheet-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.habit-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.habit-btn:active {
+  opacity: 0.8;
+}
+
+.habit-btn-primary {
+  background: var(--color-primary, #4338ca);
+  color: white;
+}
+
+.habit-btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.habit-btn-secondary {
+  background: var(--bg-hover, #f1f5f9);
+  color: var(--text-color, #334155);
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  to { transform: translateY(0); }
+}

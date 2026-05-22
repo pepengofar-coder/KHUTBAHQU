@@ -1,0 +1,232 @@
+.good-path-page {
+  min-height: 100vh;
+  background-color: var(--bg-color, #f8fafc);
+  padding-bottom: 80px;
+}
+
+.gp-header {
+  background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
+  padding: 32px 20px;
+  color: white;
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  margin-bottom: 24px;
+}
+
+.gp-header__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gp-header__subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.gp-main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.gp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gp-card {
+  background: var(--bg-card, #ffffff);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--border-color, #f1f5f9);
+}
+
+.gp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.gp-card--done {
+  opacity: 0.7;
+  background: var(--bg-hover, #f8fafc);
+}
+
+.gp-card__icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--bg-hover, #f1f5f9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.gp-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gp-card__title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-color, #1e293b);
+  margin: 0;
+}
+
+.gp-card--done .gp-card__title {
+  text-decoration: line-through;
+  color: var(--text-muted, #64748b);
+}
+
+.gp-card__desc {
+  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gp-card__check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.gp-card__check:hover {
+  background: var(--bg-hover, #f1f5f9);
+}
+
+.gp-icon-checked {
+  color: var(--color-primary, #10b981); /* Lime/Green for checked */
+}
+
+.gp-icon-unchecked {
+  color: var(--text-muted, #cbd5e1);
+}
+
+.gp-add-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  border: 2px dashed var(--border-color, #cbd5e1);
+  background: transparent;
+  color: var(--text-muted, #64748b);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: all 0.2s;
+}
+
+.gp-add-btn:hover {
+  background: var(--bg-hover, #f8fafc);
+  border-color: var(--color-primary, #4338ca);
+  color: var(--color-primary, #4338ca);
+}
+
+/* Modal for Custom Habit */
+.gp-custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.gp-custom-modal {
+  background: var(--bg-card, #ffffff);
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gp-custom-modal h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-color, #1e293b);
+}
+
+.gp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gp-form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted, #64748b);
+}
+
+.gp-input {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.gp-input:focus {
+  border-color: var(--color-primary, #4338ca);
+}
+
+.gp-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.gp-btn-cancel {
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #64748b);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.gp-btn-save {
+  padding: 10px 20px;
+  border: none;
+  background: var(--color-primary, #4338ca);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}

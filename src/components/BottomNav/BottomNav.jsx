@@ -21,6 +21,7 @@ const MORE_SECTIONS = [
       { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue', desc: 'Kompas penunjuk arah kiblat' },
       { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose', desc: 'Koleksi doa & dzikir pagi petang' },
       { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo', desc: 'Counter dzikir & tasbih digital' },
+      { to: '/good-path', label: 'Good Path', icon: Compass, color: 'emerald', desc: 'Sistem pembiasaan islami' },
       { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime', desc: 'Catat dan pantau amal harian' },
     ],
   },

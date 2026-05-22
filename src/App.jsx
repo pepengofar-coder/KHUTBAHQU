@@ -44,6 +44,7 @@ const RuangUserPage = lazy(() => import('./pages/RuangUserPage/RuangUserPage'));
 const RuangSayaPage = lazy(() => import('./pages/RuangSayaPage/RuangSayaPage'));
 const RuangSayaMushaf = lazy(() => import('./pages/RuangSayaMushaf/RuangSayaMushaf'));
 const AuthCallbackPage = lazy(() => import('./pages/AuthCallbackPage/AuthCallbackPage'));
+const GoodPathPage = lazy(() => import('./pages/GoodPathPage/GoodPathPage'));
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function AnimatedRoutes() {
@@ -65,6 +66,7 @@ function AnimatedRoutes() {
           <Route path="/tasbih" element={<TasbihPage />} />
           <Route path="/khutbah" element={<CatalogPage />} />
           <Route path="/khutbah/:slug" element={<DetailPage />} />
+          <Route path="/good-path" element={<GoodPathPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
           <Route path="/tilawah" element={<TilawahPage />} />
           <Route path="/mode-perjalanan" element={<TravelModePage />} />
