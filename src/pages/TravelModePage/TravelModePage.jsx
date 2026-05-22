@@ -394,69 +394,7 @@ export default function TravelModePage() {
         </section>
       )}
 
-        {/* Kajian Pendek Section */}
-        {kajianData && kajianData.length > 0 && (
-          <section className="travel-section container">
-            <div className="section-header">
-              <h2 className="section-title">Kajian Pendek</h2>
-              <span className="section-subtitle">Nasihat singkat dari Masjid Al-Irsyad TV</span>
-            </div>
 
-            <div className="kajian-themes-scroll">
-              {['Semua', 'Aqidah', 'Akhlak', 'Fiqih', 'Keluarga', 'Motivasi Iman', 'Qur\'an', 'Sholat', 'Sedekah', 'Remaja', 'Kajian Singkat'].map(theme => (
-                <button
-                  key={theme}
-                  className={`kajian-theme-chip ${selectedKajianTheme === theme ? 'active' : ''}`}
-                  onClick={() => {
-                    setSelectedKajianTheme(theme);
-                    try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch {}
-                  }}
-                >
-                  {theme}
-                </button>
-              ))}
-            </div>
-
-            {kajianRecommendations.length > 0 ? (
-              <div className="recommendations-list">
-                {kajianRecommendations.map((track) => {
-                  const isActive = (activeRadio?.id === track.id);
-                  const isPlayingThis = playing && activeRadio?.id === track.id;
-                  
-                  return (
-                    <div 
-                      key={track.id} 
-                      className={`recommendation-card ${isActive ? 'active' : ''}`}
-                      onClick={() => handlePlayItem(track, kajianRecommendations)}
-                    >
-                      <div className="rec-icon-box">
-                        <img src={track.thumbnail} alt={track.title} className="rec-thumbnail" />
-                        <div className="rec-play-overlay">
-                          {isPlayingThis ? <div className="rec-wave"><span/><span/><span/></div> : <Play size={16} fill="currentColor" />}
-                        </div>
-                      </div>
-                      <div className="rec-info">
-                        <span className="rec-title">{track.title}</span>
-                        <div className="rec-meta">
-                          <span className="rec-source">{track.channelTitle}</span>
-                          {track.isShort && <span className="rec-badge-short">Shorts</span>}
-                        </div>
-                      </div>
-                      <button className="rec-fav-btn" onClick={(e) => toggleFav(track.id, e)} aria-label="Favorit">
-                        <Heart size={18} fill={isFav(track.id) ? "currentColor" : "none"} className={isFav(track.id) ? "heart-active" : "heart-inactive"} />
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="kajian-empty-state">
-                <AlertCircle size={24} className="kajian-empty-icon" />
-                <p>Belum ada kajian untuk tema ini.</p>
-              </div>
-            )}
-          </section>
-        )}
 
       {/* Playlists Grid */}
       <section className="travel-playlists container">
@@ -550,70 +488,145 @@ export default function TravelModePage() {
             </div>
 
             <div className="sheet-body">
-              <h4 className="sheet-tracks-heading">Daftar Audio</h4>
-              <div className="sheet-tracks-list">
-                {selectedPlaylistTracks.map((track) => {
-                  const isActive = activeRadio?.id === track.id;
-                  const isPlayingThis = isActive && playing;
-                  const isItemFavorited = isFav(track.id);
-
-                  return (
-                    <div 
-                      key={track.id} 
-                      className={`track-item ${isActive ? 'active' : ''} ${!track.enabled && !track.audioUrl && !track.route ? 'disabled' : ''}`}
-                      onClick={() => handlePlayItem(track, selectedPlaylistTracks)}
-                    >
-                      <div className="track-number-box">
-                        {isPlayingThis ? (
-                          <div className="track-playing-waves"><span/><span/><span/></div>
-                        ) : (
-                          <span className="track-type-icon">
-                            {track.type === 'radio' ? '📻' : track.type === 'doa' ? '🤲' : '🔊'}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="track-meta">
-                        <span className="track-title-row">
-                          <strong className="track-title">{track.title}</strong>
-                          {track.isVerified && <span className="verified-badge" title="Sumber Terverifikasi">✓ Verified</span>}
-                        </span>
-                        <p className="track-qari">{track.subtitle}</p>
-                        <span className="track-source-attribution">
-                          {track.attribution}
-                        </span>
-                      </div>
-
-                      <div className="track-end-actions">
-                        {/* Favorite button */}
-                        {(track.enabled || track.type === 'kajian_youtube') && (
-                          <button 
-                            className={`track-fav-btn ${isItemFavorited ? 'active' : ''}`}
-                            onClick={(e) => toggleFav(track.id, e)}
-                          >
-                            <Heart size={16} fill={isItemFavorited ? 'currentColor' : 'none'} />
-                          </button>
-                        )}
-
-                        {/* Control Indicator */}
-                        <button className="track-play-indicator">
-                          {track.type === 'kajian_youtube' ? (
-                            <span className="badge-open" style={{background: '#ea4335', color: '#fff', border: 'none'}}>PUTAR</span>
-                          ) : !track.enabled && !track.audioUrl && !track.route ? (
-                            <span className="badge-unavailable" title="Audio Belum Tersedia">N/A</span>
-                          ) : track.route ? (
-                            <span className="badge-open">BUKA</span>
-                          ) : isPlayingThis ? (
-                            <Pause size={14} fill="currentColor" />
-                          ) : (
-                            <Play size={14} fill="currentColor" />
-                          )}
-                        </button>
-                      </div>
+              {selectedPlaylist.id === 'kajian-ringan' ? (
+                <>
+                  <div style={{ padding: '0 1.5rem', marginBottom: '1rem' }}>
+                    <div style={{ background: '#f0f9ff', border: '1px solid #bae6fd', color: '#0369a1', padding: '0.5rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <AlertCircle size={16} />
+                      Kajian Ringan Source: Masjid Al-Irsyad TV
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+
+                  <div className="kajian-themes-scroll">
+                    {['Semua', 'Aqidah', 'Akhlak', 'Fiqih', 'Keluarga', 'Motivasi Iman', 'Qur\'an', 'Sholat', 'Sedekah', 'Remaja', 'Kajian Singkat'].map(theme => (
+                      <button
+                        key={theme}
+                        className={`kajian-theme-chip ${selectedKajianTheme === theme ? 'active' : ''}`}
+                        onClick={() => {
+                          setSelectedKajianTheme(theme);
+                          try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch {}
+                        }}
+                      >
+                        {theme}
+                      </button>
+                    ))}
+                  </div>
+
+                  {kajianRecommendations.length > 0 ? (
+                    <div className="recommendations-list">
+                      {kajianRecommendations.map((track) => {
+                        const isActive = (activeRadio?.id === track.id);
+                        const isPlayingThis = playing && activeRadio?.id === track.id;
+                        
+                        return (
+                          <div 
+                            key={track.id} 
+                            className={`recommendation-card ${isActive ? 'active' : ''}`}
+                            onClick={() => handlePlayItem(track, kajianRecommendations)}
+                          >
+                            <div className="rec-icon-box">
+                              <img src={track.thumbnail} alt={track.title} className="rec-thumbnail" />
+                              <div className="rec-play-overlay">
+                                {isPlayingThis ? <div className="rec-wave"><span/><span/><span/></div> : <Play size={16} fill="currentColor" />}
+                              </div>
+                            </div>
+                            <div className="rec-info">
+                              <span className="rec-title">{track.title}</span>
+                              <div className="rec-meta">
+                                <span className="rec-source">{track.channelTitle}</span>
+                                {track.isShort && <span className="rec-badge-short">Shorts</span>}
+                              </div>
+                            </div>
+                            <button className="rec-fav-btn" onClick={(e) => toggleFav(track.id, e)} aria-label="Favorit">
+                              <Heart size={18} fill={isFav(track.id) ? "currentColor" : "none"} className={isFav(track.id) ? "heart-active" : "heart-inactive"} />
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : kajianData.length === 0 ? (
+                    <div className="kajian-empty-state">
+                      <AlertCircle size={24} className="kajian-empty-icon" style={{ color: '#ef4444' }} />
+                      <p>Sumber kajian belum dikonfigurasi.</p>
+                      <button 
+                        className="btn-primary mt-3" 
+                        onClick={() => window.open('https://www.youtube.com/@masjidalirsyadtv', '_blank')}
+                      >
+                        Buka Channel Resmi
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="kajian-empty-state">
+                      <AlertCircle size={24} className="kajian-empty-icon" />
+                      <p>Belum ada kajian untuk tema ini.</p>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <h4 className="sheet-tracks-heading">Daftar Audio</h4>
+                  <div className="sheet-tracks-list">
+                    {selectedPlaylistTracks.map((track) => {
+                      const isActive = activeRadio?.id === track.id;
+                      const isPlayingThis = isActive && playing;
+                      const isItemFavorited = isFav(track.id);
+
+                      return (
+                        <div 
+                          key={track.id} 
+                          className={`track-item ${isActive ? 'active' : ''} ${!track.enabled && !track.audioUrl && !track.route ? 'disabled' : ''}`}
+                          onClick={() => handlePlayItem(track, selectedPlaylistTracks)}
+                        >
+                          <div className="track-number-box">
+                            {isPlayingThis ? (
+                              <div className="track-playing-waves"><span/><span/><span/></div>
+                            ) : (
+                              <span className="track-type-icon">
+                                {track.type === 'radio' ? '📻' : track.type === 'doa' ? '🤲' : '🔊'}
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="track-meta">
+                            <span className="track-title-row">
+                              <strong className="track-title">{track.title}</strong>
+                              {track.isVerified && <span className="verified-badge" title="Sumber Terverifikasi">✓ Verified</span>}
+                            </span>
+                            <p className="track-qari">{track.subtitle}</p>
+                            <span className="track-source-attribution">
+                              {track.attribution}
+                            </span>
+                          </div>
+
+                          <div className="track-end-actions">
+                            {(track.enabled || track.type === 'kajian_youtube') && (
+                              <button 
+                                className={`track-fav-btn ${isItemFavorited ? 'active' : ''}`}
+                                onClick={(e) => toggleFav(track.id, e)}
+                              >
+                                <Heart size={16} fill={isItemFavorited ? 'currentColor' : 'none'} />
+                              </button>
+                            )}
+                            <button className="track-play-indicator">
+                              {track.type === 'kajian_youtube' ? (
+                                <span className="badge-open" style={{background: '#ea4335', color: '#fff', border: 'none'}}>PUTAR</span>
+                              ) : !track.enabled && !track.audioUrl && !track.route ? (
+                                <span className="badge-unavailable" title="Audio Belum Tersedia">N/A</span>
+                              ) : track.route ? (
+                                <span className="badge-open">BUKA</span>
+                              ) : isPlayingThis ? (
+                                <Pause size={14} fill="currentColor" />
+                              ) : (
+                                <Play size={14} fill="currentColor" />
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

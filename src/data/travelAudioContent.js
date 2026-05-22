@@ -39,7 +39,7 @@ export const PLAYLISTS = [
   {
     id: 'kajian-ringan',
     title: 'Kajian Ringan',
-    subtitle: 'Hikmah dan ilmu bermanfaat dalam kajian pendek yang menemani safar.',
+    subtitle: 'Kajian singkat dari Masjid Al-Irsyad TV.',
     gradient: 'linear-gradient(135deg, #6366F1, #4338CA)',
     icon: '🎙️',
     coverStyle: 'indigo'
