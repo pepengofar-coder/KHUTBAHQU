@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import {
   getDailyProgress,
@@ -9,7 +10,7 @@ import {
   safeSaveJSON,
   getTodayKey,
 } from '../../utils/dailyProgress';
-import { Target, Footprints, Plus, Trash2, HeartPulse, Sparkles, CheckCircle2, Circle } from 'lucide-react';
+import { Target, Footprints, Plus, Trash2, HeartPulse, Sparkles, CheckCircle2, Circle, Compass, ChevronRight } from 'lucide-react';
 import './TrackerPage.css';
 
 const MOTIVATIONS = [
@@ -140,6 +141,20 @@ export default function TrackerPage() {
             </svg>
             <div className="tracker-progress__pct">{progressPct}%</div>
           </div>
+        </section>
+
+        {/* Compact Good Path Banner */}
+        <section className="tracker-card" style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '16px', textDecoration: 'none', background: 'linear-gradient(to right, var(--bg-card), var(--bg-hover))' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'var(--color-primary-light, #e0e7ff)', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+            <Compass size={24} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ margin: '0 0 4px 0', fontSize: '1.05rem', color: 'var(--text-color)' }}>Good Path</h3>
+            <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)' }}>Lanjutkan kebiasaan baik dan program harianmu.</p>
+          </div>
+          <Link to="/good-path" style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'var(--color-primary)', color: 'white', padding: '8px 16px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold', textDecoration: 'none' }}>
+            Buka <ChevronRight size={16} />
+          </Link>
         </section>
 
         {/* Checklist */}

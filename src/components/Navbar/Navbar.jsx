@@ -15,6 +15,8 @@ const DESKTOP_LINKS = [
 ];
 
 const MORE_LINKS = [
+  { to: '/ruang-saya', label: 'Ruang Saya' },
+  { to: '/good-path', label: 'Good Path' },
   { to: '/kiblat', label: 'Kiblat' },
   { to: '/kalender-hijriah', label: 'Kalender' },
   { to: '/tilawah', label: 'Tilawah' },

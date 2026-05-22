@@ -16,13 +16,21 @@ const TABS = [
 
 const MORE_SECTIONS = [
   {
+    title: 'Ruang Saya',
+    items: [
+      { to: '/ruang-saya', label: 'Ruang Saya', icon: User, color: 'cyan', desc: 'Dashboard pribadi dan progres ibadah' },
+      { to: '/good-path', label: 'Good Path', icon: Compass, color: 'emerald', desc: 'Sistem pembiasaan islami' },
+      { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime', desc: 'Catat dan pantau amal harian' },
+      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
+      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },
+    ],
+  },
+  {
     title: 'Ibadah',
     items: [
       { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue', desc: 'Kompas penunjuk arah kiblat' },
       { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose', desc: 'Koleksi doa & dzikir pagi petang' },
       { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo', desc: 'Counter dzikir & tasbih digital' },
-      { to: '/good-path', label: 'Good Path', icon: Compass, color: 'emerald', desc: 'Sistem pembiasaan islami' },
-      { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime', desc: 'Catat dan pantau amal harian' },
     ],
   },
   {
@@ -37,10 +45,7 @@ const MORE_SECTIONS = [
   {
     title: 'Aplikasi',
     items: [
-      { to: '/ruang-saya', label: 'Ruang Saya', icon: User, color: 'cyan', desc: 'Dashboard pribadi dan progres ibadah' },
       { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green', desc: 'Teks khutbah & kultum pilihan' },
-      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
-      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },
       { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue', desc: 'Mengenal aplikasi Islamediaku' },
     ],
   },

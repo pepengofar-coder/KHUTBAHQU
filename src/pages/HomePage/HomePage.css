@@ -30,9 +30,7 @@
 .dash-hero__date{font-size:var(--fs-sm);opacity:.85;font-weight:500;}
 .dash-hero__date span{opacity:.8}
 
-/* Glass Card Utility */
-.glass-card { background:rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);box-shadow:0 12px 40px rgba(0,0,0,.08) }
-[data-theme="dark"] .glass-card { background:rgba(0,0,0,.25); border-color:rgba(255,255,255,.05); box-shadow:0 12px 40px rgba(0,0,0,.35) }
+/* Glass Card Utility moved to glass.css */
 
 /* Next Prayer Card (Hero) */
 .dash-hero__prayer{padding:var(--sp-4) var(--sp-5);display:flex;flex-direction:column;align-items:flex-start;min-width:180px;text-align:left;width:100%}
@@ -116,7 +114,7 @@
 
 /* Travel Mode Shortcut Banner */
 .dash-travel-banner{position:relative;z-index:2}
-.travel-banner-card{display:flex;flex-direction:column;gap:var(--sp-4);background:linear-gradient(135deg,var(--color-bg-card) 0%,var(--color-bg-alt) 100%);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--sp-4) var(--sp-5);text-decoration:none;transition:all .3s var(--ease-spring);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.travel-banner-card{display:flex;flex-direction:column;gap:var(--sp-4);background:var(--glass-bg-strong);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--color-primary-surface);border-radius:var(--radius-xl);padding:var(--sp-4) var(--sp-5);text-decoration:none;transition:all .3s var(--ease-spring);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
 @media (min-width: 640px) {
   .travel-banner-card{flex-direction:row;align-items:center;justify-content:space-between}
 }
@@ -144,12 +142,12 @@
   padding: 0 var(--sp-4) var(--sp-3);
 }
 
-/* Prayer times mini — Blue gradient cards */
+/* Prayer times mini */
 .dash-prayer{padding:0 var(--sp-4) var(--sp-6)}
 .dash-prayer__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-3)}
 .dash-prayer__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-2)}
 @media(max-width:420px){.dash-prayer__grid{grid-template-columns:repeat(3,1fr)}}
-.dash-prayer-card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-3);background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring)}
+.dash-prayer-card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-3);background:var(--glass-bg-light);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring);box-shadow:var(--glass-shadow-light)}
 .dash-prayer-card--next{background:linear-gradient(135deg,var(--color-primary-dark),var(--color-primary));border-color:transparent;color:#fff;box-shadow:var(--shadow-md)}
 .dash-prayer-card__icon-wrapper {
   display: inline-flex;
@@ -193,8 +191,8 @@
 
 /* Tracker CTA — gradient */
 .dash-tracker{padding:0 var(--sp-4) var(--sp-6)}
-.dash-tracker__card{padding:var(--sp-5);background:linear-gradient(135deg,var(--color-primary-surface),var(--color-accent-surface));border:1px solid var(--color-border-light);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-3)}
-.dash-tracker__card p{font-size:var(--fs-sm);color:var(--color-text-secondary);margin:0}
+.dash-tracker__card{padding:var(--sp-5);background:var(--glass-bg-strong);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--color-primary-surface);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-3);box-shadow:var(--shadow-sm)}
+.dash-tracker__card p{font-size:var(--fs-sm);color:var(--glass-text-secondary);margin:0}
 
 /* Premium Desktop Layout Polish */
 @media(min-width: 1024px) {

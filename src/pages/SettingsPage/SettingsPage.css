@@ -46,11 +46,11 @@
 }
 
 .settings-group {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
+  background: var(--glass-bg-light); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--glass-shadow-light);
 }
 
 /* Settings Items */
@@ -287,14 +287,14 @@
   min-width: 150px;
   max-width: 200px;
   flex: 0 0 auto;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
+  background: var(--glass-bg-light); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
   border-radius: var(--radius-xl);
   padding: var(--sp-3);
   text-align: left;
   position: relative;
   transition: all 0.25s var(--ease-spring);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--glass-shadow-light);
   display: flex;
   flex-direction: column;
 }

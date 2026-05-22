@@ -360,6 +360,15 @@ export default function RuangSayaPage() {
                 <span style={{fontSize: '12px', fontWeight: 'bold', color: 'var(--color-primary)', marginTop: '4px', display: 'inline-block'}}>Buka Reading Mode</span>
               </div>
             </Link>
+            
+            <Link to="/good-path" className="rs-menu-card">
+              <div className="rs-menu-card__icon rs-icon--emerald"><Compass size={24} /></div>
+              <div className="rs-menu-card__content">
+                <h3>Good Path</h3>
+                <p>Build better worship, habits, and kindness one day at a time.</p>
+                <span style={{fontSize: '12px', fontWeight: 'bold', color: 'var(--color-primary)', marginTop: '4px', display: 'inline-block'}}>Buka Good Path</span>
+              </div>
+            </Link>
 
             <Link to="/tracker" className="rs-menu-card">
               <div className="rs-menu-card__icon rs-icon--green"><Target size={24} /></div>

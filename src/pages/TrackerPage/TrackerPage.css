@@ -43,11 +43,11 @@
 
 /* Base Card */
 .tracker-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
+  background: var(--glass-bg-light); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
   border-radius: var(--radius-xl);
   padding: var(--sp-5);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--glass-shadow-light);
 }
 
 .tracker-card__title {
@@ -166,8 +166,8 @@
   align-items: center;
   width: 100%;
   text-align: left;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
+  background: var(--glass-bg-strong); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
   border-radius: var(--radius-lg);
   padding: var(--sp-3) var(--sp-4);
   transition: all 0.2s ease;
@@ -185,8 +185,8 @@
 }
 
 .tracker-item--done {
-  background: var(--color-accent-surface);
-  border-color: var(--color-accent);
+  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--color-primary);
 }
 
 .tracker-item__icon-wrap {
