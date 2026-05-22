@@ -1,18 +1,14 @@
 /* eslint-disable no-undef */
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useApp } from '../../context/AppContext';
 import { useSEO, JsonLd, SITE_URL, SITE_NAME } from '../../utils/seo';
-import { getHijriDateString, getUpcomingEvents } from '../../data/hijriData';
-import { getRotatingReflectionAyah } from '../../utils/dailyAyah';
+import { getHijriDateString } from '../../data/hijriData';
 import { getLocalizedGreeting } from '../../utils/dailyGreeting';
-import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
-import FeatureIcon from '../../components/FeatureIcon/FeatureIcon';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
 import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
 import DailyMission from '../../components/DailyMission/DailyMission';
-import { BookOpen, Compass, CircleDot, Mic, Target, Sparkles, ChevronRight, Bookmark, Headphones, CalendarDays, Clock, CheckSquare, Star, Settings, Info, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
+import { BookOpen, Compass, Mic, Sparkles, ChevronRight, Headphones, CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard
@@ -39,8 +35,6 @@ function fmt(s){return s?s.substring(0,5):'--:--'}
 function getNext(t){const now=new Date();for(const p of PRAYERS){const d=parseTime(t[p.key]);if(d&&d>now)return p.key}return PRAYERS[0].key}
 
 export default function HomePage() {
-  const { allKhutbah } = useApp();
-
   useSEO({
     title: 'Islamediaku - Teks Khutbah Jumat, Kultum, dan Tausiyah Islam Siap Pakai',
     description: 'Kumpulan teks khutbah Jumat, kultum Ramadhan, tausiyah Islam, dan rekomendasi tema dakwah berdasarkan kalender Hijriah. Siap pakai untuk khatib, dai, ustaz, dan pengurus masjid.',
@@ -49,7 +43,6 @@ export default function HomePage() {
 
   const now = useMemo(() => new Date(), []);
   const hijriStr = useMemo(() => getHijriDateString(now), [now]);
-  const events = useMemo(() => getUpcomingEvents(now).slice(0, 3), [now]);
   const gregorian = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   
   const [greeting, setGreeting] = useState({ text: "Selamat datang 👋", category: "" });
@@ -136,82 +129,14 @@ export default function HomePage() {
     setCountdown(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`);
   }, [nowTime, timings, nextKey]);
 
-  const featured = allKhutbah.slice(0, 3);
-
-  // Daily Reflection (Rotating)
-  const [dailyAyah, setDailyAyah] = useState(null);
-  const [ayahLoading, setAyahLoading] = useState(true);
-  const [fadeAnim, setFadeAnim] = useState('fade-in');
-
-  useEffect(() => {
-    let mounted = true;
-    let timer;
-
-    const fetchAyah = async () => {
-      if (mounted) setFadeAnim('fade-out');
-      
-      try {
-        const data = await getRotatingReflectionAyah();
-        if (mounted) {
-          setTimeout(() => {
-            if (mounted) {
-              setDailyAyah(data);
-              setFadeAnim('fade-in');
-              setAyahLoading(false);
-            }
-          }, 300);
-        }
-      } catch (err) {
-        console.warn('Failed to fetch rotating ayah:', err);
-        if (mounted) {
-          setAyahLoading(false);
-          setFadeAnim('fade-in');
-        }
-      }
-    };
-
-    fetchAyah();
-    let lastSlot = Math.floor(Date.now() / (5 * 60 * 1000));
-    
-    timer = setInterval(() => {
-      const currentSlot = Math.floor(Date.now() / (5 * 60 * 1000));
-      if (currentSlot !== lastSlot) {
-        lastSlot = currentSlot;
-        fetchAyah();
-      }
-    }, 60 * 1000);
-
-    return () => { 
-      mounted = false; 
-      clearInterval(timer);
-    };
-  }, []);
-
-  const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform materi khutbah Islam siap pakai.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/khutbah?q={search_term_string}`, 'query-input': 'required name=search_term_string' } };
-  const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/logo.png` };
-
-  // Last read data
-  const lastQuranRead = useMemo(() => {
-    try {
-      const stored = JSON.parse(localStorage.getItem('islamediaku_quran_last_read'));
-      if (stored && stored.surahId) {
-        return stored;
-      }
-      return null;
-    } catch { return null; }
-  }, []);
-  const lastTilawah = useMemo(() => {
-    try {
-      return JSON.parse(localStorage.getItem('kq_last_tilawah'));
-    } catch { return null; }
-  }, []);
-  const recentKhutbah = useMemo(() => allKhutbah.length > 0 ? allKhutbah[0] : null, [allKhutbah]);
-  const hasResumeData = lastQuranRead || lastTilawah || recentKhutbah;
 
   return (
     <div className="home-page">
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
+
+  const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform materi khutbah Islam siap pakai.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: ${SITE_URL}/khutbah?q={search_term_string}, 'query-input': 'required name=search_term_string' } };
+  const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: ${SITE_URL}/logo.png };
 
       {/* Hero / Greeting */}
       <section className="dash-hero islamic-pattern">
@@ -248,33 +173,6 @@ export default function HomePage() {
 
       {/* Daily Mission Section */}
       <DailyMission />
-
-      {/* Reflection Section */}
-      <section className="home-section dash-reflection container">
-        <div className="dash-reflection__card">
-          <div className="dash-reflection__header">
-            <Sparkles size={20} className="dash-reflection__icon" />
-            <div className="dash-reflection__title-wrap">
-              <h2 className="dash-reflection__title">Renungan Hari Ini</h2>
-            </div>
-          </div>
-          <div className={`dash-reflection__content ${fadeAnim}`}>
-            {ayahLoading ? (
-              <p className="dash-reflection__text">Memuat renungan...</p>
-            ) : dailyAyah ? (
-              <>
-                <p className="dash-reflection__text">"{dailyAyah.translation}"</p>
-                <div className="dash-reflection__footer">
-                  <span className="dash-reflection__ref">{dailyAyah.reference}</span>
-                  <Link to={`/mushaf/${dailyAyah.surah}#ayah-${dailyAyah.ayah}`} className="dash-reflection__link">Baca Ayat</Link>
-                </div>
-              </>
-            ) : (
-              <p className="dash-reflection__text">Renungan harian belum tersedia</p>
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* Quick Actions */}
       <section className="dash-actions container">
@@ -348,27 +246,6 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Secondary Features */}
-        <div className="dash-actions__secondary">
-          <h3 className="dash-actions__secondary-title">Fitur Tambahan</h3>
-          <div className="dash-actions__grid-secondary">
-            {[
-              { to: '/favorit', icon: Star, color: 'blue', label: 'Favorit', desc: 'Simpan ayat, doa, dan khutbah' },
-              { to: '/tasbih', icon: CircleDot, color: 'cyan', label: 'Tasbih', desc: 'Hitung dzikir dengan mudah' },
-              { to: '/pengaturan', icon: Settings, color: 'indigo', label: 'Pengaturan', desc: 'Sesuaikan preferensi app' },
-              { to: '/tentang', icon: Info, color: 'slate', label: 'Tentang', desc: 'Mengenal Islamediaku' }
-            ].map((a, i) => (
-              <Link key={i} to={a.to} className="dash-action-secondary">
-                <FeatureIcon icon={a.icon} colorMode={a.color} className="sm" />
-                <div className="dash-action-secondary__text">
-                  <span className="dash-action-secondary__label">{a.label}</span>
-                  <span className="dash-action-secondary__desc">{a.desc}</span>
-                </div>
-                <ChevronRight size={14} className="dash-action-secondary__arrow" />
-              </Link>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Travel Mode Shortcut Banner */}
@@ -388,53 +265,6 @@ export default function HomePage() {
             Aktifkan Mode Safar <ChevronRight size={16} />
           </div>
         </Link>
-      </section>
-
-      {/* Last Read Resume */}
-      <section className="home-section dash-resume container">
-        <h2 className="dash-section-title"><Bookmark size={20} style={{marginRight: 8, color: 'var(--color-primary)'}} /> Lanjut Baca</h2>
-        {hasResumeData ? (
-          <div className="dash-resume__cards">
-            {lastQuranRead && (
-              <Link to={`/mushaf/${lastQuranRead.surahId}#ayah-${lastQuranRead.ayahNumber}`} className="dash-resume-card">
-                <FeatureIcon icon={BookOpen} colorMode="blue" className="sm" />
-                <div className="dash-resume-card__text">
-                  <strong>Mushaf Al-Qur'an</strong>
-                  <p>Surah {lastQuranRead.surahName || lastQuranRead.surahId} Ayat {lastQuranRead.ayahNumber}</p>
-                </div>
-                <span className="dash-resume-card__cta">Lanjutkan <ChevronRight size={16} /></span>
-              </Link>
-            )}
-            {lastTilawah && (
-              <Link to="/tilawah" className="dash-resume-card">
-                <FeatureIcon icon={Headphones} colorMode="orange" className="sm" />
-                <div className="dash-resume-card__text">
-                  <strong>Tilawah Live</strong>
-                  <p>{lastTilawah.name || 'Channel terakhir'}</p>
-                </div>
-                <span className="dash-resume-card__cta">Lanjutkan <ChevronRight size={16} /></span>
-              </Link>
-            )}
-            {recentKhutbah && (
-              <Link to={`/khutbah/${recentKhutbah.slug}`} className="dash-resume-card">
-                <FeatureIcon icon={Mic} colorMode="green" className="sm" />
-                <div className="dash-resume-card__text">
-                  <strong>Khutbah Terakhir</strong>
-                  <p>{recentKhutbah.title}</p>
-                </div>
-                <span className="dash-resume-card__cta">Lanjutkan <ChevronRight size={16} /></span>
-              </Link>
-            )}
-          </div>
-        ) : (
-          <div className="dash-resume__empty">
-            <Bookmark size={32} className="dash-resume__empty-icon" />
-            <p>Belum ada riwayat ibadah. Lanjutkan harimu dengan membaca Al-Qur'an atau dzikir.</p>
-            <div className="dash-resume__empty-actions">
-              <Link to="/mushaf" className="btn btn--primary btn--sm">Buka Mushaf</Link>
-            </div>
-          </div>
-        )}
       </section>
 
       {/* Prayer Times Mini */}
@@ -464,35 +294,6 @@ export default function HomePage() {
           </div>
         </section>
       )}
-
-      {/* Upcoming Events */}
-      {events.length > 0 && (
-        <section className="home-section dash-events container">
-          <div className="dash-prayer__header">
-            <h2 className="dash-section-title">🕌 Peristiwa Islam</h2>
-            <Link to="/kalender-hijriah" className="dash-link">Kalender →</Link>
-          </div>
-          <div className="dash-events__list">
-            {events.map((e, i) => (
-              <div key={i} className={`dash-event${e.daysUntil === 0 ? ' dash-event--today' : ''}`}>
-                <span className="dash-event__name">{e.name}</span>
-                <span className="dash-event__badge">{e.daysUntil === 0 ? '🎉 Hari ini!' : `${e.daysUntil} hari lagi`}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Featured Khutbah */}
-      <section className="dash-khutbah container">
-        <div className="dash-prayer__header">
-          <h2 className="dash-section-title">⭐ Khutbah Pilihan</h2>
-          <Link to="/khutbah" className="dash-link">Lihat Semua →</Link>
-        </div>
-        <div className="home-featured__grid">
-          {featured.map(k => <KhutbahCard key={k.id} khutbah={k} />)}
-        </div>
-      </section>
 
       {/* Tracker Summary */}
       <section className="dash-tracker container">
