@@ -2,21 +2,18 @@ import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
-import AyahCard from './components/AyahCard';
 import ReaderSettings from './components/ReaderSettings';
 import { saveFeatureState, loadFeatureState } from '../../lib/syncService';
 import { useAuth } from '../../context/AuthContext';
-import './SurahPage.css'; // Reuse styles
-
-const TRANSLATION_ID = 33; // Kemenag
+import { getMushafPage, toArabicNumber } from '../../lib/quranPageApi';
+import './MushafPageReader.css';
 
 export default function MushafPageReader() {
   const { pageId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
   
-  // If no pageId in URL, we'll try to load last read or default to 1
-  const id = pageId ? parseInt(pageId) : null;
+  const id = pageId ? parseInt(pageId, 10) : null;
 
   const [ayahs, setAyahs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,6 +23,7 @@ export default function MushafPageReader() {
   const [surahNames, setSurahNames] = useState({});
 
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [jumpInput, setJumpInput] = useState('');
   
   // Settings State
   const [arabicFontSize, setArabicFontSize] = useState(() => Number(localStorage.getItem('islamediaku_quran_arabic_font_size')) || 32);
@@ -33,7 +31,7 @@ export default function MushafPageReader() {
   const [showTranslation, setShowTranslation] = useState(() => localStorage.getItem('islamediaku_quran_translation_visible') !== 'false');
   const [readingMode, setReadingMode] = useState(() => localStorage.getItem('islamediaku_quran_reading_mode') || 'light');
 
-  const [bookmarks, setBookmarks] = useState(() => JSON.parse(localStorage.getItem('islamediaku_quran_bookmarks') || '[]'));
+  const [bookmarks, setBookmarks] = useState(() => JSON.parse(localStorage.getItem('islamediaku_quran_page_bookmarks') || '[]'));
 
   useSEO({
     title: id ? `Mushaf Halaman ${id} | Islamediaku` : "Mushaf Per Halaman | Islamediaku",
@@ -64,6 +62,8 @@ export default function MushafPageReader() {
         navigate(`/mushaf/page/${lastPage}`, { replace: true });
       };
       loadLastPage();
+    } else {
+      setJumpInput(id.toString());
     }
   }, [id, navigate, user]);
 
@@ -81,14 +81,14 @@ export default function MushafPageReader() {
 
   // Fetch Page Data
   useEffect(() => {
-    if (!id || isNaN(id) || id < 1 || id > 604) {
-      if (id) navigate('/ruang-user'); // Invalid page, go back to dashboard
+    if (!id) return;
+    
+    if (isNaN(id) || id < 1 || id > 604) {
+      navigate('/mushaf/page/1', { replace: true });
       return;
     }
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null);
     window.scrollTo(0, 0);
 
@@ -97,30 +97,16 @@ export default function MushafPageReader() {
     localStorage.setItem('islamediaku_quran_page_state', JSON.stringify(stateData));
     if (user) saveFeatureState(user.id, 'quran_page', stateData);
 
-    Promise.all([
-      fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?page_number=${id}`).then(res => res.json()),
-      fetch(`https://api.quran.com/api/v4/quran/translations/${TRANSLATION_ID}?page_number=${id}`).then(res => res.json())
-    ])
-    .then(([arabicData, translationData]) => {
-      const mergedAyahs = arabicData.verses.map((verse, index) => {
-        const [surahNum, ayahNum] = verse.verse_key.split(':');
-        return {
-          id: verse.id,
-          verse_key: verse.verse_key,
-          surah_id: parseInt(surahNum),
-          ayah_number: parseInt(ayahNum),
-          arabic: verse.text_uthmani,
-          translation: translationData.translations[index]?.text?.replace(/<sup.*?<\/sup>/g, '') || ''
-        };
+    getMushafPage(id)
+      .then(data => {
+        setAyahs(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setError("Data halaman mushaf belum tersedia. Coba lagi nanti.");
+        setLoading(false);
       });
-      setAyahs(mergedAyahs);
-      setLoading(false);
-    })
-    .catch(err => {
-      console.error(err);
-      setError("Gagal memuat halaman ini. Periksa koneksi internet Anda.");
-      setLoading(false);
-    });
   }, [id, navigate, user]);
 
   // Group ayahs by surah to display surah headers
@@ -142,35 +128,42 @@ export default function MushafPageReader() {
     return groups;
   }, [ayahs]);
 
-  const toggleBookmark = (verseKey) => {
+  // Derive unique Juz for the header
+  const pageJuz = useMemo(() => {
+    if (!ayahs.length) return null;
+    return ayahs[0].juz_number;
+  }, [ayahs]);
+
+  // Derive surah names on this page
+  const pageSurahNames = useMemo(() => {
+    if (!groupedAyahs.length || Object.keys(surahNames).length === 0) return '';
+    return groupedAyahs.map(g => surahNames[g.surah_id]?.name_simple).filter(Boolean).join(', ');
+  }, [groupedAyahs, surahNames]);
+
+  const toggleBookmark = () => {
     setBookmarks(prev => {
-      let newB = prev.includes(verseKey) ? prev.filter(k => k !== verseKey) : [...prev, verseKey];
-      localStorage.setItem('islamediaku_quran_bookmarks', JSON.stringify(newB));
+      let newB = prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id];
+      localStorage.setItem('islamediaku_quran_page_bookmarks', JSON.stringify(newB));
       return newB;
     });
   };
 
+  const handleJump = (e) => {
+    e.preventDefault();
+    const target = parseInt(jumpInput, 10);
+    if (!isNaN(target) && target >= 1 && target <= 604) {
+      navigate(`/mushaf/page/${target}`);
+    } else {
+      setJumpInput(id.toString());
+    }
+  };
+
   if (!id) return null;
 
+  const isBookmarked = bookmarks.includes(id);
+
   return (
-    <div className={`surah-page theme-${readingMode}`}>
-      <header className="surah-page__header">
-        <div className="container surah-page__header-inner">
-          <button className="surah-page__back" onClick={() => navigate('/ruang-user')}>
-            <ArrowLeft size={24} />
-          </button>
-          
-          <div className="surah-page__title-wrap">
-            <h1 className="surah-page__title">Halaman {id}</h1>
-            <p className="surah-page__subtitle">Mushaf Madinah</p>
-          </div>
-
-          <button className="surah-page__settings-btn" onClick={() => setSettingsOpen(true)}>
-            <Bookmark size={24} />
-          </button>
-        </div>
-      </header>
-
+    <div className={`mushaf-page-reader theme-${readingMode}`}>
       {settingsOpen && (
         <ReaderSettings 
           onClose={() => setSettingsOpen(false)}
@@ -182,77 +175,121 @@ export default function MushafPageReader() {
         />
       )}
 
-      <main className="container surah-page__content">
-        {loading && <div className="surah-page__loading">Memuat Halaman...</div>}
-        {error && <div className="surah-page__error">{error}</div>}
-
-        {!loading && !error && (
-          <div className="surah-page__ayahs">
-            {groupedAyahs.map((group, groupIndex) => {
-              const surahInfo = surahNames[group.surah_id];
-              return (
-                <div key={group.surah_id} className="mushaf-page-group">
-                  {/* Show Surah Header when surah changes on the page or it's the very first ayah of the surah */}
-                  {(groupIndex > 0 || group.ayahs[0].ayah_number === 1) && surahInfo && (
-                    <div className="surah-page__bismillah-wrap" style={{ marginTop: groupIndex > 0 ? '3rem' : 0 }}>
-                      <h2 className="surah-page__arabic-title">{surahInfo.name_arabic}</h2>
-                      <p className="surah-page__subtitle" style={{ marginBottom: '1rem' }}>{surahInfo.name_simple} • {surahInfo.translated_name.name}</p>
-                      {group.surah_id !== 1 && group.surah_id !== 9 && group.ayahs[0].ayah_number === 1 && (
-                        <div className="surah-page__bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
-                      )}
-                    </div>
-                  )}
-
-                  {group.ayahs.map((ayah) => {
-                    // Remove bismillah from ayah 1 text if it's not Al-Fatihah
-                    let arabicText = ayah.arabic;
-                    if (group.surah_id !== 1 && ayah.ayah_number === 1) {
-                      arabicText = arabicText.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ', '');
-                    }
-
-                    return (
-                      <AyahCard 
-                        key={ayah.id}
-                        ayah={{...ayah, arabic: arabicText}}
-                        isFavorite={bookmarks.includes(ayah.verse_key)}
-                        onToggleFavorite={() => toggleBookmark(ayah.verse_key)}
-                        onPlay={() => {}} // Could wire to audio later
-                        isPlaying={false}
-                        arabicFontSize={arabicFontSize}
-                        translationFontSize={translationFontSize}
-                        showTranslation={showTranslation}
-                        surahName={surahInfo?.name_simple || ''}
-                      />
-                    );
-                  })}
-                </div>
-              );
-            })}
+      <div className="mushaf-page__container">
+        
+        {/* Top Header / Entry point to go back */}
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 0'}}>
+          <button className="btn btn--outline" onClick={() => navigate('/mushaf')} style={{border: 'none', padding: '8px', background: 'transparent'}}>
+            <ArrowLeft size={24} />
+          </button>
+          <div style={{textAlign: 'center'}}>
+            <h1 style={{fontSize: '18px', fontWeight: 800, margin: 0}}>Halaman {id}</h1>
+            <p style={{fontSize: '12px', color: 'var(--color-text-muted)', margin: 0}}>
+              {pageSurahNames} • Juz {pageJuz}
+            </p>
           </div>
-        )}
-
-        <div className="surah-page__footer">
-          <Link 
-            to={`/mushaf/page/${id - 1}`} 
-            className={`btn btn--outline ${id <= 1 ? 'disabled' : ''}`}
-            onClick={(e) => { if(id <= 1) e.preventDefault(); }}
+          <button 
+            className="btn btn--outline" 
+            onClick={toggleBookmark}
+            style={{border: 'none', padding: '8px', background: 'transparent', color: isBookmarked ? 'var(--color-primary)' : 'inherit'}}
           >
-            <ChevronLeft size={20} /> Hal. Sebelumnya
-          </Link>
-          
-          <div style={{ textAlign: 'center' }}>
-            <strong>Halaman {id}</strong> / 604
-          </div>
+            <Bookmark size={24} fill={isBookmarked ? 'currentColor' : 'none'} />
+          </button>
+        </div>
 
+        {/* Paper Container */}
+        <div className="mushaf-page__paper">
+          {loading && <div style={{textAlign:'center', padding: '40px', color: '#666'}}>Memuat halaman mushaf...</div>}
+          {error && <div style={{textAlign:'center', padding: '40px', color: '#ef4444'}}>{error}</div>}
+
+          {!loading && !error && (
+            <div className="mushaf-page__inline-text" style={{ fontSize: `${arabicFontSize}px` }}>
+              {groupedAyahs.map((group, groupIndex) => {
+                const surahInfo = surahNames[group.surah_id];
+                return (
+                  <span key={group.surah_id}>
+                    
+                    {/* Surah Header inline block */}
+                    {(groupIndex > 0 || group.ayahs[0].ayah_number === 1) && surahInfo && (
+                      <div className="mushaf-page__surah-header" style={{ marginTop: groupIndex > 0 ? '2rem' : 0 }}>
+                        <div className="mushaf-page__surah-arabic">{surahInfo.name_arabic}</div>
+                        {group.surah_id !== 1 && group.surah_id !== 9 && group.ayahs[0].ayah_number === 1 && (
+                          <div className="mushaf-page__surah-bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Verses inline */}
+                    {group.ayahs.map((ayah) => {
+                      let arabicText = ayah.arabic;
+                      // Remove bismillah from ayah 1 text if it's not Al-Fatihah, as we render it in the header
+                      if (group.surah_id !== 1 && ayah.ayah_number === 1) {
+                        arabicText = arabicText.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ', '');
+                      }
+
+                      return (
+                        <span key={ayah.id} className="mushaf-page__inline-ayah">
+                          {arabicText}
+                          <span className="mushaf-page__ayah-marker">
+                            {toArabicNumber(ayah.ayah_number)}
+                          </span>
+                        </span>
+                      );
+                    })}
+                  </span>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Optional Translations Block */}
+          {!loading && !error && showTranslation && (
+            <div className="mushaf-page__translations">
+              <div className="mushaf-page__translations-title">Terjemahan Halaman {id}</div>
+              {ayahs.map(ayah => (
+                <div key={`trans-${ayah.id}`} className="mushaf-page__trans-item">
+                  <span className="mushaf-page__trans-num">{surahNames[ayah.surah_id]?.name_simple} {ayah.surah_id}:{ayah.ayah_number}</span>
+                  <div className="mushaf-page__trans-text" style={{ fontSize: `${translationFontSize}px` }} dangerouslySetInnerHTML={{ __html: ayah.translation }} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Sticky Bottom Controls */}
+      <div className="mushaf-page__footer-controls">
+        <div className="mushaf-page__controls-inner">
           <Link 
             to={`/mushaf/page/${id + 1}`} 
-            className={`btn btn--primary ${id >= 604 ? 'disabled' : ''}`}
+            className={`mushaf-page__ctrl-btn ${id >= 604 ? 'disabled' : ''}`}
             onClick={(e) => { if(id >= 604) e.preventDefault(); }}
           >
-            Hal. Berikutnya <ChevronRight size={20} />
+            <ChevronRight size={20} /> Berikutnya
+          </Link>
+          
+          <form className="mushaf-page__ctrl-center" onSubmit={handleJump}>
+            <span>Hal.</span>
+            <input 
+              type="number" 
+              className="mushaf-page__ctrl-input" 
+              value={jumpInput}
+              onChange={(e) => setJumpInput(e.target.value)}
+              onBlur={handleJump}
+              min="1" max="604"
+            />
+          </form>
+
+          <Link 
+            to={`/mushaf/page/${id - 1}`} 
+            className={`mushaf-page__ctrl-btn ${id <= 1 ? 'disabled' : ''}`}
+            onClick={(e) => { if(id <= 1) e.preventDefault(); }}
+          >
+             Sebelumnya <ChevronLeft size={20} />
           </Link>
         </div>
-      </main>
+      </div>
+
     </div>
   );
 }

@@ -60,7 +60,7 @@ export default function SurahPage() {
 
     Promise.all([
       fetch(`https://api.quran.com/api/v4/chapters/${id}?language=id`).then(res => res.json()),
-      fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${id}`).then(res => res.json()),
+      fetch(`https://api.quran.com/api/v4/verses/by_chapter/${id}?fields=text_uthmani,page_number,juz_number&per_page=300`).then(res => res.json()),
       fetch(`https://api.quran.com/api/v4/quran/translations/${TRANSLATION_ID}?chapter_number=${id}`).then(res => res.json())
     ])
     .then(([infoData, arabicData, translationData]) => {
@@ -71,7 +71,9 @@ export default function SurahPage() {
           id: verse.id,
           verse_key: verse.verse_key,
           arabic: verse.text_uthmani,
-          translation: translationData.translations[index]?.text?.replace(/<sup.*?<\/sup>/g, '') || ''
+          translation: translationData.translations[index]?.text?.replace(/<sup.*?<\/sup>/g, '') || '',
+          page_number: verse.page_number,
+          juz_number: verse.juz_number
         };
       });
       setAyahs(mergedAyahs);

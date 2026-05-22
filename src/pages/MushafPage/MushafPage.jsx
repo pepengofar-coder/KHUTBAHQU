@@ -24,6 +24,7 @@ export default function MushafPage() {
 
   const [bookmarks, setBookmarks] = useState([]);
   const [lastRead, setLastRead] = useState(null);
+  const [lastPageRead, setLastPageRead] = useState(null);
 
   // Load from local storage
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,6 +36,11 @@ export default function MushafPage() {
       const storedLastRead = JSON.parse(localStorage.getItem('islamediaku_quran_last_read') || 'null');
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setLastRead(storedLastRead);
+      const storedPage = JSON.parse(localStorage.getItem('islamediaku_quran_page_state') || '{}');
+      if (storedPage?.last_page) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setLastPageRead(storedPage.last_page);
+      }
     } catch (err) {
       console.error("Local storage error", err);
     }
@@ -113,6 +119,19 @@ export default function MushafPage() {
           </Link>
         </div>
       )}
+
+      <div className="mushaf-home__modes" style={{display: 'flex', gap: '12px', marginBottom: '24px'}}>
+        <div style={{flex: 1, background: 'var(--glass-bg-strong)', padding: '16px', borderRadius: '16px', border: '1px solid var(--color-border-light)'}}>
+          <h3 style={{fontSize: '16px', marginBottom: '4px'}}>Mode Surah</h3>
+          <p style={{fontSize: '12px', color: 'var(--color-text-muted)', marginBottom: '0'}}>Baca per surah</p>
+        </div>
+        <Link to={`/mushaf/page/${lastPageRead || 1}`} style={{flex: 1, background: 'var(--color-primary-surface)', padding: '16px', borderRadius: '16px', border: '1px solid var(--color-primary)', textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+          <h3 style={{fontSize: '16px', color: 'var(--color-primary)', marginBottom: '4px'}}>Mode Halaman</h3>
+          <p style={{fontSize: '12px', color: 'var(--color-text-muted)', marginBottom: '0'}}>
+            {lastPageRead ? `Lanjut Hal. ${lastPageRead}` : 'Mulai dari Hal. 1'}
+          </p>
+        </Link>
+      </div>
 
       <div className="mushaf-home__search-bar">
         <Search className="mushaf-home__search-icon" size={20} />
