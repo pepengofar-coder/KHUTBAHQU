@@ -130,13 +130,13 @@ export default function HomePage() {
   }, [nowTime, timings, nextKey]);
 
 
+  const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform materi khutbah Islam siap pakai.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/khutbah?q={search_term_string}`, 'query-input': 'required name=search_term_string' } };
+  const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/logo.png` };
+
   return (
     <div className="home-page">
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
-
-  const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform materi khutbah Islam siap pakai.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: ${SITE_URL}/khutbah?q={search_term_string}, 'query-input': 'required name=search_term_string' } };
-  const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: ${SITE_URL}/logo.png };
 
       {/* Hero / Greeting */}
       <section className="dash-hero islamic-pattern">

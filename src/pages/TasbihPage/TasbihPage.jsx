@@ -37,7 +37,7 @@ export default function TasbihPage() {
       </div>
 
       {/* Presets */}
-      <div className="tasbih-presets">
+      <div className="tasbih-presets glass-panel" style={{ padding: "var(--sp-4)", borderRadius: "var(--radius-xl)" }}>
         {PRESETS.map(p => (
           <button key={p} className={`tasbih-preset${target === p ? ' active' : ''}`} onClick={() => { setTarget(p); setCount(0); }}>
             {p}×
@@ -55,7 +55,7 @@ export default function TasbihPage() {
           <circle cx="100" cy="100" r="90" fill="none" stroke="var(--color-border-light)" strokeWidth="6" />
           <circle cx="100" cy="100" r="90" fill="none" stroke="var(--color-primary)" strokeWidth="6" strokeDasharray={`${2 * Math.PI * 90}`} strokeDashoffset={`${2 * Math.PI * 90 * (1 - progress / 100)}`} strokeLinecap="round" transform="rotate(-90 100 100)" style={{ transition: 'stroke-dashoffset .4s var(--ease-spring)' }} />
         </svg>
-        <button className={`tasbih-tap${pulse ? ' pulse' : ''}${completed ? ' done' : ''}`} onClick={tap} aria-label="Tap untuk menghitung">
+        <button className={`tasbih-tap glass-action${pulse ? ' pulse' : ''}${completed ? ' done' : ''}`} onClick={tap} aria-label="Tap untuk menghitung">
           <span className="tasbih-tap__count">{count}</span>
           <span className="tasbih-tap__target">/ {target}</span>
         </button>
@@ -65,8 +65,8 @@ export default function TasbihPage() {
 
       {/* Controls */}
       <div className="tasbih-controls">
-        <button className="tasbih-ctrl" onClick={() => setCount(c => Math.max(0, c - 1))}>−1</button>
-        <button className="tasbih-ctrl tasbih-ctrl--reset" onClick={reset}>Reset</button>
+        <button className="tasbih-ctrl glass-action" onClick={() => setCount(c => Math.max(0, c - 1))}>−1</button>
+        <button className="tasbih-ctrl tasbih-ctrl--reset glass-action" onClick={reset}>Reset</button>
       </div>
 
       <p className="tasbih-tip">Tap lingkaran besar untuk menghitung. Progress tersimpan otomatis.</p>

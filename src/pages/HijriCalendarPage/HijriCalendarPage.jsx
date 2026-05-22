@@ -224,7 +224,7 @@ export default function HijriCalendarPage() {
       </section>
 
       {/* ── Upcoming Events ── */}
-      <section className="hijri-events">
+      <section className="hijri-events glass-card">
         <h2 className="hijri-events__title">🕌 Peristiwa Islam Terdekat</h2>
         <div className="hijri-events__list">
           {events.map((e, i) => (

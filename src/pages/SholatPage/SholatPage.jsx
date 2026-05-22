@@ -82,7 +82,7 @@ export default function SholatPage(){
 
       {/* Next Prayer Hero */}
       {!loading&&timings&&nextP&&(
-        <div className="sholat-hero">
+        <div className="sholat-hero glass-card">
           <div className="sholat-hero__icon">
             <nextP.icon size={32} strokeWidth={2.2} />
           </div>

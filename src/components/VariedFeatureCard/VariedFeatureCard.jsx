@@ -19,6 +19,7 @@ export default function VariedFeatureCard({
 }) {
   const cardClass = [
     'varied-card',
+    layoutVariant === 'list-row' ? 'glass-row' : 'glass-card',
     `varied-card--${colorVariant}`,
     `varied-card--${layoutVariant}`,
     active ? 'varied-card--active' : '',

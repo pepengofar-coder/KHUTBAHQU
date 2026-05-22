@@ -110,7 +110,7 @@ export default function QiblaPage(){
         </div>
       )}
 
-      <div className="qibla-info">
+      <div className="qibla-info glass-card">
         <div className="qibla-info__card">
           <span>🕋</span>
           <div>

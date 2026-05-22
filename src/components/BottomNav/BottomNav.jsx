@@ -149,8 +149,8 @@ export default function BottomNav() {
 
   const moreSheetContent = (
     <>
-      <div className={`more-sheet__backdrop${sheetOpen ? ' open' : ''}`} onClick={dismissSheet} />
-      <div className={`more-sheet${sheetOpen ? ' open' : ''}`}>
+      <div className={`more-sheet__backdrop glass-backdrop${sheetOpen ? ' open' : ''}`} onClick={dismissSheet} />
+      <div className={`more-sheet glass-surface${sheetOpen ? ' open' : ''}`}>
         <div className="more-sheet__handle" onClick={dismissSheet}><span /></div>
         <h3 className="more-sheet__title">Menu Lainnya</h3>
         
