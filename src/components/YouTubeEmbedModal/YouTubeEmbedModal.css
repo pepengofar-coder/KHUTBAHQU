@@ -14,6 +14,13 @@
   animation: fadeIn 0.2s ease-out;
 }
 
+.youtube-modal-overlay.minimized-hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  /* Keep display: flex so iframe stays alive */
+}
+
 .youtube-modal-content {
   background-color: var(--card-white);
   border-radius: 16px;
@@ -44,7 +51,13 @@
   max-width: 80%;
 }
 
-.youtube-modal-close {
+.youtube-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.youtube-modal-action-btn {
   background: transparent;
   border: none;
   color: var(--muted-text);
@@ -57,7 +70,7 @@
   transition: all 0.2s;
 }
 
-.youtube-modal-close:hover {
+.youtube-modal-action-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
   color: var(--dark-text);
 }

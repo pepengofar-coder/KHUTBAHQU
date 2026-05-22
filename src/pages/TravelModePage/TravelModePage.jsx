@@ -4,10 +4,10 @@ import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { PLAYLISTS, getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
 import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
-import YouTubeEmbedModal from '../../components/YouTubeEmbedModal/YouTubeEmbedModal';
 import { trackUserActivity } from '../../lib/syncService';
 import { useAuth } from '../../context/AuthContext';
 import { getHourlyRecommendations, getFullValidRecommendations } from '../../lib/travelTilawahRecommendations';
+import { getKajianRecommendations } from '../../lib/kajianRecommendations';
 import { 
   Play, Pause, Clock, Heart, 
   Copy, Check, Volume2, X, ChevronRight,
@@ -35,10 +35,15 @@ export default function TravelModePage() {
   // Local states
   const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
   const [showSleepModal, setShowSleepModal] = useState(false);
-  const [youtubeModalOpen, setYoutubeModalOpen] = useState(false);
-  const [activeYoutubeTrack, setActiveYoutubeTrack] = useState(null);
   const [kajianData, setKajianData] = useState([]);
   const [mp3QuranRadios, setMp3QuranRadios] = useState([]);
+  const [selectedKajianTheme, setSelectedKajianTheme] = useState(() => {
+    try {
+      return localStorage.getItem('islamediaku_kajian_selected_theme') || 'Semua';
+    } catch {
+      return 'Semua';
+    }
+  });
 
   const [favorites, setFavorites] = useState(() => {
     try {
@@ -50,6 +55,10 @@ export default function TravelModePage() {
 
   const hourlyRecommendations = useMemo(() => getHourlyRecommendations(), []);
   const fullRecommendations = useMemo(() => getFullValidRecommendations(), []);
+  
+  const kajianRecommendations = useMemo(() => {
+    return getKajianRecommendations(kajianData, selectedKajianTheme);
+  }, [kajianData, selectedKajianTheme]);
 
   // Derived state: last active played audio track
   const lastPlayed = useMemo(() => {
@@ -154,8 +163,7 @@ export default function TravelModePage() {
   // Handle Play track safely
   const handlePlayItem = useCallback((track, playlistTracks = []) => {
     if (track.type === 'kajian_youtube' && track.embedUrl) {
-      setActiveYoutubeTrack(track);
-      setYoutubeModalOpen(true);
+      playTrack(track, playlistTracks);
       if (user) {
         trackUserActivity(user.id, 'kajian', 'open_kajian', {
           videoId: track.videoId,
@@ -386,6 +394,70 @@ export default function TravelModePage() {
         </section>
       )}
 
+        {/* Kajian Pendek Section */}
+        {kajianData && kajianData.length > 0 && (
+          <section className="travel-section container">
+            <div className="section-header">
+              <h2 className="section-title">Kajian Pendek</h2>
+              <span className="section-subtitle">Nasihat singkat dari Masjid Al-Irsyad TV</span>
+            </div>
+
+            <div className="kajian-themes-scroll">
+              {['Semua', 'Aqidah', 'Akhlak', 'Fiqih', 'Keluarga', 'Motivasi Iman', 'Qur\'an', 'Sholat', 'Sedekah', 'Remaja', 'Kajian Singkat'].map(theme => (
+                <button
+                  key={theme}
+                  className={`kajian-theme-chip ${selectedKajianTheme === theme ? 'active' : ''}`}
+                  onClick={() => {
+                    setSelectedKajianTheme(theme);
+                    try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch {}
+                  }}
+                >
+                  {theme}
+                </button>
+              ))}
+            </div>
+
+            {kajianRecommendations.length > 0 ? (
+              <div className="recommendations-list">
+                {kajianRecommendations.map((track) => {
+                  const isActive = (activeRadio?.id === track.id);
+                  const isPlayingThis = playing && activeRadio?.id === track.id;
+                  
+                  return (
+                    <div 
+                      key={track.id} 
+                      className={`recommendation-card ${isActive ? 'active' : ''}`}
+                      onClick={() => handlePlayItem(track, kajianRecommendations)}
+                    >
+                      <div className="rec-icon-box">
+                        <img src={track.thumbnail} alt={track.title} className="rec-thumbnail" />
+                        <div className="rec-play-overlay">
+                          {isPlayingThis ? <div className="rec-wave"><span/><span/><span/></div> : <Play size={16} fill="currentColor" />}
+                        </div>
+                      </div>
+                      <div className="rec-info">
+                        <span className="rec-title">{track.title}</span>
+                        <div className="rec-meta">
+                          <span className="rec-source">{track.channelTitle}</span>
+                          {track.isShort && <span className="rec-badge-short">Shorts</span>}
+                        </div>
+                      </div>
+                      <button className="rec-fav-btn" onClick={(e) => toggleFav(track.id, e)} aria-label="Favorit">
+                        <Heart size={18} fill={isFav(track.id) ? "currentColor" : "none"} className={isFav(track.id) ? "heart-active" : "heart-inactive"} />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="kajian-empty-state">
+                <AlertCircle size={24} className="kajian-empty-icon" />
+                <p>Belum ada kajian untuk tema ini.</p>
+              </div>
+            )}
+          </section>
+        )}
+
       {/* Playlists Grid */}
       <section className="travel-playlists container">
         <h2 className="travel-section-title font-bold">Playlist Perjalanan</h2>
@@ -455,8 +527,6 @@ export default function TravelModePage() {
           <ChevronRight size={18} className="ml-auto" />
         </div>
       </section>
-
-      {/* Active player has been migrated to GlobalMiniTilawahPlayer for unified experience */}
 
       {/* Playlist Details Bottom Sheet */}
       {selectedPlaylist && (
@@ -549,47 +619,33 @@ export default function TravelModePage() {
         </div>
       )}
 
-      {/* Sleep Timer Settings Dialog */}
+      {/* Sleep Timer Modal */}
       {showSleepModal && (
-        <div className="sleep-modal-backdrop" onClick={() => setShowSleepModal(false)}>
-          <div className="sleep-modal" onClick={(e) => e.stopPropagation()}>
-            <h3 className="sleep-modal-title">Atur Sleep Timer Safar</h3>
-            <p className="sleep-modal-desc">Audio akan berhenti otomatis ketika waktu habis untuk menghemat konsumsi baterai ponsel Anda di perjalanan.</p>
-            
+        <div className="sleep-modal-overlay" onClick={() => setShowSleepModal(false)}>
+          <div className="sleep-modal" onClick={e => e.stopPropagation()}>
+            <div className="sleep-modal-header">
+              <h3>Sleep Timer</h3>
+              <button className="close-btn" onClick={() => setShowSleepModal(false)}><X size={24} /></button>
+            </div>
             <div className="sleep-options">
-              {[
-                { value: 'off', label: 'Matikan Timer (Off)' },
-                { value: '15', label: '15 Menit' },
-                { value: '30', label: '30 Menit' },
-                { value: '60', label: '60 Menit' },
-              ].map((opt) => (
-                <button 
-                  key={opt.value} 
-                  className={`sleep-option-btn ${sleepTimer === opt.value ? 'active' : ''}`}
+              {['off', '15', '30', '45', '60'].map(val => (
+                <button
+                  key={val}
+                  className={`sleep-option ${sleepTimer === val ? 'active' : ''}`}
                   onClick={() => {
-                    changeSleepTimer(opt.value);
+                    changeSleepTimer(val);
                     setShowSleepModal(false);
-                    showToast(`Sleep timer diatur ke: ${opt.label}`);
+                    showToast(val === 'off' ? 'Sleep timer dimatikan' : `Sleep timer disetel ${val} menit`);
                   }}
                 >
-                  {opt.label}
-                  {sleepTimer === opt.value && <span className="lime-dot" />}
+                  {val === 'off' ? 'Mati' : `${val} Menit`}
+                  {sleepTimer === val && <Check size={18} />}
                 </button>
               ))}
             </div>
-
-            <button className="sleep-modal-close" onClick={() => setShowSleepModal(false)}>Batal</button>
           </div>
         </div>
       )}
-
-      {/* YouTube Modal */}
-      <YouTubeEmbedModal 
-        isOpen={youtubeModalOpen}
-        onClose={() => setYoutubeModalOpen(false)}
-        videoUrl={activeYoutubeTrack?.embedUrl}
-        title={activeYoutubeTrack?.title}
-      />
     </div>
   );
 }

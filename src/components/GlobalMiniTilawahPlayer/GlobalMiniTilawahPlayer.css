@@ -64,6 +64,14 @@
   margin-bottom: 2px;
 }
 
+.gmt-live-badge--youtube {
+  background: #FF0000;
+  color: #FFFFFF;
+}
+.gmt-live-badge--youtube .gmt-wave span {
+  background: #FFFFFF;
+}
+
 .gmt-live-badge--paused {
   background: var(--color-bg-alt);
   color: var(--color-text-muted);

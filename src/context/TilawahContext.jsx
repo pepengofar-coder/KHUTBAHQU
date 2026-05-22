@@ -24,6 +24,8 @@ export function TilawahProvider({ children }) {
   const [favorites, setFavorites] = useState(getFavorites);
   const [activeId, setActiveId] = useState(null);
   const [currentTrack, setCurrentTrack] = useState(null); // Extended: Current travel track
+  const [activeYoutubeTrack, setActiveYoutubeTrack] = useState(null);
+  const [youtubeMinimized, setYoutubeMinimized] = useState(false);
 
   const [playing, setPlaying] = useState(false);
   const [audioLoading, setAudioLoading] = useState(false);
@@ -89,6 +91,8 @@ export function TilawahProvider({ children }) {
       return;
     }
     setCurrentTrack(null); // Clear travel track
+    setActiveYoutubeTrack(null); // Clear youtube track
+    setYoutubeMinimized(false);
     setQueue([]);
     setQueueIndex(-1);
     setActiveId(radio.id); 
@@ -106,12 +110,38 @@ export function TilawahProvider({ children }) {
 
   const playTrack = useCallback((track, playlistQueue = []) => {
     if (!track) return;
+    
+    // Check if it's a youtube track
+    if (track.type === 'kajian_youtube' && track.embedUrl) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setPlaying(false);
+      setIsStopped(true);
+      setCurrentTrack(null);
+      
+      setActiveYoutubeTrack(track);
+      setYoutubeMinimized(false);
+      
+      if (playlistQueue.length > 0) {
+        setQueue(playlistQueue);
+        const idx = playlistQueue.findIndex(item => item.id === track.id);
+        setQueueIndex(idx !== -1 ? idx : 0);
+      } else {
+        setQueue([track]);
+        setQueueIndex(0);
+      }
+      return;
+    }
+
     const url = track.audioUrl || track.url;
     if (!url) {
       setAudioError(true);
       return;
     }
     
+    setActiveYoutubeTrack(null);
+    setYoutubeMinimized(false);
     setCurrentTrack(track);
     setAudioError(false);
     setAudioLoading(true);
@@ -213,11 +243,17 @@ export function TilawahProvider({ children }) {
   const stopAudio = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
-      audioRef.current.src = '';
+      audioRef.current.currentTime = 0;
     }
     setPlaying(false);
     setAudioLoading(false);
     setIsStopped(true);
+    setCurrentTime(0);
+    setCurrentTrack(null);
+    setActiveYoutubeTrack(null);
+    setYoutubeMinimized(false);
+    setQueue([]);
+    setQueueIndex(-1);
   }, []);
 
   const toggleFavorite = useCallback((id) => {
@@ -281,6 +317,7 @@ export function TilawahProvider({ children }) {
     playChannel, togglePlay, skipChannel, stopAudio, toggleFavorite,
     // Extended features
     currentTrack, queue, queueIndex, currentTime, duration, sleepTimer,
+    activeYoutubeTrack, youtubeMinimized, setActiveYoutubeTrack, setYoutubeMinimized,
     playTrack, nextTrack, prevTrack, seek, changeSleepTimer
   };
 

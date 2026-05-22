@@ -7,6 +7,7 @@ import { TilawahProvider } from './context/TilawahContext';
 import Navbar from './components/Navbar/Navbar';
 import BottomNav from './components/BottomNav/BottomNav';
 import GlobalMiniTilawahPlayer from './components/GlobalMiniTilawahPlayer/GlobalMiniTilawahPlayer';
+import YouTubeEmbedModal from './components/YouTubeEmbedModal/YouTubeEmbedModal';
 import Footer from './components/Footer/Footer';
 import PageLoader from './components/PageLoader/PageLoader';
 import PageTransition from './components/PageTransition/PageTransition';
@@ -113,6 +114,7 @@ function AppLayout() {
       </main>
       {!isDetail && <Footer />}
       <GlobalMiniTilawahPlayer />
+      <YouTubeEmbedModal />
       <UpdateBanner />
       <AppDownloadPopup />
       <BottomNav />
