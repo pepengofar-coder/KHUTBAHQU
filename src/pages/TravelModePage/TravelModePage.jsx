@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { PLAYLISTS, getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
+import { KAJIAN_RINGAN_VIDEOS } from '../../data/kajianRinganVideos';
 import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
 import { trackUserActivity } from '../../lib/syncService';
 import { useAuth } from '../../context/AuthContext';
@@ -116,11 +117,22 @@ export default function TravelModePage() {
       try {
         const res = await fetch('/api/kajian/youtube');
         const data = await res.json();
-        if (data.success && data.items) {
-          setKajianData(data.items);
+        
+        let fetchedData = [];
+        if (data.success !== false && data.items && data.items.length > 0) {
+          fetchedData = data.items;
         }
+
+        // Combine static curated list with fetched data
+        const combined = [...fetchedData, ...KAJIAN_RINGAN_VIDEOS];
+        
+        // Remove duplicates by videoId
+        const unique = Array.from(new Map(combined.map(item => [item.videoId, item])).values());
+        
+        setKajianData(unique);
       } catch (err) {
         console.error("Failed to fetch kajian", err);
+        setKajianData(KAJIAN_RINGAN_VIDEOS);
       }
     };
     fetchKajian();
@@ -547,7 +559,7 @@ export default function TravelModePage() {
                   ) : kajianData.length === 0 ? (
                     <div className="kajian-empty-state">
                       <AlertCircle size={24} className="kajian-empty-icon" style={{ color: '#ef4444' }} />
-                      <p>Sumber kajian belum dikonfigurasi.</p>
+                      <p>Kajian Ringan belum dikurasi.</p>
                       <button 
                         className="btn-primary mt-3" 
                         onClick={() => window.open('https://www.youtube.com/@masjidalirsyadtv', '_blank')}
