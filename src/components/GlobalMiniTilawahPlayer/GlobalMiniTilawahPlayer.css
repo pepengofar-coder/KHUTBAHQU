@@ -1,9 +1,9 @@
 .global-mini-tilawah {
   position: fixed;
-  bottom: calc(var(--bottom-nav-h) + 12px);
+  bottom: calc(var(--bottom-nav-h) + 12px + env(safe-area-inset-bottom, 0px));
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: 99; /* Below BottomNav (100) and More Sheet (9999), but floats visually above */
   display: flex;
   justify-content: center;
   padding: 0 var(--sp-4);
@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 480px;
+  max-width: 600px; /* Slightly wider to accommodate new controls */
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -31,6 +31,7 @@
   border-radius: var(--radius-2xl);
   padding: var(--sp-2) var(--sp-3);
   box-shadow: 0 8px 32px rgba(0, 43, 154, 0.12), 0 2px 8px rgba(0, 43, 154, 0.08);
+  gap: var(--sp-3);
 }
 
 [data-theme="dark"] .gmt-inner {
@@ -41,23 +42,26 @@
 
 .gmt-info {
   display: flex;
-  align-items: center;
-  gap: var(--sp-3);
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
   flex: 1;
   min-width: 0; /* for text truncation */
 }
 
 .gmt-live-badge {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
   background: var(--color-accent);
   color: #07111F;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 800;
-  padding: 4px 8px;
+  padding: 2px 6px;
   border-radius: var(--radius-pill);
   letter-spacing: 0.5px;
+  width: fit-content;
+  margin-bottom: 2px;
 }
 
 .gmt-live-badge--paused {
@@ -87,18 +91,30 @@
 }
 
 .gmt-text {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
 }
 
 .gmt-name {
   display: block;
   font-size: var(--fs-sm);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.gmt-subtitle {
+  display: block;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
 }
 
 .gmt-controls {

@@ -7,8 +7,9 @@ import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureC
 import YouTubeEmbedModal from '../../components/YouTubeEmbedModal/YouTubeEmbedModal';
 import { trackUserActivity } from '../../lib/syncService';
 import { useAuth } from '../../context/AuthContext';
+import { getHourlyRecommendations, getFullValidRecommendations } from '../../lib/travelTilawahRecommendations';
 import { 
-  Car, Play, Pause, Clock, Heart, 
+  Play, Pause, Clock, Heart, 
   Copy, Check, Volume2, X, ChevronRight,
   AlertCircle
 } from 'lucide-react';
@@ -26,9 +27,9 @@ export default function TravelModePage() {
   const { user } = useAuth();
 
   const {
-    playing, audioLoading, activeRadio,
-    currentTrack, currentTime, duration, sleepTimer,
-    playTrack, togglePlay, stopAudio, nextTrack, prevTrack, seek, changeSleepTimer
+    playing, activeRadio,
+    currentTrack, sleepTimer,
+    playTrack, changeSleepTimer
   } = useTilawahAudio();
 
   // Local states
@@ -46,6 +47,9 @@ export default function TravelModePage() {
       return [];
     }
   });
+
+  const hourlyRecommendations = useMemo(() => getHourlyRecommendations(), []);
+  const fullRecommendations = useMemo(() => getFullValidRecommendations(), []);
 
   // Derived state: last active played audio track
   const lastPlayed = useMemo(() => {
@@ -259,14 +263,6 @@ export default function TravelModePage() {
     });
   }, [showToast]);
 
-  // Time format helper (s -> mm:ss)
-  const formatTime = (time) => {
-    if (isNaN(time) || !isFinite(time)) return '00:00';
-    const mins = Math.floor(time / 60);
-    const secs = Math.floor(time % 60);
-    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-  };
-
   // Convert minutes to nice label
   const getSleepTimerLabel = (val) => {
     if (val === 'off') return 'Off';
@@ -356,6 +352,40 @@ export default function TravelModePage() {
         </section>
       )}
 
+      {/* Hourly Tilawah Recommendations */}
+      {hourlyRecommendations.length > 0 && (
+        <section className="travel-recommendations container">
+          <h2 className="travel-section-title">Rekomendasi Tilawah</h2>
+          <p className="travel-section-subtitle mb-4 text-xs opacity-80">Berubah setiap jam untuk menemani perjalanan Anda.</p>
+          <div className="recommendations-list">
+            {hourlyRecommendations.map((track) => {
+              const isActive = activeRadio?.id === track.id;
+              const isPlayingThis = isActive && playing;
+              return (
+                <div 
+                  key={track.id} 
+                  className={`recommendation-card ${isActive ? 'active' : ''}`}
+                  onClick={() => handlePlayItem(track, fullRecommendations)}
+                >
+                  <div className="rec-icon-box">
+                    {isPlayingThis ? (
+                      <div className="track-playing-waves"><span/><span/><span/></div>
+                    ) : (
+                      <Play size={16} fill="currentColor" />
+                    )}
+                  </div>
+                  <div className="rec-info">
+                    <strong className="rec-title">{track.title}</strong>
+                    <span className="rec-subtitle">{track.subtitle}</span>
+                  </div>
+                  {track.isVerified && <span className="verified-badge">✓</span>}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Playlists Grid */}
       <section className="travel-playlists container">
         <h2 className="travel-section-title font-bold">Playlist Perjalanan</h2>
@@ -426,64 +456,7 @@ export default function TravelModePage() {
         </div>
       </section>
 
-      {/* Interactive Active Player (Bottom Sticky bar if track is loaded) */}
-      {activeRadio && !currentTrack?.route && (
-        <div className="travel-player-bar expanded-hover">
-          <div className="tpb-inner">
-            <div className="tpb-track-info">
-              <span className="tpb-badge">{activeRadio.isLive ? 'LIVE' : activeRadio.type?.toUpperCase() || 'TILAWAH'}</span>
-              <div className="tpb-titles">
-                <span className="tpb-title">{activeRadio.title || activeRadio.name}</span>
-                <span className="tpb-subtitle">{activeRadio.subtitle || activeRadio.sourceName}</span>
-              </div>
-            </div>
-
-            {/* Timings Progress (Only for non-live tracks) */}
-            {!activeRadio.isLive && duration > 0 && (
-              <div className="tpb-progress-container">
-                <span className="time-label">{formatTime(currentTime)}</span>
-                <input 
-                  type="range" 
-                  className="tpb-slider" 
-                  min={0}
-                  max={duration}
-                  value={currentTime}
-                  onChange={(e) => seek(Number(e.target.value))}
-                />
-                <span className="time-label">{formatTime(duration)}</span>
-              </div>
-            )}
-
-            <div className="tpb-controls">
-              {!activeRadio.isLive && (
-                <button className="tpb-control-btn tpb-prev" onClick={prevTrack} aria-label="Sebelumnya">
-                  ⏮️
-                </button>
-              )}
-              <button 
-                className="tpb-play-btn" 
-                onClick={togglePlay}
-                aria-label={playing ? 'Jeda' : 'Putar'}
-              >
-                {audioLoading ? <span className="tpb-spinner">⌛</span> : playing ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}
-              </button>
-              {!activeRadio.isLive && (
-                <button className="tpb-control-btn tpb-next" onClick={nextTrack} aria-label="Berikutnya">
-                  ⏭️
-                </button>
-              )}
-              <button className="tpb-control-btn tpb-close" onClick={stopAudio} title="Hentikan Audio">
-                <X size={18} />
-              </button>
-            </div>
-            
-            {/* Direct attribution label */}
-            <div className="tpb-attribution">
-              {activeRadio.attribution || 'Sumber Resmi Islamediaku'}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Active player has been migrated to GlobalMiniTilawahPlayer for unified experience */}
 
       {/* Playlist Details Bottom Sheet */}
       {selectedPlaylist && (

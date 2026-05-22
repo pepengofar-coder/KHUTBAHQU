@@ -4,7 +4,7 @@
  */
 
 .travel-mode-page {
-  padding-bottom: 120px; /* Space for the active player sticky bar */
+  padding-bottom: 160px; /* Space for unified global player and bottom nav */
   background: radial-gradient(circle at 15% 15%, rgba(216, 169, 40, 0.28), transparent 35%),
               radial-gradient(circle at 85% 20%, rgba(0, 194, 216, 0.20), transparent 35%),
               linear-gradient(135deg, #06111F 0%, #002B9A 45%, #003B46 100%);
@@ -351,6 +351,91 @@
   transform: scale(1.05);
 }
 
+/* Recommendations section */
+.travel-recommendations {
+  padding-bottom: var(--sp-6);
+}
+
+.travel-section-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: -4px;
+  margin-bottom: 16px;
+  font-size: var(--fs-xs);
+}
+
+.recommendations-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.recommendation-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xl);
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+}
+
+.recommendation-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.recommendation-card.active {
+  background: rgba(198, 255, 0, 0.1);
+  border-color: #C6FF00;
+}
+
+[data-theme="dark"] .recommendation-card.active {
+  background: rgba(198, 255, 0, 0.1);
+}
+
+.rec-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.recommendation-card.active .rec-icon-box {
+  background: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.rec-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.rec-title {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-subtitle {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Playlists section */
 .travel-playlists {
   padding-bottom: var(--sp-6);
@@ -612,190 +697,7 @@
 }
 
 /* Sticky Player bar bottom */
-.travel-player-bar {
-  position: fixed;
-  bottom: calc(var(--bottom-nav-h) + 12px);
-  left: 0;
-  right: 0;
-  z-index: 990; /* High z-index but just under modals (usually 1000) */
-  padding: 0 var(--sp-4);
-  pointer-events: none;
-  animation: slideUp 0.4s var(--ease-spring);
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.tpb-inner {
-  pointer-events: auto;
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  background: rgba(7, 17, 31, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 28px;
-  padding: var(--sp-3) var(--sp-4);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
-}
-
-/* Expand-on-hover effect */
-.travel-player-bar.expanded-hover .tpb-inner:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 194, 216, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-color: rgba(198, 255, 0, 0.4);
-}
-
-.tpb-track-info {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-2);
-}
-
-.tpb-badge {
-  font-size: 8px;
-  font-weight: 800;
-  color: #07111F;
-  background: var(--color-accent);
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.tpb-titles {
-  flex: 1;
-  min-width: 0;
-}
-
-.tpb-title {
-  display: block;
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  color: #FFFFFF;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.tpb-subtitle {
-  display: block;
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Progress slider */
-.tpb-progress-container {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  margin-bottom: var(--sp-2);
-}
-
-.time-label {
-  font-size: 9px;
-  color: rgba(255, 255, 255, 0.6);
-  font-variant-numeric: tabular-nums;
-  width: 32px;
-}
-
-.tpb-slider {
-  flex: 1;
-  height: 4px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.2);
-  outline: none;
-  cursor: pointer;
-  accent-color: var(--color-accent);
-  -webkit-appearance: none;
-}
-
-.tpb-slider::-webkit-slider-runnable-track {
-  height: 4px;
-}
-
-.tpb-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  margin-top: -4px;
-}
-
-.tpb-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-4);
-  position: relative;
-}
-
-.tpb-control-btn {
-  border: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: var(--fs-md);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-}
-
-.tpb-control-btn:hover {
-  color: #FFFFFF;
-  transform: scale(1.1);
-}
-
-.tpb-play-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-pill);
-  border: none;
-  background: var(--color-accent);
-  color: #07111F;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(198, 255, 0, 0.2);
-}
-
-.tpb-play-btn:hover {
-  transform: scale(1.08);
-  background: #FFFFFF;
-}
-
-.tpb-close {
-  position: absolute;
-  right: 0;
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-.tpb-close:hover {
-  color: #FFFFFF !important;
-}
-
-.tpb-attribution {
-  font-size: 8px;
-  color: rgba(255, 255, 255, 0.4);
-  text-align: center;
-  margin-top: var(--sp-2);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-top: var(--sp-1);
-}
+/* Player styles removed (Migrated to GlobalMiniTilawahPlayer) */
 
 /* Playlist detail bottom sheet */
 .playlist-sheet-backdrop {
