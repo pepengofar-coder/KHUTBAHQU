@@ -225,3 +225,121 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.murottal-continue-card {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #3b82f6 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 71, 255, 0.2);
+}
+.murottal-continue-card__icon {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.murottal-continue-card__info {
+  flex: 1;
+}
+.murottal-continue-card__info h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+}
+.murottal-continue-card__info p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.murottal-continue-card button {
+  background: white;
+  color: var(--color-primary);
+}
+.murottal-filter-section {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.murottal-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.murottal-search .search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--muted-text);
+}
+.murottal-search input {
+  width: 100%;
+  padding: 1rem 1rem 1rem 2.75rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--card-white);
+  color: var(--text-primary);
+}
+.murottal-search input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+.murottal-chips {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+.murottal-chips::-webkit-scrollbar {
+  display: none;
+}
+.murottal-chip {
+  background: var(--card-white);
+  border: 1px solid rgba(0,0,0,0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  color: var(--text-primary);
+}
+.murottal-chip.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+.murottal-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted-text);
+  background: var(--card-white);
+  border-radius: 16px;
+}
+@media (min-width: 768px) {
+  .murottal-filter-section {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .murottal-search {
+    width: 300px;
+  }
+  .juz-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .juz-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+

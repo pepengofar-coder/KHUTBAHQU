@@ -5,7 +5,8 @@ import { useAuth } from '../../context/AuthContext';
 import { trackUserActivity } from '../../lib/syncService';
 import { useSEO } from '../../utils/seo';
 import { quranMetadata } from '../../data/quranMetadata';
-import { ArrowLeft, Play, Pause, Headphones, AlertCircle } from 'lucide-react';
+import { JUZ_RANGES } from '../../data/juzRanges';
+import { ArrowLeft, Play, Pause, Headphones, AlertCircle, Search, Clock } from 'lucide-react';
 import './Murottal30JuzPage.css';
 
 export default function Murottal30JuzPage() {
@@ -27,6 +28,20 @@ export default function Murottal30JuzPage() {
   const [selectedReciterId, setSelectedReciterId] = useState('');
   
   const [surahs, setSurahs] = useState([]); // localized surah names
+
+  // Navigation and Filter States
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterRange, setFilterRange] = useState('Semua');
+
+  // Continue Listening State
+  const [lastPlayed, setLastPlayed] = useState(() => {
+    try {
+      const stored = localStorage.getItem('islamediaku_tilawah_last_juz');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
 
   // Fetch Surah Names from Quran.com for localized names
   useEffect(() => {
@@ -111,6 +126,16 @@ export default function Murottal30JuzPage() {
       };
     });
 
+    // Save Last Played to LocalStorage
+    const lastPlayedData = {
+      juzNumber,
+      reciterId: selectedReciter.id,
+      reciterName: selectedReciter.name,
+      timestamp: new Date().toISOString()
+    };
+    setLastPlayed(lastPlayedData);
+    localStorage.setItem('islamediaku_tilawah_last_juz', JSON.stringify(lastPlayedData));
+
     // Play first track of the playlist
     playTrack(playlist[0], playlist);
 
@@ -125,6 +150,28 @@ export default function Murottal30JuzPage() {
 
   const activeJuz = activeRadio?.type === 'murottal' ? activeRadio.juzNumber : null;
 
+  const filteredJuzList = useMemo(() => {
+    let list = Array.from({ length: 30 }, (_, i) => i + 1);
+
+    // Apply Range Filter
+    if (filterRange === '1-10') list = list.filter(j => j >= 1 && j <= 10);
+    else if (filterRange === '11-20') list = list.filter(j => j >= 11 && j <= 20);
+    else if (filterRange === '21-30') list = list.filter(j => j >= 21 && j <= 30);
+
+    // Apply Search
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(juzNum => {
+        if (juzNum.toString().includes(q) || `juz ${juzNum}`.includes(q)) return true;
+        const range = JUZ_RANGES[juzNum - 1];
+        if (range && (range.start.toLowerCase().includes(q) || range.end.toLowerCase().includes(q))) return true;
+        return false;
+      });
+    }
+
+    return list;
+  }, [filterRange, searchQuery]);
+
   return (
     <div className="murottal-juz-page">
       <header className="murottal-juz-header container">
@@ -138,6 +185,36 @@ export default function Murottal30JuzPage() {
       </header>
 
       <main className="container murottal-juz-main">
+        {/* Continue Listening Card */}
+        {lastPlayed && (
+          <div className="murottal-continue-card">
+            <div className="murottal-continue-card__icon"><Clock size={24} /></div>
+            <div className="murottal-continue-card__info">
+              <h4>Lanjutkan Tilawah</h4>
+              <p>Juz {lastPlayed.juzNumber} • {lastPlayed.reciterName}</p>
+            </div>
+            <button 
+              className="btn btn--primary btn--sm"
+              onClick={() => {
+                if (selectedReciterId !== lastPlayed.reciterId.toString()) {
+                  setSelectedReciterId(lastPlayed.reciterId.toString());
+                  // Will play after reciter loads, handled by a separate effect if we wanted perfectly,
+                  // but simple click to set reciter is fine, user clicks again. Let's just play if it's the same reciter.
+                  if (selectedReciterId === lastPlayed.reciterId.toString()) {
+                    handlePlayJuz(lastPlayed.juzNumber);
+                  } else {
+                    alert("Mengganti Qari ke " + lastPlayed.reciterName + ", silakan klik putar Juz " + lastPlayed.juzNumber + " di bawah setelah dimuat.");
+                  }
+                } else {
+                  handlePlayJuz(lastPlayed.juzNumber);
+                }
+              }}
+            >
+              Putar
+            </button>
+          </div>
+        )}
+
         {/* Info Banner */}
         <div className="murottal-info-banner">
           <AlertCircle size={20} className="info-icon" />
@@ -168,12 +245,38 @@ export default function Murottal30JuzPage() {
 
         {error && <div className="murottal-error">{error}</div>}
 
+        {/* Search and Filter */}
+        <div className="murottal-filter-section">
+          <div className="murottal-search">
+            <Search size={18} className="search-icon" />
+            <input 
+              type="text" 
+              placeholder="Cari Juz atau Surah..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className="murottal-chips">
+            {['Semua', '1-10', '11-20', '21-30'].map(range => (
+              <button 
+                key={range}
+                className={`murottal-chip ${filterRange === range ? 'active' : ''}`}
+                onClick={() => setFilterRange(range)}
+              >
+                {range !== 'Semua' ? `Juz ${range}` : range}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* 30 Juz Grid */}
         <div className="juz-grid">
-          {Array.from({ length: 30 }, (_, i) => i + 1).map(juzNum => {
+          {filteredJuzList.length === 0 && (
+            <div className="murottal-empty">Tidak ada Juz yang sesuai pencarian.</div>
+          )}
+          {filteredJuzList.map(juzNum => {
             const isPlayingThisJuz = activeJuz === juzNum && playing;
-            const startSurahId = quranMetadata.juzs[juzNum].start.surah;
-            const startSurahName = surahs.find(s => s.id === startSurahId)?.name_simple || `Surah ${startSurahId}`;
+            const rangeInfo = JUZ_RANGES[juzNum - 1];
             
             return (
               <div 
@@ -191,12 +294,13 @@ export default function Murottal30JuzPage() {
                 </div>
                 <div className="juz-card-body">
                   <h3 className="juz-title">Juz {juzNum}</h3>
-                  <p className="juz-desc">Mulai: QS {startSurahName} Ayat {quranMetadata.juzs[juzNum].start.ayah}</p>
+                  <p className="juz-desc">{rangeInfo ? `${rangeInfo.start} – ${rangeInfo.end}` : ''}</p>
                 </div>
               </div>
             );
           })}
         </div>
+        <p className="tilawah-attribution" style={{ textAlign: 'center', marginTop: '24px', fontSize: '0.85rem', color: 'var(--muted-text)' }}>Sumber audio: <a href="https://mp3quran.net" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)' }}>MP3Quran.net</a></p>
       </main>
     </div>
   );
