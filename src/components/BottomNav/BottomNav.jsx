@@ -5,49 +5,54 @@ import { House, Clock, BookOpen, Compass, Heart, CircleDot, ScrollText, CheckSqu
 import { App as CapacitorApp } from '@capacitor/app';
 import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../context/I18nContext';
 import './BottomNav.css';
 
 const TABS = [
-  { to: '/', end: true, label: 'Home', icon: House },
-  { to: '/sholat', label: 'Sholat', icon: Clock },
-  { to: '/mushaf', label: 'Mushaf', icon: BookOpen },
-  { to: '/doa-dzikir', label: 'Doa', icon: Heart },
+  { to: '/', end: true, tKey: 'nav.home' },
+  { to: '/sholat', tKey: 'nav.prayer' },
+  { to: '/mushaf', tKey: 'nav.mushaf' },
+  { to: '/doa-dzikir', tKey: 'nav.dua' },
 ];
 
 const MORE_SECTIONS = [
   {
-    title: 'Ibadah',
+    tTitleKey: 'nav.prayer',
+    fallbackTitle: 'Ibadah',
     items: [
-      { to: '/sholat', label: 'Sholat', icon: Clock, color: 'emerald', desc: 'Jadwal sholat & imsakiyah' },
-      { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue', desc: 'Membaca mushaf & tafsir' },
-      { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose', desc: 'Koleksi doa & dzikir pagi petang' },
-      { to: '/tilawah', label: 'Tilawah', icon: Headphones, color: 'orange', desc: 'Stasiun audio murottal 24 jam' },
-      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue', desc: 'Kompas penunjuk arah kiblat' },
-      { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo', desc: 'Counter dzikir & tasbih digital' },
+      { to: '/sholat', tKey: 'nav.prayer', icon: Clock, color: 'emerald', tDescKey: 'feature.prayer' },
+      { to: '/mushaf', tKey: 'nav.mushaf', icon: BookOpen, color: 'blue', tDescKey: 'feature.mushaf' },
+      { to: '/doa-dzikir', tKey: 'nav.dua_dhikr', icon: Heart, color: 'rose', tDescKey: 'feature.dua' },
+      { to: '/tilawah', tKey: 'feature.recitation', fallbackKey: 'Tilawah', icon: Headphones, color: 'orange', tDescKey: 'feature.recitation' },
+      { to: '/kiblat', tKey: 'nav.qibla', icon: Compass, color: 'blue', tDescKey: 'feature.qibla' },
+      { to: '/tasbih', tKey: 'nav.tasbih', fallbackKey: 'Tasbih', icon: CircleDot, color: 'indigo', tDescKey: 'feature.tasbih', fallbackDesc: 'Counter dzikir & tasbih digital' },
     ],
   },
   {
-    title: 'Ruang Saya',
+    tTitleKey: 'nav.my_space',
+    fallbackTitle: 'Ruang Saya',
     items: [
-      { to: '/ruang-saya', label: 'Ruang Saya', icon: User, color: 'cyan', desc: 'Dashboard pribadi dan progres' },
-      { to: '/good-path', label: 'Good Path', icon: Compass, color: 'emerald', desc: 'Sistem pembiasaan islami' },
-      { to: '/tracker', label: 'Tracker', icon: CheckSquare, color: 'lime', desc: 'Catat dan pantau amal harian' },
-      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
+      { to: '/ruang-saya', tKey: 'nav.my_space', icon: User, color: 'cyan', tDescKey: 'nav.my_space', fallbackDesc: 'Dashboard pribadi dan progres' },
+      { to: '/good-path', tKey: 'nav.good_path', icon: Compass, color: 'emerald', tDescKey: 'feature.good_path' },
+      { to: '/tracker', tKey: 'nav.tracker', icon: CheckSquare, color: 'lime', tDescKey: 'feature.tracker' },
+      { to: '/favorit', tKey: 'nav.favorites', fallbackKey: 'Favorit', icon: Star, color: 'amber', tDescKey: 'feature.favorites', fallbackDesc: 'Daftar konten yang Anda simpan' },
     ],
   },
   {
-    title: 'Konten',
+    tTitleKey: 'nav.more',
+    fallbackTitle: 'Konten',
     items: [
-      { to: '/khutbah', label: 'Khutbah', icon: ScrollText, color: 'amber', desc: 'Teks khutbah & kultum pilihan' },
-      { to: '/mode-perjalanan', label: 'Mode Perjalanan', icon: Car, color: 'lime', desc: 'Audio penenang selama perjalanan' },
-      { to: '/kalender-hijriah', label: 'Kalender', icon: Calendar, color: 'indigo', desc: 'Kalender Hijriah & puasa sunnah' },
+      { to: '/khutbah', tKey: 'nav.khutbah', icon: ScrollText, color: 'amber', tDescKey: 'feature.khutbah' },
+      { to: '/mode-perjalanan', tKey: 'nav.travel_mode', icon: Car, color: 'lime', tDescKey: 'feature.travel' },
+      { to: '/kalender-hijriah', tKey: 'nav.calendar', icon: Calendar, color: 'indigo', tDescKey: 'feature.calendar' },
     ],
   },
   {
-    title: 'Aplikasi',
+    tTitleKey: 'nav.settings',
+    fallbackTitle: 'Aplikasi',
     items: [
-      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },
-      { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue', desc: 'Mengenal aplikasi Islamediaku' },
+      { to: '/pengaturan', tKey: 'nav.settings', icon: Settings, color: 'indigo', tDescKey: 'nav.settings', fallbackDesc: 'Kelola preferensi & mode aplikasi' },
+      { to: '/tentang', tKey: 'nav.about', icon: Info, color: 'blue', tDescKey: 'nav.about', fallbackDesc: 'Mengenal aplikasi Islamediaku' },
     ],
   },
 ];
@@ -60,6 +65,7 @@ export default function BottomNav() {
   const location = useLocation();
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { t } = useI18n();
 
   const moreActive = ALL_MORE_ITEMS.some(m => location.pathname === m.to || location.pathname.startsWith(m.to + '/'));
 
@@ -159,19 +165,26 @@ export default function BottomNav() {
       <div className={`more-sheet__backdrop glass-backdrop${sheetOpen ? ' open' : ''}`} onClick={dismissSheet} />
       <div className={`more-sheet glass-surface${sheetOpen ? ' open' : ''}`}>
         <div className="more-sheet__handle" onClick={dismissSheet}><span /></div>
-        <h3 className="more-sheet__title">Menu Lainnya</h3>
+        <h3 className="more-sheet__title">{t('nav.more')}</h3>
         
         {sections.map((section, si) => (
-          <div key={section.title} className="more-sheet__section" style={{ animationDelay: `${si * 60}ms` }}>
-            <h4 className="more-sheet__section-title">{section.title}</h4>
+          <div key={section.tTitleKey} className="more-sheet__section" style={{ animationDelay: `${si * 60}ms` }}>
+            <h4 className="more-sheet__section-title">{t(section.tTitleKey) === section.tTitleKey && section.fallbackTitle ? section.fallbackTitle : t(section.tTitleKey)}</h4>
             <div className="more-sheet__section-list">
               {section.items.map((item) => {
                 const isActive = location.pathname === item.to || location.pathname.startsWith(item.to + '/');
+                let label = t(item.tKey) === item.tKey && item.fallbackKey ? item.fallbackKey : t(item.tKey);
+                // For features with " - ", we take the subtitle. For desc we just take the second part or whole string.
+                let desc = t(item.tDescKey) === item.tDescKey && item.fallbackDesc ? item.fallbackDesc : t(item.tDescKey);
+                if (desc.includes(' - ')) desc = desc.split(' - ')[1];
+                if (label.includes(' - ')) label = label.split(' - ')[0];
+                if (item.label === 'Download APK') { label = item.label; desc = item.label; }
+
                 return (
                   <VariedFeatureCard
-                    key={item.to + item.label}
-                    title={item.label}
-                    subtitle={item.desc}
+                    key={item.to + label}
+                    title={label}
+                    subtitle={desc}
                     icon={item.icon}
                     to={item.isExternal ? undefined : item.to}
                     href={item.isExternal ? item.to : undefined}
@@ -206,27 +219,22 @@ export default function BottomNav() {
     <>
       <nav className="btm-nav" aria-label="Navigasi mobile">
         <div className="btm-nav__inner">
-          {TABS.map(t => {
-            const IconComp = t.icon;
-            return (
-              <NavLink 
-                key={t.to} 
-                to={t.to} 
-                end={t.end} 
-                className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} 
-                onClick={(e) => {
-                  if (sheetOpen) {
-                    e.preventDefault();
-                    setSheetOpen(false);
-                    navigate(t.to, { replace: true });
-                  }
-                }}
-              >
-                <span className="btm-nav__icon"><IconComp size={24} strokeWidth={2} /></span>
-                <span className="btm-nav__label">{t.label}</span>
-              </NavLink>
-            );
-          })}
+          <NavLink to="/" end className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} onClick={(e) => { if (sheetOpen) { e.preventDefault(); setSheetOpen(false); navigate('/', { replace: true }); } }}>
+            <span className="btm-nav__icon"><House size={24} strokeWidth={2} /></span>
+            <span className="btm-nav__label">{t('nav.home')}</span>
+          </NavLink>
+          <NavLink to="/sholat" className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} onClick={(e) => { if (sheetOpen) { e.preventDefault(); setSheetOpen(false); navigate('/sholat', { replace: true }); } }}>
+            <span className="btm-nav__icon"><Clock size={24} strokeWidth={2} /></span>
+            <span className="btm-nav__label">{t('nav.prayer')}</span>
+          </NavLink>
+          <NavLink to="/mushaf" className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} onClick={(e) => { if (sheetOpen) { e.preventDefault(); setSheetOpen(false); navigate('/mushaf', { replace: true }); } }}>
+            <span className="btm-nav__icon"><BookOpen size={24} strokeWidth={2} /></span>
+            <span className="btm-nav__label">{t('nav.mushaf')}</span>
+          </NavLink>
+          <NavLink to="/doa-dzikir" className={({isActive}) => `btm-nav__item${isActive ? ' active' : ''}`} onClick={(e) => { if (sheetOpen) { e.preventDefault(); setSheetOpen(false); navigate('/doa-dzikir', { replace: true }); } }}>
+            <span className="btm-nav__icon"><Heart size={24} strokeWidth={2} /></span>
+            <span className="btm-nav__label">{t('nav.dua')}</span>
+          </NavLink>
           <button
             type="button"
             className={`btm-nav__item btm-nav__more-btn${moreActive || sheetOpen ? ' active' : ''}`}
@@ -237,7 +245,7 @@ export default function BottomNav() {
             <span className="btm-nav__icon">
               <MoreHorizontal size={24} strokeWidth={2} />
             </span>
-            <span className="btm-nav__label">Lainnya</span>
+            <span className="btm-nav__label">{t('nav.more')}</span>
           </button>
         </div>
       </nav>

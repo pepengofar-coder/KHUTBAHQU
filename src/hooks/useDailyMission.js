@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useI18n } from '../context/I18nContext';
 import {
   getDailyProgress,
   updateDailyMission,
@@ -15,13 +16,14 @@ import {
 export default function useDailyMission() {
   const [data, setData] = useState(() => getDailyProgress());
 
+  const { t } = useI18n();
   const isFriday = new Date().getDay() === 5;
   
   const fridayMissions = [
-    { id: 'alkahfi', label: 'Baca Surah Al-Kahfi', subtitle: 'Sunnah hari Jumat', icon: '📖' },
-    { id: 'shalawat', label: 'Perbanyak Shalawat', subtitle: 'Nabi Muhammad ﷺ', icon: '📿' },
-    { id: 'sedekah_jumat', label: 'Sedekah Jumat', subtitle: 'Hari penuh berkah', icon: '💝' },
-    { id: 'jumat', label: 'Amalan Jumat', subtitle: 'Jika sholat Jumat, datang lebih awal', icon: '🕌' },
+    { id: 'alkahfi', label: t('mission.friday.alkahfi'), subtitle: '', icon: '📖' },
+    { id: 'shalawat', label: t('mission.friday.shalawat'), subtitle: '', icon: '📿' },
+    { id: 'sedekah_jumat', label: t('mission.friday.sedekah'), subtitle: '', icon: '💝' },
+    { id: 'jumat', label: t('mission.friday.jumuah'), subtitle: '', icon: '🕌' },
     { id: 'syukur', label: 'Catatan syukur', subtitle: 'Bersyukur hari ini', icon: '✨' },
   ];
 

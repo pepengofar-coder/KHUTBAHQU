@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSEO, JsonLd, SITE_URL, SITE_NAME } from '../../utils/seo';
 import { getHijriDateString } from '../../data/hijriData';
 import { getLocalizedGreeting } from '../../utils/dailyGreeting';
+import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
 import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
@@ -12,7 +13,6 @@ import { BookOpen, Compass, ScrollText, Sparkles, ChevronRight, Headphones, Cale
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard
-import { useState, useEffect, useRef } from 'react';
 
 const PRAYERS = [
   { key: 'Fajr',    label: 'Subuh' },
@@ -35,6 +35,8 @@ function fmt(s){return s?s.substring(0,5):'--:--'}
 function getNext(t){const now=new Date();for(const p of PRAYERS){const d=parseTime(t[p.key]);if(d&&d>now)return p.key}return PRAYERS[0].key}
 
 export default function HomePage() {
+  const { t, language } = useI18n();
+
   useSEO({
     title: 'Islamediaku - Sahabat Ibadah Harian',
     description: 'Islamediaku adalah aplikasi Islami harian untuk jadwal sholat, Al-Qur’an, dzikir, tilawah, tracker ibadah, Good Path, Mode Perjalanan, dan konten Islami pilihan.',
@@ -146,26 +148,26 @@ export default function HomePage() {
       <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
           <div className="dash-hero__content">
-            <h1 className="dash-hero__salam">Sahabat Ibadah Harianmu</h1>
-            <p className="dash-hero__desc">Sholat, Al-Qur’an, dzikir, dan tilawah dalam satu aplikasi.</p>
+            <h1 className="dash-hero__salam">{t('home.hero.title')}</h1>
+            <p className="dash-hero__desc">{t('home.hero.subtitle')}</p>
             <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
           </div>
 
           {timings && nextP && (
             <div className="dash-hero__prayer">
               <div className="dash-hero__prayer-left">
-                <span className="dash-hero__prayer-label">Sholat Berikutnya</span>
+                <span className="dash-hero__prayer-label">{t('home.next_prayer.title')}</span>
                 <div className="dash-hero__prayer-name-row">
                   {(() => {
                     const NextPIcon = PRAYER_ICONS[nextP.key] || Sun;
-                    return <h2 className="dash-hero__prayer-name"><NextPIcon size={20} /> {nextP.label}</h2>;
+                    return <h2 className="dash-hero__prayer-name"><NextPIcon size={20} /> {getPrayerDisplayName(nextP.key, now, language, t)}</h2>;
                   })()}
                 </div>
                 <span className="dash-hero__prayer-time">{fmt(timings[nextP.key])}</span>
               </div>
               
               <div className="dash-hero__prayer-right">
-                <Link to="/sholat" className="dash-hero__prayer-link">Lihat Jadwal <ChevronRight size={14} /></Link>
+                <Link to="/sholat" className="dash-hero__prayer-link">{t('home.next_prayer.view')} <ChevronRight size={14} /></Link>
                 <span className="dash-hero__prayer-countdown">{countdown}</span>
               </div>
             </div>
@@ -186,15 +188,15 @@ export default function HomePage() {
 
       {/* Quick Actions */}
       <section className="dash-actions container">
-        <h2 className="dash-section-title dash-actions__title">📖 Menu Utama</h2>
+        <h2 className="dash-section-title">📖 {t('nav.more')}</h2>
         <div className="dash-actions__grid-main">
           <div className="featured-card-wrap">
             <IllustratedFeatureCard
               to="/mushaf"
               visual={BookOpen}
               colorVariant="blue"
-              title="Mushaf"
-              subtitle="Baca Al-Qur’an"
+              title={t('nav.mushaf')}
+              subtitle={t('feature.mushaf').split(' - ')[1] || t('feature.mushaf')}
               featured
             />
           </div>
@@ -203,56 +205,56 @@ export default function HomePage() {
             to="/sholat"
             visual={Clock}
             colorVariant="cyan"
-            title="Sholat"
-            subtitle="Jadwal & Pengingat"
+            title={t('nav.prayer')}
+            subtitle={t('feature.prayer').split(' - ')[1] || t('feature.prayer')}
           />
 
           <IllustratedFeatureCard
             to="/tilawah"
             visual={Headphones}
             colorVariant="indigo"
-            title="Tilawah"
-            subtitle="Dengarkan Qur’an"
+            title={t('nav.recitation')}
+            subtitle={t('feature.recitation').split(' - ')[1] || t('feature.recitation')}
           />
 
           <IllustratedFeatureCard
             to="/doa-dzikir"
             visual={Sparkles}
             colorVariant="mint"
-            title="Doa & Dzikir"
-            subtitle="Pagi, Petang, Harian"
+            title={t('nav.dua_dhikr')}
+            subtitle={t('feature.dua').split(' - ')[1] || t('feature.dua')}
           />
 
           <IllustratedFeatureCard
             to="/kalender-hijriah"
             visual={CalendarDays}
             colorVariant="lavender"
-            title="Kalender"
-            subtitle="Hijriah & Hari Besar"
+            title={t('nav.calendar')}
+            subtitle={t('feature.calendar').split(' - ')[1] || t('feature.calendar')}
           />
 
           <IllustratedFeatureCard
             to="/kiblat"
             visual={Compass}
             colorVariant="gold"
-            title="Kiblat"
-            subtitle="Arah Sholat"
+            title={t('nav.qibla')}
+            subtitle={t('feature.qibla').split(' - ')[1] || t('feature.qibla')}
           />
 
           <IllustratedFeatureCard
             to="/tracker"
             visual={CheckSquare}
             colorVariant="lime"
-            title="Tracker"
-            subtitle="Pantau Ibadah"
+            title={t('nav.tracker')}
+            subtitle={t('feature.tracker').split(' - ')[1] || t('feature.tracker')}
           />
 
           <IllustratedFeatureCard
             to="/khutbah"
             visual={ScrollText}
             colorVariant="cream"
-            title="Khutbah"
-            subtitle="Materi Pilihan"
+            title={t('nav.khutbah')}
+            subtitle={t('feature.khutbah').split(' - ')[1] || t('feature.khutbah')}
           />
         </div>
 
@@ -282,10 +284,10 @@ export default function HomePage() {
         <section className="home-section dash-prayer container">
           <div className="dash-prayer__header">
             <div>
-              <h2 className="dash-section-title">🕌 Jadwal Sholat</h2>
+              <h2 className="dash-section-title">🕌 {t('prayer.schedule')}</h2>
               {locationName && <p className="dash-prayer__location" style={{fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px'}}><MapPin size={12} /> {locationName}</p>}
             </div>
-            <Link to="/sholat" className="dash-link">Selengkapnya →</Link>
+            <Link to="/sholat" className="dash-link">{t('nav.more')} →</Link>
           </div>
           <div className="dash-prayer__grid">
             {PRAYERS.map(p => {
@@ -296,7 +298,7 @@ export default function HomePage() {
                   <span className="dash-prayer-card__icon-wrapper">
                     <IconComp size={16} className="dash-prayer-card__icon" />
                   </span>
-                  <span className="dash-prayer-card__name">{p.label}</span>
+                  <span className="dash-prayer-card__name">{getPrayerDisplayName(p.key, now, language, t)}</span>
                   <span className="dash-prayer-card__time">{fmt(timings[p.key])}</span>
                 </div>
               );
@@ -308,12 +310,12 @@ export default function HomePage() {
       {/* Tracker Summary */}
       <section className="dash-tracker container">
         <div className="dash-prayer__header">
-          <h2 className="dash-section-title">✅ Tracker Ibadah</h2>
-          <Link to="/tracker" className="dash-link">Buka Tracker →</Link>
+          <h2 className="dash-section-title">✅ {t('nav.tracker')}</h2>
+          <Link to="/tracker" className="dash-link">{t('btn.open')} →</Link>
         </div>
         <div className="dash-tracker__card">
-          <p>Pantau sholat, tilawah, dzikir, dan amal harian Anda.</p>
-          <Link to="/tracker" className="btn btn--primary btn--sm">Mulai Tracking →</Link>
+          <p>{t('feature.tracker')}</p>
+          <Link to="/tracker" className="btn btn--primary btn--sm">{t('btn.start')} →</Link>
         </div>
       </section>
 

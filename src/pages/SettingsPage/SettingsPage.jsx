@@ -4,10 +4,11 @@ import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import { useAdzanAlarm } from '../../hooks/useAdzanAlarm';
 import { useSEO } from '../../utils/seo';
+import { useI18n } from '../../context/I18nContext';
 import { 
   Moon, MapPin, Type, BookOpen, Focus, 
   Trash2, Smartphone, Download, Info, ShieldAlert,
-  ChevronRight, Volume2, CheckCircle2, User
+  ChevronRight, Volume2, CheckCircle2, User, Globe
 } from 'lucide-react';
 import './SettingsPage.css';
 
@@ -21,6 +22,7 @@ export default function SettingsPage() {
 
   const { darkMode, toggleDark, appTheme, setAppTheme, fontSize, setFontSize, fontSizeOptions } = useApp();
   const { user } = useAuth();
+  const { language, setLanguage } = useI18n();
   
   const THEMES = [
     { id: 'default', name: 'Islamediaku', desc: 'Tema utama Islamediaku dengan biru royal dan aksen lime.', primary: '#0047FF', accent: '#C6FF00' },
@@ -142,8 +144,23 @@ export default function SettingsPage() {
         
         {/* Tampilan */}
         <section className="settings-section">
-          <h2 className="settings-section__title">Tampilan</h2>
+          <h2 className="settings-section__title">Tampilan & Bahasa</h2>
           <div className="settings-group">
+            <div className="settings-item">
+              <div className="settings-item__icon-wrap bg-blue-light">
+                <Globe size={20} className="text-primary" />
+              </div>
+              <div className="settings-item__content">
+                <strong>Bahasa Aplikasi</strong>
+                <p>Pilih bahasa antarmuka</p>
+              </div>
+              <select className="settings-select" value={language} onChange={e => setLanguage(e.target.value)}>
+                <option value="id">Bahasa Indonesia</option>
+                <option value="en">English</option>
+                <option value="ar">العربية (Arabic)</option>
+              </select>
+            </div>
+            <div className="settings-divider" />
             <div className="settings-item">
               <div className="settings-item__icon-wrap bg-blue-light">
                 <Moon size={20} className="text-primary" />

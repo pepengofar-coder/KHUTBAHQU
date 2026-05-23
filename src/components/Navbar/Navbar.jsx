@@ -3,32 +3,34 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Sun, Moon, User, Settings, Upload, Info, ChevronDown } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
+import { useI18n } from '../../context/I18nContext';
 import './Navbar.css';
 
 const DESKTOP_LINKS = [
-  { to: '/', label: 'Beranda', end: true },
-  { to: '/sholat', label: 'Sholat' },
-  { to: '/mushaf', label: 'Mushaf' },
-  { to: '/doa-dzikir', label: 'Doa & Dzikir' },
-  { to: '/khutbah', label: 'Khutbah' },
-  { to: '/tracker', label: 'Tracker' },
+  { to: '/', tKey: 'nav.home', end: true },
+  { to: '/sholat', tKey: 'nav.prayer' },
+  { to: '/mushaf', tKey: 'nav.mushaf' },
+  { to: '/doa-dzikir', tKey: 'nav.dua_dhikr' },
+  { to: '/khutbah', tKey: 'nav.khutbah' },
+  { to: '/tracker', tKey: 'nav.tracker' },
 ];
 
 const MORE_LINKS = [
-  { to: '/ruang-saya', label: 'Ruang Saya' },
-  { to: '/good-path', label: 'Good Path' },
-  { to: '/kiblat', label: 'Kiblat' },
-  { to: '/kalender-hijriah', label: 'Kalender' },
-  { to: '/tilawah', label: 'Tilawah' },
-  { to: '/favorit', label: 'Favorit' },
-  { to: '/tasbih', label: 'Tasbih' },
-  { to: '/pengaturan', label: 'Pengaturan' },
-  { to: '/tentang', label: 'Tentang' },
+  { to: '/ruang-saya', tKey: 'nav.my_space' },
+  { to: '/good-path', tKey: 'nav.good_path' },
+  { to: '/kiblat', tKey: 'nav.qibla' },
+  { to: '/kalender-hijriah', tKey: 'nav.calendar' },
+  { to: '/tilawah', tKey: 'nav.tilawah', fallback: 'Tilawah' },
+  { to: '/favorit', tKey: 'nav.favorites', fallback: 'Favorit' },
+  { to: '/tasbih', tKey: 'nav.tasbih', fallback: 'Tasbih' },
+  { to: '/pengaturan', tKey: 'nav.settings' },
+  { to: '/tentang', tKey: 'nav.about' },
 ];
 
 export default function Navbar() {
   const { darkMode, toggleDark } = useApp();
   const { user } = useAuth();
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -71,7 +73,7 @@ export default function Navbar() {
         <nav className="nav__links" aria-label="Navigasi desktop">
           {DESKTOP_LINKS.map(l => (
             <NavLink key={l.to} to={l.to} end={l.end} className={({isActive}) => `nav__link${isActive ? ' active' : ''}`}>
-              {l.label}
+              {t(l.tKey)}
             </NavLink>
           ))}
           
@@ -81,14 +83,14 @@ export default function Navbar() {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               aria-expanded={dropdownOpen}
             >
-              Lainnya <ChevronDown size={14} style={{ marginLeft: 4, transition: 'transform 0.2s', transform: dropdownOpen ? 'rotate(180deg)' : 'none' }} />
+              {t('nav.more')} <ChevronDown size={14} style={{ marginLeft: 4, transition: 'transform 0.2s', transform: dropdownOpen ? 'rotate(180deg)' : 'none' }} />
             </button>
             
             {dropdownOpen && (
               <div className="nav__dropdown-menu">
                 {MORE_LINKS.map(l => (
                   <NavLink key={l.to} to={l.to} className={({isActive}) => `nav__dropdown-item${isActive ? ' active' : ''}`}>
-                    {l.label}
+                    {l.tKey === t(l.tKey) && l.fallback ? l.fallback : t(l.tKey)}
                   </NavLink>
                 ))}
               </div>

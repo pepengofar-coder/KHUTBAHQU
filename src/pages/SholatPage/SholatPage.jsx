@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useSEO } from '../../utils/seo';
+import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
 import { Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './SholatPage.css';
 
@@ -12,6 +13,8 @@ function fmt(s){return s?s.substring(0,5):'--:--'}
 function getNext(timings){const now=new Date();for(const k of MAIN_PRAYERS){const t=parseTime(timings[k]);if(t&&t>now)return k}return MAIN_PRAYERS[0]}
 
 export default function SholatPage(){
+  const { t, language } = useI18n();
+
   useSEO({title:'Jadwal Sholat - Islamediaku',description:'Jadwal waktu sholat hari ini dengan countdown otomatis. Subuh, Dzuhur, Ashar, Maghrib, Isya berdasarkan lokasi Anda.',path:'/sholat'});
 
   const[mode,setMode]=useState('detecting');
@@ -76,8 +79,8 @@ export default function SholatPage(){
   return(
     <div className="sholat-page container">
       <div className="sholat-page__header">
-        <h1 className="sholat-page__title">Jadwal Sholat</h1>
-        <p className="sholat-page__date">{now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p>
+        <h1 className="sholat-page__title">{t('prayer.schedule')}</h1>
+        <p className="sholat-page__date">{now.toLocaleDateString(language === 'id' ? 'id-ID' : language === 'ar' ? 'ar-SA' : 'en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p>
       </div>
 
       {/* Next Prayer Hero */}
@@ -87,8 +90,8 @@ export default function SholatPage(){
             <nextP.icon size={32} strokeWidth={2.2} />
           </div>
           <div className="sholat-hero__info">
-            <span className="sholat-hero__label">Sholat berikutnya</span>
-            <span className="sholat-hero__name">{nextP.label}</span>
+            <span className="sholat-hero__label">{t('home.next_prayer.title')}</span>
+            <span className="sholat-hero__name">{getPrayerDisplayName(nextP.key, now, language, t)}</span>
             <span className="sholat-hero__time">{fmt(timings[nextP.key])}</span>
           </div>
           <div className="sholat-hero__countdown">{countdown}</div>
@@ -98,19 +101,19 @@ export default function SholatPage(){
       {/* Location */}
       <div className="sholat-loc">
         <MapPin size={18} className="sholat-loc__pin-icon" style={{ color: 'var(--color-primary)', marginRight: '2px' }} />
-        <span className="sholat-loc__label">{locLabel}</span>
+        <span className="sholat-loc__label">{locLabel === 'Mendeteksi...' ? t('status.loading') : locLabel === 'Lokasi Anda' ? t('prayer.location') : locLabel}</span>
         {mode==='gps'&&<span className="sholat-loc__badge">GPS</span>}
         {(mode==='manual'||mode==='denied')&&(
           <select className="sholat-loc__select" value={city} onChange={e=>{setCity(e.target.value);setMode('manual')}}>
             {CITIES.map(c=><option key={c.name} value={c.name}>{c.name}</option>)}
           </select>
         )}
-        <button className="sholat-loc__btn" onClick={mode==='gps'?()=>setMode('manual'):tryGPS}>{mode==='gps'?'Pilih Kota':'📡 GPS'}</button>
+        <button className="sholat-loc__btn" onClick={mode==='gps'?()=>setMode('manual'):tryGPS}>{mode==='gps'?t('btn.close'):'📡 GPS'}</button>
       </div>
 
       {/* Prayer Grid */}
       {loading?(
-        <div className="sholat-loading"><div className="sholat-loading__dots"><span/><span/><span/></div><p>Memuat jadwal...</p></div>
+        <div className="sholat-loading"><div className="sholat-loading__dots"><span/><span/><span/></div><p>{t('status.loading')}</p></div>
       ):(timings&&(
         <div className="sholat-grid">
           {PRAYERS.map(p=>{
@@ -125,13 +128,13 @@ export default function SholatPage(){
                     <p.icon size={20} className="sholat-card__icon-svg" />
                   </span>
                   <div>
-                    <span className="sholat-card__name">{p.label}</span>
-                    <span className="sholat-card__desc">{p.desc}</span>
+                    <span className="sholat-card__name">{getPrayerDisplayName(p.key, now, language, t)}</span>
+                    <span className="sholat-card__desc">{t(`prayer.${p.key.toLowerCase()}`)}</span>
                   </div>
                 </div>
                 <div className="sholat-card__right">
                   <span className="sholat-card__time">{fmt(timings[p.key])}</span>
-                  {isNext&&<span className="sholat-card__badge">Berikutnya</span>}
+                  {isNext&&<span className="sholat-card__badge">{t('home.next_prayer.title').split(' ')[0]}</span>}
                   {past&&isMain&&<span className="sholat-card__done">✓</span>}
                 </div>
               </div>
@@ -144,8 +147,8 @@ export default function SholatPage(){
       <div className="sholat-notif-placeholder">
         <span>🔔</span>
         <div>
-          <strong>Notifikasi Adzan</strong>
-          <p>Fitur notifikasi waktu sholat akan segera hadir.</p>
+          <strong>{t('prayer.schedule')} Notif</strong>
+          <p>{t('status.coming_soon')}</p>
         </div>
       </div>
     </div>

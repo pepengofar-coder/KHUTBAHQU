@@ -4,6 +4,7 @@ import { AppProvider } from './context/AppContext';
 import { AuthProvider } from './context/AuthContext';
 import { PremiumProvider } from './context/PremiumContext';
 import { TilawahProvider } from './context/TilawahContext';
+import { I18nProvider } from './context/I18nContext';
 import Navbar from './components/Navbar/Navbar';
 import BottomNav from './components/BottomNav/BottomNav';
 import GlobalMiniTilawahPlayer from './components/GlobalMiniTilawahPlayer/GlobalMiniTilawahPlayer';
@@ -128,9 +129,11 @@ export default function App() {
       <PremiumProvider>
         <AppProvider>
           <TilawahProvider>
-            <BrowserRouter>
-              <AppLayout />
-            </BrowserRouter>
+            <I18nProvider>
+              <BrowserRouter>
+                <AppLayout />
+              </BrowserRouter>
+            </I18nProvider>
           </TilawahProvider>
         </AppProvider>
       </PremiumProvider>
