@@ -8,7 +8,7 @@ import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
 import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
 import DailyMission from '../../components/DailyMission/DailyMission';
-import { BookOpen, Compass, Mic, Sparkles, ChevronRight, Headphones, CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
+import { BookOpen, Compass, ScrollText, Sparkles, ChevronRight, Headphones, CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
 
 // Minimal prayer time fetch for dashboard
@@ -239,7 +239,7 @@ export default function HomePage() {
 
           <IllustratedFeatureCard
             to="/khutbah"
-            visual={Mic}
+            visual={ScrollText}
             colorVariant="cream"
             title="Khutbah"
             subtitle="Materi Pilihan"
