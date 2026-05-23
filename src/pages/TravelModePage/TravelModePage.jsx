@@ -289,8 +289,10 @@ export default function TravelModePage() {
     return `${val} Menit`;
   };
 
+  const isAudioOrYoutube = playing || activeRadio || (activeYoutubeTrack && youtubeMinimized);
+
   return (
-    <div className="travel-mode-page">
+    <div className={`travel-mode-page ${isAudioOrYoutube ? 'media-player-active' : ''}`}>
       {/* Toast Alert */}
       <div className={`travel-toast ${toastActive ? 'active' : ''}`}>
         {toastMessage}
@@ -493,19 +495,24 @@ export default function TravelModePage() {
               <button className="sheet-close" onClick={() => setSelectedPlaylistId(null)}><X size={20} /></button>
             </div>
 
-            <div className="sheet-actions">
-              <button className="sheet-play-all" onClick={() => handlePlayAll(selectedPlaylist.id)}>
-                <Play size={16} fill="currentColor" style={{marginRight: 6}} /> Putar Rekomendasi
+            <div className="sheet-actions" style={{ display: 'flex', gap: '8px', padding: '0 1.25rem', marginBottom: '1rem' }}>
+              <button className="sheet-play-all" onClick={() => handlePlayAll(selectedPlaylist.id)} style={{ flex: 1, justifyContent: 'center' }}>
+                <Play size={16} fill="currentColor" style={{marginRight: 6}} /> Putar {selectedPlaylist.id === 'radio-dakwah' ? 'Radio' : 'Semua'}
               </button>
+              {selectedPlaylist.id === 'radio-dakwah' && (
+                <button className="sheet-secondary-action" onClick={() => window.open('https://mp3quran.net', '_blank')} style={{ background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-pill)', padding: '0 16px', color: 'var(--color-text)', fontSize: '13px', fontWeight: '600', cursor: 'pointer' }}>
+                  Buka Sumber
+                </button>
+              )}
             </div>
 
             <div className="sheet-body">
               {selectedPlaylist.id === 'kajian-ringan' ? (
                 <>
-                  <div style={{ padding: '0 1.5rem', marginBottom: '1rem' }}>
-                    <div style={{ background: '#f0f9ff', border: '1px solid #bae6fd', color: '#0369a1', padding: '0.5rem', borderRadius: '8px', fontSize: '0.85rem', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <AlertCircle size={16} />
-                      Kajian Ringan Source: Masjid Al-Irsyad TV
+                  <div style={{ padding: '0 1.25rem', marginBottom: '1rem' }}>
+                    <div style={{ background: 'var(--color-primary-surface)', border: '1px solid var(--color-primary-light, #bae6fd)', color: 'var(--color-primary-dark, #0369a1)', padding: '0.75rem', borderRadius: '12px', fontSize: '0.85rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <AlertCircle size={18} />
+                      Sumber: Masjid Al-Irsyad TV / YouTube
                     </div>
                   </div>
 
@@ -526,7 +533,7 @@ export default function TravelModePage() {
 
                   {kajianRecommendations.length > 0 ? (
                     <div className="recommendations-list">
-                      {kajianRecommendations.map((track) => {
+                      {kajianRecommendations.slice(0, 5).map((track) => {
                         const isActive = (activeRadio?.id === track.id);
                         const isPlayingThis = playing && activeRadio?.id === track.id;
                         

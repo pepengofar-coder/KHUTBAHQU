@@ -137,6 +137,7 @@ export function AppProvider({ children }) {
       const q = searchQuery.toLowerCase();
       const match = k.title.toLowerCase().includes(q)
         || k.summary.toLowerCase().includes(q)
+        || (k.category && k.category.toLowerCase().includes(q))
         || (k.tags || []).some(t => t.includes(q));
       if (!match) return false;
     }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { House, Clock, BookOpen, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User } from 'lucide-react';
+import { House, Clock, BookOpen, Compass, Heart, CircleDot, Mic, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User, Calendar } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
 import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
 import { useAuth } from '../../context/AuthContext';
@@ -16,36 +16,37 @@ const TABS = [
 
 const MORE_SECTIONS = [
   {
-    title: 'Ruang Saya',
-    items: [
-      { to: '/ruang-saya', label: 'Ruang Saya', icon: User, color: 'cyan', desc: 'Dashboard pribadi dan progres ibadah' },
-      { to: '/good-path', label: 'Good Path', icon: Compass, color: 'emerald', desc: 'Sistem pembiasaan islami' },
-      { to: '/tracker', label: 'Tracker Ibadah', icon: CheckSquare, color: 'lime', desc: 'Catat dan pantau amal harian' },
-      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
-      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },
-    ],
-  },
-  {
     title: 'Ibadah',
     items: [
-      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue', desc: 'Kompas penunjuk arah kiblat' },
+      { to: '/sholat', label: 'Sholat', icon: Clock, color: 'emerald', desc: 'Jadwal sholat & imsakiyah' },
+      { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue', desc: 'Membaca mushaf & tafsir' },
       { to: '/doa-dzikir', label: 'Doa & Dzikir', icon: Heart, color: 'rose', desc: 'Koleksi doa & dzikir pagi petang' },
+      { to: '/tilawah', label: 'Tilawah', icon: Headphones, color: 'orange', desc: 'Stasiun audio murottal 24 jam' },
+      { to: '/kiblat', label: 'Kiblat', icon: Compass, color: 'blue', desc: 'Kompas penunjuk arah kiblat' },
       { to: '/tasbih', label: 'Tasbih', icon: CircleDot, color: 'indigo', desc: 'Counter dzikir & tasbih digital' },
     ],
   },
   {
-    title: "Al-Qur'an",
+    title: 'Ruang Saya',
     items: [
-      { to: '/mushaf', label: 'Mushaf', icon: BookOpen, color: 'blue', desc: 'Membaca mushaf & tafsir' },
-      { to: '/murottal-30-juz', label: 'Murottal 30 Juz', icon: Headphones, color: 'indigo', desc: 'Audio Al-Qur\'an 30 Juz' },
-      { to: '/tilawah', label: 'Tilawah Live', icon: Headphones, color: 'orange', desc: 'Stasiun audio murottal 24 jam' },
+      { to: '/ruang-saya', label: 'Ruang Saya', icon: User, color: 'cyan', desc: 'Dashboard pribadi dan progres' },
+      { to: '/good-path', label: 'Good Path', icon: Compass, color: 'emerald', desc: 'Sistem pembiasaan islami' },
+      { to: '/tracker', label: 'Tracker', icon: CheckSquare, color: 'lime', desc: 'Catat dan pantau amal harian' },
+      { to: '/favorit', label: 'Favorit', icon: Star, color: 'amber', desc: 'Daftar konten yang Anda simpan' },
+    ],
+  },
+  {
+    title: 'Konten',
+    items: [
+      { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green', desc: 'Teks khutbah & kultum pilihan' },
       { to: '/mode-perjalanan', label: 'Mode Perjalanan', icon: Car, color: 'lime', desc: 'Audio penenang selama perjalanan' },
+      { to: '/kalender-hijriah', label: 'Kalender', icon: Calendar, color: 'indigo', desc: 'Kalender Hijriah & puasa sunnah' },
     ],
   },
   {
     title: 'Aplikasi',
     items: [
-      { to: '/khutbah', label: 'Khutbah', icon: Mic, color: 'green', desc: 'Teks khutbah & kultum pilihan' },
+      { to: '/pengaturan', label: 'Pengaturan', icon: Settings, color: 'indigo', desc: 'Kelola preferensi & mode aplikasi' },
       { to: '/tentang', label: 'Tentang', icon: Info, color: 'blue', desc: 'Mengenal aplikasi Islamediaku' },
     ],
   },
@@ -67,10 +68,10 @@ export default function BottomNav() {
     const s = [...MORE_SECTIONS];
     const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
     if (apkUrl) {
-      s[2] = {
-        ...s[2],
+      s[3] = {
+        ...s[3],
         items: [
-          ...s[2].items,
+          ...s[3].items,
           { to: apkUrl, label: 'Download APK', icon: Download, color: 'green', isExternal: true }
         ]
       };

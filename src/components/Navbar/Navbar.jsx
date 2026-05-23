@@ -30,7 +30,6 @@ export default function Navbar() {
   const { darkMode, toggleDark } = useApp();
   const { user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
@@ -44,7 +43,6 @@ export default function Navbar() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMenuOpen(false);
     setDropdownOpen(false);
   }, [location.pathname]);
 
@@ -117,31 +115,7 @@ export default function Navbar() {
             />
             <span className="nav__brand-btn-fallback" style={{ display: 'none' }}>🕌</span>
           </button>
-
-          <button className={`nav__hamburger${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-            <span /><span /><span />
-          </button>
         </div>
-      </div>
-
-      {/* Mobile Menu Sheet */}
-      {menuOpen && <div className="nav__overlay" onClick={() => setMenuOpen(false)} />}
-      <div className={`nav__sheet${menuOpen ? ' open' : ''}`}>
-        {[...DESKTOP_LINKS, ...MORE_LINKS.slice(0, 4)].map((l, i) => (
-          <NavLink key={l.to} to={l.to} end={l.end} className={({isActive}) => `nav__sheet-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)} style={{ animationDelay: `${i * 30}ms` }}>
-            {l.label}
-          </NavLink>
-        ))}
-        <div className="nav__sheet-divider" />
-        <NavLink to="/pengaturan" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>
-          <Settings size={18} style={{marginRight: 8, color: 'var(--color-text-muted)'}} /> Pengaturan
-        </NavLink>
-        <NavLink to="/kontribusi" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>
-          <Upload size={18} style={{marginRight: 8, color: 'var(--color-text-muted)'}} /> Kirim Khutbah
-        </NavLink>
-        <NavLink to="/tentang" className="nav__sheet-link" onClick={() => setMenuOpen(false)}>
-          <Info size={18} style={{marginRight: 8, color: 'var(--color-text-muted)'}} /> Tentang
-        </NavLink>
       </div>
     </header>
   );

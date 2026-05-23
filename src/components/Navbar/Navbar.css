@@ -41,24 +41,3 @@
 [data-theme="dark"] .nav__brand-btn{border-color:rgba(29,124,255,.3);background:rgba(0,43,154,.2)}
 [data-theme="dark"] .nav__brand-btn:hover{border-color:rgba(29,124,255,.5);box-shadow:0 2px 16px rgba(29,124,255,.2)}
 
-
-/* Hamburger — mobile only */
-.nav__hamburger{display:flex;flex-direction:column;gap:5px;width:36px;height:36px;align-items:center;justify-content:center;border:none;background:none;cursor:pointer;padding:0}
-@media(min-width:1024px){.nav__hamburger{display:none}}
-.nav__hamburger span{display:block;width:20px;height:2px;background:var(--color-text);border-radius:1px;transition:all .3s var(--ease-spring);transform-origin:center}
-.nav__hamburger.open span:first-child{transform:translateY(7px) rotate(45deg)}
-.nav__hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-.nav__hamburger.open span:last-child{transform:translateY(-7px) rotate(-45deg)}
-
-/* Mobile sheet */
-.nav__overlay{position:fixed;inset:0;z-index:98;background:rgba(7,17,31,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:sheetFadeIn .2s ease}
-.nav__sheet{position:fixed;top:56px;right:0;bottom:0;width:280px;max-width:80vw;z-index:99;background:var(--color-bg-card);transform:translateX(100%);transition:transform .4s var(--ease-spring);padding:var(--sp-4);overflow-y:auto;box-shadow:-12px 0 48px rgba(0,43,154,.1)}
-@media(min-width:1024px){.nav__sheet{display:none!important}}
-.nav__sheet.open{transform:translateX(0)}
-.nav__sheet-link{display:block;padding:var(--sp-3) var(--sp-4);border-radius:var(--radius-lg);font-size:var(--fs-base);font-weight:500;color:var(--color-text);text-decoration:none;transition:all .2s ease;animation:sheetItemIn .3s ease both}
-.nav__sheet-link:hover{background:var(--color-primary-surface);color:var(--color-primary)}
-.nav__sheet-link.active{background:var(--color-accent);color:#07111F;font-weight:700}
-.nav__sheet-divider{height:1px;background:var(--color-border-light);margin:var(--sp-3) var(--sp-4)}
-
-@keyframes sheetFadeIn{from{opacity:0}to{opacity:1}}
-@keyframes sheetItemIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}

@@ -4,7 +4,7 @@
  */
 
 .travel-mode-page {
-  padding-bottom: 160px; /* Space for unified global player and bottom nav */
+  padding-bottom: 90px; /* Base padding */
   background: radial-gradient(circle at 15% 15%, rgba(216, 169, 40, 0.28), transparent 35%),
               radial-gradient(circle at 85% 20%, rgba(0, 194, 216, 0.20), transparent 35%),
               linear-gradient(135deg, #06111F 0%, #002B9A 45%, #003B46 100%);
@@ -12,6 +12,10 @@
   min-height: 100vh;
   animation: fadeIn 0.4s ease-out;
   color: rgba(255, 255, 255, 0.9);
+}
+
+.travel-mode-page.media-player-active {
+  padding-bottom: calc(160px + env(safe-area-inset-bottom, 0px));
 }
 
 @keyframes fadeIn {
@@ -706,9 +710,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
+  z-index: 180;
+  background: rgba(7,17,31,0.32);
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -718,15 +722,18 @@
   width: 100%;
   max-width: 540px;
   background: var(--color-bg-card);
-  border-top-left-radius: var(--radius-3xl);
-  border-top-right-radius: var(--radius-3xl);
-  padding: var(--sp-4) var(--sp-5) var(--sp-6) var(--sp-5);
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  padding: var(--sp-4) var(--sp-4) calc(24px + env(safe-area-inset-bottom, 0px)) var(--sp-4);
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
   border-top: 1px solid var(--color-border-light);
-  max-height: 85vh;
+  max-height: 88vh;
+  min-height: fit-content;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   animation: slideSheetUp 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 190;
 }
 
 @keyframes slideSheetUp {

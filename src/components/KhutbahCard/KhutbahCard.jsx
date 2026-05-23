@@ -24,10 +24,17 @@ export default function KhutbahCard({ khutbah, compact = false }) {
       </div>
       {!compact && <p className="kcard__summary">{khutbah.summary}</p>}
       <div className="kcard__meta">
-        {cat && <span className="badge badge--primary">{cat.icon} {cat.label}</span>}
+        {cat && <span className="badge badge--primary" title={`Kategori: ${cat.label}`}>{cat.icon} {cat.label}</span>}
         {tp && <span className="badge badge--gold">{tp.label}</span>}
         <span className="badge" style={{background:'var(--color-bg-alt)',color:'var(--color-text-muted)'}}>⏱ {khutbah.duration} mnt</span>
       </div>
+      {!compact && khutbah.tags && khutbah.tags.length > 0 && (
+        <div className="kcard__tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '8px' }}>
+          {khutbah.tags.map(tag => (
+            <span key={tag} className="badge" style={{ fontSize: '0.7rem', padding: '2px 6px', background: 'var(--color-bg-alt)', color: 'var(--color-text-secondary)', borderRadius: '4px' }}>#{tag}</span>
+          ))}
+        </div>
+      )}
       {!compact && (
         <div className="kcard__actions">
           <button className="btn btn--primary btn--sm" onClick={e => stop(e, () => nav(`/khutbah/${khutbah.slug}`))}>Baca</button>

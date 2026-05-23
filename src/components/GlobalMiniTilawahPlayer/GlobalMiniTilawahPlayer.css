@@ -3,7 +3,7 @@
   bottom: calc(var(--bottom-nav-h) + 12px + env(safe-area-inset-bottom, 0px));
   left: 0;
   right: 0;
-  z-index: 99; /* Below BottomNav (100) and More Sheet (9999), but floats visually above */
+  z-index: 90; /* Below BottomNav (100) and More Sheet (9999), but floats visually above */
   display: flex;
   justify-content: center;
   padding: 0 var(--sp-4);
