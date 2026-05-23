@@ -1202,3 +1202,97 @@
   background: rgba(255,255,255,0.1);
   color: #FFFFFF;
 }
+
+/* =========================================
+   Desktop 2-Column Layout (Mode Safar)
+   ========================================= */
+.travel-mode-desktop-layout {
+  display: block;
+}
+
+.travel-mode-side-col-wrapper {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .travel-mode-desktop-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: 32px;
+    align-items: start;
+    padding-bottom: 80px;
+  }
+  
+  .travel-mode-main-col {
+    min-width: 0;
+  }
+
+  .travel-mode-side-col-wrapper {
+    display: block;
+    position: sticky;
+    top: 96px;
+    height: calc(100vh - 120px);
+    z-index: 40;
+  }
+
+  .travel-mode-side-col {
+    background: rgba(13, 25, 42, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 28px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: var(--sp-5) var(--sp-4);
+  }
+
+  /* Hide the mobile bottom sheet when desktop layout is active */
+  .playlist-sheet-backdrop {
+    display: none !important;
+  }
+
+  /* Hide handles in desktop side panel */
+  .travel-mode-side-col .sheet-handle {
+    display: none;
+  }
+
+  /* Reduce vertical padding in sections on desktop so they pack tighter */
+  .travel-mode-main-col .travel-essentials,
+  .travel-mode-main-col .continue-listening,
+  .travel-mode-main-col .travel-recommendations,
+  .travel-mode-main-col .travel-playlists,
+  .travel-mode-main-col .doa-safar-section,
+  .travel-mode-main-col .sleep-timer-shortcut {
+    padding-bottom: var(--sp-5);
+  }
+
+  .travel-side-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 32px;
+  }
+
+  .travel-side-placeholder .placeholder-icon {
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  .travel-side-placeholder h3 {
+    font-size: var(--fs-md);
+    color: #FFFFFF;
+    margin-bottom: 8px;
+  }
+
+  .travel-side-placeholder p {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+  }
+}
