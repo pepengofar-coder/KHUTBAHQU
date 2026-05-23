@@ -30,7 +30,8 @@ export default function TravelModePage() {
   const {
     playing, activeRadio,
     currentTrack, sleepTimer,
-    playTrack, changeSleepTimer
+    playTrack, changeSleepTimer,
+    activeYoutubeTrack, youtubeMinimized
   } = useTilawahAudio();
 
   // Local states
@@ -523,7 +524,7 @@ export default function TravelModePage() {
                         className={`kajian-theme-chip ${selectedKajianTheme === theme ? 'active' : ''}`}
                         onClick={() => {
                           setSelectedKajianTheme(theme);
-                          try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch {}
+                          try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch (e) { console.warn(e); }
                         }}
                       >
                         {theme}

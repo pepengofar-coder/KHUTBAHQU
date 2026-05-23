@@ -238,7 +238,7 @@ function migrateLegacy(data, today) {
       const oldStyleDate = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
       if (oldDate === today || oldDate === oldStyleDate) {
         oldMission.data.forEach(m => {
-          if (m.done && data.missions.hasOwnProperty(m.id)) {
+          if (m.done && Object.prototype.hasOwnProperty.call(data.missions, m.id)) {
             data.missions[m.id] = true;
           }
           // Map old 'nikmat' id to new 'syukur'
@@ -254,7 +254,7 @@ function migrateLegacy(data, today) {
     const oldTrackerToday = oldTracker[today];
     if (oldTrackerToday && typeof oldTrackerToday === 'object') {
       Object.keys(oldTrackerToday).forEach(key => {
-        if (data.tracker.hasOwnProperty(key) && oldTrackerToday[key]) {
+        if (Object.prototype.hasOwnProperty.call(data.tracker, key) && oldTrackerToday[key]) {
           data.tracker[key] = true;
         }
       });
