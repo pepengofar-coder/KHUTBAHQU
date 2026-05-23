@@ -7,7 +7,7 @@ import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
-import KajianBannerCard from '../../components/KajianBannerCard/KajianBannerCard';
+import HomeBanners from '../../components/HomeBanners/HomeBanners';
 import DailyMission from '../../components/DailyMission/DailyMission';
 import { BookOpen, Compass, ScrollText, Sparkles, ChevronRight, Headphones, CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
@@ -319,9 +319,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Kajian Banner */}
+      {/* Banner Section */}
       <section className="home-section container" style={{ marginTop: 'var(--sp-4)' }}>
-        <KajianBannerCard />
+        <HomeBanners />
       </section>
 
       {/* Apk Download Component */}

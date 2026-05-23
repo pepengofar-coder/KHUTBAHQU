@@ -30,6 +30,7 @@ const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
 const MimbarMode = lazy(() => import('./pages/MimbarMode/MimbarMode'));
 const AdminPage = lazy(() => import('./pages/AdminPage/AdminPage'));
+const BannerAdminPage = lazy(() => import('./pages/AdminPage/BannerAdminPage'));
 const SubmitPage = lazy(() => import('./pages/SubmitPage/SubmitPage'));
 const SholatPage = lazy(() => import('./pages/SholatPage/SholatPage'));
 const QiblaPage = lazy(() => import('./pages/QiblaPage/QiblaPage'));
@@ -83,6 +84,7 @@ function AnimatedRoutes() {
           <Route path="/register" element={<AuthPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/admin280292" element={<AdminPage />} />
+          <Route path="/admin/banners" element={<BannerAdminPage />} />
           <Route path="/ruang-saya" element={<RuangSayaPage />} />
           <Route path="/ruang-saya/mushaf" element={<ProtectedRoute><RuangSayaMushaf /></ProtectedRoute>} />
           <Route path="/ruang-user" element={<ProtectedRoute><RuangUserPage /></ProtectedRoute>} />
@@ -98,7 +100,7 @@ function AppLayout() {
   const location = useLocation();
   const isMimbar = location.pathname === '/mimbar';
   const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
-  const isAdmin = location.pathname === '/admin280292';
+  const isAdmin = location.pathname === '/admin280292' || location.pathname === '/admin/banners';
 
   if (isMimbar) return (
     <Suspense fallback={<PageLoader />}>
