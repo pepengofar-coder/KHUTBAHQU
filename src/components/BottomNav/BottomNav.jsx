@@ -92,11 +92,15 @@ export default function BottomNav() {
   }, [location.pathname]);
 
   const lastOpenedRef = useRef(0);
+  const moreSheetRef = useRef(null);
 
   const openSheet = useCallback((e) => {
     if (e && e.stopPropagation) e.stopPropagation();
     lastOpenedRef.current = Date.now();
     setSheetOpen(true);
+    requestAnimationFrame(() => {
+      if (moreSheetRef.current) moreSheetRef.current.scrollTop = 0;
+    });
     window.history.pushState({ sheetOpen: true }, '');
   }, []);
 
@@ -163,7 +167,7 @@ export default function BottomNav() {
   const moreSheetContent = (
     <>
       <div className={`more-sheet__backdrop glass-backdrop${sheetOpen ? ' open' : ''}`} onClick={dismissSheet} />
-      <div className={`more-sheet glass-surface${sheetOpen ? ' open' : ''}`}>
+      <div className={`more-sheet glass-surface${sheetOpen ? ' open' : ''}`} ref={moreSheetRef}>
         <div className="more-sheet__handle" onClick={dismissSheet}><span /></div>
         <h3 className="more-sheet__title">{t('nav.more')}</h3>
         

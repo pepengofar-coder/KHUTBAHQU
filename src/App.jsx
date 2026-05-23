@@ -15,6 +15,7 @@ import PageTransition from './components/PageTransition/PageTransition';
 import OfflineBanner from './components/OfflineBanner/OfflineBanner';
 import UpdateBanner from './components/UpdateBanner/UpdateBanner';
 import AppDownloadPopup from './components/AppDownloadPopup/AppDownloadPopup';
+import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 import { useAdzanAlarm } from './hooks/useAdzanAlarm';
 
 // Lazy load pages
@@ -133,6 +134,7 @@ export default function App() {
           <TilawahProvider>
             <I18nProvider>
               <BrowserRouter>
+                <ScrollToTopOnRouteChange />
                 <AppLayout />
               </BrowserRouter>
             </I18nProvider>

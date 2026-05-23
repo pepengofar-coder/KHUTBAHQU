@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
@@ -220,8 +220,13 @@ export default function TravelModePage() {
   }, [handlePlayItem, showToast]);
 
   // Open Playlist detail bottom sheet
+  const sheetRef = useRef(null);
+  
   const handleOpenPlaylist = useCallback((id) => {
     setSelectedPlaylistId(id);
+    requestAnimationFrame(() => {
+      if (sheetRef.current) sheetRef.current.scrollTop = 0;
+    });
   }, []);
 
   const selectedPlaylist = useMemo(() => {
@@ -484,7 +489,7 @@ export default function TravelModePage() {
       {/* Playlist Details Bottom Sheet */}
       {selectedPlaylist && (
         <div className="playlist-sheet-backdrop" onClick={() => setSelectedPlaylistId(null)}>
-          <div className="playlist-sheet" onClick={(e) => e.stopPropagation()}>
+          <div className="playlist-sheet" onClick={(e) => e.stopPropagation()} ref={sheetRef}>
             <div className="sheet-handle" onClick={() => setSelectedPlaylistId(null)}><span /></div>
             
             <div className="sheet-header">
@@ -507,7 +512,7 @@ export default function TravelModePage() {
               )}
             </div>
 
-            <div className="sheet-body">
+            <div className="sheet-body sheet-content">
               {selectedPlaylist.id === 'kajian-ringan' ? (
                 <>
                   <div style={{ padding: '0 1.25rem', marginBottom: '1rem' }}>

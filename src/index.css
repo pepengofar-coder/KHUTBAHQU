@@ -623,6 +623,18 @@ h1, h2, h3, h4 {
   main { padding-bottom: var(--bottom-nav-h); }
 }
 
+.app-has-bottom-nav {
+  padding-bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+}
+
+.app-has-mini-player {
+  padding-bottom: calc(168px + env(safe-area-inset-bottom)) !important;
+}
+
+.sheet-content {
+  padding-bottom: calc(28px + env(safe-area-inset-bottom));
+}
+
 /* Hide on breakpoints */
 @media (max-width: 767px) { .hide-mobile { display: none !important; } }
 @media (min-width: 768px) { .hide-desktop { display: none !important; } }

@@ -6,27 +6,27 @@
 
 .gp-header {
   background: linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%);
-  padding: 32px 20px;
+  padding: 24px 20px;
   color: white;
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
-  margin-bottom: 24px;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  margin-bottom: 16px;
 }
 
 .gp-header__title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  margin: 0 0 8px 0;
+  margin: 0 0 4px 0;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .gp-header__subtitle {
-  font-size: 1rem;
+  font-size: 0.95rem;
   opacity: 0.9;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .gp-main {

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { Play, Pause, X, ExternalLink, Loader2, SkipBack, SkipForward, Maximize2 } from 'lucide-react';
@@ -13,14 +14,20 @@ export default function GlobalMiniTilawahPlayer() {
 
   const isYoutube = activeYoutubeTrack && youtubeMinimized;
   const isAudio = !isStopped && activeRadio;
-
-  if (!isYoutube && !isAudio) return null;
-
-  // Only hide on /tilawah since it has its own full-screen player, 
-  // but if it's a youtube video, we might want to keep it even on tilawah? 
-  // Actually, tilawah page is for audio. We'll hide audio player on tilawah.
   const isTilawahPage = location.pathname === '/tilawah';
-  if (isTilawahPage && isAudio && !isYoutube) return null;
+  
+  const shouldRender = (isYoutube || isAudio) && !(isTilawahPage && isAudio && !isYoutube);
+
+  useEffect(() => {
+    if (shouldRender) {
+      document.body.classList.add('app-has-mini-player');
+    } else {
+      document.body.classList.remove('app-has-mini-player');
+    }
+    return () => document.body.classList.remove('app-has-mini-player');
+  }, [shouldRender]);
+
+  if (!shouldRender) return null;
 
   const currentItem = isYoutube ? activeYoutubeTrack : activeRadio;
 

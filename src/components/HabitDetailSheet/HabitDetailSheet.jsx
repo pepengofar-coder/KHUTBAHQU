@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, Target, Heart, Edit3, Trash2, BookOpen, Clock, Activity } from 'lucide-react';
 import { getHabitNoteForDate, saveHabitNote, calculateHabitStats, getTodayKey } from '../../utils/goodPathData';
 import './HabitDetailSheet.css';
@@ -9,10 +9,16 @@ export default function HabitDetailSheet({ habit, onClose, onUpdate, onDelete, o
   const [isEditingNote, setIsEditingNote] = useState(false);
   const today = getTodayKey();
 
+  const contentRef = useRef(null);
+
   useEffect(() => {
     if (habit) {
       setNote(getHabitNoteForDate(habit.id, today));
       setStats(calculateHabitStats(habit.id));
+      // Scroll to top when opened
+      requestAnimationFrame(() => {
+        if (contentRef.current) contentRef.current.scrollTop = 0;
+      });
     }
   }, [habit, today]);
 
@@ -45,7 +51,7 @@ export default function HabitDetailSheet({ habit, onClose, onUpdate, onDelete, o
           </button>
         </div>
 
-        <div className="habit-sheet-content">
+        <div className="habit-sheet-content sheet-content" ref={contentRef}>
           {/* Tujuan */}
           <div className="habit-section">
             <h3 className="habit-section-title"><Heart size={16} className="text-pink-500" /> Tujuan</h3>

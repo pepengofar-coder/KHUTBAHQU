@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSEO } from '../../utils/seo';
 import { 
   getHabits, 
@@ -29,19 +29,19 @@ export default function GoodPathPage() {
   // Form states for Custom Habit
   const [customTitle, setCustomTitle] = useState('');
   const [customIcon, setCustomIcon] = useState('🌟');
-  const [customCategory, setCustomCategory] = useState('Lainnya');
+  const [customCategory] = useState('Lainnya');
   const [customPurpose, setCustomPurpose] = useState('');
 
   const today = getTodayKey();
-
-  useEffect(() => {
-    loadData();
-  }, []);
 
   const loadData = () => {
     setHabits(getHabits().filter(h => h.enabled));
     setProgress(getHabitProgress());
   };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const handleToggle = (e, habitId) => {
     e.stopPropagation(); // Prevent opening detail sheet
@@ -160,7 +160,7 @@ export default function GoodPathPage() {
           onClose={handleCloseDetail}
           onDelete={handleDeleteCustom}
           onDisable={handleDisableDefault}
-          onUpdate={(h) => {
+          onUpdate={() => {
              // In future, can implement full edit custom habit here
              alert("Fitur edit akan segera hadir.");
           }}
