@@ -10,6 +10,11 @@ export default function HabitDetailSheet({ habit, onClose, onUpdate, onDelete, o
   const today = getTodayKey();
 
   const contentRef = useRef(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (habit) {
@@ -19,6 +24,23 @@ export default function HabitDetailSheet({ habit, onClose, onUpdate, onDelete, o
       requestAnimationFrame(() => {
         if (contentRef.current) contentRef.current.scrollTop = 0;
       });
+
+      // Intercept browser/Android back button
+      const handlePopState = (e) => {
+        if (onCloseRef.current) onCloseRef.current();
+      };
+
+      // Push dummy state to trap the first back button press
+      window.history.pushState({ habitDetailOpen: true }, '');
+      window.addEventListener('popstate', handlePopState);
+
+      return () => {
+        window.removeEventListener('popstate', handlePopState);
+        // Clean up dummy state if component unmounts via Close button
+        if (window.history.state?.habitDetailOpen) {
+          window.history.back();
+        }
+      };
     }
   }, [habit, today]);
 

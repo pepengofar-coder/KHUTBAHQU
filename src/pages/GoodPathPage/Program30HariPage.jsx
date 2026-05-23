@@ -17,7 +17,7 @@ export default function Program30HariPage() {
       <header style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #4338ca 100%)', padding: '32px 20px', color: 'white', borderBottomLeftRadius: '32px', borderBottomRightRadius: '32px', marginBottom: '24px' }}>
         <div className="container" style={{ position: 'relative' }}>
           <button 
-            onClick={() => navigate('/good-path')}
+            onClick={() => navigate('/good-path', { replace: true })}
             style={{ position: 'absolute', top: '-10px', left: 0, background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
           >
             <ChevronLeft size={20} />
@@ -39,7 +39,7 @@ export default function Program30HariPage() {
             Program 30 Hari Lebih Baik sedang dalam tahap pengembangan. Nantikan fitur ini untuk membantu kamu istiqamah secara terpandu.
           </p>
           <button 
-            onClick={() => navigate('/good-path')}
+            onClick={() => navigate('/good-path', { replace: true })}
             style={{ background: 'var(--color-primary, #4338ca)', color: 'white', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: 'bold', cursor: 'pointer' }}
           >
             Kembali ke Good Path

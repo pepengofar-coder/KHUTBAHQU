@@ -361,7 +361,7 @@ export default function RuangSayaPage() {
               </div>
             </Link>
             
-            <Link to="/good-path" className="rs-menu-card">
+            <Link to="/good-path" state={{ from: '/ruang-saya' }} className="rs-menu-card">
               <div className="rs-menu-card__icon rs-icon--emerald"><Compass size={24} /></div>
               <div className="rs-menu-card__content">
                 <h3>Good Path</h3>

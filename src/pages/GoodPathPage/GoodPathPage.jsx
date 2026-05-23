@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { 
   getHabits, 
@@ -10,7 +11,7 @@ import {
   saveDisabledHabits,
   getDisabledHabits
 } from '../../utils/goodPathData';
-import { CheckCircle2, Circle, Plus, Compass } from 'lucide-react';
+import { CheckCircle2, Circle, Plus, Compass, ChevronLeft } from 'lucide-react';
 import HabitDetailSheet from '../../components/HabitDetailSheet/HabitDetailSheet';
 import './GoodPathPage.css';
 
@@ -25,6 +26,17 @@ export default function GoodPathPage() {
   const [progress, setProgress] = useState({});
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [showCustomModal, setShowCustomModal] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleBack = () => {
+    if (location.state?.from) {
+      navigate(location.state.from);
+    } else {
+      navigate('/ruang-saya');
+    }
+  };
 
   // Form states for Custom Habit
   const [customTitle, setCustomTitle] = useState('');
@@ -108,10 +120,19 @@ export default function GoodPathPage() {
 
   return (
     <div className="good-path-page">
-      <header className="gp-header">
+      <header className="gp-header" style={{ position: 'relative' }}>
         <div className="container">
-          <h1 className="gp-header__title"><Compass size={28}/> Good Path</h1>
-          <p className="gp-header__subtitle">Bangun kebiasaan baik yang berkelanjutan, langkah demi langkah.</p>
+          <button 
+            onClick={handleBack}
+            className="gp-header__back"
+            aria-label="Kembali"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <div style={{ marginLeft: '40px' }}>
+            <h1 className="gp-header__title"><Compass size={28}/> Good Path</h1>
+            <p className="gp-header__subtitle">Bangun kebiasaan baik yang berkelanjutan, langkah demi langkah.</p>
+          </div>
         </div>
       </header>
 
