@@ -12,8 +12,8 @@ export const SITE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.
 export const SITE_NAME = 'Islamediaku';
 
 export const DEFAULT_SEO = {
-  title: 'Islamediaku - Teks Khutbah Jumat, Kultum, Tausiyah, dan Aplikasi Islami Lengkap',
-  description: 'Kumpulan teks khutbah Jumat, kultum Ramadhan, tausiyah Islam, dan rekomendasi tema dakwah berdasarkan kalender Hijriah. Siap pakai untuk khatib, dai, ustaz, dan pengurus masjid.',
+  title: 'Islamediaku - Sahabat Ibadah Harian',
+  description: 'Islamediaku adalah aplikasi Islami harian untuk jadwal sholat, Al-Qur’an, dzikir, tilawah, tracker ibadah, Good Path, Mode Perjalanan, dan konten Islami pilihan.',
   image: `${SITE_URL}/logo.png`,
 };
 

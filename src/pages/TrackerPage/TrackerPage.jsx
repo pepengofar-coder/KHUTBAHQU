@@ -23,7 +23,7 @@ const MOTIVATIONS = [
 
 export default function TrackerPage() {
   useSEO({
-    title: 'Tracker Ibadah & Langkah Sehat | Islamediaku',
+    title: 'Tracker Ibadah - Islamediaku',
     description: 'Pantau rutinitas ibadah dan kebiasaan baik harianmu.',
     path: '/tracker'
   });

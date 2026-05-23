@@ -5,7 +5,7 @@ import './AboutPage.css';
 
 export default function AboutPage() {
   useSEO({
-    title: 'Tentang Islamediaku — Sahabat Ibadah Harian',
+    title: 'Tentang Islamediaku',
     description: 'Islamediaku adalah sahabat ibadah harian untuk sholat, Al-Qur\'an, dzikir, tilawah, dan kebiasaan baik.',
     path: '/tentang',
   });

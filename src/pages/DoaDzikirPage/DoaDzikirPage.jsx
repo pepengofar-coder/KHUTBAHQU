@@ -37,7 +37,7 @@ function safeJsonParse(key, fallback) {
 
 export default function DoaDzikirPage() {
   useSEO({
-    title: "Doa & Dzikir Pagi Petang | Islamediaku",
+    title: "Doa & Dzikir - Islamediaku",
     description: "Baca Dzikir Pagi dan Petang sesuai sunnah dengan fitur checklist, progress tracker, dan UI yang nyaman.",
     path: '/doa-dzikir'
   });

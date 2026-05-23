@@ -36,8 +36,8 @@ function getNext(t){const now=new Date();for(const p of PRAYERS){const d=parseTi
 
 export default function HomePage() {
   useSEO({
-    title: 'Islamediaku - Teks Khutbah Jumat, Kultum, dan Tausiyah Islam Siap Pakai',
-    description: 'Kumpulan teks khutbah Jumat, kultum Ramadhan, tausiyah Islam, dan rekomendasi tema dakwah berdasarkan kalender Hijriah. Siap pakai untuk khatib, dai, ustaz, dan pengurus masjid.',
+    title: 'Islamediaku - Sahabat Ibadah Harian',
+    description: 'Islamediaku adalah aplikasi Islami harian untuk jadwal sholat, Al-Qur’an, dzikir, tilawah, tracker ibadah, Good Path, Mode Perjalanan, dan konten Islami pilihan.',
     path: '/',
   });
 

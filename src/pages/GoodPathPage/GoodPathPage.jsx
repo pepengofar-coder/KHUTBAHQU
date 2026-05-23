@@ -16,7 +16,7 @@ import './GoodPathPage.css';
 
 export default function GoodPathPage() {
   useSEO({
-    title: 'Good Path | Islamediaku',
+    title: 'Good Path - Islamediaku',
     description: 'Sistem pembiasaan dan perbaikan diri islami secara konsisten.',
     path: '/good-path'
   });

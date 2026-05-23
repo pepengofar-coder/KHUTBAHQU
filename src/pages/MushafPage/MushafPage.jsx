@@ -7,7 +7,7 @@ import './MushafPage.css';
 
 export default function MushafPage() {
   useSEO({
-    title: "Al-Qur'an Digital | Islamediaku",
+    title: "Mushaf Al-Qur’an - Islamediaku",
     description: "Baca, dengarkan, cari, dan renungkan ayat Al-Qur'an. Mushaf Madinah online gratis dengan terjemahan Indonesia.",
     path: '/mushaf',
   });

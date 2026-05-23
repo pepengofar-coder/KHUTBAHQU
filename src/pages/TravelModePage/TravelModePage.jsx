@@ -19,7 +19,7 @@ import './TravelModePage.css';
 
 export default function TravelModePage() {
   useSEO({
-    title: "Mode Perjalanan — Pendamping Audio Islami Safar | Islamediaku",
+    title: "Mode Perjalanan - Islamediaku",
     description: "Pendamping perjalanan Islami audio-first. Dengarkan tilawah Al-Qur'an merdu, kajian ringan sunnah, doa safar, dan radio islami penyejuk perjalanan Anda.",
     path: '/mode-perjalanan'
   });
