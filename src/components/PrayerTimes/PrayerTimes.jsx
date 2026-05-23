@@ -317,8 +317,8 @@ export default function PrayerTimes() {
           <div className="prayer-times__grid">
             {PRAYERS.map(p => {
               const isNext = p.key === nextPrayerKey;
-              const t = parseTime(timings[p.key]);
-              const isPast = t && t < now && !isNext;
+              const parsedTime = parseTime(timings[p.key]);
+              const isPast = parsedTime && parsedTime < now && !isNext;
               const IconComponent = PRAYER_ICONS[p.key] || Sun;
               return (
                 <div

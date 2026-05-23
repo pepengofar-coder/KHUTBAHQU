@@ -119,8 +119,8 @@ export default function SholatPage(){
           {PRAYERS.map(p=>{
             const isMain=MAIN_PRAYERS.includes(p.key);
             const isNext=p.key===nextKey;
-            const t=parseTime(timings[p.key]);
-            const past=t&&t<now&&!isNext;
+            const parsedTime=parseTime(timings[p.key]);
+            const past=parsedTime&&parsedTime<now&&!isNext;
             return(
               <div key={p.key} className={`sholat-card${isNext?' sholat-card--next':''}${past?' sholat-card--past':''}${!isMain?' sholat-card--secondary':''}`}>
                 <div className="sholat-card__left">
