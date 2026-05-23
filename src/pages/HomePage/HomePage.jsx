@@ -138,38 +138,48 @@ export default function HomePage() {
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
 
-      {/* Hero / Greeting */}
+      {/* Hero Section */}
       <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
-          <div className={`dash-hero__greeting ${greetingFade}`}>
-            <span className="dash-hero__category-badge">{(() => {
+          <div className="dash-hero__content">
+            <span className={`dash-hero__category-badge ${greetingFade}`}>{(() => {
               const badgeMap = { "Al-Qur'an": "AL-QUR'AN", "Sholat": "SHOLAT", "Dzikir": "DZIKIR", "Sedekah": "SEDEKAH", "Sunnah": "SUNNAH", "Akhlak": "AKHLAK", "Muhasabah": "HARI INI", "Ilmu": "ILMU" };
               return badgeMap[greeting.category] || 'HARI INI';
             })()}</span>
             <h1 className="dash-hero__salam">Sahabat Ibadah Harianmu</h1>
-            <p className="dash-hero__motivasi">{greeting.text}</p>
-            <p className="dash-hero__desc">Baca Al-Qur'an, cek jadwal sholat, dengarkan tilawah, dan jaga rutinitas ibadah setiap hari.</p>
-            <p className="dash-hero__date">{gregorian} &bull; <span>📅 {hijriStr}</span></p>
+            <p className="dash-hero__desc">Sholat, Al-Qur’an, dzikir, dan tilawah dalam satu aplikasi.</p>
+            <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
           </div>
 
           {timings && nextP && (
-            <div className="dash-hero__prayer glass-card">
-              <div className="dash-hero__prayer-header">
-                <span className="dash-hero__prayer-label">Sholat berikutnya</span>
-                <Link to="/sholat" className="dash-hero__prayer-link">Lihat Jadwal <ChevronRight size={14} /></Link>
-              </div>
-              <div className="dash-hero__prayer-main">
-                {(() => {
-                  const NextPIcon = PRAYER_ICONS[nextP.key] || Sun;
-                  return <span className="dash-hero__prayer-name"><NextPIcon size={20} /> {nextP.label}</span>;
-                })()}
+            <div className="dash-hero__prayer">
+              <div className="dash-hero__prayer-left">
+                <span className="dash-hero__prayer-label">Sholat Berikutnya</span>
+                <div className="dash-hero__prayer-name-row">
+                  {(() => {
+                    const NextPIcon = PRAYER_ICONS[nextP.key] || Sun;
+                    return <h2 className="dash-hero__prayer-name"><NextPIcon size={20} /> {nextP.label}</h2>;
+                  })()}
+                </div>
                 <span className="dash-hero__prayer-time">{fmt(timings[nextP.key])}</span>
               </div>
-              <span className="dash-hero__countdown">{countdown}</span>
+              
+              <div className="dash-hero__prayer-right">
+                <Link to="/sholat" className="dash-hero__prayer-link">Lihat Jadwal <ChevronRight size={14} /></Link>
+                <span className="dash-hero__prayer-countdown">{countdown}</span>
+              </div>
             </div>
           )}
         </div>
       </section>
+
+      {/* Greeting Card moved below hero */}
+      <div className={`container greeting-card-wrapper ${greetingFade}`}>
+         <div className="greeting-card">
+           <span className="greeting-card-icon">💡</span>
+           <p className="greeting-card-text">{greeting.text}</p>
+         </div>
+      </div>
 
       {/* Daily Mission Section */}
       <DailyMission />
