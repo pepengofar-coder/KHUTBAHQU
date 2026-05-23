@@ -43,7 +43,11 @@ export default function HomePage() {
 
   const now = useMemo(() => new Date(), []);
   const hijriStr = useMemo(() => getHijriDateString(now), [now]);
-  const gregorian = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  const gregorian = useMemo(() => {
+    const dayNames = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    return `${dayNames[now.getDay()]}, ${now.getDate()} ${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+  }, [now]);
   
   const [greeting, setGreeting] = useState({ text: "Selamat datang 👋", category: "" });
   const [greetingFade, setGreetingFade] = useState('fade-in');
@@ -142,10 +146,6 @@ export default function HomePage() {
       <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
           <div className="dash-hero__content">
-            <span className={`dash-hero__category-badge ${greetingFade}`}>{(() => {
-              const badgeMap = { "Al-Qur'an": "AL-QUR'AN", "Sholat": "SHOLAT", "Dzikir": "DZIKIR", "Sedekah": "SEDEKAH", "Sunnah": "SUNNAH", "Akhlak": "AKHLAK", "Muhasabah": "HARI INI", "Ilmu": "ILMU" };
-              return badgeMap[greeting.category] || 'HARI INI';
-            })()}</span>
             <h1 className="dash-hero__salam">Sahabat Ibadah Harianmu</h1>
             <p className="dash-hero__desc">Sholat, Al-Qur’an, dzikir, dan tilawah dalam satu aplikasi.</p>
             <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
