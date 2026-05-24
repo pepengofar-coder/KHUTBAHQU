@@ -6,7 +6,7 @@ import { trackUserActivity } from '../../lib/syncService';
 import { useSEO } from '../../utils/seo';
 import { quranMetadata } from '../../data/quranMetadata';
 import { JUZ_RANGES } from '../../data/juzRanges';
-import { ArrowLeft, Play, Pause, Headphones, AlertCircle, Search, Clock } from 'lucide-react';
+import { ArrowLeft, Play, Pause, Headphones, AlertCircle, Search, Clock, ChevronDown } from 'lucide-react';
 import './Murottal30JuzPage.css';
 
 export default function Murottal30JuzPage() {
@@ -24,16 +24,12 @@ export default function Murottal30JuzPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // By default select Mishary Alafasy (often ID 7 in MP3Quran, but we'll find him)
   const [selectedReciterId, setSelectedReciterId] = useState('');
-  
-  const [surahs, setSurahs] = useState([]); // localized surah names
+  const [surahs, setSurahs] = useState([]);
 
-  // Navigation and Filter States
   const [searchQuery, setSearchQuery] = useState('');
   const [filterRange, setFilterRange] = useState('Semua');
 
-  // Continue Listening State
   const [lastPlayed, setLastPlayed] = useState(() => {
     try {
       const stored = localStorage.getItem('islamediaku_tilawah_last_juz');
@@ -43,7 +39,6 @@ export default function Murottal30JuzPage() {
     }
   });
 
-  // Fetch Surah Names from Quran.com for localized names
   useEffect(() => {
     fetch('https://api.quran.com/api/v4/chapters?language=id')
       .then(res => res.json())
@@ -51,7 +46,6 @@ export default function Murottal30JuzPage() {
       .catch(console.error);
   }, []);
 
-  // Fetch Reciters from MP3Quran
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
@@ -61,7 +55,6 @@ export default function Murottal30JuzPage() {
         const sortedReciters = data.reciters.sort((a, b) => a.name.localeCompare(b.name));
         setReciters(sortedReciters);
         
-        // Find Mishary or default to first
         const mishary = sortedReciters.find(r => r.name.toLowerCase().includes('mishary') || r.name.toLowerCase().includes('afasy'));
         if (mishary) {
           setSelectedReciterId(mishary.id.toString());
@@ -85,7 +78,6 @@ export default function Murottal30JuzPage() {
 
   const activeMoshaf = useMemo(() => {
     if (!selectedReciter) return null;
-    // Prefer Murattal (Moshaf type 1) or just the first one
     return selectedReciter.moshaf.find(m => m.moshaf_type === 1) || selectedReciter.moshaf[0];
   }, [selectedReciter]);
 
@@ -98,8 +90,6 @@ export default function Murottal30JuzPage() {
     if (!activeMoshaf || !surahs.length) return;
 
     const startSurahId = quranMetadata.juzs[juzNumber].start.surah;
-
-    // Filter available surahs for this reciter starting from the startSurahId
     const surahsToPlay = availableSurahs.filter(s => s >= startSurahId);
 
     if (surahsToPlay.length === 0) {
@@ -107,7 +97,6 @@ export default function Murottal30JuzPage() {
       return;
     }
 
-    // Build Playlist
     const playlist = surahsToPlay.map(surahId => {
       const surahInfo = surahs.find(s => s.id === surahId);
       const paddedSurah = String(surahId).padStart(3, '0');
@@ -115,18 +104,16 @@ export default function Murottal30JuzPage() {
         id: `mp3quran-${selectedReciter.id}-${surahId}`,
         name: surahInfo ? surahInfo.name_simple : `Surah ${surahId}`,
         subtitle: selectedReciter.name,
-        title: surahInfo ? `Surah ${surahInfo.name_simple}` : `Surah ${surahId}`, // for player display
+        title: surahInfo ? `Surah ${surahInfo.name_simple}` : `Surah ${surahId}`,
         sourceName: 'MP3Quran.net',
         audioUrl: `${activeMoshaf.server}${paddedSurah}.mp3`,
         type: 'murottal',
         attribution: 'Sumber audio: MP3Quran.net',
         enabled: true,
-        // Meta data used to identify Juz playback
         juzNumber: juzNumber
       };
     });
 
-    // Save Last Played to LocalStorage
     const lastPlayedData = {
       juzNumber,
       reciterId: selectedReciter.id,
@@ -136,7 +123,6 @@ export default function Murottal30JuzPage() {
     setLastPlayed(lastPlayedData);
     localStorage.setItem('islamediaku_tilawah_last_juz', JSON.stringify(lastPlayedData));
 
-    // Play first track of the playlist
     playTrack(playlist[0], playlist);
 
     if (user) {
@@ -153,12 +139,10 @@ export default function Murottal30JuzPage() {
   const filteredJuzList = useMemo(() => {
     let list = Array.from({ length: 30 }, (_, i) => i + 1);
 
-    // Apply Range Filter
     if (filterRange === '1-10') list = list.filter(j => j >= 1 && j <= 10);
     else if (filterRange === '11-20') list = list.filter(j => j >= 11 && j <= 20);
     else if (filterRange === '21-30') list = list.filter(j => j >= 21 && j <= 30);
 
-    // Apply Search
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       list = list.filter(juzNum => {
@@ -175,8 +159,8 @@ export default function Murottal30JuzPage() {
   return (
     <div className="murottal-juz-page">
       <header className="murottal-juz-header container">
-        <button className="btn-back" onClick={() => navigate(-1)} aria-label="Kembali">
-          <ArrowLeft size={24} />
+        <button className="btn-back glass-surface" onClick={() => navigate(-1)} aria-label="Kembali">
+          <ArrowLeft size={20} />
         </button>
         <div>
           <h1 className="murottal-juz-title">Murottal 30 Juz</h1>
@@ -187,7 +171,7 @@ export default function Murottal30JuzPage() {
       <main className="container murottal-juz-main">
         {/* Continue Listening Card */}
         {lastPlayed && (
-          <div className="murottal-continue-card">
+          <div className="murottal-continue-card glass-card">
             <div className="murottal-continue-card__icon"><Clock size={24} /></div>
             <div className="murottal-continue-card__info">
               <h4>Lanjutkan Tilawah</h4>
@@ -198,8 +182,6 @@ export default function Murottal30JuzPage() {
               onClick={() => {
                 if (selectedReciterId !== lastPlayed.reciterId.toString()) {
                   setSelectedReciterId(lastPlayed.reciterId.toString());
-                  // Will play after reciter loads, handled by a separate effect if we wanted perfectly,
-                  // but simple click to set reciter is fine, user clicks again. Let's just play if it's the same reciter.
                   if (selectedReciterId === lastPlayed.reciterId.toString()) {
                     handlePlayJuz(lastPlayed.juzNumber);
                   } else {
@@ -216,63 +198,68 @@ export default function Murottal30JuzPage() {
         )}
 
         {/* Info Banner */}
-        <div className="murottal-info-banner">
+        <div className="murottal-info-banner glass-card">
           <AlertCircle size={20} className="info-icon" />
-          <div>
-            <strong>Catatan Audio (Pemisah Juz)</strong>
-            <p>Audio MP3Quran dipisahkan per Surah, bukan pas per ayat. Memutar Juz yang dimulai di tengah surah akan memulai audio dari awal surah tersebut. <i>[TODO: Exact Ayah Split]</i></p>
+          <div className="info-text">
+            <strong>Catatan Audio</strong>
+            <p>Pemisahan audio didasarkan pada per Surah (MP3Quran.net). Memutar Juz yang dimulai di tengah surah akan memulai audio dari awal surah tersebut.</p>
           </div>
         </div>
 
-        {/* Qari Selection */}
-        <div className="murottal-qari-select">
-          <label htmlFor="qari-select">Pilih Qari:</label>
-          <div className="select-wrapper">
-            <Headphones size={18} className="select-icon" />
-            <select 
-              id="qari-select"
-              value={selectedReciterId}
-              onChange={(e) => setSelectedReciterId(e.target.value)}
-              disabled={loading}
-            >
-              {loading && <option value="">Memuat Qari...</option>}
-              {reciters.map(r => (
-                <option key={r.id} value={r.id}>{r.name}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {error && <div className="murottal-error">{error}</div>}
-
-        {/* Search and Filter */}
-        <div className="murottal-filter-section">
-          <div className="murottal-search">
-            <Search size={18} className="search-icon" />
-            <input 
-              type="text" 
-              placeholder="Cari Juz atau Surah..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <div className="murottal-chips">
-            {['Semua', '1-10', '11-20', '21-30'].map(range => (
-              <button 
-                key={range}
-                className={`murottal-chip ${filterRange === range ? 'active' : ''}`}
-                onClick={() => setFilterRange(range)}
+        {/* Filters and Qari Select */}
+        <div className="murottal-controls glass-card">
+          <div className="murottal-qari-select">
+            <label htmlFor="qari-select">Pilih Qari</label>
+            <div className="select-wrapper">
+              <Headphones size={18} className="select-icon" />
+              <select 
+                id="qari-select"
+                value={selectedReciterId}
+                onChange={(e) => setSelectedReciterId(e.target.value)}
+                disabled={loading}
               >
-                {range !== 'Semua' ? `Juz ${range}` : range}
-              </button>
-            ))}
+                {loading && <option value="">Memuat Qari...</option>}
+                {reciters.map(r => (
+                  <option key={r.id} value={r.id}>{r.name}</option>
+                ))}
+              </select>
+              <ChevronDown size={18} className="select-arrow" />
+            </div>
           </div>
+          
+          <div className="murottal-search-box">
+            <label htmlFor="juz-search">Cari Juz / Surah</label>
+            <div className="search-wrapper">
+              <Search size={18} className="search-icon" />
+              <input 
+                id="juz-search"
+                type="text" 
+                placeholder="Cari Juz atau Surah..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        {error && <div className="murottal-error glass-card">{error}</div>}
+
+        <div className="murottal-chips">
+          {['Semua', '1-10', '11-20', '21-30'].map(range => (
+            <button 
+              key={range}
+              className={`glass-chip ${filterRange === range ? 'active' : ''}`}
+              onClick={() => setFilterRange(range)}
+            >
+              {range !== 'Semua' ? `Juz ${range}` : range}
+            </button>
+          ))}
         </div>
 
         {/* 30 Juz Grid */}
         <div className="juz-grid">
           {filteredJuzList.length === 0 && (
-            <div className="murottal-empty">Tidak ada Juz yang sesuai pencarian.</div>
+            <div className="murottal-empty glass-card">Tidak ada Juz yang sesuai pencarian.</div>
           )}
           {filteredJuzList.map(juzNum => {
             const isPlayingThisJuz = activeJuz === juzNum && playing;
@@ -281,14 +268,21 @@ export default function Murottal30JuzPage() {
             return (
               <div 
                 key={juzNum} 
-                className={`juz-card ${activeJuz === juzNum ? 'active' : ''}`}
+                className={`glass-card juz-card ${activeJuz === juzNum ? 'active' : ''}`}
                 onClick={() => handlePlayJuz(juzNum)}
               >
                 <div className="juz-card-header">
                   <div className="juz-number">
                     <span>{juzNum}</span>
                   </div>
-                  <button className="juz-play-btn" onClick={(e) => { e.stopPropagation(); activeJuz === juzNum ? togglePlay() : handlePlayJuz(juzNum); }}>
+                  <button 
+                    className="juz-play-btn" 
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      activeJuz === juzNum ? togglePlay() : handlePlayJuz(juzNum); 
+                    }}
+                    aria-label={isPlayingThisJuz ? "Jeda" : "Putar"}
+                  >
                     {isPlayingThisJuz ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}
                   </button>
                 </div>
@@ -300,7 +294,7 @@ export default function Murottal30JuzPage() {
             );
           })}
         </div>
-        <p className="tilawah-attribution" style={{ textAlign: 'center', marginTop: '24px', fontSize: '0.85rem', color: 'var(--muted-text)' }}>Sumber audio: <a href="https://mp3quran.net" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)' }}>MP3Quran.net</a></p>
+        <p className="tilawah-attribution">Sumber audio: <a href="https://mp3quran.net" target="_blank" rel="noopener noreferrer">MP3Quran.net</a></p>
       </main>
     </div>
   );
