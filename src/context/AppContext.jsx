@@ -5,7 +5,7 @@ import { khutbahList as staticKhutbah, CATEGORIES, TYPES } from '../data/khutbah
 const AppContext = createContext(null);
 
 const ADMIN_USERNAME = 'amirudin';
-const ADMIN_PASSWORD = 'bismillah';
+const ADMIN_PASSWORD = 'bismillah280292';
 
 const FONT_OPTS = [
   { label: 'Kecil', value: 0.85 },
