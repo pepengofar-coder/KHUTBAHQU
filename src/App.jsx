@@ -43,7 +43,7 @@ const SettingsPage = lazy(() => import('./pages/SettingsPage/SettingsPage'));
 const AuthPage = lazy(() => import('./pages/AuthPage/AuthPage'));
 const AccountPage = lazy(() => import('./pages/AccountPage/AccountPage'));
 const TilawahPage = lazy(() => import('./pages/TilawahPage/TilawahPage'));
-const TravelModePage = lazy(() => import('./pages/TravelModePage/TravelModePage'));
+const SafarModePage = lazy(() => import('./pages/SafarModePage/SafarModePage'));
 const RuangUserPage = lazy(() => import('./pages/RuangUserPage/RuangUserPage'));
 const RuangSayaPage = lazy(() => import('./pages/RuangSayaPage/RuangSayaPage'));
 const RuangSayaMushaf = lazy(() => import('./pages/RuangSayaMushaf/RuangSayaMushaf'));
@@ -75,7 +75,7 @@ function AnimatedRoutes() {
           <Route path="/good-path/program/30-hari" element={<Program30HariPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
           <Route path="/tilawah" element={<TilawahPage />} />
-          <Route path="/mode-perjalanan" element={<TravelModePage />} />
+          <Route path="/mode-perjalanan" element={<SafarModePage />} />
           <Route path="/favorit" element={<FavoritesPage />} />
           <Route path="/premium" element={<PremiumPage />} />
           <Route path="/pengaturan" element={<SettingsPage />} />
