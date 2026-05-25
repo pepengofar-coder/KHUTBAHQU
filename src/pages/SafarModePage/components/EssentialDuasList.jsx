@@ -95,12 +95,12 @@ export default function EssentialDuasList() {
                 onClick={() => toggleDua(dua.id)}
                 className="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none min-h-[80px]"
               >
-                <span className="font-bold text-white text-lg tracking-wide text-balance">{dua.title}</span>
-                <div className="flex items-center gap-3">
+                <span className="font-bold text-white text-lg md:text-xl tracking-wide text-balance pr-4">{dua.title}</span>
+                <div className="flex items-center gap-2 md:gap-3 shrink-0">
                   {isOpen && (
                     <span 
                       onClick={(e) => handleCopy(e, dua)}
-                      className="p-2 text-slate-400 hover:text-indigo-400 rounded-xl hover:bg-slate-700 transition-colors"
+                      className="p-3 text-slate-400 hover:text-indigo-400 rounded-xl hover:bg-slate-700 transition-colors"
                       title="Salin Doa"
                     >
                       {copiedId === dua.id ? <Check size={22} className="text-emerald-400" /> : <Copy size={22} />}
@@ -131,11 +131,11 @@ export default function EssentialDuasList() {
                   </div>
                   
                   {/* Latin & Translation Section */}
-                  <div className="flex flex-col gap-3">
-                    <p className="text-indigo-300 text-sm md:text-base font-medium italic leading-relaxed text-balance">
+                  <div className="flex flex-col gap-4">
+                    <p className="text-indigo-300 text-base md:text-lg font-medium italic leading-relaxed text-balance">
                       "{dua.transliteration}"
                     </p>
-                    <p className="text-slate-300 text-sm md:text-base leading-relaxed text-balance">
+                    <p className="text-slate-300 text-base md:text-lg leading-relaxed text-balance">
                       <strong className="text-slate-200">Artinya:</strong> {dua.translation}
                     </p>
                   </div>

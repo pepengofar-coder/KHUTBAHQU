@@ -10,18 +10,16 @@ export default function SafarStatusBar() {
       
       <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-blue-500/20 border border-blue-400/30">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-20"></span>
-            <MapPin className="h-6 w-6 text-blue-300" />
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-blue-500/20 border border-blue-400/30 shadow-inner">
+            <ShieldCheck className="h-6 w-6 text-blue-300" />
           </div>
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
-              <span className="text-xs font-bold tracking-wider text-emerald-400 uppercase">Status Aktif</span>
+              <span className="text-xs font-bold tracking-wider text-blue-400 uppercase">Teman Perjalanan</span>
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">Mode Safar</h1>
-            <p className="text-indigo-200 text-sm mt-1 max-w-md">
-              Pendamping perjalanan Islami. Dirancang khusus untuk kemudahan dan ketenangan Anda saat berada dalam perjalanan jauh.
+            <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">Ketenangan di Setiap Langkah</h2>
+            <p className="text-indigo-200 text-sm mt-1 max-w-md leading-relaxed">
+              Pendamping perjalanan Islami. Dirancang khusus untuk kemudahan ibadah dan ketenangan Anda saat bepergian jauh.
             </p>
           </div>
         </div>

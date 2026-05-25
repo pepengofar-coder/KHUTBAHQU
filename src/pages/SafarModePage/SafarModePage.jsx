@@ -11,7 +11,7 @@ import { getHourlyRecommendations, getFullValidRecommendations } from '../../lib
 import { getKajianRecommendations } from '../../lib/kajianRecommendations';
 import { 
   Play, Pause, Clock, Heart, 
-  X, ChevronRight, AlertCircle, Volume2, Check
+  X, ChevronRight, AlertCircle, Volume2, Check, MapPin
 } from 'lucide-react';
 
 // New Components
@@ -320,19 +320,25 @@ export default function SafarModePage() {
       <div className={`travel-toast ${toastActive ? 'active' : ''}`}>{toastMessage}</div>
 
       {/* Top Navigation Bar / Close Button */}
-      <div className="sticky top-0 z-40 bg-[#06111F]/90 backdrop-blur-md border-b border-slate-800 px-6 py-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-white tracking-wide">Mode Safar</h1>
+      <div className="sticky top-0 z-40 bg-[#06111F]/90 backdrop-blur-md border-b border-slate-800 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 md:gap-4">
+          <div className="relative flex h-10 w-10 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-400/30">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-30"></span>
+            <MapPin className="h-5 w-5 md:h-6 md:w-6 text-emerald-400" />
+          </div>
+          <h1 className="text-xl md:text-2xl font-bold text-white tracking-wide truncate">Mode Safar</h1>
+        </div>
         <button 
           onClick={() => navigate('/')} 
-          className="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-4 py-2.5 rounded-2xl transition-colors font-bold"
+          className="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-4 py-2 min-h-[48px] rounded-2xl transition-colors font-bold"
         >
           <X size={24} />
           <span className="hidden sm:inline">Tutup Mode</span>
         </button>
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 md:px-8 pt-8 flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-        <div className="flex-1 w-full flex flex-col gap-8 md:gap-10">
+      <div className="max-w-5xl mx-auto p-4 md:px-8 md:pt-8 flex flex-col md:flex-row gap-6 md:gap-12 items-start">
+        <div className="flex-1 w-full flex flex-col gap-6 md:gap-10">
           
           {/* 1. Status Bar */}
           <SafarStatusBar />
