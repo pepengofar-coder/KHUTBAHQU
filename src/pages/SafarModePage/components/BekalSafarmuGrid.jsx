@@ -66,77 +66,76 @@ export default function BekalSafarmuGrid() {
   };
 
   return (
-    <section className="mb-10">
-      <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-        <span className="text-amber-500">✨</span> Bekal Safarmu
-      </h2>
+    <section className="w-full">
+      <div className="flex flex-col gap-2 mb-6">
+        <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight text-balance">
+          <span className="text-amber-500">✨</span> Bekal Safarmu
+        </h2>
+        <p className="text-sm text-slate-400 leading-relaxed text-balance">
+          Akses cepat fitur penting untuk kelancaran ibadah safar Anda.
+        </p>
+      </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         
-        <a href="#essential-duas" onClick={(e) => handleDoaScroll(e, 'doa-safar')} className="group relative overflow-hidden bg-slate-800/80 p-4 rounded-2xl border border-rose-900/30 hover:border-rose-500/50 shadow-lg transition-all">
-          <div className="absolute -right-4 -bottom-4 opacity-[0.05] transform group-hover:scale-110 transition-transform">
-            <BookHeart size={80} className="text-white" />
+        <a href="#essential-duas" onClick={(e) => handleDoaScroll(e, 'doa-safar')} className="group flex items-center gap-4 bg-slate-800/80 p-5 rounded-2xl border border-rose-900/30 hover:border-rose-500/50 shadow-lg transition-all min-h-[88px]">
+          <div className="bg-rose-900/30 text-rose-400 w-14 h-14 rounded-2xl flex items-center justify-center shrink-0">
+            <BookHeart size={28} />
           </div>
-          <div className="bg-rose-900/30 text-rose-400 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-            <BookHeart size={22} />
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold text-white text-lg leading-tight">Doa Safar</h3>
+            <p className="text-sm text-slate-400">Buka teks doa utama</p>
           </div>
-          <h3 className="font-bold text-white leading-tight">Doa Safar</h3>
-          <p className="text-xs text-rose-400/80 mt-1 font-medium">Buka teks doa</p>
         </a>
 
-        <Link to="/sholat" className="group relative overflow-hidden bg-slate-800/80 p-4 rounded-2xl border border-blue-900/30 hover:border-blue-500/50 shadow-lg transition-all">
-          <div className="absolute -right-4 -bottom-4 opacity-[0.05] transform group-hover:scale-110 transition-transform">
-            <Clock size={80} className="text-white" />
+        <Link to="/sholat" className="group flex items-center gap-4 bg-slate-800/80 p-5 rounded-2xl border border-blue-900/30 hover:border-blue-500/50 shadow-lg transition-all min-h-[88px]">
+          <div className="bg-blue-900/30 text-blue-400 w-14 h-14 rounded-2xl flex items-center justify-center shrink-0">
+            <Clock size={28} />
           </div>
-          <div className="bg-blue-900/30 text-blue-400 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-            <Clock size={22} />
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold text-white text-lg leading-tight">Waktu Sholat</h3>
+            <p className="text-sm text-slate-400">Cek jadwal lokal</p>
           </div>
-          <h3 className="font-bold text-white leading-tight">Waktu Sholat</h3>
-          <p className="text-xs text-blue-400/80 mt-1 font-medium">Cek jadwal lokal</p>
         </Link>
 
-        <Link to="/kiblat" className="group relative overflow-hidden bg-slate-800/80 p-4 rounded-2xl border border-emerald-900/30 hover:border-emerald-500/50 shadow-lg transition-all">
-          <div className="absolute -right-4 -bottom-4 opacity-[0.05] transform group-hover:scale-110 transition-transform">
-            <Compass size={80} className="text-white" />
+        <Link to="/kiblat" className="group flex items-center gap-4 bg-slate-800/80 p-5 rounded-2xl border border-emerald-900/30 hover:border-emerald-500/50 shadow-lg transition-all min-h-[88px]">
+          <div className="bg-emerald-900/30 text-emerald-400 w-14 h-14 rounded-2xl flex items-center justify-center shrink-0">
+            <Compass size={28} />
           </div>
-          <div className="bg-emerald-900/30 text-emerald-400 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-            <Compass size={22} />
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold text-white text-lg leading-tight">Arah Kiblat</h3>
+            <p className="text-sm text-slate-400">Kompas akurat safar</p>
           </div>
-          <h3 className="font-bold text-white leading-tight">Arah Kiblat</h3>
-          <p className="text-xs text-emerald-400/80 mt-1 font-medium">Kompas akurat</p>
         </Link>
 
-        <a href="#essential-duas" onClick={(e) => handleDoaScroll(e, 'doa-naik-kendaraan')} className="group relative overflow-hidden bg-slate-800/80 p-4 rounded-2xl border border-indigo-900/30 hover:border-indigo-500/50 shadow-lg transition-all">
-          <div className="absolute -right-4 -bottom-4 opacity-[0.05] transform group-hover:scale-110 transition-transform">
-            <CarFront size={80} className="text-white" />
+        <a href="#essential-duas" onClick={(e) => handleDoaScroll(e, 'doa-naik-kendaraan')} className="group flex items-center gap-4 bg-slate-800/80 p-5 rounded-2xl border border-indigo-900/30 hover:border-indigo-500/50 shadow-lg transition-all min-h-[88px]">
+          <div className="bg-indigo-900/30 text-indigo-400 w-14 h-14 rounded-2xl flex items-center justify-center shrink-0">
+            <CarFront size={28} />
           </div>
-          <div className="bg-indigo-900/30 text-indigo-400 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-            <CarFront size={22} />
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold text-white text-lg leading-tight">Doa Kendaraan</h3>
+            <p className="text-sm text-slate-400">Naik mobil/pesawat</p>
           </div>
-          <h3 className="font-bold text-white leading-tight">Doa Kendaraan</h3>
-          <p className="text-xs text-indigo-400/80 mt-1 font-medium">Naik mobil/motor</p>
         </a>
 
-        <a href="#essential-duas" onClick={(e) => handleDoaScroll(e, 'doa-macet')} className="group relative overflow-hidden bg-slate-800/80 p-4 rounded-2xl border border-purple-900/30 hover:border-purple-500/50 shadow-lg transition-all">
-          <div className="absolute -right-4 -bottom-4 opacity-[0.05] transform group-hover:scale-110 transition-transform">
-            <Navigation size={80} className="text-white" />
+        <a href="#essential-duas" onClick={(e) => handleDoaScroll(e, 'doa-macet')} className="group flex items-center gap-4 bg-slate-800/80 p-5 rounded-2xl border border-purple-900/30 hover:border-purple-500/50 shadow-lg transition-all min-h-[88px]">
+          <div className="bg-purple-900/30 text-purple-400 w-14 h-14 rounded-2xl flex items-center justify-center shrink-0">
+            <Navigation size={28} />
           </div>
-          <div className="bg-purple-900/30 text-purple-400 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-            <Navigation size={22} />
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold text-white text-lg leading-tight text-balance">Perjalanan Jauh</h3>
+            <p className="text-sm text-slate-400">Doa saat macet/lelah</p>
           </div>
-          <h3 className="font-bold text-white leading-tight">Perjalanan Jauh</h3>
-          <p className="text-xs text-purple-400/80 mt-1 font-medium">Doa saat macet</p>
         </a>
 
-        <button onClick={() => setChecklistOpen(true)} className="group text-left relative overflow-hidden bg-slate-800/80 p-4 rounded-2xl border border-amber-900/30 hover:border-amber-500/50 shadow-lg transition-all">
-          <div className="absolute -right-4 -bottom-4 opacity-[0.05] transform group-hover:scale-110 transition-transform">
-            <CheckSquare size={80} className="text-white" />
+        <button onClick={() => setChecklistOpen(true)} className="group text-left flex items-center gap-4 bg-slate-800/80 p-5 rounded-2xl border border-amber-900/30 hover:border-amber-500/50 shadow-lg transition-all min-h-[88px]">
+          <div className="bg-amber-900/30 text-amber-400 w-14 h-14 rounded-2xl flex items-center justify-center shrink-0">
+            <CheckSquare size={28} />
           </div>
-          <div className="bg-amber-900/30 text-amber-400 w-10 h-10 rounded-xl flex items-center justify-center mb-3">
-            <CheckSquare size={22} />
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold text-white text-lg leading-tight text-balance">Checklist Safar</h3>
+            <p className="text-sm text-slate-400">Daftar ibadah lengkap</p>
           </div>
-          <h3 className="font-bold text-white leading-tight">Checklist Safar</h3>
-          <p className="text-xs text-amber-400/80 mt-1 font-medium">Daftar ibadah</p>
         </button>
 
       </div>

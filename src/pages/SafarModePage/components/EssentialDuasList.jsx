@@ -70,12 +70,17 @@ export default function EssentialDuasList() {
   };
 
   return (
-    <section id="essential-duas" className="mb-10 scroll-mt-24">
-      <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-        <span className="text-indigo-400">🤲</span> Doa Essential Safar
-      </h2>
+    <section id="essential-duas" className="w-full scroll-mt-24">
+      <div className="flex flex-col gap-2 mb-6">
+        <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight text-balance">
+          <span className="text-indigo-400">🤲</span> Doa Essential Safar
+        </h2>
+        <p className="text-sm text-slate-400 leading-relaxed text-balance">
+          Kumpulan doa perlindungan dan kebaikan selama perjalanan.
+        </p>
+      </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         {DUAS.map((dua) => {
           const isOpen = openId === dua.id;
           return (
@@ -88,45 +93,59 @@ export default function EssentialDuasList() {
             >
               <button 
                 onClick={() => toggleDua(dua.id)}
-                className="w-full flex items-center justify-between p-4 md:p-5 text-left focus:outline-none"
+                className="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none min-h-[80px]"
               >
-                <span className="font-bold text-white">{dua.title}</span>
+                <span className="font-bold text-white text-lg tracking-wide text-balance">{dua.title}</span>
                 <div className="flex items-center gap-3">
                   {isOpen && (
                     <span 
                       onClick={(e) => handleCopy(e, dua)}
-                      className="p-1.5 text-slate-400 hover:text-indigo-400 rounded-md hover:bg-slate-700 transition-colors"
+                      className="p-2 text-slate-400 hover:text-indigo-400 rounded-xl hover:bg-slate-700 transition-colors"
                       title="Salin Doa"
                     >
-                      {copiedId === dua.id ? <Check size={18} className="text-emerald-400" /> : <Copy size={18} />}
+                      {copiedId === dua.id ? <Check size={22} className="text-emerald-400" /> : <Copy size={22} />}
                     </span>
                   )}
                   <span className={`text-indigo-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                    <ChevronDown size={20} />
+                    <ChevronDown size={24} />
                   </span>
                 </div>
               </button>
 
               <div 
                 className={`transition-all duration-300 ease-in-out ${
-                  isOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+                  isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <div className="p-4 md:p-5 pt-0 border-t border-slate-700/50 bg-slate-900/30">
-                  <p className="text-right text-2xl md:text-3xl leading-[2.5] md:leading-[2.5] font-arabic text-white mb-6 mt-4" style={{ fontFamily: "'Uthmani', 'Traditional Arabic', serif" }}>
-                    {dua.arabic}
-                  </p>
-                  <p className="text-indigo-300 text-sm font-medium mb-3 italic">
-                    "{dua.transliteration}"
-                  </p>
-                  <p className="text-slate-300 text-sm mb-4 leading-relaxed">
-                    <strong className="text-slate-200">Artinya:</strong> {dua.translation}
-                  </p>
-                  <div className="flex justify-end">
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-800 px-2 py-1 rounded border border-slate-700">
+                <div className="p-5 md:p-6 pt-0 border-t border-slate-700/50 bg-slate-900/30 flex flex-col gap-6">
+                  
+                  {/* Arabic Section */}
+                  <div className="mt-6">
+                    <p 
+                      dir="rtl" 
+                      className="text-right text-3xl md:text-4xl leading-[3] md:leading-[3] font-arabic text-white" 
+                      style={{ fontFamily: "'Uthmani', 'Traditional Arabic', serif" }}
+                    >
+                      {dua.arabic}
+                    </p>
+                  </div>
+                  
+                  {/* Latin & Translation Section */}
+                  <div className="flex flex-col gap-3">
+                    <p className="text-indigo-300 text-sm md:text-base font-medium italic leading-relaxed text-balance">
+                      "{dua.transliteration}"
+                    </p>
+                    <p className="text-slate-300 text-sm md:text-base leading-relaxed text-balance">
+                      <strong className="text-slate-200">Artinya:</strong> {dua.translation}
+                    </p>
+                  </div>
+                  
+                  <div className="flex justify-end pt-2">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 shadow-sm">
                       {dua.source}
                     </span>
                   </div>
+
                 </div>
               </div>
             </div>

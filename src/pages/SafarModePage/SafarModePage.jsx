@@ -316,11 +316,23 @@ export default function SafarModePage() {
   };
 
   return (
-    <div className={`travel-mode-page ${isAudioOrYoutube ? 'media-player-active' : ''} bg-[#06111F] text-slate-200 min-h-screen pb-24`}>
+    <div className={`travel-mode-page ${isAudioOrYoutube ? 'media-player-active' : ''} bg-[#06111F] text-slate-200 min-h-screen pb-32 relative z-50`}>
       <div className={`travel-toast ${toastActive ? 'active' : ''}`}>{toastMessage}</div>
 
-      <div className="max-w-5xl mx-auto px-4 pt-6 md:pt-8 flex flex-col md:flex-row gap-6 md:gap-10 items-start">
-        <div className="flex-1 w-full">
+      {/* Top Navigation Bar / Close Button */}
+      <div className="sticky top-0 z-40 bg-[#06111F]/90 backdrop-blur-md border-b border-slate-800 px-6 py-4 flex items-center justify-between">
+        <h1 className="text-xl font-bold text-white tracking-wide">Mode Safar</h1>
+        <button 
+          onClick={() => navigate('/')} 
+          className="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-4 py-2.5 rounded-2xl transition-colors font-bold"
+        >
+          <X size={24} />
+          <span className="hidden sm:inline">Tutup Mode</span>
+        </button>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-6 md:px-8 pt-8 flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+        <div className="flex-1 w-full flex flex-col gap-8 md:gap-10">
           
           {/* 1. Status Bar */}
           <SafarStatusBar />
@@ -335,10 +347,15 @@ export default function SafarModePage() {
           <EssentialDuasList />
 
           {/* 5. Travel Audio & Playlists */}
-          <section className="mb-10">
-            <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-              <span className="text-blue-400">🎧</span> Audio & Playlist Safar
-            </h2>
+          <section className="w-full">
+            <div className="flex flex-col gap-2 mb-6">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight text-balance">
+                <span className="text-blue-400">🎧</span> Audio & Playlist Safar
+              </h2>
+              <p className="text-sm text-slate-400 leading-relaxed text-balance">
+                Kumpulan audio pilihan untuk menemani perjalanan Anda.
+              </p>
+            </div>
             
             {/* Lanjut Dengarkan */}
             {lastPlayed && (
@@ -377,7 +394,7 @@ export default function SafarModePage() {
           </section>
 
           {/* 6. Sleep Timer */}
-          <section className="mb-8">
+          <section className="w-full pb-8">
             <div className="bg-slate-800/80 rounded-2xl p-5 md:p-6 text-white shadow-lg border border-slate-700 flex items-center justify-between cursor-pointer hover:border-slate-500 transition-all" onClick={() => setShowSleepModal(true)}>
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-full bg-slate-700 flex items-center justify-center">
