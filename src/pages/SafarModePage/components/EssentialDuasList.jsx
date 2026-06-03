@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Copy, Check } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, Copy, Check } from 'lucide-react';
 
 const DUAS = [
   {
@@ -53,8 +54,18 @@ const DUAS = [
 ];
 
 export default function EssentialDuasList() {
-  const [openId, setOpenId] = useState('doa-safar'); // Default open
+  const [openId, setOpenId] = useState('doa-safar');
   const [copiedId, setCopiedId] = useState(null);
+
+  useEffect(() => {
+    const handleOpenDua = (e) => {
+      if (e.detail?.duaId) {
+        setOpenId(e.detail.duaId);
+      }
+    };
+    window.addEventListener('safar-open-dua', handleOpenDua);
+    return () => window.removeEventListener('safar-open-dua', handleOpenDua);
+  }, []);
 
   const toggleDua = (id) => {
     setOpenId(prev => prev === id ? null : id);
@@ -71,84 +82,105 @@ export default function EssentialDuasList() {
 
   return (
     <section id="essential-duas" className="w-full scroll-mt-24">
-      <div className="flex flex-col gap-2 mb-6">
-        <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight text-balance">
-          <span className="text-indigo-400">🤲</span> Doa Essential Safar
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="mb-8"
+      >
+        <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
+          <span className="text-indigo-400 mr-2">🤲</span>Doa Essential Safar
         </h2>
-        <p className="text-sm text-slate-400 leading-relaxed text-balance">
+        <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-2xl">
           Kumpulan doa perlindungan dan kebaikan selama perjalanan.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col gap-4">
-        {DUAS.map((dua) => {
+      <div className="flex flex-col gap-3">
+        {DUAS.map((dua, index) => {
           const isOpen = openId === dua.id;
           return (
-            <div 
-              key={dua.id} 
+            <motion.div
+              key={dua.id}
               id={dua.id}
-              className={`bg-slate-800/80 rounded-2xl border transition-all duration-300 overflow-hidden ${
-                isOpen ? 'border-indigo-500/50 shadow-lg shadow-indigo-900/20 ring-1 ring-indigo-500/20' : 'border-slate-700 shadow-md hover:border-slate-600'
-              }`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.4, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className={`safar-dua-card ${isOpen ? 'safar-dua-card--open' : ''}`}
             >
-              <button 
+              <button
                 onClick={() => toggleDua(dua.id)}
-                className="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none min-h-[80px]"
+                className="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-2xl min-h-[72px]"
+                aria-expanded={isOpen}
+                aria-controls={`${dua.id}-content`}
               >
-                <span className="font-bold text-white text-lg md:text-xl tracking-wide text-balance pr-4">{dua.title}</span>
-                <div className="flex items-center gap-2 md:gap-3 shrink-0">
+                <span className="font-bold text-white text-base md:text-lg tracking-wide pr-4">{dua.title}</span>
+                <div className="flex items-center gap-2 shrink-0">
                   {isOpen && (
-                    <span 
+                    <span
                       onClick={(e) => handleCopy(e, dua)}
-                      className="p-3 text-slate-400 hover:text-indigo-400 rounded-xl hover:bg-slate-700 transition-colors"
+                      className="p-2.5 text-slate-400 hover:text-indigo-400 rounded-xl hover:bg-slate-700/60 transition-colors"
                       title="Salin Doa"
+                      role="button"
+                      tabIndex={0}
+                      aria-label="Salin doa"
                     >
-                      {copiedId === dua.id ? <Check size={22} className="text-emerald-400" /> : <Copy size={22} />}
+                      {copiedId === dua.id ? <Check size={20} className="text-emerald-400" /> : <Copy size={20} />}
                     </span>
                   )}
                   <span className={`text-indigo-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-                    <ChevronDown size={24} />
+                    <ChevronDown size={22} />
                   </span>
                 </div>
               </button>
 
-              <div 
-                className={`transition-all duration-300 ease-in-out ${
-                  isOpen ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="p-5 md:p-6 pt-0 border-t border-slate-700/50 bg-slate-900/30 flex flex-col gap-6">
-                  
-                  {/* Arabic Section */}
-                  <div className="mt-6">
-                    <p 
-                      dir="rtl" 
-                      className="text-right text-3xl md:text-4xl leading-[3] md:leading-[3] font-arabic text-white" 
-                      style={{ fontFamily: "'Uthmani', 'Traditional Arabic', serif" }}
-                    >
-                      {dua.arabic}
-                    </p>
-                  </div>
-                  
-                  {/* Latin & Translation Section */}
-                  <div className="flex flex-col gap-4">
-                    <p className="text-indigo-300 text-base md:text-lg font-medium italic leading-relaxed text-balance">
-                      "{dua.transliteration}"
-                    </p>
-                    <p className="text-slate-300 text-base md:text-lg leading-relaxed text-balance">
-                      <strong className="text-slate-200">Artinya:</strong> {dua.translation}
-                    </p>
-                  </div>
-                  
-                  <div className="flex justify-end pt-2">
-                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 shadow-sm">
-                      {dua.source}
-                    </span>
-                  </div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    id={`${dua.id}-content`}
+                    role="region"
+                    aria-labelledby={dua.id}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-5 pb-6 md:px-6 md:pb-7 pt-0 border-t border-slate-700/50 flex flex-col gap-6">
+                      {/* Arabic */}
+                      <div className="mt-5">
+                        <p
+                          dir="rtl"
+                          className="text-right text-2xl sm:text-3xl md:text-4xl leading-[2.4] md:leading-[2.6] text-white"
+                          style={{ fontFamily: "'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif" }}
+                        >
+                          {dua.arabic}
+                        </p>
+                      </div>
 
-                </div>
-              </div>
-            </div>
+                      {/* Transliteration */}
+                      <p className="text-indigo-300 text-base md:text-lg font-medium italic leading-relaxed">
+                        "{dua.transliteration}"
+                      </p>
+
+                      {/* Translation */}
+                      <p className="text-slate-300 text-base md:text-lg leading-relaxed">
+                        <strong className="text-slate-200">Artinya:</strong> {dua.translation}
+                      </p>
+
+                      {/* Source */}
+                      <div className="flex justify-end pt-1">
+                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700 shadow-sm">
+                          {dua.source}
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           );
         })}
       </div>

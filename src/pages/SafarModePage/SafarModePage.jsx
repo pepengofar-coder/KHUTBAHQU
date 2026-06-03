@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { PLAYLISTS, getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
@@ -11,13 +12,15 @@ import { getHourlyRecommendations, getFullValidRecommendations } from '../../lib
 import { getKajianRecommendations } from '../../lib/kajianRecommendations';
 import { 
   Play, Pause, Clock, Heart, 
-  X, ChevronRight, AlertCircle, Volume2, Check, MapPin
+  X, ChevronRight, AlertCircle, Volume2, Check
 } from 'lucide-react';
 
-// New Components
+// New Redesigned Components
+import SafarHero from './components/SafarHero';
 import SafarStatusBar from './components/SafarStatusBar';
-import QuickSafarGuide from './components/QuickSafarGuide';
-import BekalSafarmuGrid from './components/BekalSafarmuGrid';
+import SafarFeatureGrid from './components/SafarFeatureGrid';
+import SafarTimeline from './components/SafarTimeline';
+import SafarCompanion from './components/SafarCompanion';
 import EssentialDuasList from './components/EssentialDuasList';
 
 import './SafarModePage.css';
@@ -30,6 +33,7 @@ export default function SafarModePage() {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
 
   const {
@@ -78,6 +82,26 @@ export default function SafarModePage() {
     window.addEventListener('imk-sleep-timer-end', handleSleepTimerEnd);
     return () => window.removeEventListener('imk-sleep-timer-end', handleSleepTimerEnd);
   }, [showToast]);
+
+  // Handle auto-open/scroll to a specific Doa when navigating from other pages via hash or state
+  useEffect(() => {
+    const hash = location.hash;
+    const stateOpenDuaId = location.state?.openDuaId;
+    const targetId = (hash && hash.startsWith('#')) ? hash.substring(1) : stateOpenDuaId;
+
+    if (targetId) {
+      const validIds = ['doa-keluar-rumah', 'doa-naik-kendaraan', 'doa-safar', 'doa-singgah', 'doa-macet', 'doa-kembali'];
+      if (validIds.includes(targetId)) {
+        window.dispatchEvent(new CustomEvent('safar-open-dua', { detail: { duaId: targetId } }));
+        setTimeout(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 300);
+      }
+    }
+  }, [location]);
 
   const toggleFav = useCallback((id, e) => {
     if (e) e.stopPropagation();
@@ -151,13 +175,24 @@ export default function SafarModePage() {
     }
 
     if (track.route) {
+      if (track.route === '/mode-perjalanan') {
+        setSelectedPlaylistId(null);
+        window.dispatchEvent(new CustomEvent('safar-open-dua', { detail: { duaId: 'doa-safar' } }));
+        setTimeout(() => {
+          const element = document.getElementById('doa-safar');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+        return;
+      }
       navigate(track.route);
       return;
     }
 
     playTrack(track, playlistTracks);
     showToast(`Memutar: ${track.title}`);
-  }, [playTrack, navigate, showToast, user]);
+  }, [playTrack, navigate, showToast, user, setSelectedPlaylistId]);
 
   const handlePlayAll = useCallback((playlistId) => {
     const tracks = getPlaylistItems(playlistId).filter(t => t.enabled);
@@ -316,129 +351,136 @@ export default function SafarModePage() {
   };
 
   return (
-    <div className={`travel-mode-page ${isAudioOrYoutube ? 'media-player-active' : ''} bg-[#06111F] text-slate-200 min-h-screen pb-32 relative z-50`}>
+    <div className={`safar-page ${isAudioOrYoutube ? 'media-player-active' : ''}`}>
       <div className={`travel-toast ${toastActive ? 'active' : ''}`}>{toastMessage}</div>
 
-      {/* Top Navigation Bar / Close Button */}
-      <div className="sticky top-0 z-40 bg-[#06111F]/90 backdrop-blur-md border-b border-slate-800 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 md:gap-4">
-          <div className="relative flex h-10 w-10 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-400/30">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-30"></span>
-            <MapPin className="h-5 w-5 md:h-6 md:w-6 text-emerald-400" />
-          </div>
-          <h1 className="text-xl md:text-2xl font-bold text-white tracking-wide truncate">Mode Safar</h1>
-        </div>
-        <button 
-          onClick={() => navigate('/')} 
-          className="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-4 py-2 min-h-[48px] rounded-2xl transition-colors font-bold"
+      {/* ===== 1. Hero Section ===== */}
+      <SafarHero />
+
+      {/* ===== Main Content ===== */}
+      <div className="safar-page__content">
+
+        {/* ===== 2. Status Card ===== */}
+        <SafarStatusBar />
+
+        {/* ===== Divider ===== */}
+        <div className="safar-page__divider" />
+
+        {/* ===== 3. Feature Grid ===== */}
+        <SafarFeatureGrid />
+
+        {/* ===== Divider ===== */}
+        <div className="safar-page__divider" />
+
+        {/* ===== 4. Panduan Safar Timeline ===== */}
+        <SafarTimeline />
+
+        {/* ===== Divider ===== */}
+        <div className="safar-page__divider" />
+
+        {/* ===== 5. Companion Section ===== */}
+        <SafarCompanion />
+
+        {/* ===== Divider ===== */}
+        <div className="safar-page__divider" />
+
+        {/* ===== 6. Essential Duas ===== */}
+        <EssentialDuasList />
+
+        {/* ===== Divider ===== */}
+        <div className="safar-page__divider" />
+
+        {/* ===== 7. Audio & Playlists ===== */}
+        <motion.section
+          className="w-full"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <X size={24} />
-          <span className="hidden sm:inline">Tutup Mode</span>
-        </button>
-      </div>
-
-      <div className="max-w-5xl mx-auto p-4 md:px-8 md:pt-8 flex flex-col md:flex-row gap-6 md:gap-12 items-start">
-        <div className="flex-1 w-full flex flex-col gap-6 md:gap-10">
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
+              <span className="text-blue-400 mr-2">🎧</span>Audio & Playlist Safar
+            </h2>
+            <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-2xl">
+              Kumpulan audio pilihan untuk menemani perjalanan Anda.
+            </p>
+          </div>
           
-          {/* 1. Status Bar */}
-          <SafarStatusBar />
-
-          {/* 2. Quick Safar Guide */}
-          <QuickSafarGuide />
-
-          {/* 3. Bekal Safarmu (Hero Section) */}
-          <BekalSafarmuGrid />
-
-          {/* 4. Essential Duas */}
-          <EssentialDuasList />
-
-          {/* 5. Travel Audio & Playlists */}
-          <section className="w-full">
-            <div className="flex flex-col gap-2 mb-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2 tracking-tight text-balance">
-                <span className="text-blue-400">🎧</span> Audio & Playlist Safar
-              </h2>
-              <p className="text-sm text-slate-400 leading-relaxed text-balance">
-                Kumpulan audio pilihan untuk menemani perjalanan Anda.
-              </p>
-            </div>
-            
-            {/* Lanjut Dengarkan */}
-            {lastPlayed && (
-              <div className="mb-6 bg-slate-800/80 rounded-2xl p-4 border border-blue-900/50 shadow-lg flex items-center gap-4 hover:border-blue-500/50 transition-all cursor-pointer" onClick={() => handlePlayItem(lastPlayed)}>
-                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-inner shrink-0">
-                  <Volume2 size={24} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="text-[10px] font-bold tracking-wider text-blue-400 uppercase block mb-0.5">LANJUT DENGARKAN</span>
-                  <h3 className="font-bold text-white truncate">{lastPlayed.title || lastPlayed.name}</h3>
-                  <p className="text-xs text-slate-400 truncate">{lastPlayed.subtitle || 'Islamediaku Audio'}</p>
-                </div>
-                <button className="h-10 w-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center shrink-0">
-                  {playing && activeRadio?.id === lastPlayed.id ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
-                </button>
+          {/* Continue Listening */}
+          {lastPlayed && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="mb-6 bg-slate-800/80 rounded-2xl p-4 border border-blue-900/50 shadow-lg flex items-center gap-4 hover:border-blue-500/50 transition-all cursor-pointer"
+              onClick={() => handlePlayItem(lastPlayed)}
+            >
+              <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-inner shrink-0">
+                <Volume2 size={24} />
               </div>
-            )}
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {PLAYLISTS.map(p => {
-                const tracks = getPlaylistItems(p.id);
-                const colorMap = {
-                  'tenang-perjalanan': 'blue', 'tilawah-pilihan': 'cyan',
-                  'murottal-juz-amma': 'emerald', 'dzikir-doa': 'rose',
-                  'kajian-ringan': 'lavender', 'radio-quran-live': 'mint',
-                };
-                return (
-                  <VariedFeatureCard
-                    key={p.id} title={p.title} subtitle={`${tracks.length} Audio • ${p.subtitle}`}
-                    icon={p.icon} colorVariant={colorMap[p.id] || 'blue'}
-                    onClick={() => handleOpenPlaylist(p.id)} layoutVariant="playlist-card"
-                  />
-                );
-              })}
-            </div>
-          </section>
-
-          {/* 6. Sleep Timer */}
-          <section className="w-full pb-8">
-            <div className="bg-slate-800/80 rounded-2xl p-5 md:p-6 text-white shadow-lg border border-slate-700 flex items-center justify-between cursor-pointer hover:border-slate-500 transition-all" onClick={() => setShowSleepModal(true)}>
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-full bg-slate-700 flex items-center justify-center">
-                  <Clock size={24} className="text-slate-300" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg leading-tight">Sleep Timer Safar</h3>
-                  <p className="text-sm text-slate-400 mt-1">Hentikan audio otomatis agar hemat baterai</p>
-                </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-[10px] font-bold tracking-wider text-blue-400 uppercase block mb-0.5">LANJUT DENGARKAN</span>
+                <h3 className="font-bold text-white truncate">{lastPlayed.title || lastPlayed.name}</h3>
+                <p className="text-xs text-slate-400 truncate">{lastPlayed.subtitle || 'Islamediaku Audio'}</p>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-bold bg-slate-900 px-3 py-1.5 rounded-lg text-emerald-400">
-                  {getSleepTimerLabel(sleepTimer)}
-                </span>
-                <ChevronRight size={20} className="text-slate-500" />
+              <button className="h-10 w-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center shrink-0">
+                {playing && activeRadio?.id === lastPlayed.id ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
+              </button>
+            </motion.div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {PLAYLISTS.map(p => {
+              const tracks = getPlaylistItems(p.id);
+              const colorMap = {
+                'tenang-perjalanan': 'blue', 'tilawah-pilihan': 'cyan',
+                'murottal-juz-amma': 'emerald', 'dzikir-doa': 'rose',
+                'kajian-ringan': 'lavender', 'radio-dakwah': 'mint',
+              };
+              return (
+                <VariedFeatureCard
+                  key={p.id} title={p.title} subtitle={`${tracks.length} Audio • ${p.subtitle}`}
+                  icon={p.icon} colorVariant={colorMap[p.id] || 'blue'}
+                  onClick={() => handleOpenPlaylist(p.id)} layoutVariant="playlist-card"
+                />
+              );
+            })}
+          </div>
+        </motion.section>
+
+        {/* ===== 8. Sleep Timer ===== */}
+        <motion.section
+          className="w-full pb-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="bg-slate-800/80 rounded-2xl p-5 md:p-6 text-white shadow-lg border border-slate-700 flex items-center justify-between cursor-pointer hover:border-slate-500 transition-all" onClick={() => setShowSleepModal(true)}>
+            <div className="flex items-center gap-4">
+              <div className="h-12 w-12 rounded-full bg-slate-700 flex items-center justify-center">
+                <Clock size={24} className="text-slate-300" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg leading-tight">Sleep Timer Safar</h3>
+                <p className="text-sm text-slate-400 mt-1">Hentikan audio otomatis agar hemat baterai</p>
               </div>
             </div>
-          </section>
-
-        </div>
-
-        {/* Desktop Sidebar Audio Player/List */}
-        <div className="hidden md:block w-full md:w-96 shrink-0 sticky top-24 h-[calc(100vh-8rem)]">
-          <aside className="bg-slate-900 rounded-2xl shadow-xl border border-slate-700 h-full flex flex-col overflow-hidden" ref={desktopSheetRef}>
-            {selectedPlaylist ? renderPlaylistDetail() : (
-              <div className="flex flex-col items-center justify-center h-full p-8 text-center text-slate-500">
-                <Play size={48} className="mb-4 opacity-20" />
-                <h3 className="font-bold text-slate-300 text-lg mb-2">Pilih Audio Safar</h3>
-                <p className="text-sm">Silakan pilih Radio Dakwah, Kajian, atau Tilawah dari daftar untuk mulai memutar.</p>
-              </div>
-            )}
-          </aside>
-        </div>
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-bold bg-slate-900 px-3 py-1.5 rounded-lg text-emerald-400">
+                {getSleepTimerLabel(sleepTimer)}
+              </span>
+              <ChevronRight size={20} className="text-slate-500" />
+            </div>
+          </div>
+        </motion.section>
       </div>
 
-      {/* Mobile Bottom Sheet */}
+      {/* ===== Playlist Bottom Sheet (Mobile) ===== */}
       {selectedPlaylist && (
-        <div className="md:hidden fixed inset-0 z-[60] bg-gray-900/60 backdrop-blur-sm" onClick={() => setSelectedPlaylistId(null)}>
+        <div className="fixed inset-0 z-[60] bg-gray-900/60 backdrop-blur-sm" onClick={() => setSelectedPlaylistId(null)}>
           <div className="absolute bottom-0 left-0 right-0 bg-slate-900 rounded-t-3xl h-[85vh] flex flex-col shadow-2xl border-t border-slate-700" onClick={(e) => e.stopPropagation()} ref={mobileSheetRef}>
             <div className="w-12 h-1.5 bg-slate-700 rounded-full mx-auto my-3" onClick={() => setSelectedPlaylistId(null)} />
             {renderPlaylistDetail()}
@@ -446,7 +488,7 @@ export default function SafarModePage() {
         </div>
       )}
 
-      {/* Sleep Timer Modal */}
+      {/* ===== Sleep Timer Modal ===== */}
       {showSleepModal && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-gray-900/80 backdrop-blur-sm" onClick={() => setShowSleepModal(false)}>
           <div className="bg-slate-900 rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl border border-slate-700" onClick={e => e.stopPropagation()}>

@@ -59,10 +59,15 @@ export default function BekalSafarmuGrid() {
 
   const handleDoaScroll = (e, id) => {
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // Dispatch event to auto-open the target doa accordion
+    window.dispatchEvent(new CustomEvent('safar-open-dua', { detail: { duaId: id } }));
+    // Small delay to let the accordion open before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   return (
