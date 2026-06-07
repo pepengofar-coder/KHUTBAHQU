@@ -1,16 +1,45 @@
 /* ============================================
-   Footer — Royal Blue Premium
+   Footer — Glassmorphism Cosmic Premium
    ============================================ */
 
 .footer {
-  background: linear-gradient(180deg, #001A5C 0%, #07111F 100%);
+  background: linear-gradient(180deg, #1E1B4B 0%, #0C0726 50%, #050A1A 100%);
   color: var(--color-text-inverse);
   padding: var(--sp-12) 0 var(--sp-6);
   position: relative;
   overflow: hidden;
 }
 
-/* Accent line */
+/* Floating decorative gradient orb */
+.footer::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle,
+    rgba(129, 140, 248, 0.12) 0%,
+    rgba(6, 182, 212, 0.06) 45%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  animation: footerOrbFloat 12s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes footerOrbFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-30px, -20px) scale(1.1);
+  }
+}
+
+/* Accent line — indigo → cyan → violet gradient */
 .footer::before {
   content: '';
   position: absolute;
@@ -18,8 +47,15 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--color-accent) 50%, transparent 100%);
-  opacity: 0.5;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #818CF8 20%,
+    #22D3EE 50%,
+    #A78BFA 80%,
+    transparent 100%
+  );
+  opacity: 0.7;
 }
 
 .footer__inner {
@@ -29,6 +65,8 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--sp-8);
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
@@ -38,38 +76,54 @@
   }
 }
 
+/* Brand heading — gradient text effect */
 .footer__brand h3 {
   font-family: var(--font-heading);
   font-size: var(--fs-xl);
   margin-bottom: var(--sp-2);
+  background: linear-gradient(135deg, #E0E7FF 0%, #818CF8 40%, #67E8F9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .footer__brand p {
   font-size: var(--fs-sm);
-  opacity: 0.6;
+  opacity: 0.55;
   line-height: var(--lh-relaxed);
   max-width: 320px;
+  color: rgba(224, 231, 255, 0.8);
 }
 
+/* Column headers — brighter with letter spacing */
 .footer__col h4 {
   font-size: var(--fs-sm);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   margin-bottom: var(--sp-3);
-  opacity: 0.5;
+  opacity: 0.65;
+  color: rgba(199, 210, 254, 0.9);
+  background: linear-gradient(135deg, #C7D2FE, #A5B4FC);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+/* Links — cyan accent on hover */
 .footer__col a {
   display: block;
   font-size: var(--fs-sm);
-  opacity: 0.7;
+  opacity: 0.65;
   padding: var(--sp-1) 0;
   position: relative;
   transition: all 0.25s var(--ease-spring);
   padding-left: 0;
+  color: rgba(224, 231, 255, 0.85);
 }
 
+/* Animated underline — cyan color */
 .footer__col a::before {
   content: '';
   position: absolute;
@@ -77,29 +131,53 @@
   top: 50%;
   width: 0;
   height: 2px;
-  background: var(--color-accent);
+  background: linear-gradient(90deg, #22D3EE, #67E8F9);
   transition: width 0.3s var(--ease-spring);
   transform: translateY(-50%);
   border-radius: 1px;
+  box-shadow: 0 0 6px rgba(34, 211, 238, 0.4);
 }
 
 .footer__col a:hover {
   opacity: 1;
   padding-left: 14px;
-  color: var(--color-accent);
+  color: #67E8F9;
 }
 
 .footer__col a:hover::before {
   width: 8px;
 }
 
+/* Bottom copyright — glass-like divider */
 .footer__bottom {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: var(--sp-6) var(--sp-4) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(129, 140, 248, 0.12);
   text-align: center;
   font-size: var(--fs-xs);
-  opacity: 0.4;
+  opacity: 0.45;
   margin-top: var(--sp-8);
+  position: relative;
+  z-index: 1;
+  color: rgba(199, 210, 254, 0.7);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(129, 140, 248, 0.04) 50%,
+    transparent 100%
+  );
+  border-radius: 0 0 var(--radius-lg, 12px) var(--radius-lg, 12px);
+}
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .footer::after {
+    animation: none;
+  }
+
+  .footer__col a,
+  .footer__col a::before {
+    transition: none;
+  }
 }

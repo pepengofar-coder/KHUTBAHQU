@@ -446,7 +446,7 @@ export default function RuangUserPage() {
             <h2 className="ru-card__title"><Car size={16} /> Perjalanan</h2>
             <div className="ru-travel-grid">
               <Link to="/mode-perjalanan" className="ru-travel-btn"><Car size={18} /><span>Mode Perjalanan</span></Link>
-              <Link to="/doa-dzikir" className="ru-travel-btn"><BookOpen size={18} /><span>Doa Safar</span></Link>
+              <Link to="/mode-perjalanan#doa-safar" className="ru-travel-btn"><BookOpen size={18} /><span>Doa Safar</span></Link>
               <Link to="/kiblat" className="ru-travel-btn"><Compass size={18} /><span>Kiblat</span></Link>
               <Link to="/sholat" className="ru-travel-btn"><Clock size={18} /><span>Jadwal Sholat</span></Link>
             </div>

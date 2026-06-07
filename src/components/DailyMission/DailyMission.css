@@ -1,6 +1,6 @@
 /* ============================================
-   Daily Mission Card — Premium Dashboard Style
-   Islamediaku Blue-Lime identity
+   Daily Mission Card — Premium Glassmorphism
+   Islamediaku Indigo + Cyan identity
    ============================================ */
 
 /* ─── Section ─── */
@@ -10,17 +10,28 @@
   padding: 0 var(--sp-4) var(--sp-6);
 }
 
-/* ─── Card ─── */
+/* ─── Card — Glass panel ─── */
 .dm-card {
-  background: var(--color-bg-card);
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border-radius: var(--radius-xl);
   padding: var(--sp-5);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--color-border-light);
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--glass-border-light);
   position: relative;
   overflow: hidden;
   transition: all 0.4s var(--ease-spring);
 }
+.dm-card:hover {
+  box-shadow:
+    var(--shadow-card-hover),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Top gradient accent line — indigo → cyan → violet */
 .dm-card::before {
   content: '';
   position: absolute;
@@ -28,30 +39,46 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent), #8B5CF6);
+  opacity: 0.85;
+  transition: opacity 0.3s ease, height 0.3s ease;
 }
 
-/* Complete state — lime accent glow */
+/* Complete state — Celebration cyan/violet glow */
 .dm-card--complete {
-  border-color: rgba(16, 185, 129, 0.25);
-  box-shadow: var(--shadow-lg), 0 0 30px rgba(16, 185, 129, 0.08);
+  border-color: rgba(6, 182, 212, 0.25);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 30px rgba(6, 182, 212, 0.1),
+    0 0 60px rgba(139, 92, 246, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 .dm-card--complete::before {
-  background: linear-gradient(90deg, var(--color-accent), #34d399, var(--color-accent));
+  background: linear-gradient(90deg, var(--color-accent), #8B5CF6, var(--color-accent));
   opacity: 1;
   height: 3px;
 }
 
-/* Dark mode adjustments */
+/* Dark mode card */
 [data-theme="dark"] .dm-card {
-  background: var(--color-bg-card);
-  border-color: var(--color-border);
+  background: var(--glass-bg-light);
+  border-color: var(--glass-border-light);
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(129, 140, 248, 0.08);
+}
+[data-theme="dark"] .dm-card:hover {
+  box-shadow:
+    var(--shadow-card-hover),
+    inset 0 1px 0 rgba(129, 140, 248, 0.12);
 }
 [data-theme="dark"] .dm-card--complete {
-  border-color: rgba(198, 255, 0, 0.2);
-  box-shadow: var(--shadow-lg), 0 0 30px rgba(198, 255, 0, 0.06);
+  border-color: rgba(34, 211, 238, 0.2);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 30px rgba(34, 211, 238, 0.08),
+    0 0 60px rgba(129, 140, 248, 0.05),
+    inset 0 1px 0 rgba(129, 140, 248, 0.1);
 }
 
 /* ─── Header ─── */
@@ -69,27 +96,48 @@
   flex: 1;
   min-width: 0;
 }
+
+/* Icon wrap — Gradient indigo → cyan */
 .dm-header__icon-wrap {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(26, 86, 219, 0.25);
+  box-shadow:
+    0 2px 10px rgba(79, 70, 229, 0.25),
+    0 1px 4px rgba(6, 182, 212, 0.15);
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
+}
+.dm-card:hover .dm-header__icon-wrap {
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow:
+    0 4px 14px rgba(79, 70, 229, 0.3),
+    0 2px 6px rgba(6, 182, 212, 0.2);
 }
 [data-theme="dark"] .dm-header__icon-wrap {
-  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary), var(--color-accent));
+  box-shadow:
+    0 2px 10px rgba(129, 140, 248, 0.3),
+    0 1px 4px rgba(34, 211, 238, 0.15);
 }
+
+/* Header text */
 .dm-header__title {
   font-size: var(--fs-md);
   font-weight: 700;
+  font-family: var(--font-heading);
   color: var(--color-text);
   margin: 0;
   line-height: 1.3;
+  background: linear-gradient(135deg, var(--color-text) 50%, var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 .dm-header__motivation {
   font-size: var(--fs-xs);
@@ -101,8 +149,14 @@
 [data-theme="dark"] .dm-header__motivation {
   color: var(--color-accent);
 }
+[data-theme="dark"] .dm-header__title {
+  background: linear-gradient(135deg, var(--color-text) 50%, var(--color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-/* Progress badge */
+/* ─── Progress Badge — Glass chip ─── */
 .dm-header__progress-badge {
   display: flex;
   align-items: baseline;
@@ -111,6 +165,10 @@
   padding: 6px 12px;
   border-radius: 12px;
   flex-shrink: 0;
+  border: 1px solid rgba(79, 70, 229, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s var(--ease-spring);
 }
 .dm-header__count {
   font-size: var(--fs-lg);
@@ -130,6 +188,7 @@
 }
 .dm-card--complete .dm-header__progress-badge {
   background: var(--color-accent-surface);
+  border-color: rgba(6, 182, 212, 0.12);
 }
 .dm-card--complete .dm-header__count {
   color: var(--color-accent-dark);
@@ -148,23 +207,58 @@
 .dm-progress__track {
   flex: 1;
   height: 6px;
-  background: var(--color-border-light);
+  background: rgba(79, 70, 229, 0.08);
   border-radius: 6px;
   overflow: hidden;
+  position: relative;
 }
 [data-theme="dark"] .dm-progress__track {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(129, 140, 248, 0.1);
 }
+
+/* Fill — Animated gradient indigo → cyan with shimmer */
 .dm-progress__fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light), var(--color-accent));
+  background-size: 200% 100%;
   border-radius: 6px;
   transition: width 0.6s var(--ease-spring);
   position: relative;
+  animation: dm-progressShimmer 3s ease-in-out infinite;
 }
+.dm-progress__fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: dm-shimmerSweep 2.5s ease-in-out infinite;
+  border-radius: 6px;
+}
+
+@keyframes dm-progressShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes dm-shimmerSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 .dm-card--complete .dm-progress__fill {
-  background: linear-gradient(90deg, var(--color-accent-dark), var(--color-accent));
+  background: linear-gradient(90deg, var(--color-accent-dark), var(--color-accent), #8B5CF6);
+  background-size: 200% 100%;
 }
+
 .dm-progress__pct {
   font-size: 11px;
   font-weight: 700;
@@ -194,28 +288,46 @@
   }
 }
 
-/* ─── Mission Item ─── */
+/* ─── Mission Item — Subtle glass card ─── */
 .dm-item {
   display: flex;
   align-items: center;
   cursor: pointer;
   padding: 10px 12px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-light);
+  border: 1px solid var(--glass-border-light);
   transition: all 0.25s var(--ease-spring);
   -webkit-tap-highlight-color: transparent;
-  background: var(--color-bg-elevated);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   user-select: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 .dm-item:hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary-surface);
+  border-color: rgba(79, 70, 229, 0.3);
+  background: rgba(79, 70, 229, 0.05);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-xs);
+  box-shadow:
+    0 4px 12px rgba(79, 70, 229, 0.1),
+    0 0 0 1px rgba(79, 70, 229, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 .dm-item:active {
   transform: scale(0.98);
   transition-duration: 80ms;
+}
+[data-theme="dark"] .dm-item {
+  background: rgba(15, 20, 45, 0.5);
+  border-color: rgba(129, 140, 248, 0.08);
+  box-shadow: inset 0 1px 0 rgba(129, 140, 248, 0.06);
+}
+[data-theme="dark"] .dm-item:hover {
+  border-color: rgba(129, 140, 248, 0.25);
+  background: rgba(129, 140, 248, 0.08);
+  box-shadow:
+    0 4px 12px rgba(129, 140, 248, 0.1),
+    inset 0 1px 0 rgba(129, 140, 248, 0.1);
 }
 
 .dm-item__left {
@@ -243,7 +355,13 @@
   justify-content: center;
   color: #fff;
   transition: all 0.25s var(--ease-bounce);
-  background: var(--color-bg-card);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+[data-theme="dark"] .dm-item__checkbox {
+  background: rgba(15, 20, 45, 0.6);
+  border-color: rgba(129, 140, 248, 0.15);
 }
 
 /* Icon emoji */
@@ -252,7 +370,11 @@
   flex-shrink: 0;
   line-height: 1;
   filter: grayscale(0.2);
-  transition: filter 0.2s ease;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.dm-item:hover .dm-item__icon {
+  filter: grayscale(0);
+  transform: scale(1.08);
 }
 
 /* Text block */
@@ -277,30 +399,34 @@
   margin-top: 1px;
 }
 
-/* ── Done state ── */
+/* ── Done state — Cyan accent glow ── */
 .dm-item--done {
-  border-color: rgba(16, 185, 129, 0.2);
-  background: rgba(16, 185, 129, 0.04);
+  border-color: rgba(6, 182, 212, 0.2);
+  background: rgba(6, 182, 212, 0.04);
 }
 [data-theme="dark"] .dm-item--done {
-  border-color: rgba(198, 255, 0, 0.15);
-  background: rgba(198, 255, 0, 0.04);
+  border-color: rgba(34, 211, 238, 0.15);
+  background: rgba(34, 211, 238, 0.05);
 }
 .dm-item--done:hover {
-  border-color: rgba(16, 185, 129, 0.35);
-  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(6, 182, 212, 0.35);
+  background: rgba(6, 182, 212, 0.08);
+}
+[data-theme="dark"] .dm-item--done:hover {
+  border-color: rgba(34, 211, 238, 0.3);
+  background: rgba(34, 211, 238, 0.1);
 }
 .dm-item--done .dm-item__checkbox {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
   border-color: var(--color-accent);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 10px rgba(6, 182, 212, 0.35);
   animation: dm-checkPop 0.35s var(--ease-bounce);
 }
 [data-theme="dark"] .dm-item--done .dm-item__checkbox {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-soft));
   border-color: var(--color-accent);
-  color: #0F172A;
-  box-shadow: 0 2px 8px rgba(198, 255, 0, 0.3);
+  color: #050A1A;
+  box-shadow: 0 2px 10px rgba(34, 211, 238, 0.35);
 }
 .dm-item--done .dm-item__label {
   text-decoration: line-through;
@@ -319,7 +445,7 @@
   100% { transform: scale(1); }
 }
 
-/* ─── Actions ─── */
+/* ─── Actions — Glass bar ─── */
 .dm-actions {
   display: flex;
   align-items: center;
@@ -327,60 +453,121 @@
   gap: var(--sp-3);
   flex-wrap: wrap;
   padding-top: var(--sp-3);
-  border-top: 1px solid var(--color-border-light);
+  border-top: 1px solid var(--glass-border-light);
 }
 
+/* Primary CTA — Gradient indigo → cyan */
 .dm-actions__primary {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
   border-radius: var(--radius-pill);
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   color: #fff;
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
-  transition: all 0.2s var(--ease-spring);
-  box-shadow: 0 2px 8px rgba(26, 86, 219, 0.25);
+  transition: all 0.25s var(--ease-spring);
+  box-shadow:
+    0 2px 10px rgba(79, 70, 229, 0.25),
+    0 1px 4px rgba(6, 182, 212, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+/* Shimmer sweep on hover */
+.dm-actions__primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+.dm-actions__primary:hover::after {
+  left: 100%;
 }
 .dm-actions__primary:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(26, 86, 219, 0.35);
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 16px rgba(79, 70, 229, 0.3),
+    0 2px 8px rgba(6, 182, 212, 0.2),
+    var(--shadow-neon);
 }
 .dm-actions__primary:active {
   transform: scale(0.96);
 }
 
+[data-theme="dark"] .dm-actions__primary {
+  box-shadow:
+    0 2px 10px rgba(129, 140, 248, 0.3),
+    0 1px 4px rgba(34, 211, 238, 0.15);
+}
+[data-theme="dark"] .dm-actions__primary:hover {
+  box-shadow:
+    0 4px 16px rgba(129, 140, 248, 0.35),
+    0 2px 8px rgba(34, 211, 238, 0.2),
+    var(--shadow-neon);
+}
+
+/* Secondary actions */
 .dm-actions__secondary {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+/* Glass pills */
 .dm-actions__pill {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
   border-radius: var(--radius-pill);
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border-light);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border-light);
   color: var(--color-text-secondary);
   font-size: 11px;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.25s var(--ease-spring);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .dm-actions__pill:hover {
-  border-color: var(--color-primary);
+  border-color: rgba(79, 70, 229, 0.3);
   color: var(--color-primary);
-  background: var(--color-primary-surface);
+  background: rgba(79, 70, 229, 0.06);
   transform: translateY(-1px);
+  box-shadow:
+    0 2px 8px rgba(79, 70, 229, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 .dm-actions__pill:active {
   transform: scale(0.96);
+}
+
+[data-theme="dark"] .dm-actions__pill {
+  background: rgba(15, 20, 45, 0.5);
+  border-color: rgba(129, 140, 248, 0.1);
+  color: var(--color-text-secondary);
+  box-shadow: inset 0 1px 0 rgba(129, 140, 248, 0.06);
+}
+[data-theme="dark"] .dm-actions__pill:hover {
+  border-color: rgba(129, 140, 248, 0.25);
+  color: var(--color-primary);
+  background: rgba(129, 140, 248, 0.1);
+  box-shadow:
+    0 2px 8px rgba(129, 140, 248, 0.1),
+    inset 0 1px 0 rgba(129, 140, 248, 0.08);
 }
 
 /* ─── Desktop refinements ─── */
@@ -406,6 +593,13 @@
     animation: none;
   }
   .dm-progress__fill {
+    transition: none;
+    animation: none;
+  }
+  .dm-progress__fill::after {
+    animation: none;
+  }
+  .dm-actions__primary::after {
     transition: none;
   }
 }

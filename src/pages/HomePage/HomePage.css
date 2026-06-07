@@ -1,564 +1,595 @@
-/* Dashboard Home — Royal Blue + Lime */
-.home-page{padding-bottom:calc(var(--bottom-nav-h) + var(--sp-8))}
-@media(min-width:1024px){.home-page{padding-bottom:var(--sp-8)}}
+/* ==========================================================
+   Islamediaku — Premium HomePage (Dashboard) Styling v5.0
+   Indigo + Cyan + Violet • Immersive Glassmorphism
+   ========================================================== */
 
-/* Home Sections */
+.home-page {
+  padding-bottom: calc(var(--bottom-nav-h) + var(--sp-10));
+  background: transparent;
+}
+@media (min-width: 1024px) {
+  .home-page {
+    padding-bottom: var(--sp-12);
+  }
+}
+
+/* Home Sections spacing */
 .home-section {
   padding: 0 var(--sp-4) var(--sp-8);
 }
 @media (min-width: 1024px) {
-  .home-section { padding: 0 var(--sp-8) var(--sp-10); }
-}
-
-/* Hero Greeting — Royal Blue Gradient */
-.dash-hero{background:linear-gradient(135deg,var(--color-primary-dark) 0%,var(--color-primary) 100%);padding:var(--sp-5) 0 var(--sp-8);color:#fff;position:relative;overflow:hidden;margin-bottom:calc(var(--sp-6) * -1)}
-@media (min-width: 768px) {
-  .dash-hero { padding: var(--sp-8) 0 var(--sp-12); margin-bottom:calc(var(--sp-8) * -1); }
-}
-.dash-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(198,255,0,.15) 0%,transparent 70%);pointer-events:none}
-.dash-hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:350px;height:350px;background:radial-gradient(circle,rgba(29,124,255,.3) 0%,transparent 70%);pointer-events:none}
-
-.dash-hero__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-5);flex-wrap:wrap;position:relative;z-index:1}
-.dash-hero__content { flex: 1; min-width: 280px; }
-
-.dash-hero__salam { font-size:24px; font-weight:800; color:#fff; margin-bottom:4px; letter-spacing:-0.02em; line-height:1.2; }
-@media (min-width: 768px) { .dash-hero__salam { font-size:32px; } }
-
-.dash-hero__desc { font-size:14px; opacity:0.9; line-height:1.4; margin-bottom:var(--sp-3); max-width:480px; font-weight:500; }
-.dash-hero__date { font-size:12px; opacity:0.8; font-weight:500; display:flex; align-items:center; gap:6px; }
-
-/* Next Prayer Card (Hero) */
-.dash-hero__prayer { 
-  display:flex; 
-  align-items:center; 
-  justify-content:space-between; 
-  width:100%; 
-  padding:var(--sp-4); 
-  border-radius:var(--radius-xl); 
-  background:rgba(255,255,255,0.1); 
-  backdrop-filter:blur(12px); 
-  -webkit-backdrop-filter:blur(12px); 
-  border:1px solid rgba(255,255,255,0.15); 
-}
-@media (min-width: 768px) {
-  .dash-hero__prayer { width:auto; min-width: 320px; }
-}
-
-.dash-hero__prayer-left { display:flex; flex-direction:column; gap:4px; }
-.dash-hero__prayer-label { font-size:10px; font-weight:700; opacity:0.8; text-transform:uppercase; letter-spacing:0.05em; }
-.dash-hero__prayer-name-row { display:flex; align-items:center; gap:6px; }
-.dash-hero__prayer-name { font-size:18px; font-weight:800; display:flex; align-items:center; gap:6px; margin:0; }
-.dash-hero__prayer-time { font-size:14px; font-weight:700; opacity:0.9; }
-
-.dash-hero__prayer-right { display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
-.dash-hero__prayer-link { font-size:11px; font-weight:600; color:rgba(255,255,255,0.9); display:flex; align-items:center; gap:2px; text-decoration:none; background:rgba(0,0,0,0.15); padding:4px 10px; border-radius:12px; transition:background 0.2s; }
-.dash-hero__prayer-link:hover { background:rgba(0,0,0,0.25); color:#fff; }
-.dash-hero__prayer-countdown { font-size:24px; font-weight:800; font-variant-numeric:tabular-nums; color:var(--color-accent); text-shadow:0 0 12px rgba(198,255,0,0.2); }
-@media (min-width: 768px) { .dash-hero__prayer-countdown { font-size:28px; } }
-
-/* Greeting Card */
-.greeting-card-wrapper {
-  position: relative;
-  z-index: 2;
-  margin-top: calc(var(--sp-4) * -1);
-  margin-bottom: var(--sp-4);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.greeting-card-wrapper.fade-in { opacity: 1; transform: translateY(0); }
-.greeting-card-wrapper.fade-out { opacity: 0; transform: translateY(-5px); }
-.greeting-card {
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-.greeting-card-icon { font-size: 20px; }
-.greeting-card-text { margin: 0; font-size: 13px; color: var(--color-text); font-weight: 500; line-height: 1.4; }
-
-
-/* Daily Mission Section */
-.dash-mission { position: relative; z-index: 10; }
-.dash-mission__card { background: var(--color-bg-card); border-radius: var(--radius-xl); padding: var(--sp-5); box-shadow: var(--shadow-lg); border: 1px solid var(--color-border-light); }
-.dash-mission__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--sp-4); flex-wrap: wrap; gap: var(--sp-2); }
-.dash-mission__title { font-size: var(--fs-md); font-weight: 700; display: flex; align-items: center; gap: 8px; margin: 0; color: var(--color-text); }
-.dash-mission__subtitle { font-size: var(--fs-xs); color: var(--color-text-muted); margin: 4px 0 0 26px; }
-.dash-mission__status { font-size: 11px; font-weight: 700; background: var(--color-primary-surface); color: var(--color-primary); padding: 4px 10px; border-radius: 12px; }
-
-.dash-mission__progress { height: 6px; background: var(--color-border-light); border-radius: 6px; margin-bottom: var(--sp-4); overflow: hidden; }
-.dash-mission__bar { height: 100%; background: var(--color-primary); border-radius: 6px; transition: width .5s var(--ease-spring); }
-
-.dash-mission__list { display: grid; grid-template-columns: 1fr; gap: var(--sp-2); margin-bottom: var(--sp-4); }
-@media(min-width: 640px) { .dash-mission__list { grid-template-columns: repeat(2, 1fr); } }
-@media(min-width: 1024px) { .dash-mission__list { grid-template-columns: repeat(4, 1fr); gap: var(--sp-3); } }
-
-.dash-mission__item { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px 12px; border-radius: var(--radius-md); border: 1px solid var(--color-border-light); transition: all .2s ease; -webkit-tap-highlight-color: transparent; background: var(--color-bg-elevated); }
-.dash-mission__item:hover { border-color: var(--color-primary); background: var(--color-primary-surface); }
-.dash-mission__item:active { transform: scale(.98); }
-.dash-mission__checkbox-wrap { position: relative; width: 20px; height: 20px; flex-shrink: 0; }
-.dash-mission__checkbox { width: 100%; height: 100%; border: 2px solid var(--color-border); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; transition: all .2s var(--ease-spring); background: var(--color-bg-card); }
-.dash-mission__item--done { border-color: var(--color-primary-surface); background: var(--color-primary-surface); }
-.dash-mission__item--done .dash-mission__checkbox { background: var(--color-primary); border-color: var(--color-primary); box-shadow: 0 2px 8px rgba(0,71,255,.3); }
-.dash-mission__item--done .dash-mission__label { text-decoration: line-through; opacity: .6; }
-.dash-mission__label { font-size: 13px; font-weight: 600; user-select: none; color: var(--color-text); }
-
-.dash-mission__action { display: flex; justify-content: flex-end; }
-
-/* Animations */
-.fade-in-slide { animation: slideInFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes slideInFade {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Quick Actions — Premium cards */
-.dash-actions{padding:var(--sp-6) var(--sp-4)}
-.dash-actions__title {
-  margin-bottom: var(--sp-4);
-}
-.dash-actions__grid-main {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  width: 100%;
-}
-@media(min-width: 768px) {
-  .dash-actions__grid-main {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-}
-@media(min-width: 1024px) {
-  .dash-actions__grid-main {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
+  .home-section {
+    padding: 0 var(--sp-8) var(--sp-12);
   }
 }
 
-/* Make first featured card span full width on mobile and two columns on desktop */
-.dash-actions__grid-main .featured-card-wrap { grid-column: 1 / -1; }
-@media(min-width: 768px) {
-  .dash-actions__grid-main .featured-card-wrap { grid-column: 1 / -1; }
-}
-@media(min-width: 1024px) {
-  .dash-actions__grid-main .featured-card-wrap { grid-column: span 2; }
-}
-
-/* ============================================
-   Travel Mode Safar — Premium Cinematic Card
-   ============================================ */
-.dash-travel-banner{position:relative;z-index:2}
-
-.travel-banner-card {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* ==========================================================
+   Hero Section — Premium Glass & Immersive Gradient
+   ========================================================== */
+.dash-hero {
+  /* Premium Deep Cosmic Dark Gradient */
+  background: linear-gradient(135deg, #0C0F24 0%, #151A40 45%, #1D235C 100%);
+  padding: var(--sp-8) 0 var(--sp-12);
+  color: var(--color-text-inverse);
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
-  padding: 28px 24px;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  /* Cinematic dark background */
-  background: linear-gradient(145deg, #06111F 0%, #0B1A30 35%, #0E2240 60%, #091728 100%);
-  /* Gradient border via box-shadow */
-  box-shadow:
-    inset 0 0 0 1.5px rgba(0, 196, 140, 0.35),
-    0 8px 32px rgba(0, 0, 0, 0.3),
-    0 2px 12px rgba(0, 196, 140, 0.08);
+  margin-bottom: calc(var(--sp-6) * -1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-@media (min-width: 640px) {
-  .travel-banner-card {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 32px 32px;
+@media (min-width: 768px) {
+  .dash-hero {
+    padding: var(--sp-12) 0 var(--sp-16);
+    margin-bottom: calc(var(--sp-8) * -1);
   }
 }
 
-.travel-banner-card:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    inset 0 0 0 1.5px rgba(0, 196, 140, 0.55),
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(0, 196, 140, 0.12),
-    0 0 60px rgba(255, 215, 0, 0.06);
-}
-
-.travel-banner-card:active {
-  transform: scale(0.985);
-}
-
-/* --- Background Layers --- */
-.travel-banner__bg {
+/* Immersive background decoration (floating decorative glow orbs) */
+.dash-hero::before {
+  content: '';
   position: absolute;
-  inset: 0;
+  top: -100px;
+  right: -50px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, transparent 70%);
   pointer-events: none;
-  overflow: hidden;
-  border-radius: 24px;
+  animation: heroOrbFloatOne 10s ease-in-out infinite alternate;
 }
 
-/* Starry sky */
-.travel-banner__stars {
+.dash-hero::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.7), transparent),
-    radial-gradient(1px 1px at 25% 8%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1.5px 1.5px at 40% 22%, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1px 1px at 55% 12%, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1px 1px at 70% 28%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1.5px 1.5px at 82% 18%, rgba(255,255,255,0.7), transparent),
-    radial-gradient(1px 1px at 90% 5%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,0.3), transparent),
-    radial-gradient(1px 1px at 65% 6%, rgba(255,255,255,0.6), transparent),
-    radial-gradient(1.5px 1.5px at 48% 2%, rgba(255,255,255,0.8), transparent);
-  animation: travelStarsTwinkle 4s ease-in-out infinite alternate;
+  bottom: -120px;
+  left: -80px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+  animation: heroOrbFloatTwo 12s ease-in-out infinite alternate;
 }
 
-@keyframes travelStarsTwinkle {
-  0% { opacity: 0.6; }
-  100% { opacity: 1; }
+@keyframes heroOrbFloatOne {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-30px, 20px) scale(1.1); }
 }
 
-/* Aurora effect */
-.travel-banner__aurora {
-  position: absolute;
-  top: -30%;
-  left: 10%;
-  width: 80%;
-  height: 80%;
-  background:
-    radial-gradient(ellipse at 30% 50%, rgba(0, 196, 140, 0.12), transparent 60%),
-    radial-gradient(ellipse at 70% 40%, rgba(103, 232, 249, 0.08), transparent 55%),
-    radial-gradient(ellipse at 50% 60%, rgba(255, 215, 0, 0.05), transparent 50%);
-  filter: blur(30px);
-  animation: travelAuroraDrift 8s ease-in-out infinite alternate;
+@keyframes heroOrbFloatTwo {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -20px) scale(1.15); }
 }
 
-@keyframes travelAuroraDrift {
-  0% { transform: translateX(-5%) scale(1); opacity: 0.7; }
-  100% { transform: translateX(5%) scale(1.05); opacity: 1; }
-}
-
-/* Road at bottom */
-.travel-banner__road {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
+.dash-hero__inner {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  background: linear-gradient(180deg, transparent 0%, rgba(20, 30, 50, 0.8) 50%, rgba(15, 22, 38, 0.95) 100%);
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 5;
 }
 
-.travel-banner__road-dash {
-  width: 28px;
-  height: 3px;
-  border-radius: 2px;
-  background: rgba(255, 215, 0, 0.5);
-  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
-  animation: travelRoadDash 2.5s linear infinite;
-}
-
-.travel-banner__road-dash:nth-child(2) { animation-delay: 0.5s; }
-.travel-banner__road-dash:nth-child(3) { animation-delay: 1s; }
-.travel-banner__road-dash:nth-child(4) { animation-delay: 1.5s; }
-.travel-banner__road-dash:nth-child(5) { animation-delay: 2s; }
-
-@keyframes travelRoadDash {
-  0% { opacity: 0.2; transform: translateX(30px); }
-  30% { opacity: 0.8; }
-  70% { opacity: 0.8; }
-  100% { opacity: 0.2; transform: translateX(-30px); }
-}
-
-/* Mosque silhouette in distance */
-.travel-banner__mosque {
-  position: absolute;
-  bottom: 32px;
-  right: 10%;
-  width: 80px;
-  height: 50px;
-  opacity: 0.12;
-  background:
-    /* Dome */
-    radial-gradient(ellipse 30px 20px at 40px 30px, rgba(255, 215, 0, 0.6), transparent),
-    /* Minaret left */
-    linear-gradient(0deg, rgba(255, 215, 0, 0.5) 0%, transparent 100%);
-  filter: blur(1px);
-}
-
-/* Floating particles */
-.travel-banner__particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(255, 215, 0, 0.6);
-  box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
-  animation: travelParticleFloat 6s ease-in-out infinite;
-}
-
-.travel-banner__particle--1 { top: 20%; left: 15%; animation-duration: 5s; animation-delay: 0s; }
-.travel-banner__particle--2 { top: 35%; right: 20%; animation-duration: 7s; animation-delay: 1.5s; width: 3px; height: 3px; background: rgba(103, 232, 249, 0.5); box-shadow: 0 0 6px rgba(103, 232, 249, 0.3); }
-.travel-banner__particle--3 { top: 15%; left: 60%; animation-duration: 6s; animation-delay: 3s; width: 2px; height: 2px; }
-.travel-banner__particle--4 { top: 50%; left: 35%; animation-duration: 8s; animation-delay: 2s; width: 3px; height: 3px; background: rgba(0, 196, 140, 0.5); box-shadow: 0 0 6px rgba(0, 196, 140, 0.3); }
-.travel-banner__particle--5 { top: 25%; right: 30%; animation-duration: 5.5s; animation-delay: 4s; width: 2px; height: 2px; background: rgba(103, 232, 249, 0.4); box-shadow: 0 0 4px rgba(103, 232, 249, 0.2); }
-
-@keyframes travelParticleFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-  25% { transform: translate(8px, -12px) scale(1.3); opacity: 0.8; }
-  50% { transform: translate(-4px, -20px) scale(1); opacity: 0.5; }
-  75% { transform: translate(12px, -8px) scale(1.2); opacity: 0.9; }
-}
-
-/* --- Card Content Layer --- */
-.travel-banner-content {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+.dash-hero__content {
   flex: 1;
-  position: relative;
-  z-index: 2;
+  min-width: 280px;
 }
 
-/* Compass icon wrap */
-.travel-banner-icon-wrap {
-  position: relative;
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(0, 196, 140, 0.15), rgba(103, 232, 249, 0.1));
-  border: 1px solid rgba(0, 196, 140, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-@media (min-width: 640px) {
-  .travel-banner-icon-wrap {
-    width: 64px;
-    height: 64px;
-    border-radius: 18px;
-  }
-}
-
-.travel-banner__compass-icon {
-  color: #67E8F9;
-  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.4));
-  animation: travelCompassPulse 3s ease-in-out infinite;
-  position: relative;
-  z-index: 2;
-}
-
-.travel-banner__compass-glow {
-  position: absolute;
-  inset: -4px;
-  border-radius: 20px;
-  background: radial-gradient(circle, rgba(103, 232, 249, 0.15), transparent 70%);
-  animation: travelCompassPulse 3s ease-in-out infinite;
-}
-
-@keyframes travelCompassPulse {
-  0%, 100% { opacity: 0.6; transform: scale(0.95); }
-  50% { opacity: 1; transform: scale(1.05); }
-}
-
-/* Text */
-.travel-banner-text {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  position: relative;
-  z-index: 2;
-}
-
-.travel-banner-text strong {
-  font-size: 16px;
+.dash-hero__salam {
+  font-family: var(--font-heading);
+  font-size: 28px;
   font-weight: 800;
   color: #FFFFFF;
-  background: linear-gradient(135deg, #FFFFFF 40%, #FFD700 100%);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  background: linear-gradient(135deg, #FFFFFF 60%, var(--color-accent-soft) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+@media (min-width: 768px) {
+  .dash-hero__salam {
+    font-size: 38px;
+  }
+}
+
+.dash-hero__desc {
+  font-size: var(--fs-base);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin-bottom: var(--sp-4);
+  max-width: 520px;
+  font-weight: 400;
+}
+
+.dash-hero__date {
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.dash-hero__date span {
+  color: var(--color-accent-soft);
+  font-weight: 600;
+}
+
+/* ---- Next Prayer Card (Inside Hero) ---- */
+.dash-hero__prayer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--sp-5);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.dash-hero__prayer:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+@media (min-width: 768px) {
+  .dash-hero__prayer {
+    width: auto;
+    min-width: 350px;
+  }
+}
+
+.dash-hero__prayer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dash-hero__prayer-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-accent-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dash-hero__prayer-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dash-hero__prayer-name {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #FFFFFF;
+}
+.dash-hero__prayer-name svg {
+  color: var(--color-accent-soft);
+}
+
+.dash-hero__prayer-time {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dash-hero__prayer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.dash-hero__prayer-link {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s, transform 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.dash-hero__prayer-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  transform: translateX(2px);
+}
+
+.dash-hero__prayer-countdown {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent-soft);
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.45);
+}
+@media (min-width: 768px) {
+  .dash-hero__prayer-countdown {
+    font-size: 30px;
+  }
+}
+
+/* ==========================================================
+   Greeting Card (Floating banner just below Hero)
+   ========================================================== */
+.greeting-card-wrapper {
+  position: relative;
+  z-index: 10;
+  margin-top: calc(var(--sp-6) * -1);
+  margin-bottom: var(--sp-6);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.greeting-card-wrapper.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.greeting-card-wrapper.fade-out {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.greeting-card {
+  padding: var(--sp-4) var(--sp-5);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow-light);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.greeting-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.12);
+}
+
+.greeting-card-icon {
+  font-size: 22px;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+}
+
+.greeting-card-text {
+  margin: 0;
+  font-size: var(--fs-base);
+  color: var(--color-text);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .greeting-card {
+  background: rgba(15, 20, 45, 0.8);
+  border-color: rgba(129, 140, 248, 0.15);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+}
+
+/* ==========================================================
+   Quick Actions Section
+   ========================================================== */
+.dash-actions {
+  padding: var(--sp-6) var(--sp-4);
+}
+@media (min-width: 1024px) {
+  .dash-actions {
+    padding: var(--sp-8) var(--sp-8);
+  }
+}
+
+.dash-actions__title {
+  margin-bottom: var(--sp-5);
+}
+
+.dash-actions__grid-main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .dash-actions__grid-main {
+    gap: var(--sp-5);
+  }
+}
+@media (min-width: 768px) {
+  .dash-actions__grid-main {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-5);
+  }
+}
+@media (min-width: 1024px) {
+  .dash-actions__grid-main {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-6);
+  }
+}
+
+/* Make first featured card span full width on mobile/tablet and 2 cols on desktop */
+.dash-actions__grid-main .featured-card-wrap {
+  grid-column: 1 / -1;
+}
+@media (min-width: 1024px) {
+  .dash-actions__grid-main .featured-card-wrap {
+    grid-column: span 2;
+  }
+}
+
+/* Section titles with premium visual accent */
+.dash-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
   letter-spacing: -0.01em;
 }
-
-@media (min-width: 640px) {
-  .travel-banner-text strong {
-    font-size: 18px;
+@media (min-width: 768px) {
+  .dash-section-title {
+    font-size: var(--fs-xl);
   }
 }
 
-.travel-banner-text p {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
-  margin: 0;
-  line-height: 1.5;
-  max-width: 380px;
-}
-
-/* CTA Button */
-.travel-banner-action {
-  display: inline-flex;
+.dash-link {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s, transform 0.2s;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #06111F;
-  background: linear-gradient(135deg, #FFD700 0%, #00C48C 50%, #67E8F9 100%);
-  background-size: 200% 200%;
-  padding: 12px 22px;
-  border-radius: 100px;
-  box-shadow:
-    0 4px 16px rgba(255, 215, 0, 0.25),
-    0 2px 8px rgba(0, 196, 140, 0.15);
-  position: relative;
-  z-index: 2;
-  align-self: flex-start;
-  letter-spacing: 0.01em;
-  animation: travelBtnGradient 4s ease infinite, travelBtnPulse 2.5s ease-in-out infinite;
+}
+.dash-link:hover {
+  color: var(--color-primary-light);
+  text-decoration: none;
+  transform: translateX(3px);
 }
 
-@media (min-width: 640px) {
-  .travel-banner-action {
-    align-self: center;
-    padding: 12px 28px;
-    font-size: 14px;
+/* ==========================================================
+   Prayer Schedule Component (Mini Grid on Dashboard)
+   ========================================================== */
+.dash-prayer {
+  padding: 0 var(--sp-4) var(--sp-8);
+}
+@media (min-width: 1024px) {
+  .dash-prayer {
+    padding: 0 var(--sp-8) var(--sp-12);
   }
 }
 
-.travel-banner-card:hover .travel-banner-action {
-  box-shadow:
-    0 6px 24px rgba(255, 215, 0, 0.35),
-    0 4px 12px rgba(0, 196, 140, 0.2),
-    0 0 20px rgba(103, 232, 249, 0.15);
-  transform: scale(1.03);
+.dash-prayer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-5);
 }
 
-@keyframes travelBtnGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.dash-prayer__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-2);
 }
-
-@keyframes travelBtnPulse {
-  0%, 100% { box-shadow: 0 4px 16px rgba(255, 215, 0, 0.25), 0 2px 8px rgba(0, 196, 140, 0.15); }
-  50% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.35), 0 2px 12px rgba(0, 196, 140, 0.25), 0 0 16px rgba(103, 232, 249, 0.12); }
+@media (max-width: 480px) {
+  .dash-prayer__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-
-/* Shimmer effect on hover */
-.travel-banner-card::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.06) 50%, transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  z-index: 1;
-}
-
-.travel-banner-card:hover::after {
-  transform: translateX(100%);
-}
-
-/* --- Light mode adjustments --- */
-/* The card stays dark in both themes for cinematic effect */
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .travel-banner__stars,
-  .travel-banner__aurora,
-  .travel-banner__road-dash,
-  .travel-banner__particle,
-  .travel-banner__compass-icon,
-  .travel-banner__compass-glow,
-  .travel-banner-action {
-    animation: none !important;
+@media (max-width: 320px) {
+  .dash-prayer__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Travel banner spacing */
-.dash-travel-banner {
-  padding: 0 var(--sp-4) var(--sp-3);
+.dash-prayer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-4) var(--sp-3);
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-xl);
+  transition: all 0.3s var(--ease-spring);
+  box-shadow: var(--glass-shadow-light);
 }
 
-/* Section titles */
-.dash-section-title{font-size:var(--fs-lg);font-weight:700;color:var(--color-text);display:flex;align-items:center}
-.dash-link{font-size:var(--fs-sm);font-weight:600;color:var(--color-primary);text-decoration:none;white-space:nowrap}
-.dash-link:hover{text-decoration:underline}
+.dash-prayer-card:hover {
+  transform: translateY(-4px);
+  background: var(--glass-bg-strong);
+  border-color: rgba(79, 70, 229, 0.2);
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.08);
+}
 
-/* Prayer times mini */
-.dash-prayer{padding:0 var(--sp-4) var(--sp-6)}
-.dash-prayer__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-3)}
-.dash-prayer__grid{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp-2)}
-@media(max-width:420px){.dash-prayer__grid{grid-template-columns:repeat(3,1fr)}}
-.dash-prayer-card{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--sp-3);background:var(--glass-bg-light);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border-light);border-radius:var(--radius-xl);transition:all .25s var(--ease-spring);box-shadow:var(--glass-shadow-light)}
-.dash-prayer-card--next{background:linear-gradient(135deg,var(--color-primary-dark),var(--color-primary));border-color:transparent;color:#fff;box-shadow:var(--shadow-md)}
+/* Next Prayer High-Light Premium Card */
+.dash-prayer-card--next {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-accent) 100%);
+  border-color: transparent;
+  color: #FFFFFF;
+  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.22);
+}
+.dash-prayer-card--next:hover {
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 40%, var(--color-accent) 100%);
+  box-shadow: 0 20px 45px rgba(79, 70, 229, 0.3);
+  transform: translateY(-6px);
+}
+
 .dash-prayer-card__icon-wrapper {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  margin-bottom: var(--sp-1);
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  margin-bottom: var(--sp-2);
   transition: all 0.3s ease;
 }
 
-/* Individual mini prayer icon wrapper backgrounds */
-.dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(14, 165, 233, 0.12); color: #0284c7; }
+/* Individual Icon Colors */
+.dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(6, 182, 212, 0.12); color: #0891b2; }
 .dash-prayer-card:nth-child(2) .dash-prayer-card__icon-wrapper { background: rgba(234, 179, 8, 0.12); color: #ca8a04; }
 .dash-prayer-card:nth-child(3) .dash-prayer-card__icon-wrapper { background: rgba(249, 115, 22, 0.12); color: #ea580c; }
 .dash-prayer-card:nth-child(4) .dash-prayer-card__icon-wrapper { background: rgba(244, 63, 94, 0.12); color: #e11d48; }
-.dash-prayer-card:nth-child(5) .dash-prayer-card__icon-wrapper { background: rgba(99, 102, 241, 0.12); color: #4f46e5; }
+.dash-prayer-card:nth-child(5) .dash-prayer-card__icon-wrapper { background: rgba(79, 70, 229, 0.12); color: #4f46e5; }
 
-/* Dark mode overrides for high contrast */
-[data-theme="dark"] .dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+[data-theme="dark"] .dash-prayer-card {
+  background: rgba(15, 20, 45, 0.55);
+  border-color: rgba(129, 140, 248, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+[data-theme="dark"] .dash-prayer-card:hover {
+  background: rgba(15, 20, 45, 0.75);
+  border-color: rgba(129, 140, 248, 0.25);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode overrides for high contrast icon wrapper */
+[data-theme="dark"] .dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(34, 211, 238, 0.15); color: #22d3ee; }
 [data-theme="dark"] .dash-prayer-card:nth-child(2) .dash-prayer-card__icon-wrapper { background: rgba(250, 204, 21, 0.15); color: #facc15; }
 [data-theme="dark"] .dash-prayer-card:nth-child(3) .dash-prayer-card__icon-wrapper { background: rgba(253, 186, 116, 0.15); color: #fdba74; }
 [data-theme="dark"] .dash-prayer-card:nth-child(4) .dash-prayer-card__icon-wrapper { background: rgba(253, 164, 175, 0.15); color: #fda4af; }
 [data-theme="dark"] .dash-prayer-card:nth-child(5) .dash-prayer-card__icon-wrapper { background: rgba(165, 180, 252, 0.15); color: #a5b4fc; }
 
 .dash-prayer-card--next .dash-prayer-card__icon-wrapper {
-  background: var(--color-accent) !important;
-  color: var(--color-primary-dark) !important;
-  box-shadow: 0 2px 8px rgba(198,255,0,0.3);
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
 }
 
 .dash-prayer-card__icon {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
 }
-.dash-prayer-card__name{font-size:10px;font-weight:600;color:var(--color-text-muted)}
-.dash-prayer-card--next .dash-prayer-card__name{color:rgba(255,255,255,.75)}
-.dash-prayer-card__time{font-size:var(--fs-sm);font-weight:700;color:var(--color-text);font-variant-numeric:tabular-nums}
-.dash-prayer-card--next .dash-prayer-card__time{color:var(--color-accent)}
 
-/* Tracker CTA — gradient */
-.dash-tracker{padding:0 var(--sp-4) var(--sp-6)}
-.dash-tracker__card{padding:var(--sp-5);background:var(--glass-bg-strong);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--color-primary-surface);border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-3);box-shadow:var(--shadow-sm)}
-.dash-tracker__card p{font-size:var(--fs-sm);color:var(--glass-text-secondary);margin:0}
+.dash-prayer-card__name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+.dash-prayer-card--next .dash-prayer-card__name {
+  color: rgba(255, 255, 255, 0.8);
+}
 
-/* Premium Desktop Layout Polish */
-@media(min-width: 1024px) {
+.dash-prayer-card__time {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+.dash-prayer-card--next .dash-prayer-card__time {
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+/* ==========================================================
+   Tracker summary CTA section
+   ========================================================== */
+.dash-tracker {
+  padding: 0 var(--sp-4) var(--sp-8);
+}
+@media (min-width: 1024px) {
+  .dash-tracker {
+    padding: 0 var(--sp-8) var(--sp-12);
+  }
+}
+
+.dash-tracker__card {
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-top: var(--sp-4);
+  box-shadow: var(--glass-shadow-light);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.dash-tracker__card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(79, 70, 229, 0.2);
+}
+
+.dash-tracker__card p {
+  font-size: var(--fs-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-weight: 500;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .dash-tracker__card {
+  background: rgba(15, 20, 45, 0.7);
+  border-color: rgba(129, 140, 248, 0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Desktop spacing adjustment */
+@media (min-width: 1024px) {
   .home-page .container {
-    max-width: 1200px !important;
+    max-width: var(--max-w) !important;
     padding-left: var(--sp-8) !important;
     padding-right: var(--sp-8) !important;
   }
-  .dash-actions__grid-secondary {
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: var(--sp-4) !important;
-  }
 }
 
+/* Fade-in-slide animation for cards */
+.fade-in-slide {
+  animation: slideInFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes slideInFade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

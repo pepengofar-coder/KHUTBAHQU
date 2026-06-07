@@ -1,43 +1,470 @@
-/* Navbar — Royal Blue Glass */
-.nav{position:sticky;top:0;z-index:100;background:rgba(245,248,255,.72);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:.5px solid transparent;transition:all .35s var(--ease-spring)}
-.nav--scrolled{border-bottom-color:rgba(213,223,238,.6);box-shadow:0 1px 16px rgba(0,43,154,.06)}
-[data-theme="dark"] .nav{background:rgba(8,12,24,.82)}
-[data-theme="dark"] .nav--scrolled{border-bottom-color:rgba(31,42,69,.5)}
+/* ============================================
+   Navbar — Premium Glassmorphism v5.0
+   Indigo + Cyan · Translucent Glass · Elegant
+   ============================================ */
 
-.nav__inner{display:flex;align-items:center;justify-content:space-between;max-width:var(--max-w-content);margin:0 auto;padding:var(--sp-2) var(--sp-4);height:56px}
-.nav__brand{display:flex;align-items:center;gap:var(--sp-2);text-decoration:none}
-.nav__logo-img{width:32px;height:32px;object-fit:contain;flex-shrink:0;border-radius:6px}
-.nav__name{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:800;color:var(--color-primary);letter-spacing:-.01em}
+/* ---- Base Navbar ---- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(28px) saturate(170%);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  border-bottom: 0.5px solid rgba(79, 70, 229, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: all 0.4s var(--ease-spring);
+}
 
-/* Desktop links */
-.nav__links{display:none;align-items:center;gap:var(--sp-1)}
-@media(min-width:1024px){.nav__links{display:flex}}
-.nav__link{font-size:13px;font-weight:600;color:var(--color-text-muted);padding:var(--sp-2) var(--sp-3);border-radius:var(--radius-pill);transition:all .2s ease;text-decoration:none;white-space:nowrap;display:flex;align-items:center}
-.nav__link:hover{color:var(--color-primary);background:var(--color-primary-surface)}
-.nav__link.active{color:var(--color-text);font-weight:700;background:var(--color-accent);color:#07111F}
+/* ---- Scrolled State ---- */
+.nav--scrolled {
+  background: rgba(245, 243, 255, 0.78);
+  border-bottom-color: rgba(79, 70, 229, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 4px 24px rgba(79, 70, 229, 0.07),
+    0 1px 8px rgba(6, 182, 212, 0.04);
+}
 
-/* Dropdown */
-.nav__dropdown-container{position:relative}
-.nav__dropdown-btn{background:transparent;border:none;cursor:pointer;font-family:inherit}
-.nav__dropdown-menu{position:absolute;top:calc(100% + var(--sp-2));right:0;width:200px;background:var(--color-bg-card);border:1px solid var(--color-border-light);border-radius:var(--radius-lg);padding:var(--sp-2);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;gap:4px;z-index:110;animation:dropdownFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards}
-.nav__dropdown-item{font-size:13px;font-weight:500;color:var(--color-text);padding:var(--sp-2) var(--sp-3);border-radius:var(--radius-md);text-decoration:none;transition:all .2s ease}
-.nav__dropdown-item:hover{background:var(--color-primary-surface);color:var(--color-primary);padding-left:calc(var(--sp-3) + 4px)}
-.nav__dropdown-item.active{background:var(--color-primary-surface);color:var(--color-primary);font-weight:700}
-@keyframes dropdownFadeIn { from { opacity:0; transform:translateY(-8px) } to { opacity:1; transform:translateY(0) } }
+/* ---- Dark Mode: Cosmic Glass ---- */
+[data-theme="dark"] .nav {
+  background: rgba(5, 10, 26, 0.72);
+  border-bottom-color: rgba(129, 140, 248, 0.08);
+  box-shadow: inset 0 1px 0 rgba(129, 140, 248, 0.06);
+}
 
+[data-theme="dark"] .nav--scrolled {
+  background: rgba(5, 10, 26, 0.88);
+  border-bottom-color: rgba(129, 140, 248, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(129, 140, 248, 0.08),
+    0 4px 28px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(79, 70, 229, 0.06);
+}
 
-/* Actions */
-.nav__actions{display:flex;align-items:center;gap:var(--sp-2)}
-.nav__dark-btn{width:36px;height:36px;border-radius:var(--radius-pill);display:flex;align-items:center;justify-content:center;font-size:16px;border:none;background:none;cursor:pointer;transition:all .2s ease}
-.nav__dark-btn:hover{background:var(--color-primary-surface)}
-.nav__auth-btn{padding:var(--sp-1) var(--sp-3);border-radius:var(--radius-pill);font-size:13px;font-weight:600;border:1px solid var(--color-border);background:var(--color-bg-card);color:var(--color-text);cursor:pointer;transition:all .2s ease;display:flex;align-items:center;gap:4px;white-space:nowrap}
-.nav__auth-btn:hover{border-color:var(--color-primary);color:var(--color-primary)}
+/* ============================================
+   Inner Container
+   ============================================ */
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-w-content);
+  margin: 0 auto;
+  padding: var(--sp-2) var(--sp-4);
+  height: 56px;
+}
 
-/* Branded Ruang Saya button */
-.nav__brand-btn{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:1.5px solid rgba(0,71,255,.2);background:var(--color-bg-card);cursor:pointer;transition:all .25s ease;padding:0;box-shadow:0 1px 6px rgba(0,43,154,.08)}
-.nav__brand-btn:hover{border-color:var(--color-primary);box-shadow:0 2px 12px rgba(0,71,255,.15);transform:translateY(-1px)}
-.nav__brand-btn-img{width:22px;height:22px;object-fit:contain;border-radius:4px}
-.nav__brand-btn-fallback{width:22px;height:22px;font-size:16px;display:flex;align-items:center;justify-content:center}
-[data-theme="dark"] .nav__brand-btn{border-color:rgba(29,124,255,.3);background:rgba(0,43,154,.2)}
-[data-theme="dark"] .nav__brand-btn:hover{border-color:rgba(29,124,255,.5);box-shadow:0 2px 16px rgba(29,124,255,.2)}
+/* ============================================
+   Brand Area
+   ============================================ */
+.nav__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  text-decoration: none;
+}
 
+.nav__logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 8px;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.nav__brand:hover .nav__logo-img {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+/* Brand name — Gradient text (indigo → cyan) */
+.nav__name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  transition: opacity 0.25s ease;
+}
+
+.nav__brand:hover .nav__name {
+  opacity: 0.85;
+}
+
+[data-theme="dark"] .nav__name {
+  background: linear-gradient(135deg, #818CF8 0%, #22D3EE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   Desktop Links
+   ============================================ */
+.nav__links {
+  display: none;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+@media (min-width: 1024px) {
+  .nav__links {
+    display: flex;
+  }
+}
+
+.nav__link {
+  position: relative;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-pill);
+  transition: all 0.25s var(--ease-spring);
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Hover — Indigo surface tint */
+.nav__link:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-surface);
+}
+
+/* Active — Gradient pill (indigo → cyan) with white text */
+.nav__link.active {
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  box-shadow:
+    0 2px 10px rgba(79, 70, 229, 0.25),
+    0 1px 4px rgba(6, 182, 212, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.nav__link.active:hover {
+  box-shadow:
+    0 4px 16px rgba(79, 70, 229, 0.3),
+    0 2px 8px rgba(6, 182, 212, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Shimmer sweep on active link */
+.nav__link.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 100%
+  );
+  animation: navShimmer 3s ease-in-out infinite;
+}
+
+@keyframes navShimmer {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+/* Dark mode active pill */
+[data-theme="dark"] .nav__link.active {
+  background: linear-gradient(135deg, #818CF8 0%, #22D3EE 100%);
+  color: #050A1A;
+  box-shadow:
+    0 2px 12px rgba(129, 140, 248, 0.3),
+    0 0 18px rgba(34, 211, 238, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================
+   Dropdown
+   ============================================ */
+.nav__dropdown-container {
+  position: relative;
+}
+
+.nav__dropdown-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Dropdown Menu — Glass panel with indigo border glow */
+.nav__dropdown-menu {
+  position: absolute;
+  top: calc(100% + var(--sp-2));
+  right: 0;
+  width: 210px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(79, 70, 229, 0.1);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-2);
+  box-shadow:
+    0 12px 36px rgba(79, 70, 229, 0.1),
+    0 4px 12px rgba(15, 23, 42, 0.05),
+    0 0 0 0.5px rgba(79, 70, 229, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 110;
+  animation: dropdownFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top right;
+}
+
+[data-theme="dark"] .nav__dropdown-menu {
+  background: rgba(10, 15, 35, 0.88);
+  border-color: rgba(129, 140, 248, 0.15);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(79, 70, 229, 0.06),
+    0 0 0 0.5px rgba(129, 140, 248, 0.1),
+    inset 0 1px 0 rgba(129, 140, 248, 0.06);
+}
+
+/* Dropdown Items */
+.nav__dropdown-item {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.2s var(--ease-spring);
+}
+
+.nav__dropdown-item:hover {
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+  padding-left: calc(var(--sp-3) + 4px);
+  box-shadow: inset 0 0 0 0.5px rgba(79, 70, 229, 0.08);
+}
+
+.nav__dropdown-item.active {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(6, 182, 212, 0.06) 100%);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+[data-theme="dark"] .nav__dropdown-item:hover {
+  background: rgba(129, 140, 248, 0.1);
+  color: var(--color-primary-light);
+}
+
+[data-theme="dark"] .nav__dropdown-item.active {
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.12) 0%, rgba(34, 211, 238, 0.06) 100%);
+  color: var(--color-primary-light);
+}
+
+/* Dropdown Animation — smooth entrance with scale */
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   Actions Area
+   ============================================ */
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* Dark Mode Toggle — Glass pill */
+.nav__dark-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.nav__dark-btn:hover {
+  background: var(--color-primary-surface);
+  border-color: rgba(79, 70, 229, 0.12);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 2px 8px rgba(79, 70, 229, 0.1);
+}
+
+[data-theme="dark"] .nav__dark-btn {
+  background: rgba(15, 20, 45, 0.5);
+  border-color: rgba(129, 140, 248, 0.1);
+  box-shadow: inset 0 1px 0 rgba(129, 140, 248, 0.06);
+}
+
+[data-theme="dark"] .nav__dark-btn:hover {
+  background: rgba(129, 140, 248, 0.1);
+  border-color: rgba(129, 140, 248, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(129, 140, 248, 0.08),
+    0 0 12px rgba(129, 140, 248, 0.1);
+}
+
+/* Auth Button — Glass bordered pill */
+.nav__auth-btn {
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(79, 70, 229, 0.15);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.nav__auth-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.72);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 2px 10px rgba(79, 70, 229, 0.12);
+}
+
+[data-theme="dark"] .nav__auth-btn {
+  background: rgba(15, 20, 45, 0.5);
+  border-color: rgba(129, 140, 248, 0.15);
+  color: var(--color-text);
+  box-shadow: inset 0 1px 0 rgba(129, 140, 248, 0.06);
+}
+
+[data-theme="dark"] .nav__auth-btn:hover {
+  border-color: rgba(129, 140, 248, 0.4);
+  color: var(--color-primary-light);
+  box-shadow:
+    inset 0 1px 0 rgba(129, 140, 248, 0.08),
+    0 0 14px rgba(129, 140, 248, 0.12);
+}
+
+/* ============================================
+   Brand Button (Ruang Saya)
+   ============================================ */
+.nav__brand-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(79, 70, 229, 0.15);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+  padding: 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 1px 6px rgba(79, 70, 229, 0.08);
+}
+
+/* Hover — Indigo glow border */
+.nav__brand-btn:hover {
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 4px 16px rgba(79, 70, 229, 0.15),
+    0 0 12px rgba(79, 70, 229, 0.08);
+}
+
+.nav__brand-btn-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.nav__brand-btn-fallback {
+  width: 22px;
+  height: 22px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark mode brand button */
+[data-theme="dark"] .nav__brand-btn {
+  border-color: rgba(129, 140, 248, 0.2);
+  background: rgba(10, 15, 35, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(129, 140, 248, 0.06),
+    0 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .nav__brand-btn:hover {
+  border-color: rgba(129, 140, 248, 0.45);
+  background: rgba(15, 20, 45, 0.7);
+  box-shadow:
+    inset 0 1px 0 rgba(129, 140, 248, 0.08),
+    0 4px 20px rgba(129, 140, 248, 0.15),
+    0 0 16px rgba(34, 211, 238, 0.08);
+}
+
+/* ============================================
+   Reduced Motion — disable micro-interactions
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .nav--scrolled,
+  .nav__link,
+  .nav__link.active,
+  .nav__dark-btn,
+  .nav__auth-btn,
+  .nav__brand-btn,
+  .nav__dropdown-menu,
+  .nav__dropdown-item,
+  .nav__logo-img {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  .nav__link.active::after {
+    animation: none;
+  }
+}
