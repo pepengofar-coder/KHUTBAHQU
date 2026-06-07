@@ -261,12 +261,31 @@ export default function HomePage() {
       </section>
 
       {/* Travel Mode Shortcut Banner */}
-      {/* Travel Mode Shortcut Banner */}
       <section className="home-section dash-travel-banner container">
         <Link to="/mode-perjalanan" className="travel-banner-card">
+          {/* Animated background elements */}
+          <div className="travel-banner__bg">
+            <div className="travel-banner__stars" />
+            <div className="travel-banner__aurora" />
+            <div className="travel-banner__road">
+              <div className="travel-banner__road-dash" />
+              <div className="travel-banner__road-dash" />
+              <div className="travel-banner__road-dash" />
+              <div className="travel-banner__road-dash" />
+              <div className="travel-banner__road-dash" />
+            </div>
+            <div className="travel-banner__mosque" />
+            <div className="travel-banner__particle travel-banner__particle--1" />
+            <div className="travel-banner__particle travel-banner__particle--2" />
+            <div className="travel-banner__particle travel-banner__particle--3" />
+            <div className="travel-banner__particle travel-banner__particle--4" />
+            <div className="travel-banner__particle travel-banner__particle--5" />
+          </div>
+          {/* Card content */}
           <div className="travel-banner-content">
             <div className="travel-banner-icon-wrap">
-              <span className="travel-car-icon">🚗</span>
+              <Compass className="travel-banner__compass-icon" size={28} />
+              <div className="travel-banner__compass-glow" />
             </div>
             <div className="travel-banner-text">
               <strong>Sedang dalam perjalanan?</strong>

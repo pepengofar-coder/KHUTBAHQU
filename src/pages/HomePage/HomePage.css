@@ -147,35 +147,355 @@
   .dash-actions__grid-main .featured-card-wrap { grid-column: span 2; }
 }
 
-/* Travel Mode Shortcut Banner */
+/* ============================================
+   Travel Mode Safar — Premium Cinematic Card
+   ============================================ */
 .dash-travel-banner{position:relative;z-index:2}
-.travel-banner-card{display:flex;flex-direction:column;gap:var(--sp-4);background:var(--glass-bg-strong);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--color-primary-surface);border-radius:var(--radius-xl);padding:var(--sp-4) var(--sp-5);text-decoration:none;transition:all .3s var(--ease-spring);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
-@media (min-width: 640px) {
-  .travel-banner-card{flex-direction:row;align-items:center;justify-content:space-between}
+
+.travel-banner-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 28px 24px;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Cinematic dark background */
+  background: linear-gradient(145deg, #06111F 0%, #0B1A30 35%, #0E2240 60%, #091728 100%);
+  /* Gradient border via box-shadow */
+  box-shadow:
+    inset 0 0 0 1.5px rgba(0, 196, 140, 0.35),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 12px rgba(0, 196, 140, 0.08);
 }
-.travel-banner-card::after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transform:translateX(-100%);transition:transform .6s ease}
-.travel-banner-card:hover{border-color:var(--color-primary);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.travel-banner-card:hover::after{transform:translateX(100%)}
-.travel-banner-card:active{transform:scale(.98)}
-.travel-banner-content{display:flex;align-items:center;gap:var(--sp-4);flex:1}
-.travel-banner-icon-wrap{width:48px;height:48px;border-radius:14px;background:var(--color-primary-surface);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(0,71,255,0.1);flex-shrink:0}
-.travel-car-icon{font-size:24px;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1))}
-.travel-banner-text{display:flex;flex-direction:column;gap:4px}
-.travel-banner-text strong{font-size:var(--fs-base);font-weight:700;color:var(--color-text)}
-.travel-banner-text p{font-size:13px;color:var(--color-text-muted);margin:0;line-height:1.4}
-.travel-banner-action{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--color-primary);background:#fff;padding:8px 16px;border-radius:var(--radius-pill);box-shadow:0 2px 8px rgba(0,0,0,0.05);align-self:flex-start}
-@media (min-width: 640px) { .travel-banner-action{align-self:center} }
-.travel-banner-card:hover .travel-banner-action{background:var(--color-primary);color:#fff;box-shadow:var(--shadow-sm)}
+
+@media (min-width: 640px) {
+  .travel-banner-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 32px;
+  }
+}
+
+.travel-banner-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(0, 196, 140, 0.55),
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(0, 196, 140, 0.12),
+    0 0 60px rgba(255, 215, 0, 0.06);
+}
+
+.travel-banner-card:active {
+  transform: scale(0.985);
+}
+
+/* --- Background Layers --- */
+.travel-banner__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+/* Starry sky */
+.travel-banner__stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 25% 8%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 40% 22%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 55% 12%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 70% 28%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 82% 18%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 90% 5%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1px 1px at 65% 6%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 48% 2%, rgba(255,255,255,0.8), transparent);
+  animation: travelStarsTwinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes travelStarsTwinkle {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Aurora effect */
+.travel-banner__aurora {
+  position: absolute;
+  top: -30%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(0, 196, 140, 0.12), transparent 60%),
+    radial-gradient(ellipse at 70% 40%, rgba(103, 232, 249, 0.08), transparent 55%),
+    radial-gradient(ellipse at 50% 60%, rgba(255, 215, 0, 0.05), transparent 50%);
+  filter: blur(30px);
+  animation: travelAuroraDrift 8s ease-in-out infinite alternate;
+}
+
+@keyframes travelAuroraDrift {
+  0% { transform: translateX(-5%) scale(1); opacity: 0.7; }
+  100% { transform: translateX(5%) scale(1.05); opacity: 1; }
+}
+
+/* Road at bottom */
+.travel-banner__road {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: linear-gradient(180deg, transparent 0%, rgba(20, 30, 50, 0.8) 50%, rgba(15, 22, 38, 0.95) 100%);
+}
+
+.travel-banner__road-dash {
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+  animation: travelRoadDash 2.5s linear infinite;
+}
+
+.travel-banner__road-dash:nth-child(2) { animation-delay: 0.5s; }
+.travel-banner__road-dash:nth-child(3) { animation-delay: 1s; }
+.travel-banner__road-dash:nth-child(4) { animation-delay: 1.5s; }
+.travel-banner__road-dash:nth-child(5) { animation-delay: 2s; }
+
+@keyframes travelRoadDash {
+  0% { opacity: 0.2; transform: translateX(30px); }
+  30% { opacity: 0.8; }
+  70% { opacity: 0.8; }
+  100% { opacity: 0.2; transform: translateX(-30px); }
+}
+
+/* Mosque silhouette in distance */
+.travel-banner__mosque {
+  position: absolute;
+  bottom: 32px;
+  right: 10%;
+  width: 80px;
+  height: 50px;
+  opacity: 0.12;
+  background:
+    /* Dome */
+    radial-gradient(ellipse 30px 20px at 40px 30px, rgba(255, 215, 0, 0.6), transparent),
+    /* Minaret left */
+    linear-gradient(0deg, rgba(255, 215, 0, 0.5) 0%, transparent 100%);
+  filter: blur(1px);
+}
+
+/* Floating particles */
+.travel-banner__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+  animation: travelParticleFloat 6s ease-in-out infinite;
+}
+
+.travel-banner__particle--1 { top: 20%; left: 15%; animation-duration: 5s; animation-delay: 0s; }
+.travel-banner__particle--2 { top: 35%; right: 20%; animation-duration: 7s; animation-delay: 1.5s; width: 3px; height: 3px; background: rgba(103, 232, 249, 0.5); box-shadow: 0 0 6px rgba(103, 232, 249, 0.3); }
+.travel-banner__particle--3 { top: 15%; left: 60%; animation-duration: 6s; animation-delay: 3s; width: 2px; height: 2px; }
+.travel-banner__particle--4 { top: 50%; left: 35%; animation-duration: 8s; animation-delay: 2s; width: 3px; height: 3px; background: rgba(0, 196, 140, 0.5); box-shadow: 0 0 6px rgba(0, 196, 140, 0.3); }
+.travel-banner__particle--5 { top: 25%; right: 30%; animation-duration: 5.5s; animation-delay: 4s; width: 2px; height: 2px; background: rgba(103, 232, 249, 0.4); box-shadow: 0 0 4px rgba(103, 232, 249, 0.2); }
+
+@keyframes travelParticleFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  25% { transform: translate(8px, -12px) scale(1.3); opacity: 0.8; }
+  50% { transform: translate(-4px, -20px) scale(1); opacity: 0.5; }
+  75% { transform: translate(12px, -8px) scale(1.2); opacity: 0.9; }
+}
+
+/* --- Card Content Layer --- */
+.travel-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+/* Compass icon wrap */
+.travel-banner-icon-wrap {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 196, 140, 0.15), rgba(103, 232, 249, 0.1));
+  border: 1px solid rgba(0, 196, 140, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .travel-banner-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+  }
+}
+
+.travel-banner__compass-icon {
+  color: #67E8F9;
+  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.4));
+  animation: travelCompassPulse 3s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.travel-banner__compass-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 20px;
+  background: radial-gradient(circle, rgba(103, 232, 249, 0.15), transparent 70%);
+  animation: travelCompassPulse 3s ease-in-out infinite;
+}
+
+@keyframes travelCompassPulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Text */
+.travel-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.travel-banner-text strong {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #FFFFFF 40%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 640px) {
+  .travel-banner-text strong {
+    font-size: 18px;
+  }
+}
+
+.travel-banner-text p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 380px;
+}
+
+/* CTA Button */
+.travel-banner-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #06111F;
+  background: linear-gradient(135deg, #FFD700 0%, #00C48C 50%, #67E8F9 100%);
+  background-size: 200% 200%;
+  padding: 12px 22px;
+  border-radius: 100px;
+  box-shadow:
+    0 4px 16px rgba(255, 215, 0, 0.25),
+    0 2px 8px rgba(0, 196, 140, 0.15);
+  position: relative;
+  z-index: 2;
+  align-self: flex-start;
+  letter-spacing: 0.01em;
+  animation: travelBtnGradient 4s ease infinite, travelBtnPulse 2.5s ease-in-out infinite;
+}
+
+@media (min-width: 640px) {
+  .travel-banner-action {
+    align-self: center;
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+}
+
+.travel-banner-card:hover .travel-banner-action {
+  box-shadow:
+    0 6px 24px rgba(255, 215, 0, 0.35),
+    0 4px 12px rgba(0, 196, 140, 0.2),
+    0 0 20px rgba(103, 232, 249, 0.15);
+  transform: scale(1.03);
+}
+
+@keyframes travelBtnGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes travelBtnPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(255, 215, 0, 0.25), 0 2px 8px rgba(0, 196, 140, 0.15); }
+  50% { box-shadow: 0 4px 20px rgba(255, 215, 0, 0.35), 0 2px 12px rgba(0, 196, 140, 0.25), 0 0 16px rgba(103, 232, 249, 0.12); }
+}
+
+/* Shimmer effect on hover */
+.travel-banner-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.06) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+}
+
+.travel-banner-card:hover::after {
+  transform: translateX(100%);
+}
+
+/* --- Light mode adjustments --- */
+/* The card stays dark in both themes for cinematic effect */
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .travel-banner__stars,
+  .travel-banner__aurora,
+  .travel-banner__road-dash,
+  .travel-banner__particle,
+  .travel-banner__compass-icon,
+  .travel-banner__compass-glow,
+  .travel-banner-action {
+    animation: none !important;
+  }
+}
+
+/* Travel banner spacing */
+.dash-travel-banner {
+  padding: 0 var(--sp-4) var(--sp-3);
+}
 
 /* Section titles */
 .dash-section-title{font-size:var(--fs-lg);font-weight:700;color:var(--color-text);display:flex;align-items:center}
 .dash-link{font-size:var(--fs-sm);font-weight:600;color:var(--color-primary);text-decoration:none;white-space:nowrap}
 .dash-link:hover{text-decoration:underline}
-
-/* Travel banner */
-.dash-travel-banner {
-  padding: 0 var(--sp-4) var(--sp-3);
-}
 
 /* Prayer times mini */
 .dash-prayer{padding:0 var(--sp-4) var(--sp-6)}
