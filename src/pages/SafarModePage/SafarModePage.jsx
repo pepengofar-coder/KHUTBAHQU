@@ -17,6 +17,7 @@ import SafarNavbar from './components/SafarNavbar';
 import HeroSafar from './components/HeroSafar';
 import SafarSummaryCards from './components/SafarSummaryCards';
 import SafarQuickTools from './components/SafarQuickTools';
+import SafarErrorBoundary from './components/SafarErrorBoundary';
 
 // Below-the-fold components lazy loaded for better initial load performance
 const QuickAccessSafar = lazy(() => import('./components/QuickAccessSafar'));
@@ -186,7 +187,9 @@ export default function SafarModePage() {
           }));
           setMp3QuranRadios(formatted);
         }
-      } catch {}
+      } catch (err) {
+        // ignore
+      }
     };
     fetchRadios();
   }, []);
@@ -331,7 +334,7 @@ export default function SafarModePage() {
               <div className="kajian-themes-scroll">
                 {['Semua', 'Aqidah', 'Akhlak', 'Fiqih', 'Keluarga', 'Motivasi Iman', 'Qur\'an', 'Sholat', 'Sedekah', 'Remaja', 'Kajian Singkat'].map(theme => (
                   <button key={theme} className={`kajian-theme-chip ${selectedKajianTheme === theme ? 'active' : ''}`}
-                    onClick={() => { setSelectedKajianTheme(theme); try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch {} }}>
+                    onClick={() => { setSelectedKajianTheme(theme); try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch (err) { /* ignore */ } }}>
                     {theme}
                   </button>
                 ))}
@@ -410,51 +413,58 @@ export default function SafarModePage() {
 
 
   return (
-    <div className={`safar-page ${isAudioOrYoutube ? 'media-player-active' : ''}`}>
-      <div className={`travel-toast ${toastActive ? 'active' : ''}`}>{toastMessage}</div>
+    <SafarErrorBoundary>
+      <div className={`safar-page ${isAudioOrYoutube ? 'media-player-active' : ''}`}>
+        <div className={`travel-toast ${toastActive ? 'active' : ''}`}>{toastMessage}</div>
 
-      {/* ===== 1. Sticky Navbar ===== */}
-      <SafarNavbar />
+        {/* ===== 1. Sticky Navbar ===== */}
+        <SafarNavbar />
 
-      {/* ===== 2. Hero Section ===== */}
-      <HeroSafar 
-        onStartGuidance={() => document.getElementById('guidance')?.scrollIntoView({ behavior: 'smooth' })}
-        onOpenDua={() => document.getElementById('duas')?.scrollIntoView({ behavior: 'smooth' })}
-      />
+        {/* ===== 2. Hero Section ===== */}
+        <SafarErrorBoundary>
+          <HeroSafar 
+            onStartGuidance={() => document.getElementById('guidance')?.scrollIntoView({ behavior: 'smooth' })}
+            onOpenDua={() => document.getElementById('duas')?.scrollIntoView({ behavior: 'smooth' })}
+          />
+        </SafarErrorBoundary>
 
-      {/* ===== Main Content ===== */}
-      <div className="safar-page__content">
+        {/* ===== Main Content ===== */}
+        <div className="safar-page__content">
 
-        {/* ===== 3. Summary Info Cards ===== */}
-        <SafarSummaryCards 
-          lastPlayed={lastPlayed}
-          onPlayLastAudio={() => lastPlayed && handlePlayItem(lastPlayed)}
-        />
+          {/* ===== 3. Summary Info Cards ===== */}
+          <SafarSummaryCards 
+            lastPlayed={lastPlayed}
+            onPlayLastAudio={() => lastPlayed && handlePlayItem(lastPlayed)}
+          />
 
-        {/* ===== 4. Quick Access / Travel Essentials (Lazy Loaded) ===== */}
-        <Suspense fallback={<SkeletonCard count={3} />}>
-          <QuickAccessSafar />
-        </Suspense>
+          {/* ===== 4. Quick Access / Travel Essentials (Lazy Loaded) ===== */}
+          <Suspense fallback={<SkeletonCard count={3} />}>
+            <QuickAccessSafar />
+          </Suspense>
 
-        {/* ===== 5. Sticky Section Tabs (Lazy Loaded) ===== */}
-        <Suspense fallback={<div className="safar-tabs-skeleton" style={{ height: '52px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '12px' }} />}>
-          <SafarTabs activeTab={activeTab} onTabClick={handleTabClick} />
-        </Suspense>
+          {/* ===== 5. Sticky Section Tabs (Lazy Loaded) ===== */}
+          <Suspense fallback={<div className="safar-tabs-skeleton" style={{ height: '52px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '12px' }} />}>
+            <SafarTabs activeTab={activeTab} onTabClick={handleTabClick} />
+          </Suspense>
 
-        {/* ===== 6. Travel Guidance Section (Lazy Loaded) ===== */}
-        <Suspense fallback={<SkeletonCard count={2} />}>
-          <PanduanSafar />
-        </Suspense>
+          {/* ===== 6. Travel Guidance Section (Lazy Loaded) ===== */}
+          <Suspense fallback={<SkeletonCard count={2} />}>
+            <PanduanSafar />
+          </Suspense>
 
-        {/* ===== 7. Essential Travel Du’a Section (Lazy Loaded) ===== */}
-        <Suspense fallback={<SkeletonCard count={3} />}>
-          <DoaSafar showToast={showToast} />
-        </Suspense>
+          {/* ===== 7. Essential Travel Du’a Section (Lazy Loaded) ===== */}
+          <Suspense fallback={<SkeletonCard count={3} />}>
+            <SafarErrorBoundary>
+              <DoaSafar showToast={showToast} />
+            </SafarErrorBoundary>
+          </Suspense>
 
-        {/* ===== 8. Audio & Travel Playlist Section (Lazy Loaded) ===== */}
-        <Suspense fallback={<SkeletonCard count={2} />}>
-          <AudioSafar onOpenPlaylist={handleOpenPlaylist} />
-        </Suspense>
+          {/* ===== 8. Audio & Travel Playlist Section (Lazy Loaded) ===== */}
+          <Suspense fallback={<SkeletonCard count={2} />}>
+            <SafarErrorBoundary>
+              <AudioSafar onOpenPlaylist={handleOpenPlaylist} />
+            </SafarErrorBoundary>
+          </Suspense>
 
         {/* Sleep Timer component */}
         <div className="w-full pb-8" style={{ marginTop: '24px' }}>
@@ -518,5 +528,6 @@ export default function SafarModePage() {
         </div>
       )}
     </div>
+    </SafarErrorBoundary>
   );
 }

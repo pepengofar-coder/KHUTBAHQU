@@ -82,6 +82,7 @@ export default function RadioRodjaPlayer() {
   // Sync with global player: pause Rodja if global audio starts
   useEffect(() => {
     if (globalPlaying && isPlaying) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsPlaying(false);
       if (audioRef.current) {
         audioRef.current.pause();
@@ -114,10 +115,20 @@ export default function RadioRodjaPlayer() {
     }
   }, [volume, isMuted]);
 
-  // Cleanup timeout on unmount
+  // Cleanup timeout and audio resources on unmount
   useEffect(() => {
+    const audioNode = audioRef.current;
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (audioNode) {
+        try {
+          audioNode.pause();
+          audioNode.src = '';
+          audioNode.load();
+        } catch (e) {
+          console.warn('Failed cleaning up radio audio resource:', e);
+        }
+      }
     };
   }, []);
 

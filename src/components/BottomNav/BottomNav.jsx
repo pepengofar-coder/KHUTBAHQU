@@ -177,11 +177,10 @@ export default function BottomNav() {
             <div className="more-sheet__section-list">
               {section.items.map((item) => {
                 const isActive = location.pathname === item.to || location.pathname.startsWith(item.to + '/');
-                let label = t(item.tKey) === item.tKey && item.fallbackKey ? item.fallbackKey : t(item.tKey);
-                // For features with " - ", we take the subtitle. For desc we just take the second part or whole string.
-                let desc = t(item.tDescKey) === item.tDescKey && item.fallbackDesc ? item.fallbackDesc : t(item.tDescKey);
-                if (desc.includes(' - ')) desc = desc.split(' - ')[1];
-                if (label.includes(' - ')) label = label.split(' - ')[0];
+                let label = item.tKey ? (t(item.tKey) === item.tKey && item.fallbackKey ? item.fallbackKey : t(item.tKey)) : (item.label || '');
+                let desc = item.tDescKey ? (t(item.tDescKey) === item.tDescKey && item.fallbackDesc ? item.fallbackDesc : t(item.tDescKey)) : (item.fallbackDesc || '');
+                if (desc && typeof desc === 'string' && desc.includes(' - ')) desc = desc.split(' - ')[1];
+                if (label && typeof label === 'string' && label.includes(' - ')) label = label.split(' - ')[0];
                 if (item.label === 'Download APK') { label = item.label; desc = item.label; }
 
                 return (
