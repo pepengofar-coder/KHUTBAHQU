@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useI18n } from '../context/I18nContext';
 import {
   getDailyProgress,
@@ -18,6 +18,15 @@ export default function useDailyMission() {
 
   const { t } = useI18n();
   const isFriday = new Date().getDay() === 5;
+
+  // Synchronize state if localStorage updates in other components/tabs
+  useEffect(() => {
+    const handleUpdate = () => {
+      setData(getDailyProgress());
+    };
+    window.addEventListener('storage', handleUpdate);
+    return () => window.removeEventListener('storage', handleUpdate);
+  }, []);
   
   const fridayMissions = [
     { id: 'alkahfi', label: t('mission.friday.alkahfi'), subtitle: '', icon: '📖' },
@@ -35,7 +44,12 @@ export default function useDailyMission() {
   }));
 
   const toggleMission = useCallback((id) => {
-    setData(prev => updateDailyMission(id, prev));
+    setData(prev => {
+      const next = updateDailyMission(id, prev);
+      // Dispatch storage event to notify other hook instances in the same window
+      window.dispatchEvent(new Event('storage'));
+      return next;
+    });
   }, []);
 
   const completedCount = missions.filter(m => m.done).length;

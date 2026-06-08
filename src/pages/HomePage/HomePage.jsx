@@ -7,10 +7,42 @@ import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
 import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
-import HomeBanners from '../../components/HomeBanners/HomeBanners';
-import DailyMission from '../../components/DailyMission/DailyMission';
+import DailyRecommendations from '../../components/DailyRecommendations/DailyRecommendations';
+import SpiritualJourney from '../../components/SpiritualJourney/SpiritualJourney';
+import useDailyMission from '../../hooks/useDailyMission';
+import { motion } from 'framer-motion';
 import { BookOpen, Compass, ScrollText, Sparkles, ChevronRight, Headphones, CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
+
+function SafarDashboardIcon() {
+  return (
+    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" className="safar-dashboard-icon">
+      <defs>
+        <linearGradient id="safarBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#22d3ee" /> {/* Cyan */}
+          <stop offset="50%" stopColor="#0d9488" /> {/* Teal */}
+          <stop offset="100%" stopColor="#f59e0b" /> {/* Amber/Gold */}
+        </linearGradient>
+        <filter id="safarGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+      {/* Background circle with gradient */}
+      <circle cx="28" cy="28" r="26" fill="url(#safarBgGrad)" opacity="0.9" />
+      
+      {/* Inner decorative circle representing a tasbih ring (beads) */}
+      <circle cx="28" cy="28" r="20" stroke="#ffffff" strokeWidth="2.5" strokeDasharray="1 7" strokeLinecap="round" opacity="0.8" />
+      
+      {/* Crescent Moon */}
+      <path d="M 33 16 A 11 11 0 0 1 24 33 A 11 11 0 0 0 33 16" fill="#ffffff" opacity="0.95" filter="url(#safarGlow)" />
+      
+      {/* Open Book (Quran silhouette) in the center bottom */}
+      <path d="M 19 36 C 22 36, 25 38, 28 39 C 31 38, 34 36, 37 36 V 44 C 34 44, 31 45, 28 47 C 25 45, 22 44, 19 44 Z" fill="#ffffff" />
+      <path d="M 28 39 V 47" stroke="#0d9488" strokeWidth="1.5" />
+    </svg>
+  );
+}
 
 
 
@@ -38,6 +70,7 @@ function getNext(t){const now=new Date();for(const p of PRAYERS){const d=parseTi
 
 export default function HomePage() {
   const { t, language } = useI18n();
+  const { missions, toggleMission } = useDailyMission();
 
   useSEO({
     title: 'Islamediaku - Sahabat Ibadah Harian',
@@ -153,6 +186,30 @@ export default function HomePage() {
             <h1 className="dash-hero__salam">{t('home.hero.title')}</h1>
             <p className="dash-hero__desc">{t('home.hero.subtitle')}</p>
             <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
+            
+            {/* Compact Mini Goal Tracker */}
+            <div className="dash-hero__mini-goals">
+              <span className="dash-hero__mini-goals-title">Misi</span>
+              <div className="dash-hero__mini-goals-list">
+                {missions.map(m => (
+                  <motion.button
+                    key={m.id}
+                    className={`dash-hero__mini-goal-item ${m.done ? 'done' : ''}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleMission(m.id);
+                    }}
+                    title={m.label}
+                    whileHover={{ scale: 1.12, y: -2 }}
+                    whileTap={{ scale: 0.92, y: 0 }}
+                  >
+                    <span className="dash-hero__mini-goal-emoji">{m.icon}</span>
+                    <span className="dash-hero__mini-goal-dot" />
+                  </motion.button>
+                ))}
+              </div>
+            </div>
           </div>
 
           {timings && nextP && (
@@ -186,7 +243,7 @@ export default function HomePage() {
       </div>
 
       {/* Daily Mission Section */}
-      <DailyMission />
+      <SpiritualJourney />
 
       {/* Quick Actions */}
       <section className="dash-actions container">
@@ -285,10 +342,15 @@ export default function HomePage() {
           </div>
           {/* Card content */}
           <div className="travel-banner-content">
-            <div className="travel-banner-icon-wrap">
-              <Compass className="travel-banner__compass-icon" size={28} />
+            <motion.div 
+              className="travel-banner-icon-wrap"
+              whileHover={{ scale: 1.15, rotate: 6 }}
+              whileTap={{ scale: 0.92, rotate: -4 }}
+              transition={{ type: "spring", stiffness: 400, damping: 14 }}
+            >
+              <SafarDashboardIcon />
               <div className="travel-banner__compass-glow" />
-            </div>
+            </motion.div>
             <div className="travel-banner-text">
               <span className="travel-banner-badge">Cocok untuk perjalanan</span>
               <strong>Sedang dalam perjalanan?</strong>
@@ -329,21 +391,9 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Tracker Summary */}
-      <section className="dash-tracker container">
-        <div className="dash-prayer__header">
-          <h2 className="dash-section-title">✅ {t('nav.tracker')}</h2>
-          <Link to="/tracker" className="dash-link">{t('btn.open')} →</Link>
-        </div>
-        <div className="dash-tracker__card">
-          <p>{t('feature.tracker')}</p>
-          <Link to="/tracker" className="btn btn--primary btn--sm">{t('btn.start')} →</Link>
-        </div>
-      </section>
-
-      {/* Banner Section */}
+      {/* Today's Choices (Daily Recommendations) */}
       <section className="home-section container" style={{ marginTop: 'var(--sp-4)' }}>
-        <HomeBanners />
+        <DailyRecommendations />
       </section>
 
       {/* Apk Download Component */}

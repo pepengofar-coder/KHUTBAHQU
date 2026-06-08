@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import { Play, Headphones, Radio, Sparkles, Heart } from 'lucide-react';
 import { getPlaylistItems } from '../../../data/travelAudioContent';
-import RadioRodjaPlayer from './RadioRodjaPlayer';
-import SafarErrorBoundary from './SafarErrorBoundary';
 
 const PLAYLIST_MAPPING = [
   {
@@ -43,11 +41,6 @@ export default function AudioSafar({ onOpenPlaylist }) {
         <h2 className="safar-section-title">Audio & Travel Playlist</h2>
         <p className="safar-section-desc">Kumpulan lantunan ayat suci, dzikir safar, dan kajian ringan untuk menemani perjalanan Anda.</p>
       </div>
-
-      {/* Highlighted Radio Rodja Player inside the Audio Safar section */}
-      <SafarErrorBoundary>
-        <RadioRodjaPlayer />
-      </SafarErrorBoundary>
 
       <div>
         <h3 className="safar-audio__subtitle" style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginBottom: '16px' }}>
