@@ -98,50 +98,50 @@ function FeatureDetailModal({ feature, onClose }) {
   const { modalContent } = feature;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}>
+    <div className="safar-modal-overlay" onClick={onClose}>
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 10 }}
         transition={{ duration: 0.25 }}
-        className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-800"
+        className="safar-modal-card"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-6 border-b border-slate-800 flex items-center justify-between">
+        <div className="safar-modal-header">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-full flex items-center justify-center bg-slate-800/80">
-              <feature.icon size={20} className="text-teal-400" />
+            <div className="safar-modal-icon-wrap">
+              <feature.icon size={20} />
             </div>
-            <h3 className="font-bold text-white text-lg">{modalContent.title}</h3>
+            <h3 className="safar-modal-title">{modalContent.title}</h3>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800/80 transition-colors">
+          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800/85 transition-colors">
             <X size={20} />
           </button>
         </div>
 
-        <div className="p-6 space-y-3">
+        <div className="safar-modal-body">
           {modalContent.items.map((item, idx) => (
-            <div key={idx} className="flex items-center justify-between p-4 bg-slate-950/50 rounded-2xl border border-slate-800/60">
-              <span className="font-semibold text-slate-300">{item.name}</span>
+            <div key={idx} className="safar-modal-item">
+              <span className="safar-modal-item-label">{item.name}</span>
               {item.from !== undefined ? (
-                <span className="font-bold text-slate-200 flex items-center gap-2">
-                  {item.from} <ArrowRight size={14} className="text-teal-400" /> {item.to} Rakaat
+                <span className="safar-modal-item-value">
+                  {item.from} <ArrowRight size={14} /> {item.to} Rakaat
                 </span>
               ) : (
-                <span className="text-sm font-semibold text-teal-400">{item.time}</span>
+                <span className="safar-modal-item-value">{item.time}</span>
               )}
             </div>
           ))}
 
           {modalContent.note && (
-            <div className="text-xs text-slate-400 bg-teal-950/20 text-teal-300/80 p-4 rounded-2xl border border-teal-900/30 leading-relaxed mt-2">
+            <div className="safar-modal-note">
               💡 {modalContent.note}
             </div>
           )}
         </div>
 
-        <div className="p-6 border-t border-slate-800">
-          <button onClick={onClose} className="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl transition-colors">
+        <div className="safar-modal-footer">
+          <button onClick={onClose} className="safar-modal-close-btn">
             Tutup
           </button>
         </div>
@@ -165,33 +165,35 @@ function SafarChecklistModal({ isOpen, onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}>
+    <div className="safar-modal-overlay" onClick={onClose}>
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 10 }}
         transition={{ duration: 0.25 }}
-        className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-800"
+        className="safar-modal-card"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-6 border-b border-slate-800 flex items-center justify-between">
-          <h3 className="text-white font-bold text-lg flex items-center gap-2">
-            <CheckSquare size={20} className="text-teal-400" />
-            Checklist Ibadah Safar
-          </h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800/80 transition-colors">
+        <div className="safar-modal-header">
+          <div className="flex items-center gap-3">
+            <div className="safar-modal-icon-wrap">
+              <CheckSquare size={20} />
+            </div>
+            <h3 className="safar-modal-title">Checklist Ibadah Safar</h3>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800/85 transition-colors">
             <X size={20} />
           </button>
         </div>
         
-        <div className="p-6 max-h-[50vh] overflow-y-auto space-y-4">
+        <div className="safar-modal-body">
           {['Persiapan', 'Keberangkatan', 'Perjalanan', 'Ibadah'].map(cat => (
-            <div key={cat}>
-              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{cat}</h4>
-              <ul className="space-y-2">
+            <div key={cat} style={{ marginBottom: '16px' }}>
+              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" style={{ marginBottom: '8px' }}>{cat}</h4>
+              <ul className="space-y-2" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {checklist.filter(i => i.category === cat).map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3 bg-slate-950/44 p-3.5 rounded-2xl border border-slate-800/50">
-                    <input type="checkbox" className="mt-0.5 w-4 h-4 rounded bg-slate-850 border-slate-700 text-teal-600 focus:ring-teal-500 focus:ring-offset-slate-900 accent-teal-500" />
+                  <li key={idx} className="safar-checklist-item">
+                    <input type="checkbox" className="safar-checklist-checkbox" />
                     <span className="text-sm text-slate-300 font-medium leading-normal">{item.label}</span>
                   </li>
                 ))}
@@ -200,8 +202,8 @@ function SafarChecklistModal({ isOpen, onClose }) {
           ))}
         </div>
 
-        <div className="p-6 border-t border-slate-800">
-          <button onClick={onClose} className="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl transition-colors">
+        <div className="safar-modal-footer">
+          <button onClick={onClose} className="safar-modal-close-btn">
             Selesai
           </button>
         </div>

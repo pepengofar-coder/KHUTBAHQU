@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } fro
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
-import { getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
+import { getPlaylistItems, getPlaylistById, JUZ_AMMA_NAMES } from '../../data/travelAudioContent';
 import { KAJIAN_RINGAN_VIDEOS } from '../../data/kajianRinganVideos';
 import { useAuth } from '../../context/AuthContext';
 import { trackUserActivity } from '../../lib/syncService';
@@ -46,6 +46,37 @@ function SkeletonCard({ count = 1 }) {
 }
 
 
+const QORIS = [
+  {
+    id: 'alafasy',
+    name: 'Mishary Rashid Al-Afasy',
+    description: 'Lantunan merdu penuh penghayatan',
+    server: 'https://server8.mp3quran.net/afs/',
+    code: 'afs'
+  },
+  {
+    id: 'sudais',
+    name: 'Abdurrahman As-Sudais',
+    description: 'Suara berwibawa khas Masjidil Haram',
+    server: 'https://server11.mp3quran.net/sds/',
+    code: 'sds'
+  },
+  {
+    id: 'ghamdi',
+    name: 'Saad Al-Ghamdi',
+    description: 'Lantunan syahdu, tempo teratur',
+    server: 'https://server7.mp3quran.net/s_gmd/',
+    code: 's_gmd'
+  },
+  {
+    id: 'muaiqly',
+    name: 'Maher Al-Muaiqly',
+    description: 'Suara lembut dan menenangkan',
+    server: 'https://server12.mp3quran.net/maher/',
+    code: 'maher'
+  }
+];
+
 export default function SafarModePage() {
   useSEO({
     title: "Mode Safar - Islamediaku",
@@ -66,6 +97,7 @@ export default function SafarModePage() {
 
   // Local states
   const [selectedPlaylistId, setSelectedPlaylistId] = useState(null);
+  const [selectedQori, setSelectedQori] = useState(QORIS[0]);
   const [showSleepModal, setShowSleepModal] = useState(false);
   const [kajianData, setKajianData] = useState([]);
   const [mp3QuranRadios, setMp3QuranRadios] = useState([]);
@@ -238,6 +270,99 @@ export default function SafarModePage() {
     showToast(`Memutar: ${track.title}`);
   }, [playTrack, navigate, showToast, user, setSelectedPlaylistId]);
 
+  const handleQoriChange = useCallback((newQori) => {
+    setSelectedQori(newQori);
+    
+    // If a track is currently playing from this playlist, switch the audio URL to the new Qori smoothly
+    if (playing && activeRadio && (selectedPlaylistId === 'murottal-juz-amma' || selectedPlaylistId === 'tilawah-pilihan')) {
+      const match = activeRadio.id.match(/tilawah-([a-zA-Z0-9]+)-(\d+)/);
+      if (match) {
+        const surahNumber = parseInt(match[2]);
+        const isJuzAmma = selectedPlaylistId === 'murottal-juz-amma';
+        const getPilihanSurahName = (num) => {
+          switch (num) {
+            case 18: return 'Al-Kahfi';
+            case 36: return 'Yasin';
+            case 55: return 'Ar-Rahman';
+            case 56: return 'Al-Waqi\'ah';
+            case 67: return 'Al-Mulk';
+            default: return 'Pilihan';
+          }
+        };
+        
+        const formattedNumber = String(surahNumber).padStart(3, '0');
+        const newTrack = {
+          id: `tilawah-${newQori.id}-${surahNumber}`,
+          type: 'tilawah',
+          title: isJuzAmma ? `Surah ${JUZ_AMMA_NAMES[surahNumber - 78]}` : `Surah ${getPilihanSurahName(surahNumber)}`,
+          subtitle: newQori.name,
+          playlistIds: [selectedPlaylistId, 'tenang-perjalanan'],
+          sourceName: 'MP3Quran.net',
+          sourceUrl: 'https://mp3quran.net',
+          apiProvider: 'MP3Quran.net',
+          audioUrl: `${newQori.server}${formattedNumber}.mp3`,
+          isLive: false,
+          isVerified: true,
+          enabled: true,
+          attribution: 'Sumber: MP3Quran.net'
+        };
+        
+        // Regenerate tracks list for playTrack context
+        let tracksList = [];
+        if (isJuzAmma) {
+          tracksList = JUZ_AMMA_NAMES.map((name, index) => {
+            const sNum = 78 + index;
+            const sFormatted = String(sNum).padStart(3, '0');
+            return {
+              id: `tilawah-${newQori.id}-${sNum}`,
+              type: 'tilawah',
+              title: `Surah ${name}`,
+              subtitle: newQori.name,
+              playlistIds: ['murottal-juz-amma', 'tenang-perjalanan'],
+              sourceName: 'MP3Quran.net',
+              sourceUrl: 'https://mp3quran.net',
+              apiProvider: 'MP3Quran.net',
+              audioUrl: `${newQori.server}${sFormatted}.mp3`,
+              isLive: false,
+              isVerified: true,
+              enabled: true,
+              attribution: 'Sumber: MP3Quran.net'
+            };
+          });
+        } else {
+          const PilihanSurahs = [
+            { num: 18, name: 'Al-Kahfi' },
+            { num: 36, name: 'Yasin' },
+            { num: 55, name: 'Ar-Rahman' },
+            { num: 56, name: 'Al-Waqi\'ah' },
+            { num: 67, name: 'Al-Mulk' }
+          ];
+          tracksList = PilihanSurahs.map((surah) => {
+            const sFormatted = String(surah.num).padStart(3, '0');
+            return {
+              id: `tilawah-${newQori.id}-${surah.num}`,
+              type: 'tilawah',
+              title: `Surah ${surah.name}`,
+              subtitle: newQori.name,
+              playlistIds: ['tilawah-pilihan', 'tenang-perjalanan'],
+              sourceName: 'MP3Quran.net',
+              sourceUrl: 'https://mp3quran.net',
+              apiProvider: 'MP3Quran.net',
+              audioUrl: `${newQori.server}${sFormatted}.mp3`,
+              isLive: false,
+              isVerified: true,
+              enabled: true,
+              attribution: 'Sumber: MP3Quran.net'
+            };
+          });
+        }
+        
+        playTrack(newTrack, tracksList);
+      }
+    }
+    showToast(`Mengganti Qari ke ${newQori.name}`);
+  }, [playing, activeRadio, selectedPlaylistId, playTrack, showToast]);
+
   const handlePlayAll = useCallback((playlistId) => {
     const tracks = getPlaylistItems(playlistId).filter(t => t.enabled);
     if (tracks.length === 0) return showToast("Tidak ada audio terverifikasi di playlist ini.");
@@ -262,22 +387,67 @@ export default function SafarModePage() {
 
   const selectedPlaylistTracks = useMemo(() => {
     if (!selectedPlaylistId) return [];
-    let tracks = getPlaylistItems(selectedPlaylistId);
+    let tracks = [];
+    
+    if (selectedPlaylistId === 'murottal-juz-amma') {
+      tracks = JUZ_AMMA_NAMES.map((name, index) => {
+        const surahNumber = 78 + index;
+        const formattedNumber = String(surahNumber).padStart(3, '0');
+        return {
+          id: `tilawah-${selectedQori.id}-${surahNumber}`,
+          type: 'tilawah',
+          title: `Surah ${name}`,
+          subtitle: selectedQori.name,
+          playlistIds: ['murottal-juz-amma', 'tenang-perjalanan'],
+          sourceName: 'MP3Quran.net',
+          sourceUrl: 'https://mp3quran.net',
+          apiProvider: 'MP3Quran.net',
+          audioUrl: `${selectedQori.server}${formattedNumber}.mp3`,
+          isLive: false,
+          isVerified: true,
+          enabled: true,
+          attribution: 'Sumber: MP3Quran.net',
+          duration: null,
+          notes: `Surah ke-${surahNumber} dalam Al-Qur'an.`
+        };
+      });
+    } else if (selectedPlaylistId === 'tilawah-pilihan') {
+      const PilihanSurahs = [
+        { num: 18, name: 'Al-Kahfi' },
+        { num: 36, name: 'Yasin' },
+        { num: 55, name: 'Ar-Rahman' },
+        { num: 56, name: 'Al-Waqi\'ah' },
+        { num: 67, name: 'Al-Mulk' }
+      ];
+      tracks = PilihanSurahs.map((surah) => {
+        const formattedNumber = String(surah.num).padStart(3, '0');
+        return {
+          id: `tilawah-${selectedQori.id}-${surah.num}`,
+          type: 'tilawah',
+          title: `Surah ${surah.name}`,
+          subtitle: selectedQori.name,
+          playlistIds: ['tilawah-pilihan', 'tenang-perjalanan'],
+          sourceName: 'MP3Quran.net',
+          sourceUrl: 'https://mp3quran.net',
+          apiProvider: 'MP3Quran.net',
+          audioUrl: `${selectedQori.server}${formattedNumber}.mp3`,
+          isLive: false,
+          isVerified: true,
+          enabled: true,
+          attribution: 'Sumber: MP3Quran.net',
+          duration: null,
+          notes: `Surah ke-${surah.num} dalam Al-Qur'an.`
+        };
+      });
+    } else {
+      tracks = getPlaylistItems(selectedPlaylistId);
+    }
     
     if (selectedPlaylistId === 'kajian-ringan' && kajianData.length > 0) tracks = [...kajianData, ...tracks];
     if (selectedPlaylistId === 'radio-dakwah' && mp3QuranRadios.length > 0) tracks = [...tracks, ...mp3QuranRadios];
     
-    if (selectedPlaylistId === 'tilawah-pilihan') {
-      const now = new Date();
-      const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-      tracks = [...tracks].sort((a, b) => {
-        const hashA = [...a.id].reduce((acc, char) => acc + char.charCodeAt(0), 0) + dayOfYear;
-        const hashB = [...b.id].reduce((acc, char) => acc + char.charCodeAt(0), 0) + dayOfYear;
-        return ((Math.sin(hashA) * 10000) % 1) - ((Math.sin(hashB) * 10000) % 1);
-      });
-    }
     return tracks;
-  }, [selectedPlaylistId, kajianData, mp3QuranRadios]);
+  }, [selectedPlaylistId, selectedQori, kajianData, mp3QuranRadios]);
 
   const getSleepTimerLabel = (val) => val === 'off' ? 'Off' : `${val} Menit`;
   const isAudioOrYoutube = playing || activeRadio || (activeYoutubeTrack && youtubeMinimized);
@@ -375,6 +545,31 @@ export default function SafarModePage() {
             </>
           ) : (
             <>
+              {(selectedPlaylist.id === 'murottal-juz-amma' || selectedPlaylist.id === 'tilawah-pilihan') && (
+                <div className="qori-selector-container">
+                  <h4 className="qori-selector-heading">Pilih Qori (Lantunan Suara)</h4>
+                  <div className="qori-grid">
+                    {QORIS.map((qori) => {
+                      const isSelected = selectedQori.id === qori.id;
+                      return (
+                        <button
+                          key={qori.id}
+                          className={`qori-card ${isSelected ? 'active' : ''}`}
+                          onClick={() => handleQoriChange(qori)}
+                        >
+                          <div className="qori-card__avatar">🕌</div>
+                          <div className="qori-card__info">
+                            <span className="qori-card__name">{qori.name}</span>
+                            <span className="qori-card__desc">{qori.description}</span>
+                          </div>
+                          {isSelected && <div className="qori-card__indicator"><Check size={14} /></div>}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               <h4 className="sheet-tracks-heading">Daftar Audio</h4>
               <div className="sheet-tracks-list">
                 {selectedPlaylistTracks.map((track) => {
@@ -384,7 +579,7 @@ export default function SafarModePage() {
                   return (
                     <div key={track.id} className={`track-item ${isActive ? 'active' : ''} ${!track.enabled && !track.audioUrl && !track.route ? 'disabled' : ''}`} onClick={() => handlePlayItem(track, selectedPlaylistTracks)}>
                       <div className="track-number-box">
-                        {isPlayingThis ? <div className="track-playing-waves"><span/><span/><span/></div> : <span className="track-type-icon">{track.type === 'radio' ? '📻' : track.type === 'doa' ? '🤲' : '🔊'}</span>}
+                        {isPlayingThis ? <div className="safar-dua-item__waves"><span/><span/><span/></div> : <span className="track-type-icon">{track.type === 'radio' ? '📻' : track.type === 'doa' ? '🤲' : '🔊'}</span>}
                       </div>
                       <div className="track-meta">
                         <span className="track-title-row"><strong className="track-title">{track.title}</strong>{track.isVerified && <span className="verified-badge">✓</span>}</span>
@@ -392,12 +587,12 @@ export default function SafarModePage() {
                       </div>
                       <div className="track-end-actions">
                         {(track.enabled || track.type === 'kajian_youtube') && (
-                          <button className={`track-fav-btn ${isItemFavorited ? 'active' : ''}`} onClick={(e) => toggleFav(track.id, e)}>
+                          <button className={`track-fav-btn ${isItemFavorited ? 'active' : ''}`} onClick={(e) => toggleFav(track.id, e)} aria-label="Favorit">
                             <Heart size={16} fill={isItemFavorited ? 'currentColor' : 'none'} />
                           </button>
                         )}
-                        <button className="track-play-indicator">
-                          {track.type === 'kajian_youtube' ? <span className="badge-open" style={{background: '#ea4335', color: '#fff'}}>PUTAR</span> : !track.enabled && !track.audioUrl && !track.route ? <span className="badge-unavailable">N/A</span> : track.route ? <span className="badge-open">BUKA</span> : isPlayingThis ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+                        <button className="track-play-indicator" aria-label="Play Action">
+                          {track.type === 'kajian_youtube' ? <span className="badge-youtube">PUTAR</span> : !track.enabled && !track.audioUrl && !track.route ? <span className="badge-unavailable">N/A</span> : track.route ? <span className="badge-open">BUKA</span> : isPlayingThis ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" />}
                         </button>
                       </div>
                     </div>
@@ -439,7 +634,9 @@ export default function SafarModePage() {
 
           {/* ===== 4. Quick Access / Travel Essentials (Lazy Loaded) ===== */}
           <Suspense fallback={<SkeletonCard count={3} />}>
-            <QuickAccessSafar />
+            <div className="safar-section-container safar-section--essentials">
+              <QuickAccessSafar />
+            </div>
           </Suspense>
 
           {/* ===== 5. Sticky Section Tabs (Lazy Loaded) ===== */}
@@ -449,20 +646,26 @@ export default function SafarModePage() {
 
           {/* ===== 6. Travel Guidance Section (Lazy Loaded) ===== */}
           <Suspense fallback={<SkeletonCard count={2} />}>
-            <PanduanSafar />
+            <div className="safar-section-container safar-section--guidance">
+              <PanduanSafar />
+            </div>
           </Suspense>
 
           {/* ===== 7. Essential Travel Du’a Section (Lazy Loaded) ===== */}
           <Suspense fallback={<SkeletonCard count={3} />}>
             <SafarErrorBoundary>
-              <DoaSafar showToast={showToast} />
+              <div className="safar-section-container safar-section--duas">
+                <DoaSafar showToast={showToast} />
+              </div>
             </SafarErrorBoundary>
           </Suspense>
 
           {/* ===== 8. Audio & Travel Playlist Section (Lazy Loaded) ===== */}
           <Suspense fallback={<SkeletonCard count={2} />}>
             <SafarErrorBoundary>
-              <AudioSafar onOpenPlaylist={handleOpenPlaylist} />
+              <div className="safar-section-container safar-section--audio">
+                <AudioSafar onOpenPlaylist={handleOpenPlaylist} />
+              </div>
             </SafarErrorBoundary>
           </Suspense>
 

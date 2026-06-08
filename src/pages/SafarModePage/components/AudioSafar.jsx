@@ -49,8 +49,12 @@ export default function AudioSafar({ onOpenPlaylist }) {
         <div className="safar-audio-grid">
           {PLAYLIST_MAPPING.map((playlist) => {
             const IconComp = playlist.icon;
-            const tracks = getPlaylistItems(playlist.id);
-            const trackCount = tracks.length;
+            let trackCount = getPlaylistItems(playlist.id).length;
+            if (playlist.id === 'murottal-juz-amma') {
+              trackCount = 37;
+            } else if (playlist.id === 'tilawah-pilihan') {
+              trackCount = 5;
+            }
 
             return (
               <motion.div

@@ -54,7 +54,7 @@ export const PLAYLISTS = [
   }
 ];
 
-const JUZ_AMMA_NAMES = [
+export const JUZ_AMMA_NAMES = [
   "An-Naba'", "An-Nazi'at", "'Abasa", "At-Takwir", "Al-Infitar", "Al-Mutaffifin", 
   "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr",
   "Al-Balad", "Ash-Shams", "Al-Lail", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-'Alaq",

@@ -2251,3 +2251,468 @@
   }
 }
 
+/* ==========================================================
+   Redesigned Premium Glassmorphic Modals & Checklists
+   ========================================================== */
+.safar-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(3, 7, 18, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.safar-modal-card {
+  width: 100%;
+  max-width: 460px;
+  background: linear-gradient(135deg, rgba(9, 17, 34, 0.85) 0%, rgba(3, 7, 18, 0.95) 100%);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  box-shadow: 
+    0 24px 64px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(20, 184, 166, 0.12);
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalScaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.95) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.safar-modal-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(180deg, rgba(20, 184, 166, 0.04) 0%, transparent 100%);
+}
+
+.safar-modal-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--safar-teal-glow);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  color: var(--safar-teal);
+}
+
+.safar-modal-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.safar-modal-body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 55vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+.safar-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.safar-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.safar-modal-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  transition: var(--safar-transition);
+}
+.safar-modal-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.safar-modal-item-label {
+  font-weight: 700;
+  color: var(--safar-text);
+  font-size: 0.95rem;
+}
+
+.safar-modal-item-value {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--safar-teal);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.safar-modal-note {
+  font-size: 12px;
+  color: var(--safar-text-secondary);
+  background: rgba(20, 184, 166, 0.04);
+  border: 1px solid rgba(20, 184, 166, 0.12);
+  padding: 14px 18px;
+  border-radius: 16px;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.safar-modal-footer {
+  padding: 20px 28px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.safar-modal-close-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--safar-teal-glow);
+  border: 1px solid rgba(20, 184, 166, 0.25);
+  color: var(--safar-teal);
+  font-weight: 750;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: var(--safar-transition);
+}
+.safar-modal-close-btn:hover {
+  background: var(--safar-teal);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3);
+}
+
+/* Checklist Item Custom Styles */
+.safar-checklist-item {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: var(--safar-transition);
+}
+.safar-checklist-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.safar-checklist-checkbox {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  cursor: pointer;
+  accent-color: var(--safar-teal);
+}
+
+/* ==========================================================
+   Section-by-Section Custom Multi-Tone Gradients
+   ========================================================== */
+.safar-section-container {
+  position: relative;
+  border-radius: 24px;
+  padding: 40px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: var(--safar-transition);
+}
+
+.safar-section-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.12;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+.safar-section--essentials {
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.04) 0%, rgba(3, 7, 18, 0.2) 100%), var(--safar-navy);
+}
+.safar-section--essentials::before {
+  background: radial-gradient(circle at 10% 20%, var(--safar-purple) 0%, transparent 60%);
+}
+
+.safar-section--guidance {
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.04) 0%, rgba(3, 7, 18, 0.2) 100%), var(--safar-navy);
+}
+.safar-section--guidance::before {
+  background: radial-gradient(circle at 90% 80%, var(--safar-teal) 0%, transparent 60%);
+}
+
+.safar-section--duas {
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.04) 0%, rgba(3, 7, 18, 0.2) 100%), var(--safar-navy);
+}
+.safar-section--duas::before {
+  background: radial-gradient(circle at 20% 50%, var(--safar-rose) 0%, transparent 60%);
+}
+
+.safar-section--audio {
+  background: linear-gradient(180deg, rgba(20, 184, 166, 0.04) 0%, rgba(3, 7, 18, 0.2) 100%), var(--safar-navy);
+}
+.safar-section--audio::before {
+  background: radial-gradient(circle at 80% 40%, var(--safar-teal) 0%, transparent 60%);
+}
+
+@media (max-width: 768px) {
+  .safar-section-container {
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+}
+
+/* ==========================================================
+   Qori (Reciter) Selector Styles
+   ========================================================== */
+.qori-selector-container {
+  padding: 0 24px;
+  margin-bottom: 24px;
+}
+.qori-selector-heading {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--safar-text-muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 0.75px;
+}
+.qori-grid {
+  display: grid;
+  grid-template-cols: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .qori-grid {
+    grid-template-cols: 1fr;
+    gap: 8px;
+  }
+}
+.qori-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--safar-transition);
+}
+.qori-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.qori-card.active {
+  background: var(--safar-teal-glow);
+  border-color: rgba(20, 184, 166, 0.35);
+}
+.qori-card__avatar {
+  font-size: 18px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--safar-transition);
+}
+.qori-card.active .qori-card__avatar {
+  background: var(--safar-teal);
+  color: #ffffff;
+}
+.qori-card__info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.qori-card__name {
+  font-size: 13px;
+  font-weight: 750;
+  color: #ffffff;
+}
+.qori-card__desc {
+  font-size: 10px;
+  color: var(--safar-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.qori-card__indicator {
+  color: var(--safar-teal);
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================
+   Mobile-Friendly Track Lists & Play Buttons Redesign
+   ========================================================== */
+.track-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  border-radius: 20px !important;
+  cursor: pointer;
+  transition: var(--safar-transition);
+  color: #ffffff;
+}
+.track-item:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  transform: translateY(-1px);
+}
+.track-item.active {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
+  border-color: rgba(20, 184, 166, 0.3) !important;
+  box-shadow: 0 4px 16px rgba(20, 184, 166, 0.06);
+}
+
+.track-number-box {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 14px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 15px;
+  color: var(--safar-text-secondary);
+  transition: var(--safar-transition);
+}
+.track-item.active .track-number-box {
+  background: var(--safar-teal);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
+.track-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.track-title {
+  font-size: 15px !important;
+  font-weight: 750;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.track-item.active .track-title {
+  color: var(--safar-teal);
+}
+.track-qari {
+  font-size: 12px !important;
+  color: var(--safar-text-secondary);
+  margin-top: 0 !important;
+}
+
+.track-end-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.track-fav-btn {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--safar-text-secondary);
+  cursor: pointer;
+  transition: var(--safar-transition);
+}
+.track-fav-btn:hover {
+  background: rgba(244, 63, 94, 0.1) !important;
+  border-color: rgba(244, 63, 94, 0.2) !important;
+  color: var(--safar-rose);
+}
+.track-fav-btn.active {
+  background: rgba(244, 63, 94, 0.15) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+  color: var(--safar-rose) !important;
+}
+
+.track-play-indicator {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  transition: var(--safar-transition);
+  padding: 0 !important;
+}
+.track-item:hover .track-play-indicator {
+  background: var(--safar-teal) !important;
+  border-color: var(--safar-teal) !important;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+.track-item.active .track-play-indicator {
+  background: var(--safar-teal) !important;
+  border-color: var(--safar-teal) !important;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+}
+
+.badge-youtube {
+  font-size: 10px;
+  font-weight: 800;
+  color: #ffffff;
+  background: #ea4335;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.badge-unavailable {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--safar-text-muted);
+}
+.badge-open {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--safar-teal);
+}
+
+
