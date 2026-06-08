@@ -12,110 +12,6 @@ import DailyMission from '../../components/DailyMission/DailyMission';
 import { BookOpen, Compass, ScrollText, Sparkles, ChevronRight, Headphones, CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
 import './HomePage.css';
 
-// Premium 3D-styled custom SVG travel icon for the Mode Safar homepage entry point
-function SafarDashboardIcon() {
-  return (
-    <svg
-      width="56"
-      height="56"
-      viewBox="0 0 64 64"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="safar-dashboard-icon"
-      aria-hidden="true"
-    >
-      <defs>
-        {/* Deep navy base background */}
-        <radialGradient id="icon-bg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#1E293B" />
-          <stop offset="100%" stopColor="#0B0F19" />
-        </radialGradient>
-        {/* Emerald/Teal primary accent gradient */}
-        <linearGradient id="emerald-teal" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#10B981" />
-          <stop offset="100%" stopColor="#0D9488" />
-        </linearGradient>
-        {/* Soft gold highlight */}
-        <linearGradient id="gold-highlight" x1="0%" y1="100%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#CA8A04" />
-          <stop offset="100%" stopColor="#FBBF24" />
-        </linearGradient>
-        {/* Purple glow shadow */}
-        <filter id="purple-glow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="3" stdDeviation="5" floodColor="#8B5CF6" floodOpacity="0.4" />
-        </filter>
-      </defs>
-
-      {/* Rounded App-Icon Base with Gold Border and Purple Glow */}
-      <rect
-        x="2"
-        y="2"
-        width="60"
-        height="60"
-        rx="16"
-        fill="url(#icon-bg)"
-        stroke="#EAB308"
-        strokeWidth="1.5"
-        filter="url(#purple-glow)"
-      />
-
-      {/* Subtle Mosque Silhouette in background */}
-      <path
-        d="M20 44V34C20 30 22 28 25 28C28 28 30 30 30 34V44M16 44H34"
-        stroke="#1E293B"
-        strokeWidth="1"
-        fill="none"
-        opacity="0.35"
-      />
-      <path
-        d="M32 44V38C32 36 33 35 34 35C35 35 36 36 36 38V44M30 44H40"
-        stroke="#1E293B"
-        strokeWidth="1"
-        fill="none"
-        opacity="0.35"
-      />
-
-      {/* Travel Route/Path (Dashed curvy line) */}
-      <path
-        d="M14 46C18 36 34 30 44 26"
-        stroke="url(#emerald-teal)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeDasharray="4 3"
-      />
-
-      {/* Suitcase in bottom-left */}
-      <g transform="translate(10, 36)">
-        <rect x="2" y="4" width="12" height="9" rx="2" fill="url(#emerald-teal)" stroke="#0F766E" strokeWidth="0.5" />
-        <path d="M5 4V2H11V4" stroke="#EAB308" strokeWidth="1" fill="none" />
-      </g>
-
-      {/* Map Pin at target end */}
-      <g transform="translate(43, 20)">
-        <path d="M5 0C2.24 0 0 2.24 0 5C0 8.75 5 14 5 14C5 14 10 8.75 10 5C10 2.24 7.76 0 5 0ZM5 6.5C4.17 6.5 3.5 5.83 3.5 5C3.5 4.17 4.17 3.5 5 3.5C5.83 3.5 6.5 4.17 6.5 5C6.5 5.83 5.83 6.5 5 6.5Z" fill="#EF4444" />
-      </g>
-
-      {/* Crescent Moon in top-right */}
-      <path
-        d="M48 6A12 12 0 0 0 38 18A12 12 0 1 1 48 6Z"
-        fill="url(#gold-highlight)"
-        transform="translate(-6, 2)"
-      />
-
-      {/* Compass Outer Ring (Centered around Qibla marker) */}
-      <circle cx="33" cy="35" r="13" stroke="#EAB308" strokeWidth="1.5" fill="#0F172A" fillOpacity="0.8" />
-      <circle cx="33" cy="35" r="10" stroke="#334155" strokeWidth="0.75" strokeDasharray="2 2" />
-
-      {/* Compass Needle (Qibla marker pointing up-left) */}
-      <polygon points="33,25 36,35 33,33" fill="#EF4444" />
-      <polygon points="33,45 30,35 33,33" fill="#94A3B8" />
-      <circle cx="33" cy="35" r="1.5" fill="#FBBF24" />
-
-      {/* Tiny Qibla Marker Arrow at top-left edge of compass */}
-      <polygon points="26,24 23,21 27,20" fill="#10B981" />
-    </svg>
-  );
-}
 
 
 // Minimal prayer time fetch for dashboard
@@ -390,7 +286,8 @@ export default function HomePage() {
           {/* Card content */}
           <div className="travel-banner-content">
             <div className="travel-banner-icon-wrap">
-              <SafarDashboardIcon />
+              <Compass className="travel-banner__compass-icon" size={28} />
+              <div className="travel-banner__compass-glow" />
             </div>
             <div className="travel-banner-text">
               <span className="travel-banner-badge">Cocok untuk perjalanan</span>
