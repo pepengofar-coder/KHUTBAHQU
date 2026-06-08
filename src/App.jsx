@@ -75,7 +75,7 @@ function AnimatedRoutes() {
           <Route path="/good-path/program/30-hari" element={<Program30HariPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
           <Route path="/tilawah" element={<TilawahPage />} />
-          <Route path="/mode-perjalanan" element={<SafarModePage />} />
+          <Route path="/mode-perjalanan" element={<Suspense fallback={<PageLoader />}><SafarModePage /></Suspense>} />
           <Route path="/favorit" element={<FavoritesPage />} />
           <Route path="/premium" element={<PremiumPage />} />
           <Route path="/pengaturan" element={<SettingsPage />} />
