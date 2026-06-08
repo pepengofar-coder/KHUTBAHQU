@@ -187,7 +187,7 @@ export default function SafarModePage() {
           }));
           setMp3QuranRadios(formatted);
         }
-      } catch (err) {
+      } catch {
         // ignore
       }
     };
@@ -334,7 +334,7 @@ export default function SafarModePage() {
               <div className="kajian-themes-scroll">
                 {['Semua', 'Aqidah', 'Akhlak', 'Fiqih', 'Keluarga', 'Motivasi Iman', 'Qur\'an', 'Sholat', 'Sedekah', 'Remaja', 'Kajian Singkat'].map(theme => (
                   <button key={theme} className={`kajian-theme-chip ${selectedKajianTheme === theme ? 'active' : ''}`}
-                    onClick={() => { setSelectedKajianTheme(theme); try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch (err) { /* ignore */ } }}>
+                    onClick={() => { setSelectedKajianTheme(theme); try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch { /* ignore */ } }}>
                     {theme}
                   </button>
                 ))}
