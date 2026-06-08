@@ -1,67 +1,57 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, DoorOpen, Clock, ArrowRightLeft, MapPinCheck } from 'lucide-react';
 
 const STEPS = [
   {
     num: 1,
-    title: 'Niat Safar',
-    description: 'Niatkan perjalanan karena Allah dengan tujuan yang mubah. Sholat sunnah safar 2 rakaat sebelum berangkat.',
+    title: 'Travel Intention',
+    description: 'Niatkan safar karena ibadah / hal mubah, sholat sunnah safar 2 rakaat.',
     icon: Sparkles,
-    color: 'from-amber-500 to-orange-600',
-    textColor: 'text-amber-400',
+    color: 'emerald',
     interactive: false,
   },
   {
     num: 2,
-    title: 'Doa Keluar Rumah',
-    description: 'Baca doa keluar rumah dan doa naik kendaraan sebelum memulai perjalanan.',
+    title: 'Du’a Before Leaving',
+    description: 'Baca doa keluar rumah dan doa naik kendaraan perlindungan safar.',
     icon: DoorOpen,
-    color: 'from-blue-500 to-indigo-600',
-    textColor: 'text-blue-400',
+    color: 'blue',
     interactive: true,
     scrollTo: 'doa-keluar-rumah',
   },
   {
     num: 3,
-    title: 'Shalat Saat Perjalanan',
-    description: 'Laksanakan sholat tepat waktu. Gunakan fitur waktu sholat untuk mengetahui jadwal di kota tujuan.',
+    title: 'Prayer During Travel',
+    description: 'Tetap tegakkan sholat fardhu di jalan. Cari masjid terdekat.',
     icon: Clock,
-    color: 'from-emerald-500 to-teal-600',
-    textColor: 'text-emerald-400',
+    color: 'purple',
     interactive: false,
   },
   {
     num: 4,
-    title: 'Jamak dan Qashar',
-    description: 'Jika memenuhi syarat musafir (±81 km), boleh meringkas dan menggabungkan sholat fardhu.',
+    title: 'Jamak & Qashar',
+    description: 'Manfaatkan kemudahan (rukhshah) meringkas & menggabungkan sholat.',
     icon: ArrowRightLeft,
-    color: 'from-indigo-500 to-purple-600',
-    textColor: 'text-indigo-400',
+    color: 'teal',
     interactive: false,
   },
   {
     num: 5,
-    title: 'Tiba di Tujuan',
-    description: 'Baca doa tiba di tujuan. Laksanakan sholat dengan sempurna dan bersyukur atas keselamatan.',
+    title: 'Arrival at Destination',
+    description: 'Tiba dengan selamat, membaca doa syukur dan sholat jamak/sempurna.',
     icon: MapPinCheck,
-    color: 'from-rose-500 to-pink-600',
-    textColor: 'text-rose-400',
+    color: 'gold',
     interactive: true,
     scrollTo: 'doa-kembali',
   },
 ];
 
-const stepVariants = {
-  hidden: { opacity: 0, x: -30 },
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }
-  })
-};
-
 export default function SafarTimeline() {
+  const [activeStep, setActiveStep] = useState(2); // Set Step 2 as active default
+
   const handleStepClick = (step) => {
+    setActiveStep(step.num);
     if (!step.interactive || !step.scrollTo) return;
     window.dispatchEvent(new CustomEvent('safar-open-dua', { detail: { duaId: step.scrollTo } }));
     setTimeout(() => {
@@ -71,65 +61,61 @@ export default function SafarTimeline() {
   };
 
   return (
-    <section className="w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-8"
-      >
-        <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-          <span className="text-blue-400 mr-2">📋</span>Panduan Safar
-        </h2>
-        <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-2xl">
-          Langkah demi langkah tata cara ibadah selama dalam perjalanan.
-        </p>
-      </motion.div>
+    <section id="guidance" className="safar-guidance scroll-mt-24">
+      <div className="safar-section-header">
+        <span className="safar-section-badge">Travel Journey</span>
+        <h2 className="safar-section-title">Travel Guidance</h2>
+        <p className="safar-section-desc">Langkah panduan ibadah teratur dari awal keberangkatan hingga tiba tujuan.</p>
+      </div>
 
-      <div className="safar-timeline">
-        {STEPS.map((step, index) => {
-          const IconComp = step.icon;
-          const isLast = index === STEPS.length - 1;
+      <div className="safar-stepper-container">
+        <div className="safar-stepper">
+          {STEPS.map((step, index) => {
+            const IconComp = step.icon;
+            const isLast = index === STEPS.length - 1;
+            const isCompleted = step.num < activeStep;
+            const isActive = step.num === activeStep;
 
-          return (
-            <motion.div
-              key={step.num}
-              className={`safar-timeline__step ${step.interactive ? 'safar-timeline__step--interactive' : ''}`}
-              variants={stepVariants}
-              custom={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-30px" }}
-              onClick={() => handleStepClick(step)}
-              role={step.interactive ? 'button' : undefined}
-              tabIndex={step.interactive ? 0 : undefined}
-              onKeyDown={step.interactive ? (e) => e.key === 'Enter' && handleStepClick(step) : undefined}
-            >
-              {/* Timeline connector */}
-              <div className="safar-timeline__connector">
-                <div className={`safar-timeline__circle bg-gradient-to-br ${step.color}`}>
-                  <span className="text-white font-bold text-sm">{step.num}</span>
+            return (
+              <div 
+                key={step.num}
+                className={`safar-step ${isActive ? 'safar-step--active' : ''} ${isCompleted ? 'safar-step--completed' : ''}`}
+                onClick={() => handleStepClick(step)}
+              >
+                {/* Visual Step Indicator */}
+                <div className="safar-step__indicator-row">
+                  <div className={`safar-step__circle`}>
+                    {isCompleted ? (
+                      <span className="text-xs font-bold">✓</span>
+                    ) : (
+                      <IconComp size={16} className="safar-step__icon" />
+                    )}
+                  </div>
+                  {!isLast && (
+                    <div className="safar-step__line">
+                      <div 
+                        className="safar-step__line-progress" 
+                        style={{ width: isCompleted ? '100%' : '0%' }}
+                      />
+                    </div>
+                  )}
                 </div>
-                {!isLast && <div className="safar-timeline__line" />}
-              </div>
 
-              {/* Content card */}
-              <div className="safar-timeline__card">
-                <div className="flex items-center gap-3 mb-2">
-                  <IconComp size={20} className={step.textColor} />
-                  <h3 className="font-bold text-white text-lg">{step.title}</h3>
+                {/* Content */}
+                <div className="safar-step__content">
+                  <span className="safar-step__number">Langkah 0{step.num}</span>
+                  <h3 className="safar-step__title">{step.title}</h3>
+                  <p className="safar-step__desc">{step.description}</p>
+                  {step.interactive && (
+                    <span className="safar-step__badge">
+                      Lihat Doa
+                    </span>
+                  )}
                 </div>
-                <p className="text-sm text-slate-400 leading-relaxed">{step.description}</p>
-                {step.interactive && (
-                  <span className={`inline-block mt-3 text-xs font-semibold ${step.textColor} tracking-wide`}>
-                    Tap untuk membuka doa →
-                  </span>
-                )}
               </div>
-            </motion.div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

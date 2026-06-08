@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRightLeft, Clock, Timer, Compass,
   BookHeart, Lightbulb, CheckSquare, X, ArrowRight
@@ -9,8 +9,8 @@ import {
 const FEATURES = [
   {
     id: 'qashar',
-    title: 'Qashar Shalat',
-    description: 'Meringkas sholat fardhu 4 rakaat menjadi 2 rakaat saat bepergian jauh.',
+    title: 'Qashar Prayer',
+    description: 'Meringkas shalat fardhu 4 rakaat menjadi 2 rakaat saat safar.',
     icon: ArrowRightLeft,
     color: 'emerald',
     action: 'modal',
@@ -21,167 +21,127 @@ const FEATURES = [
         { name: 'Ashar', from: 4, to: 2 },
         { name: 'Isya', from: 4, to: 2 },
       ],
-      note: 'Maghrib (3 rakaat) dan Subuh (2 rakaat) tidak di-qashar.'
+      note: 'Maghrib (3 rakaat) dan Subuh (2 rakaat) tidak dapat di-qashar.'
     }
   },
   {
     id: 'jamak-taqdim',
     title: 'Jamak Taqdim',
-    description: 'Menggabungkan dua sholat di waktu sholat pertama (waktu awal).',
+    description: 'Menggabungkan dua sholat fardhu di waktu sholat yang pertama.',
     icon: Clock,
     color: 'blue',
     action: 'modal',
     modalContent: {
       title: 'Jamak Taqdim',
       items: [
-        { name: 'Dzuhur + Ashar', time: 'Di waktu Dzuhur' },
-        { name: 'Maghrib + Isya', time: 'Di waktu Maghrib' },
+        { name: 'Dzuhur & Ashar', time: 'Dikerjakan di waktu Dzuhur' },
+        { name: 'Maghrib & Isya', time: 'Dikerjakan di waktu Maghrib' },
       ],
-      note: 'Dilaksanakan saat hendak berangkat safar atau di awal perjalanan.'
+      note: 'Syaratnya dikerjakan berurutan, dimulai dari sholat pertama.'
     }
   },
   {
     id: 'jamak-takhir',
     title: 'Jamak Takhir',
-    description: 'Menggabungkan dua sholat di waktu sholat kedua (waktu akhir).',
+    description: 'Menggabungkan dua sholat fardhu di waktu sholat yang kedua.',
     icon: Timer,
-    color: 'indigo',
+    color: 'purple',
     action: 'modal',
     modalContent: {
       title: 'Jamak Takhir',
       items: [
-        { name: 'Dzuhur + Ashar', time: 'Di waktu Ashar' },
-        { name: 'Maghrib + Isya', time: 'Di waktu Isya' },
+        { name: 'Dzuhur & Ashar', time: 'Dikerjakan di waktu Ashar' },
+        { name: 'Maghrib & Isya', time: 'Dikerjakan di waktu Isya' },
       ],
-      note: 'Dilaksanakan saat sedang dalam perjalanan dan belum sempat sholat pertama.'
+      note: 'Wajib berniat jamak takhir sebelum habis waktu sholat pertama.'
     }
   },
   {
     id: 'kiblat',
-    title: 'Arah Kiblat Saat Safar',
-    description: 'Kompas kiblat presisi untuk menemukan arah Ka\'bah di mana pun Anda berada.',
+    title: 'Qibla Direction',
+    description: 'Kompas kiblat presisi menentukan arah Ka’bah dari lokasi Anda.',
     icon: Compass,
-    color: 'cyan',
+    color: 'teal',
     action: 'link',
     href: '/kiblat'
   },
   {
     id: 'doa',
-    title: 'Doa Perjalanan',
-    description: 'Kumpulan doa perlindungan dan kebaikan selama perjalanan jauh.',
+    title: 'Travel Du’a',
+    description: 'Kumpulan doa perlindungan dan dzikr safar lengkap terjemahan.',
     icon: BookHeart,
-    color: 'rose',
+    color: 'gold',
     action: 'scroll',
     scrollTo: 'doa-safar'
   },
   {
     id: 'tips',
-    title: 'Tips Safar Islami',
-    description: 'Checklist ibadah agar perjalanan Anda penuh keberkahan dan tidak ada yang terlewat.',
+    title: 'Islamic Travel Tips',
+    description: 'Checklist ibadah & adab safar agar perjalanan diberkahi Allah.',
     icon: Lightbulb,
-    color: 'amber',
+    color: 'pink',
     action: 'checklist'
   },
 ];
 
-const colorMap = {
-  emerald: {
-    bg: 'bg-emerald-900/30',
-    text: 'text-emerald-400',
-    border: 'border-emerald-500/30',
-    hoverBorder: 'hover:border-emerald-500/60',
-    glow: 'hover:shadow-emerald-500/10',
-  },
-  blue: {
-    bg: 'bg-blue-900/30',
-    text: 'text-blue-400',
-    border: 'border-blue-500/30',
-    hoverBorder: 'hover:border-blue-500/60',
-    glow: 'hover:shadow-blue-500/10',
-  },
-  indigo: {
-    bg: 'bg-indigo-900/30',
-    text: 'text-indigo-400',
-    border: 'border-indigo-500/30',
-    hoverBorder: 'hover:border-indigo-500/60',
-    glow: 'hover:shadow-indigo-500/10',
-  },
-  cyan: {
-    bg: 'bg-cyan-900/30',
-    text: 'text-cyan-400',
-    border: 'border-cyan-500/30',
-    hoverBorder: 'hover:border-cyan-500/60',
-    glow: 'hover:shadow-cyan-500/10',
-  },
-  rose: {
-    bg: 'bg-rose-900/30',
-    text: 'text-rose-400',
-    border: 'border-rose-500/30',
-    hoverBorder: 'hover:border-rose-500/60',
-    glow: 'hover:shadow-rose-500/10',
-  },
-  amber: {
-    bg: 'bg-amber-900/30',
-    text: 'text-amber-400',
-    border: 'border-amber-500/30',
-    hoverBorder: 'hover:border-amber-500/60',
-    glow: 'hover:shadow-amber-500/10',
-  },
+const colorClasses = {
+  emerald: 'safar-feature-card--emerald',
+  blue: 'safar-feature-card--blue',
+  purple: 'safar-feature-card--purple',
+  teal: 'safar-feature-card--teal',
+  gold: 'safar-feature-card--gold',
+  pink: 'safar-feature-card--pink',
 };
 
-// --- Detail Modal ---
 function FeatureDetailModal({ feature, onClose }) {
   if (!feature || !feature.modalContent) return null;
   const { modalContent } = feature;
-  const colors = colorMap[feature.color];
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-gray-900/70 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}>
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-700"
+        className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className={`p-5 border-b border-slate-800 flex items-center justify-between`}>
+        <div className="p-6 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`p-2.5 rounded-xl ${colors.bg} ${colors.text}`}>
-              <feature.icon size={22} />
+            <div className={`p-3 rounded-full flex items-center justify-center bg-slate-800/80`}>
+              <feature.icon size={20} className="text-teal-400" />
             </div>
             <h3 className="font-bold text-white text-lg">{modalContent.title}</h3>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors">
+          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800/80 transition-colors">
             <X size={20} />
           </button>
         </div>
 
-        <div className="p-5 space-y-3">
+        <div className="p-6 space-y-3">
           {modalContent.items.map((item, idx) => (
-            <div key={idx} className="flex items-center justify-between p-4 bg-slate-800/80 rounded-2xl border border-slate-700/50">
-              <span className="font-semibold text-slate-200">{item.name}</span>
+            <div key={idx} className="flex items-center justify-between p-4 bg-slate-950/50 rounded-2xl border border-slate-800/60">
+              <span className="font-semibold text-slate-300">{item.name}</span>
               {item.from !== undefined ? (
                 <span className="font-bold text-slate-200 flex items-center gap-2">
-                  {item.from} <ArrowRight size={14} className={colors.text} /> {item.to} Rakaat
+                  {item.from} <ArrowRight size={14} className="text-teal-400" /> {item.to} Rakaat
                 </span>
               ) : (
-                <span className={`text-sm font-semibold ${colors.text}`}>{item.time}</span>
+                <span className="text-sm font-semibold text-teal-400">{item.time}</span>
               )}
             </div>
           ))}
-        </div>
 
-        {modalContent.note && (
-          <div className="px-5 pb-5">
-            <div className={`text-sm text-slate-300 bg-slate-800/60 p-4 rounded-2xl border border-slate-700/50 leading-relaxed`}>
+          {modalContent.note && (
+            <div className="text-xs text-slate-400 bg-teal-950/20 text-teal-300/80 p-4 rounded-2xl border border-teal-900/30 leading-relaxed mt-2">
               💡 {modalContent.note}
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
-        <div className="p-4 border-t border-slate-800">
-          <button onClick={onClose} className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl transition-colors">
+        <div className="p-6 border-t border-slate-800">
+          <button onClick={onClose} className="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl transition-colors">
             Tutup
           </button>
         </div>
@@ -190,59 +150,59 @@ function FeatureDetailModal({ feature, onClose }) {
   );
 }
 
-// --- Checklist Modal (preserved from BekalSafarmuGrid) ---
 function SafarChecklistModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const checklist = [
-    { label: "Niat ikhlas karena Allah", category: "Persiapan" },
-    { label: "Membawa sajadah & mukena/sarung", category: "Persiapan" },
+    { label: "Niat ikhlas karena Allah SWT", category: "Persiapan" },
+    { label: "Membawa sajadah & perlengkapan sholat portable", category: "Persiapan" },
     { label: "Cek jadwal waktu sholat kota tujuan", category: "Persiapan" },
-    { label: "Sholat sunnah safar 2 rakaat sblm berangkat", category: "Keberangkatan" },
-    { label: "Membaca doa keluar rumah", category: "Keberangkatan" },
-    { label: "Membaca doa naik kendaraan", category: "Keberangkatan" },
-    { label: "Memperbanyak doa karena doa musafir mustajab", category: "Saat Safar" },
-    { label: "Bertasbih di jalan menurun, bertakbir di jalan menanjak", category: "Saat Safar" },
-    { label: "Menjamak/Mengqashar sholat jika memenuhi syarat", category: "Ibadah" }
+    { label: "Mengerjakan sholat sunnah safar sebelum berangkat", category: "Keberangkatan" },
+    { label: "Membaca doa keluar rumah & naik kendaraan", category: "Keberangkatan" },
+    { label: "Bertasbih saat jalan turun, takbir saat jalan menanjak", category: "Perjalanan" },
+    { label: "Memperbanyak doa sepanjang jalan (doa musafir mustajab)", category: "Perjalanan" },
+    { label: "Memanfaatkan rukhshah jamak-qashar sholat", category: "Ibadah" }
   ];
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-gray-900/70 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}>
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-700"
+        className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-r from-amber-600 to-orange-500 p-5 flex items-center justify-between">
+        <div className="p-6 border-b border-slate-800 flex items-center justify-between">
           <h3 className="text-white font-bold text-lg flex items-center gap-2">
-            <CheckSquare size={20} />
+            <CheckSquare size={20} className="text-teal-400" />
             Checklist Ibadah Safar
           </h3>
-          <button onClick={onClose} className="text-white/80 hover:text-white bg-black/20 hover:bg-black/30 p-1.5 rounded-full transition-colors">
+          <button onClick={onClose} className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800/80 transition-colors">
             <X size={20} />
           </button>
         </div>
-        <div className="p-5 max-h-[60vh] overflow-y-auto">
-          {['Persiapan', 'Keberangkatan', 'Saat Safar', 'Ibadah'].map(cat => (
-            <div key={cat} className="mb-4 last:mb-0">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">{cat}</h4>
+        
+        <div className="p-6 max-h-[50vh] overflow-y-auto space-y-4">
+          {['Persiapan', 'Keberangkatan', 'Perjalanan', 'Ibadah'].map(cat => (
+            <div key={cat}>
+              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{cat}</h4>
               <ul className="space-y-2">
                 {checklist.filter(i => i.category === cat).map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3 bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
-                    <input type="checkbox" className="mt-0.5 w-4 h-4 rounded bg-slate-800 border-slate-600 text-amber-500 focus:ring-amber-500 focus:ring-offset-slate-900 accent-amber-500" />
-                    <span className="text-sm text-slate-300 font-medium leading-tight">{item.label}</span>
+                  <li key={idx} className="flex items-start gap-3 bg-slate-950/40 p-3.5 rounded-2xl border border-slate-800/50">
+                    <input type="checkbox" className="mt-0.5 w-4 h-4 rounded bg-slate-850 border-slate-700 text-teal-600 focus:ring-teal-500 focus:ring-offset-slate-900 accent-teal-500" />
+                    <span className="text-sm text-slate-300 font-medium leading-normal">{item.label}</span>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <div className="p-4 border-t border-slate-800">
-          <button onClick={onClose} className="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl transition-colors">
-            Tutup
+
+        <div className="p-6 border-t border-slate-800">
+          <button onClick={onClose} className="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-2xl transition-colors">
+            Selesai
           </button>
         </div>
       </motion.div>
@@ -250,27 +210,15 @@ function SafarChecklistModal({ isOpen, onClose }) {
   );
 }
 
-// --- Container Animation ---
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08 }
-  }
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-  }
-};
-
-// --- Main Component ---
 export default function SafarFeatureGrid() {
   const [activeModal, setActiveModal] = useState(null);
   const [isChecklistOpen, setChecklistOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOpenChecklist = () => setChecklistOpen(true);
+    window.addEventListener('safar-open-checklist', handleOpenChecklist);
+    return () => window.removeEventListener('safar-open-checklist', handleOpenChecklist);
+  }, []);
 
   const handleCardClick = (feature) => {
     if (feature.action === 'modal') {
@@ -284,71 +232,68 @@ export default function SafarFeatureGrid() {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
     }
-    // 'link' action is handled via <Link>
   };
 
   return (
-    <section className="w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-8"
-      >
-        <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-          <span className="text-amber-400 mr-2">✨</span>Bekal Safarmu
-        </h2>
-        <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-2xl">
-          Akses cepat fitur-fitur penting untuk kelancaran ibadah safar Anda.
-        </p>
-      </motion.div>
+    <section id="essentials" className="safar-essentials scroll-mt-24">
+      <div className="safar-section-header">
+        <span className="safar-section-badge">Travel Essentials</span>
+        <h2 className="safar-section-title">Quick Access</h2>
+        <p className="safar-section-desc">Kebutuhan dasar ibadah musafir untuk kelancaran safar Anda.</p>
+      </div>
 
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-40px" }}
-      >
+      <div className="safar-essentials-grid">
         {FEATURES.map((feature) => {
-          const colors = colorMap[feature.color];
           const IconComp = feature.icon;
+          const isLink = feature.action === 'link';
 
-          const cardContent = (
-            <motion.div
-              variants={cardVariants}
-              className={`safar-feature-card group relative flex flex-col items-center text-center p-6 md:p-8 rounded-3xl border ${colors.border} ${colors.hoverBorder} bg-slate-800/60 backdrop-blur-sm shadow-lg hover:shadow-2xl ${colors.glow} transition-all duration-300 cursor-pointer min-h-[180px]`}
-            >
-              <div className={`${colors.bg} ${colors.text} w-16 h-16 rounded-2xl flex items-center justify-center mb-5 shadow-inner group-hover:scale-110 transition-transform duration-300`}>
-                <IconComp size={30} />
+          const innerContent = (
+            <div className={`safar-feature-card ${colorClasses[feature.color]}`}>
+              <div className="safar-feature-card__icon-wrap">
+                <IconComp size={24} className="safar-feature-card__icon" />
               </div>
-              <h3 className="font-bold text-white text-lg md:text-xl leading-tight mb-2">{feature.title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed line-clamp-3">{feature.description}</p>
-            </motion.div>
+              <div className="safar-feature-card__info">
+                <h3 className="safar-feature-card__title">{feature.title}</h3>
+                <p className="safar-feature-card__desc">{feature.description}</p>
+              </div>
+              <div className="safar-feature-card__shortcut-indicator">
+                <ArrowRight size={14} className="safar-feature-card__arrow" />
+              </div>
+            </div>
           );
 
-          if (feature.action === 'link') {
+          if (isLink) {
             return (
-              <Link key={feature.id} to={feature.href} className="block">
-                {cardContent}
+              <Link key={feature.id} to={feature.href} className="safar-feature-card-wrapper">
+                {innerContent}
               </Link>
             );
           }
 
           return (
-            <div key={feature.id} onClick={() => handleCardClick(feature)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && handleCardClick(feature)}>
-              {cardContent}
+            <div
+              key={feature.id}
+              onClick={() => handleCardClick(feature)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && handleCardClick(feature)}
+              className="safar-feature-card-wrapper"
+            >
+              {innerContent}
             </div>
           );
         })}
-      </motion.div>
+      </div>
 
-      {/* Detail Modals */}
-      {activeModal && (
-        <FeatureDetailModal feature={activeModal} onClose={() => setActiveModal(null)} />
-      )}
-      <SafarChecklistModal isOpen={isChecklistOpen} onClose={() => setChecklistOpen(false)} />
+      {/* Modals */}
+      <AnimatePresence>
+        {activeModal && (
+          <FeatureDetailModal feature={activeModal} onClose={() => setActiveModal(null)} />
+        )}
+        {isChecklistOpen && (
+          <SafarChecklistModal isOpen={isChecklistOpen} onClose={() => setChecklistOpen(false)} />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

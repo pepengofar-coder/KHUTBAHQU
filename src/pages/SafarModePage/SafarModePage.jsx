@@ -1,27 +1,27 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { PLAYLISTS, getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
 import { KAJIAN_RINGAN_VIDEOS } from '../../data/kajianRinganVideos';
-import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
-import { trackUserActivity } from '../../lib/syncService';
 import { useAuth } from '../../context/AuthContext';
-import { getHourlyRecommendations, getFullValidRecommendations } from '../../lib/travelTilawahRecommendations';
+import { trackUserActivity } from '../../lib/syncService';
 import { getKajianRecommendations } from '../../lib/kajianRecommendations';
 import { 
   Play, Pause, Clock, Heart, 
   X, ChevronRight, AlertCircle, Volume2, Check
 } from 'lucide-react';
 
-// New Redesigned Components
+// Redesigned Components
+import SafarNavbar from './components/SafarNavbar';
 import SafarHero from './components/SafarHero';
-import SafarStatusBar from './components/SafarStatusBar';
+import SafarSummaryCards from './components/SafarSummaryCards';
 import SafarFeatureGrid from './components/SafarFeatureGrid';
 import SafarTimeline from './components/SafarTimeline';
-import SafarCompanion from './components/SafarCompanion';
 import EssentialDuasList from './components/EssentialDuasList';
+import SafarAudioPlaylist from './components/SafarAudioPlaylist';
+import SafarQuickTools from './components/SafarQuickTools';
 
 import './SafarModePage.css';
 
@@ -56,9 +56,8 @@ export default function SafarModePage() {
     try { return JSON.parse(localStorage.getItem('islamediaku_travel_favorites')) || []; } catch { return []; }
   });
 
-  const hourlyRecommendations = useMemo(() => getHourlyRecommendations(), []);
-  const fullRecommendations = useMemo(() => getFullValidRecommendations(), []);
-  
+  const [activeTab, setActiveTab] = useState('overview');
+
   const kajianRecommendations = useMemo(() => {
     return getKajianRecommendations(kajianData, selectedKajianTheme);
   }, [kajianData, selectedKajianTheme]);
@@ -75,6 +74,28 @@ export default function SafarModePage() {
     setToastMessage(msg);
     setToastActive(true);
     setTimeout(() => setToastActive(false), 3000);
+  }, []);
+
+  // Track active tab scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 250;
+      const guidanceEl = document.getElementById('guidance');
+      const duasEl = document.getElementById('duas');
+      const audioEl = document.getElementById('audio');
+      
+      if (audioEl && scrollPos >= audioEl.offsetTop) {
+        setActiveTab('audio');
+      } else if (duasEl && scrollPos >= duasEl.offsetTop) {
+        setActiveTab('duas');
+      } else if (guidanceEl && scrollPos >= guidanceEl.offsetTop) {
+        setActiveTab('guidance');
+      } else {
+        setActiveTab('overview');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -238,6 +259,23 @@ export default function SafarModePage() {
   const getSleepTimerLabel = (val) => val === 'off' ? 'Off' : `${val} Menit`;
   const isAudioOrYoutube = playing || activeRadio || (activeYoutubeTrack && youtubeMinimized);
 
+  const handleTabClick = (tab) => {
+    if (tab.isLink) {
+      navigate(tab.path);
+      return;
+    }
+    if (tab.id === 'overview') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (tab.id === 'tips') {
+      window.dispatchEvent(new CustomEvent('safar-open-checklist'));
+    } else {
+      const el = document.getElementById(tab.id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   const renderPlaylistDetail = () => {
     if (!selectedPlaylist) return null;
     return (
@@ -280,7 +318,7 @@ export default function SafarModePage() {
               </div>
               {kajianRecommendations.length > 0 ? (
                 <div className="recommendations-list">
-                  {kajianRecommendations.slice(0, 5).map((track) => {
+                  {kajianRecommendations.slice(0, 10).map((track) => {
                     const isActive = (activeRadio?.id === track.id);
                     const isPlayingThis = playing && activeRadio?.id === track.id;
                     return (
@@ -350,138 +388,99 @@ export default function SafarModePage() {
     );
   };
 
+  const tabs = [
+    { label: 'Overview', id: 'overview' },
+    { label: 'Guidance', id: 'guidance' },
+    { label: 'Du’a', id: 'duas' },
+    { label: 'Audio', id: 'audio' },
+    { label: 'Qibla', id: 'qibla', isLink: true, path: '/kiblat' },
+    { label: 'Tips', id: 'tips' },
+  ];
+
   return (
     <div className={`safar-page ${isAudioOrYoutube ? 'media-player-active' : ''}`}>
       <div className={`travel-toast ${toastActive ? 'active' : ''}`}>{toastMessage}</div>
 
-      {/* ===== 1. Hero Section ===== */}
-      <SafarHero />
+      {/* ===== 1. Sticky Navbar ===== */}
+      <SafarNavbar />
+
+      {/* ===== 2. Hero Section ===== */}
+      <SafarHero 
+        onStartGuidance={() => document.getElementById('guidance')?.scrollIntoView({ behavior: 'smooth' })}
+        onOpenDua={() => document.getElementById('duas')?.scrollIntoView({ behavior: 'smooth' })}
+      />
 
       {/* ===== Main Content ===== */}
       <div className="safar-page__content">
 
-        {/* ===== 2. Status Card ===== */}
-        <SafarStatusBar />
+        {/* ===== 3. Summary Info Cards ===== */}
+        <SafarSummaryCards 
+          lastPlayed={lastPlayed}
+          onPlayLastAudio={() => lastPlayed && handlePlayItem(lastPlayed)}
+        />
 
-        {/* ===== Divider ===== */}
-        <div className="safar-page__divider" />
-
-        {/* ===== 3. Feature Grid ===== */}
+        {/* ===== 4. Quick Access / Travel Essentials ===== */}
         <SafarFeatureGrid />
 
-        {/* ===== Divider ===== */}
-        <div className="safar-page__divider" />
+        {/* ===== 5. Sticky Section Tabs ===== */}
+        <div className="safar-sticky-tabs">
+          <div className="safar-sticky-tabs__inner">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab)}
+                className={`safar-tab-btn ${activeTab === tab.id ? 'safar-tab-btn--active' : ''}`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
-        {/* ===== 4. Panduan Safar Timeline ===== */}
+        {/* ===== 6. Travel Guidance Section ===== */}
         <SafarTimeline />
 
-        {/* ===== Divider ===== */}
-        <div className="safar-page__divider" />
+        {/* ===== 7. Essential Travel Du’a Section ===== */}
+        <EssentialDuasList showToast={showToast} />
 
-        {/* ===== 5. Companion Section ===== */}
-        <SafarCompanion />
+        {/* ===== 8. Audio & Travel Playlist Section ===== */}
+        <SafarAudioPlaylist onOpenPlaylist={handleOpenPlaylist} />
 
-        {/* ===== Divider ===== */}
-        <div className="safar-page__divider" />
-
-        {/* ===== 6. Essential Duas ===== */}
-        <EssentialDuasList />
-
-        {/* ===== Divider ===== */}
-        <div className="safar-page__divider" />
-
-        {/* ===== 7. Audio & Playlists ===== */}
-        <motion.section
-          className="w-full"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-tight mb-2">
-              <span className="text-blue-400 mr-2">🎧</span>Audio & Playlist Safar
-            </h2>
-            <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-2xl">
-              Kumpulan audio pilihan untuk menemani perjalanan Anda.
-            </p>
-          </div>
-          
-          {/* Continue Listening */}
-          {lastPlayed && (
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              className="mb-6 bg-slate-800/80 rounded-2xl p-4 border border-blue-900/50 shadow-lg flex items-center gap-4 hover:border-blue-500/50 transition-all cursor-pointer"
-              onClick={() => handlePlayItem(lastPlayed)}
-            >
-              <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-inner shrink-0">
-                <Volume2 size={24} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <span className="text-[10px] font-bold tracking-wider text-blue-400 uppercase block mb-0.5">LANJUT DENGARKAN</span>
-                <h3 className="font-bold text-white truncate">{lastPlayed.title || lastPlayed.name}</h3>
-                <p className="text-xs text-slate-400 truncate">{lastPlayed.subtitle || 'Islamediaku Audio'}</p>
-              </div>
-              <button className="h-10 w-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center shrink-0">
-                {playing && activeRadio?.id === lastPlayed.id ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
-              </button>
-            </motion.div>
-          )}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {PLAYLISTS.map(p => {
-              const tracks = getPlaylistItems(p.id);
-              const colorMap = {
-                'tenang-perjalanan': 'blue', 'tilawah-pilihan': 'cyan',
-                'murottal-juz-amma': 'emerald', 'dzikir-doa': 'rose',
-                'kajian-ringan': 'lavender', 'radio-dakwah': 'mint',
-              };
-              return (
-                <VariedFeatureCard
-                  key={p.id} title={p.title} subtitle={`${tracks.length} Audio • ${p.subtitle}`}
-                  icon={p.icon} colorVariant={colorMap[p.id] || 'blue'}
-                  onClick={() => handleOpenPlaylist(p.id)} layoutVariant="playlist-card"
-                />
-              );
-            })}
-          </div>
-        </motion.section>
-
-        {/* ===== 8. Sleep Timer ===== */}
-        <motion.section
+        {/* Sleep Timer component */}
+        <motion.div
           className="w-full pb-8"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="bg-slate-800/80 rounded-2xl p-5 md:p-6 text-white shadow-lg border border-slate-700 flex items-center justify-between cursor-pointer hover:border-slate-500 transition-all" onClick={() => setShowSleepModal(true)}>
+          <div className="safar-sleep-timer-card" onClick={() => setShowSleepModal(true)}>
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-full bg-slate-700 flex items-center justify-center">
-                <Clock size={24} className="text-slate-300" />
+              <div className="safar-sleep-timer-card__icon-wrap">
+                <Clock size={20} className="text-slate-350" />
               </div>
               <div>
-                <h3 className="font-bold text-lg leading-tight">Sleep Timer Safar</h3>
-                <p className="text-sm text-slate-400 mt-1">Hentikan audio otomatis agar hemat baterai</p>
+                <h3 className="safar-sleep-timer-card__title">Sleep Timer Safar</h3>
+                <p className="safar-sleep-timer-card__desc">Hentikan audio otomatis agar hemat baterai</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-sm font-bold bg-slate-900 px-3 py-1.5 rounded-lg text-emerald-400">
+              <span className="safar-sleep-timer-card__badge">
                 {getSleepTimerLabel(sleepTimer)}
               </span>
               <ChevronRight size={20} className="text-slate-500" />
             </div>
           </div>
-        </motion.section>
+        </motion.div>
       </div>
+
+      {/* ===== 9. Quick Tools Bottom Section / Footer Shortcut ===== */}
+      <SafarQuickTools />
 
       {/* ===== Playlist Bottom Sheet (Mobile) ===== */}
       {selectedPlaylist && (
         <div className="fixed inset-0 z-[60] bg-gray-900/60 backdrop-blur-sm" onClick={() => setSelectedPlaylistId(null)}>
-          <div className="absolute bottom-0 left-0 right-0 bg-slate-900 rounded-t-3xl h-[85vh] flex flex-col shadow-2xl border-t border-slate-700" onClick={(e) => e.stopPropagation()} ref={mobileSheetRef}>
+          <div className="absolute bottom-0 left-0 right-0 bg-slate-900 rounded-t-3xl h-[85vh] flex flex-col shadow-2xl border-t border-slate-750" onClick={(e) => e.stopPropagation()} ref={mobileSheetRef}>
             <div className="w-12 h-1.5 bg-slate-700 rounded-full mx-auto my-3" onClick={() => setSelectedPlaylistId(null)} />
             {renderPlaylistDetail()}
           </div>
@@ -500,14 +499,14 @@ export default function SafarModePage() {
               {['off', '15', '30', '45', '60'].map(val => (
                 <button
                   key={val}
-                  className={`w-full flex items-center justify-between p-4 rounded-xl font-medium transition-colors ${sleepTimer === val ? 'bg-indigo-900/50 text-indigo-400 ring-1 ring-indigo-500/50' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}
+                  className={`w-full flex items-center justify-between p-4 rounded-xl font-medium transition-colors ${sleepTimer === val ? 'bg-teal-950/40 text-teal-400 ring-1 ring-teal-500/30' : 'bg-slate-800 text-slate-350 hover:bg-slate-700'}`}
                   onClick={() => {
                     changeSleepTimer(val); setShowSleepModal(false);
                     showToast(val === 'off' ? 'Sleep timer dimatikan' : `Sleep timer disetel ${val} menit`);
                   }}
                 >
                   {val === 'off' ? 'Mati' : `${val} Menit`}
-                  {sleepTimer === val && <Check size={20} className="text-indigo-400" />}
+                  {sleepTimer === val && <Check size={20} className="text-teal-450" />}
                 </button>
               ))}
             </div>
