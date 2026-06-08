@@ -102,6 +102,7 @@ function AppLayout() {
   const isMimbar = location.pathname === '/mimbar';
   const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
   const isAdmin = location.pathname === '/admin280292' || location.pathname === '/admin/banners';
+  const isSafar = location.pathname === '/mode-perjalanan';
 
   if (isMimbar) return (
     <Suspense fallback={<PageLoader />}>
@@ -112,16 +113,16 @@ function AppLayout() {
   return (
     <>
       <OfflineBanner />
-      {(!isAdmin) && <Navbar />}
+      {(!isAdmin && !isSafar) && <Navbar />}
       <main style={{ flex: 1 }}>
         <AnimatedRoutes />
       </main>
-      {!isDetail && <Footer />}
+      {(!isDetail && !isSafar) && <Footer />}
       <GlobalMiniTilawahPlayer />
       <YouTubeEmbedModal />
       <UpdateBanner />
       <AppDownloadPopup />
-      <BottomNav />
+      {!isSafar && <BottomNav />}
     </>
   );
 }
