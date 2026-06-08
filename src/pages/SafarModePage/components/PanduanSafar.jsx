@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useMemo } from 'react';
 import { Sparkles, DoorOpen, Clock, ArrowRightLeft, MapPinCheck } from 'lucide-react';
 
-const STEPS = [
+const STATIC_STEPS = [
   {
     num: 1,
     title: 'Travel Intention',
@@ -47,8 +46,10 @@ const STEPS = [
   },
 ];
 
-export default function SafarTimeline() {
+export default function PanduanSafar() {
   const [activeStep, setActiveStep] = useState(2); // Set Step 2 as active default
+
+  const steps = useMemo(() => STATIC_STEPS, []);
 
   const handleStepClick = (step) => {
     setActiveStep(step.num);
@@ -70,9 +71,9 @@ export default function SafarTimeline() {
 
       <div className="safar-stepper-container">
         <div className="safar-stepper">
-          {STEPS.map((step, index) => {
+          {steps.map((step, index) => {
             const IconComp = step.icon;
-            const isLast = index === STEPS.length - 1;
+            const isLast = index === steps.length - 1;
             const isCompleted = step.num < activeStep;
             const isActive = step.num === activeStep;
 
@@ -81,10 +82,13 @@ export default function SafarTimeline() {
                 key={step.num}
                 className={`safar-step ${isActive ? 'safar-step--active' : ''} ${isCompleted ? 'safar-step--completed' : ''}`}
                 onClick={() => handleStepClick(step)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handleStepClick(step)}
               >
                 {/* Visual Step Indicator */}
                 <div className="safar-step__indicator-row">
-                  <div className={`safar-step__circle`}>
+                  <div className="safar-step__circle">
                     {isCompleted ? (
                       <span className="text-xs font-bold">✓</span>
                     ) : (

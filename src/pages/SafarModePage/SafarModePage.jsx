@@ -1,29 +1,49 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
-import { PLAYLISTS, getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
+import { getPlaylistItems, getPlaylistById } from '../../data/travelAudioContent';
 import { KAJIAN_RINGAN_VIDEOS } from '../../data/kajianRinganVideos';
 import { useAuth } from '../../context/AuthContext';
 import { trackUserActivity } from '../../lib/syncService';
 import { getKajianRecommendations } from '../../lib/kajianRecommendations';
 import { 
   Play, Pause, Clock, Heart, 
-  X, ChevronRight, AlertCircle, Volume2, Check
+  X, ChevronRight, AlertCircle, Check
 } from 'lucide-react';
 
-// Redesigned Components
+// Statically loaded critical components for fast initial render
 import SafarNavbar from './components/SafarNavbar';
-import SafarHero from './components/SafarHero';
+import HeroSafar from './components/HeroSafar';
 import SafarSummaryCards from './components/SafarSummaryCards';
-import SafarFeatureGrid from './components/SafarFeatureGrid';
-import SafarTimeline from './components/SafarTimeline';
-import EssentialDuasList from './components/EssentialDuasList';
-import SafarAudioPlaylist from './components/SafarAudioPlaylist';
 import SafarQuickTools from './components/SafarQuickTools';
 
+// Below-the-fold components lazy loaded for better initial load performance
+const QuickAccessSafar = lazy(() => import('./components/QuickAccessSafar'));
+const SafarTabs = lazy(() => import('./components/SafarTabs'));
+const PanduanSafar = lazy(() => import('./components/PanduanSafar'));
+const DoaSafar = lazy(() => import('./components/DoaSafar'));
+const AudioSafar = lazy(() => import('./components/AudioSafar'));
+
 import './SafarModePage.css';
+
+// Shimmer skeleton loading effect for lazy components
+function SkeletonCard({ count = 1 }) {
+  return (
+    <div className="safar-skeleton-list">
+      {Array.from({ length: count }).map((_, idx) => (
+        <div key={idx} className="safar-skeleton-card">
+          <div className="safar-skeleton-avatar" />
+          <div className="safar-skeleton-text-group">
+            <div className="safar-skeleton-line safar-skeleton-line--title" />
+            <div className="safar-skeleton-line safar-skeleton-line--desc" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 
 export default function SafarModePage() {
   useSEO({
@@ -146,7 +166,7 @@ export default function SafarModePage() {
         const combined = [...fetchedData, ...KAJIAN_RINGAN_VIDEOS];
         const unique = Array.from(new Map(combined.map(item => [item.videoId, item])).values());
         setKajianData(unique);
-      } catch (err) {
+      } catch {
         setKajianData(KAJIAN_RINGAN_VIDEOS);
       }
     };
@@ -166,7 +186,7 @@ export default function SafarModePage() {
           }));
           setMp3QuranRadios(formatted);
         }
-      } catch (err) {}
+      } catch {}
     };
     fetchRadios();
   }, []);
@@ -311,7 +331,7 @@ export default function SafarModePage() {
               <div className="kajian-themes-scroll">
                 {['Semua', 'Aqidah', 'Akhlak', 'Fiqih', 'Keluarga', 'Motivasi Iman', 'Qur\'an', 'Sholat', 'Sedekah', 'Remaja', 'Kajian Singkat'].map(theme => (
                   <button key={theme} className={`kajian-theme-chip ${selectedKajianTheme === theme ? 'active' : ''}`}
-                    onClick={() => { setSelectedKajianTheme(theme); try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch (e) {} }}>
+                    onClick={() => { setSelectedKajianTheme(theme); try { localStorage.setItem('islamediaku_kajian_selected_theme', theme); } catch {} }}>
                     {theme}
                   </button>
                 ))}
@@ -388,14 +408,6 @@ export default function SafarModePage() {
     );
   };
 
-  const tabs = [
-    { label: 'Overview', id: 'overview' },
-    { label: 'Guidance', id: 'guidance' },
-    { label: 'Du’a', id: 'duas' },
-    { label: 'Audio', id: 'audio' },
-    { label: 'Qibla', id: 'qibla', isLink: true, path: '/kiblat' },
-    { label: 'Tips', id: 'tips' },
-  ];
 
   return (
     <div className={`safar-page ${isAudioOrYoutube ? 'media-player-active' : ''}`}>
@@ -405,7 +417,7 @@ export default function SafarModePage() {
       <SafarNavbar />
 
       {/* ===== 2. Hero Section ===== */}
-      <SafarHero 
+      <HeroSafar 
         onStartGuidance={() => document.getElementById('guidance')?.scrollIntoView({ behavior: 'smooth' })}
         onOpenDua={() => document.getElementById('duas')?.scrollIntoView({ behavior: 'smooth' })}
       />
@@ -419,43 +431,35 @@ export default function SafarModePage() {
           onPlayLastAudio={() => lastPlayed && handlePlayItem(lastPlayed)}
         />
 
-        {/* ===== 4. Quick Access / Travel Essentials ===== */}
-        <SafarFeatureGrid />
+        {/* ===== 4. Quick Access / Travel Essentials (Lazy Loaded) ===== */}
+        <Suspense fallback={<SkeletonCard count={3} />}>
+          <QuickAccessSafar />
+        </Suspense>
 
-        {/* ===== 5. Sticky Section Tabs ===== */}
-        <div className="safar-sticky-tabs">
-          <div className="safar-sticky-tabs__inner">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => handleTabClick(tab)}
-                className={`safar-tab-btn ${activeTab === tab.id ? 'safar-tab-btn--active' : ''}`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* ===== 5. Sticky Section Tabs (Lazy Loaded) ===== */}
+        <Suspense fallback={<div className="safar-tabs-skeleton" style={{ height: '52px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '12px' }} />}>
+          <SafarTabs activeTab={activeTab} onTabClick={handleTabClick} />
+        </Suspense>
 
-        {/* ===== 6. Travel Guidance Section ===== */}
-        <SafarTimeline />
+        {/* ===== 6. Travel Guidance Section (Lazy Loaded) ===== */}
+        <Suspense fallback={<SkeletonCard count={2} />}>
+          <PanduanSafar />
+        </Suspense>
 
-        {/* ===== 7. Essential Travel Du’a Section ===== */}
-        <EssentialDuasList showToast={showToast} />
+        {/* ===== 7. Essential Travel Du’a Section (Lazy Loaded) ===== */}
+        <Suspense fallback={<SkeletonCard count={3} />}>
+          <DoaSafar showToast={showToast} />
+        </Suspense>
 
-        {/* ===== 8. Audio & Travel Playlist Section ===== */}
-        <SafarAudioPlaylist onOpenPlaylist={handleOpenPlaylist} />
+        {/* ===== 8. Audio & Travel Playlist Section (Lazy Loaded) ===== */}
+        <Suspense fallback={<SkeletonCard count={2} />}>
+          <AudioSafar onOpenPlaylist={handleOpenPlaylist} />
+        </Suspense>
 
         {/* Sleep Timer component */}
-        <motion.div
-          className="w-full pb-8"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="w-full pb-8" style={{ marginTop: '24px' }}>
           <div className="safar-sleep-timer-card" onClick={() => setShowSleepModal(true)}>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
               <div className="safar-sleep-timer-card__icon-wrap">
                 <Clock size={20} className="text-slate-350" />
               </div>
@@ -464,14 +468,14 @@ export default function SafarModePage() {
                 <p className="safar-sleep-timer-card__desc">Hentikan audio otomatis agar hemat baterai</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <span className="safar-sleep-timer-card__badge">
                 {getSleepTimerLabel(sleepTimer)}
               </span>
               <ChevronRight size={20} className="text-slate-500" />
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* ===== 9. Quick Tools Bottom Section / Footer Shortcut ===== */}

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Copy, Bookmark, Share2, ChevronRight, Check } from 'lucide-react';
 import { useTilawahAudio } from '../../../context/TilawahContext';
 
-const DUAS = [
+const STATIC_DUAS = [
   {
     id: 'doa-keluar-rumah',
     title: 'Doa Keluar Rumah',
@@ -11,7 +11,7 @@ const DUAS = [
     transliteration: 'Bismillahi tawakkaltu \'alallah, laa hawla wa laa quwwata illaa billaah.',
     translation: 'Dengan nama Allah, aku bertawakkal kepada Allah. Tiada daya dan kekuatan kecuali dengan (pertolongan) Allah.',
     source: 'HR. Abu Daud no. 5095',
-    audioUrl: 'https://server8.mp3quran.net/afs/114.mp3' // Mock recitation track for safar/protection
+    audioUrl: 'https://server8.mp3quran.net/afs/114.mp3'
   },
   {
     id: 'doa-naik-kendaraan',
@@ -60,13 +60,14 @@ const DUAS = [
   }
 ];
 
-export default function EssentialDuasList({ showToast }) {
+export default function DoaSafar({ showToast }) {
   const [activeId, setActiveId] = useState('doa-safar');
   const [copiedId, setCopiedId] = useState(null);
   const [savedIds, setSavedIds] = useState([]);
-  const { playTrack, playing, activeRadio, pauseTrack } = useTilawahAudio();
+  const { playTrack, playing, activeRadio } = useTilawahAudio();
 
-  const activeDua = DUAS.find(d => d.id === activeId) || DUAS[2];
+  const duas = useMemo(() => STATIC_DUAS, []);
+  const activeDua = useMemo(() => duas.find(d => d.id === activeId) || duas[2], [duas, activeId]);
 
   useEffect(() => {
     const handleOpenDua = (e) => {
@@ -105,7 +106,6 @@ export default function EssentialDuasList({ showToast }) {
         url: window.location.href
       }).catch(() => {});
     } else {
-      // Fallback: Copy link
       navigator.clipboard.writeText(`${dua.title}: ${window.location.href}`);
       showToast('Link doa disalin untuk dibagikan! 🔗');
     }
@@ -122,7 +122,6 @@ export default function EssentialDuasList({ showToast }) {
     };
     
     if (playing && activeRadio?.id === track.id) {
-      // pause it
       window.dispatchEvent(new CustomEvent('imk-pause-track'));
       showToast('Audio doa dihentikan.');
     } else {
@@ -146,7 +145,7 @@ export default function EssentialDuasList({ showToast }) {
       <div className="safar-duas-layout">
         {/* Left Column: Sidebar list of Du'as */}
         <div className="safar-duas-list">
-          {DUAS.map((dua) => {
+          {duas.map((dua) => {
             const isActive = activeId === dua.id;
             const isPlaying = isDuaPlaying(dua);
             return (
@@ -154,6 +153,9 @@ export default function EssentialDuasList({ showToast }) {
                 key={dua.id}
                 onClick={() => setActiveId(dua.id)}
                 className={`safar-dua-item ${isActive ? 'safar-dua-item--active' : ''}`}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && setActiveId(dua.id)}
               >
                 <div className="safar-dua-item__number">
                   {isPlaying ? (
@@ -177,7 +179,7 @@ export default function EssentialDuasList({ showToast }) {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.25 }}
                       className="safar-dua-item__mobile-panel"
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -219,9 +221,9 @@ export default function EssentialDuasList({ showToast }) {
         <div className="safar-duas-detail-panel">
           <motion.div
             key={activeDua.id}
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.3 }}
             className="safar-dua-detail-card"
           >
             {/* Header info */}
@@ -263,7 +265,7 @@ export default function EssentialDuasList({ showToast }) {
               </div>
             </div>
 
-            {/* Arabic Text (dominant & elegant) */}
+            {/* Arabic Text */}
             <div className="safar-dua-detail__body">
               <div className="safar-dua-detail__arabic-wrapper">
                 <p dir="rtl" className="safar-dua-detail__arabic">
@@ -272,7 +274,7 @@ export default function EssentialDuasList({ showToast }) {
               </div>
 
               {/* Transliteration */}
-              <div className="safar-dua-detail__section">
+              <div className="safar-dua-detail__section" style={{ marginTop: '16px' }}>
                 <span className="safar-dua-detail__section-label">Transliterasi</span>
                 <p className="safar-dua-detail__transliteration">
                   "{activeDua.transliteration}"
@@ -280,7 +282,7 @@ export default function EssentialDuasList({ showToast }) {
               </div>
 
               {/* Translation */}
-              <div className="safar-dua-detail__section">
+              <div className="safar-dua-detail__section" style={{ marginTop: '16px' }}>
                 <span className="safar-dua-detail__section-label">Terjemahan</span>
                 <p className="safar-dua-detail__translation">
                   {activeDua.translation}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Compass, User, Search, Settings } from 'lucide-react';
+import { Compass, User, Search } from 'lucide-react';
 
 export default function SafarNavbar() {
   const navigate = useNavigate();

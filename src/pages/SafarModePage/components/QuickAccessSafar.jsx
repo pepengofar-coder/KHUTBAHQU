@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -6,7 +6,7 @@ import {
   BookHeart, Lightbulb, CheckSquare, X, ArrowRight
 } from 'lucide-react';
 
-const FEATURES = [
+const STATIC_FEATURES = [
   {
     id: 'qashar',
     title: 'Qashar Prayer',
@@ -100,16 +100,16 @@ function FeatureDetailModal({ feature, onClose }) {
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}>
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ duration: 0.25 }}
         className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="p-6 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`p-3 rounded-full flex items-center justify-center bg-slate-800/80`}>
+            <div className="p-3 rounded-full flex items-center justify-center bg-slate-800/80">
               <feature.icon size={20} className="text-teal-400" />
             </div>
             <h3 className="font-bold text-white text-lg">{modalContent.title}</h3>
@@ -167,10 +167,10 @@ function SafarChecklistModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}>
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 15 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ duration: 0.25 }}
         className="bg-slate-900 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
@@ -190,7 +190,7 @@ function SafarChecklistModal({ isOpen, onClose }) {
               <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{cat}</h4>
               <ul className="space-y-2">
                 {checklist.filter(i => i.category === cat).map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-3 bg-slate-950/40 p-3.5 rounded-2xl border border-slate-800/50">
+                  <li key={idx} className="flex items-start gap-3 bg-slate-950/44 p-3.5 rounded-2xl border border-slate-800/50">
                     <input type="checkbox" className="mt-0.5 w-4 h-4 rounded bg-slate-850 border-slate-700 text-teal-600 focus:ring-teal-500 focus:ring-offset-slate-900 accent-teal-500" />
                     <span className="text-sm text-slate-300 font-medium leading-normal">{item.label}</span>
                   </li>
@@ -210,7 +210,7 @@ function SafarChecklistModal({ isOpen, onClose }) {
   );
 }
 
-export default function SafarFeatureGrid() {
+export default function QuickAccessSafar() {
   const [activeModal, setActiveModal] = useState(null);
   const [isChecklistOpen, setChecklistOpen] = useState(false);
 
@@ -234,6 +234,8 @@ export default function SafarFeatureGrid() {
     }
   };
 
+  const memoizedFeatures = useMemo(() => STATIC_FEATURES, []);
+
   return (
     <section id="essentials" className="safar-essentials scroll-mt-24">
       <div className="safar-section-header">
@@ -243,7 +245,7 @@ export default function SafarFeatureGrid() {
       </div>
 
       <div className="safar-essentials-grid">
-        {FEATURES.map((feature) => {
+        {memoizedFeatures.map((feature) => {
           const IconComp = feature.icon;
           const isLink = feature.action === 'link';
 

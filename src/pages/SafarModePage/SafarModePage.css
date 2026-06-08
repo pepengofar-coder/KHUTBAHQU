@@ -1808,3 +1808,446 @@
 .heart-active {
   color: var(--safar-rose);
 }
+
+/* ==========================================================
+   Radio Rodja Live Player Card — Premium Glassmorphic Design
+   ========================================================== */
+.safar-radio-player-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.5) 100%);
+  border: 1.5px solid rgba(20, 184, 166, 0.15);
+  box-shadow: 
+    0 12px 30px rgba(0, 0, 0, 0.3),
+    0 0 25px rgba(20, 184, 166, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  border-radius: var(--safar-radius-lg, 24px);
+  padding: 24px 32px;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-spring);
+  backdrop-filter: var(--safar-blur);
+  -webkit-backdrop-filter: var(--safar-blur);
+}
+
+.safar-radio-player-card:hover {
+  border-color: rgba(20, 184, 166, 0.45);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 35px rgba(20, 184, 166, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.safar-radio-player-card__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Left Broadcast Column */
+.safar-radio-player-card__left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.safar-radio-player-card__icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.3s;
+}
+.safar-radio-player-card:hover .safar-radio-player-card__icon-wrap {
+  transform: scale(1.05);
+}
+
+.safar-radio-player-card__radio-icon {
+  color: var(--safar-teal, #14b8a6);
+}
+.safar-radio-player-card__radio-icon.playing {
+  animation: pulse-icon 1.5s infinite alternate;
+}
+
+@keyframes pulse-icon {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Equalizer bounce animation */
+.safar-radio-player-card__equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 12px;
+  margin-top: 4px;
+}
+.safar-radio-player-card__equalizer span {
+  display: block;
+  width: 1.5px;
+  background: var(--safar-teal, #14b8a6);
+  border-radius: 1px;
+  height: 100%;
+  animation: eq-bounce 0.8s ease-in-out infinite alternate;
+}
+.safar-radio-player-card__equalizer span:nth-child(1) { animation-delay: 0.1s; }
+.safar-radio-player-card__equalizer span:nth-child(2) { animation-delay: 0.3s; }
+.safar-radio-player-card__equalizer span:nth-child(3) { animation-delay: 0.5s; }
+.safar-radio-player-card__equalizer span:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes eq-bounce {
+  0% { height: 15%; }
+  100% { height: 100%; }
+}
+
+/* LIVE status badge */
+.safar-radio-player-card__live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 850;
+  text-transform: uppercase;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+}
+.safar-radio-player-card__live-badge.active {
+  color: #ffffff;
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.safar-radio-player-card__live-badge .live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #64748b;
+  transition: background-color 0.3s;
+}
+.safar-radio-player-card__live-badge.active .live-dot {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+  animation: live-blink 1.2s infinite alternate;
+}
+
+@keyframes live-blink {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* Center Details & Quality */
+.safar-radio-player-card__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.safar-radio-player-card__title {
+  font-size: 1.25rem;
+  font-weight: 850;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.01em;
+}
+
+.safar-radio-player-card__subtitle {
+  font-size: 0.875rem;
+  color: var(--safar-text-secondary, #94a3b8);
+  margin: 0 0 16px 0;
+}
+
+/* Quality Selectors */
+.safar-radio-player-card__quality-selector {
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  margin-bottom: 12px;
+}
+
+.safar-radio-player-card__quality-selector .quality-btn {
+  font-size: 11px;
+  font-weight: 750;
+  color: var(--safar-text-secondary, #94a3b8);
+  padding: 5px 12px;
+  border-radius: 7px;
+  transition: all 0.25s;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.safar-radio-player-card__quality-selector .quality-btn.active {
+  color: #ffffff;
+  background: var(--safar-teal, #14b8a6);
+  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.25);
+}
+
+/* Volume Control */
+.safar-radio-player-card__volume-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 160px;
+}
+
+.safar-radio-player-card__volume-box .volume-btn {
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
+}
+.safar-radio-player-card__volume-box .volume-btn:hover {
+  color: #ffffff;
+}
+
+.safar-radio-player-card__volume-box .volume-slider {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  cursor: pointer;
+  accent-color: var(--safar-teal, #14b8a6);
+}
+
+/* Error fallback message */
+.safar-radio-player-card__error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  font-size: 11px;
+  font-weight: 600;
+  width: 100%;
+  animation: slide-down-fade 0.3s ease-out;
+}
+
+@keyframes slide-down-fade {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Play/Pause Right Column */
+.safar-radio-player-card__right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.safar-radio-player-card__play-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(20, 184, 166, 0.1);
+  border: 2px solid rgba(20, 184, 166, 0.25);
+  color: var(--safar-teal, #14b8a6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.15);
+}
+
+.safar-radio-player-card__play-btn:hover {
+  background: var(--safar-teal, #14b8a6);
+  border-color: var(--safar-teal, #14b8a6);
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+  transform: scale(1.06);
+}
+
+.safar-radio-player-card__play-btn.playing {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+.safar-radio-player-card__play-btn.playing:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  transform: scale(1.06);
+}
+
+.safar-radio-player-card__play-btn.loading {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  box-shadow: none;
+}
+
+.radio-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  border-top-color: var(--safar-teal, #14b8a6);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================
+   Skeleton Shimmer Loading Effect
+   ========================================================== */
+.safar-skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 0;
+}
+
+.safar-skeleton-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.25);
+  border-radius: var(--safar-radius-md, 16px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.safar-skeleton-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.safar-skeleton-text-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.safar-skeleton-line {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  height: 12px;
+}
+
+.safar-skeleton-line--title {
+  width: 35%;
+  height: 14px;
+}
+
+.safar-skeleton-line--desc {
+  width: 70%;
+}
+
+.safar-skeleton-card::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.02) 20%,
+    rgba(255, 255, 255, 0.04) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.safar-tabs-skeleton {
+  width: 100%;
+  animation: pulse-shimmer 1.5s infinite alternate;
+}
+
+@keyframes pulse-shimmer {
+  0% { opacity: 0.5; }
+  100% { opacity: 0.8; }
+}
+
+/* ==========================================================
+   Page Spacing and Decrowding Improvements
+   ========================================================== */
+.safar-page__content {
+  display: flex;
+  flex-direction: column;
+  gap: 64px; /* Increased from default gap to add breathing space */
+  padding-bottom: 120px;
+}
+
+.safar-essentials,
+.safar-guidance,
+.safar-duas,
+.safar-audio {
+  scroll-margin-top: 100px;
+}
+
+.safar-section-header {
+  margin-bottom: 32px; /* Add extra spacing after headers */
+}
+
+/* Responsive adjustment for Mobile */
+@media (max-width: 640px) {
+  .safar-radio-player-card {
+    padding: 20px;
+  }
+  .safar-radio-player-card__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .safar-radio-player-card__left {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .safar-radio-player-card__center {
+    align-items: stretch;
+  }
+  .safar-radio-player-card__volume-box {
+    max-width: 100%;
+  }
+  .safar-radio-player-card__play-btn {
+    width: 100%;
+    border-radius: 12px;
+    height: 48px;
+  }
+}
+
