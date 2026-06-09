@@ -698,3 +698,103 @@ h1, h2, h3, h4 {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================
+   Feature Info Section (Common SEO & Info layout)
+   ========================================================== */
+.feature-info-section {
+  margin-top: var(--sp-10);
+  margin-bottom: var(--sp-6);
+  padding: 0;
+  width: 100%;
+}
+
+.feature-info-card {
+  padding: var(--sp-6) var(--sp-6);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--glass-shadow-light);
+}
+
+.feature-info-card h2 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--sp-2);
+}
+
+.feature-info-card > p {
+  font-size: var(--fs-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--sp-6);
+}
+
+.feature-benefits-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+
+@media (min-width: 768px) {
+  .feature-benefits-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feature-benefit-item {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+}
+
+.feature-benefit-item .benefit-icon {
+  font-size: 24px;
+  background: var(--color-primary-surface);
+  padding: var(--sp-2);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+}
+
+.feature-benefit-item h4 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.feature-benefit-item p {
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.feature-info-ctas {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: var(--sp-5);
+}
+
+@media (max-width: 480px) {
+  .feature-info-ctas {
+    flex-direction: column;
+  }
+  .feature-info-ctas .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+

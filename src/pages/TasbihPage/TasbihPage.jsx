@@ -1,11 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import './TasbihPage.css';
 
 const PRESETS = [33, 99, 1000];
 
 export default function TasbihPage() {
-  useSEO({ title: 'Tasbih Digital — Counter Dzikir | Islamediaku', description: 'Tasbih digital untuk menghitung dzikir Anda. Target 33, 99, atau custom. Simpan progress otomatis.', path: '/tasbih' });
+  useSEO({
+    title: 'Tasbih Digital Online & Counter Dzikir - Islamediaku',
+    description: 'Tasbih digital online untuk membantu menghitung dzikir harian Anda secara praktis di Islamediaku.',
+    path: '/tasbih'
+  });
 
   const [count, setCount] = useState(() => {
     try { return parseInt(localStorage.getItem('kq_tasbih_count') || '0'); } catch { return 0; }
@@ -33,7 +38,7 @@ export default function TasbihPage() {
   return (
     <div className="tasbih-page container">
       <div className="tasbih-page__header">
-        <h1 className="tasbih-page__title">Tasbih Digital</h1>
+        <h1 className="tasbih-page__title">Tasbih Digital Online</h1>
       </div>
 
       {/* Presets */}
@@ -70,6 +75,41 @@ export default function TasbihPage() {
       </div>
 
       <p className="tasbih-tip">Tap lingkaran besar untuk menghitung. Progress tersimpan otomatis.</p>
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section">
+        <div className="feature-info-card">
+          <h2>Tasbih Digital Online & Hitung Dzikir Harian</h2>
+          <p>Mempermudah ibadah dzikir dan wirid harian Anda dengan alat hitung (counter) tasbih digital online yang responsif, mendukung getaran haptic, dan penyimpanan otomatis.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🔢</span>
+              <div>
+                <h4>Preset Target Dzikir</h4>
+                <p>Pilih preset hitungan populer (33x, 99x, 1000x) atau tentukan sendiri target custom Anda.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📳</span>
+              <div>
+                <h4>Getaran Sensor (Haptic)</h4>
+                <p>Memberikan getaran halus saat menyentuh tombol hitung untuk sensasi tasbih fisik.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">💾</span>
+              <div>
+                <h4>Simpan Riwayat Otomatis</h4>
+                <p>Progress hitungan dzikir Anda tersimpan aman meskipun halaman browser ditutup.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/doa-dzikir" className="btn btn--primary">Kembali ke Doa & Dzikir</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

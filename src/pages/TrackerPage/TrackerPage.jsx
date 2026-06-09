@@ -1,10 +1,9 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import {
   getDailyProgress,
   updateTrackerItem,
-  getMotivation,
   TRACKER_ITEMS,
   safeParseJSON,
   safeSaveJSON,
@@ -23,8 +22,8 @@ const MOTIVATIONS = [
 
 export default function TrackerPage() {
   useSEO({
-    title: 'Tracker Ibadah - Islamediaku',
-    description: 'Pantau rutinitas ibadah dan kebiasaan baik harianmu.',
+    title: 'Tracker Ibadah Harian & Evaluasi Ibadah - Islamediaku',
+    description: 'Pantau dan evaluasi catatan ibadah harian Anda secara teratur untuk tingkatkan ketakwaan di Islamediaku.',
     path: '/tracker'
   });
 
@@ -117,7 +116,7 @@ export default function TrackerPage() {
       {/* Header */}
       <header className="tracker-header">
         <div className="container">
-          <h1 className="tracker-header__title">Tracker Ibadah</h1>
+          <h1 className="tracker-header__title">Tracker Ibadah Harian</h1>
           <p className="tracker-header__subtitle">Pantau rutinitas ibadah dan kebiasaan baik harianmu.</p>
         </div>
       </header>
@@ -266,6 +265,40 @@ export default function TrackerPage() {
         </section>
 
       </main>
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section container" style={{ paddingLeft: 'var(--sp-4)', paddingRight: 'var(--sp-4)', paddingBottom: 'var(--sp-8)' }}>
+        <div className="feature-info-card">
+          <h2>Tracker Ibadah Harian & Monitoring Aktivitas</h2>
+          <p>Ubah kebiasaan baik Anda menjadi rutinitas konsisten dengan mencatat pencapaian ibadah harian serta memantau kesehatan fisik Anda dalam satu dasbor terpadu.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📝</span>
+              <div>
+                <h4>Catatan Ibadah Terpadu</h4>
+                <p>Ceklis amalan sholat fardhu, tilawah, sholat sunnah, sedekah, dan dzikir harian secara praktis.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">👣</span>
+              <div>
+                <h4>Langkah Sehat & Olahraga</h4>
+                <p>Pantau jumlah langkah kaki harian dan catat aktivitas fisik untuk menjaga kebugaran jasmani Anda.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📊</span>
+              <div>
+                <h4>Evaluasi Diri Berkala</h4>
+                <p>Membantu menumbuhkan kebiasaan positif secara konsisten dari hari ke hari demi peningkatan ketakwaan.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/sholat" className="btn btn--primary">Periksa Jadwal Sholat</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

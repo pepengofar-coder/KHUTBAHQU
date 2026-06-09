@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer__bottom">
-        <p>© 2026 Islamediaku. Semua konten disusun untuk kebaikan umat.</p>
+        <p>© {new Date().getFullYear()} Islamediaku. Semua konten disusun untuk kebaikan umat.</p>
         <p style={{ marginTop: '8px', fontSize: '0.9em', color: 'var(--color-text-muted)' }}>
           Aplikasi oleh Amirudin Abu Ziyadhmaeda
         </p>

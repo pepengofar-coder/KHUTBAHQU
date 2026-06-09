@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars, react-hooks/exhaustive-deps */
 import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
 import {
@@ -20,8 +21,8 @@ export default function HijriCalendarPage() {
   const { allKhutbah, categories } = useApp();
 
   useSEO({
-    title: 'Kalender Hijriah — Tanggal Islam, Puasa Sunnah & Peristiwa Islam | Islamediaku',
-    description: 'Kalender Hijriah interaktif dengan jadwal puasa sunnah, peristiwa Islam terdekat, dan rekomendasi tema khutbah berdasarkan bulan Hijriah. Untuk khatib, dai, dan umat muslim.',
+    title: 'Kalender Hijriah & Tanggal Islami - Islamediaku',
+    description: 'Cek kalender Hijriah terupdate, penanggalan Islam penting, dan konversi Masehi ke Hijriah di Islamediaku.',
     path: '/kalender-hijriah',
   });
   const now   = new Date();
@@ -251,6 +252,41 @@ export default function HijriCalendarPage() {
           </div>
         </section>
       )}
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section">
+        <div className="feature-info-card">
+          <h2>Kalender Hijriah & Penanggalan Hari Besar Islam</h2>
+          <p>Memantau penanggalan Hijriah secara akurat, mengetahui hari besar Islam, puasa sunnah terjadwal, serta mencocokkannya dengan kalender Masehi secara praktis.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📅</span>
+              <div>
+                <h4>Penanggalan Hijriah Akurat</h4>
+                <p>Informasi tanggal Hijriah harian yang terupdate menyesuaikan perhitungan hilal dan hisab resmi.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🌙</span>
+              <div>
+                <h4>Jadwal Puasa Sunnah</h4>
+                <p>Panduan hari puasa Ayyamul Bidh, Senin-Kamis, Asyura, Arafah, lengkap dengan dalil syar'i.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🕌</span>
+              <div>
+                <h4>Hari Besar Islam</h4>
+                <p>Pengingat peristiwa penting Islam seperti Idul Fitri, Idul Adha, Tahun Baru Hijriah, dan lainnya.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/sholat" className="btn btn--primary">Cek Jadwal Sholat</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
 
       <p className="hijri-page__disclaimer">{HIJRI_DISCLAIMER}</p>
     </div>

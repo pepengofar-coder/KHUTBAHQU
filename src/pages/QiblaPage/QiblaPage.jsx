@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import './QiblaPage.css';
 
@@ -14,7 +15,11 @@ function calcBearing(lat1,lon1,lat2,lon2){
 }
 
 export default function QiblaPage(){
-  useSEO({title:'Arah Kiblat — Kompas Kiblat Digital | Islamediaku',description:'Temukan arah kiblat dari lokasi Anda menggunakan kompas digital. Deteksi otomatis menggunakan GPS dan sensor orientasi perangkat.',path:'/kiblat'});
+  useSEO({
+    title: 'Arah Kiblat Online & Kompas Kiblat Akurat - Islamediaku',
+    description: 'Temukan arah kiblat akurat dengan kompas kiblat digital berbasis lokasi waktu nyata di Islamediaku.',
+    path: '/kiblat'
+  });
 
   const[bearing,setBearing]=useState(null);
   const[heading,setHeading]=useState(0);
@@ -73,7 +78,7 @@ export default function QiblaPage(){
   return(
     <div className="qibla-page container">
       <div className="qibla-page__header">
-        <h1 className="qibla-page__title">Arah Kiblat</h1>
+        <h1 className="qibla-page__title">Arah Kiblat Online</h1>
         {locLabel&&<p className="qibla-page__loc">📍 {locLabel}</p>}
         {bearing!=null&&<p className="qibla-page__bearing">{Math.round(bearing)}° dari Utara</p>}
       </div>
@@ -120,6 +125,41 @@ export default function QiblaPage(){
         </div>
         <p className="qibla-info__note">Pastikan tidak ada magnet atau logam di dekat perangkat untuk akurasi kompas yang lebih baik.</p>
       </div>
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section">
+        <div className="feature-info-card">
+          <h2>Petunjuk Arah Kiblat Online & Kompas Akurat</h2>
+          <p>Temukan arah hadap kiblat yang tepat menuju Ka'bah di Makkah dari lokasi Anda saat ini secara real-time dengan bantuan kompas komputasi dan GPS presisi tinggi.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🧭</span>
+              <div>
+                <h4>Kompas Digital Real-Time</h4>
+                <p>Mengikuti rotasi hadap sensor orientasi perangkat smartphone Anda secara interaktif.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📍</span>
+              <div>
+                <h4>Deteksi Otomatis Lewat GPS</h4>
+                <p>Mengalkulasi bearing kiblat spesifik berdasarkan titik koordinat geografis Anda.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🛡️</span>
+              <div>
+                <h4>Akurasi Tinggi</h4>
+                <p>Menggunakan hitungan matematika bola bumi (Great-circle distance) untuk kepatuhan arah kiblat.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/sholat" className="btn btn--primary">Lihat Jadwal Sholat</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

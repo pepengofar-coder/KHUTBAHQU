@@ -898,4 +898,119 @@
   background: #10B981;
 }
 
+/* Homepage Hero CTAs */
+.dash-hero__ctas {
+  display: flex;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+  margin-bottom: var(--sp-6);
+  flex-wrap: wrap;
+}
+
+.hero-cta-btn {
+  font-size: var(--fs-sm);
+  padding: var(--sp-3) var(--sp-6);
+  text-decoration: none;
+}
+
+/* Adjust secondary CTA in dark hero background to look premium and high contrast */
+.dash-hero .btn--secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+}
+.dash-hero .btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #FFFFFF;
+}
+
+@media (max-width: 480px) {
+  .dash-hero__ctas {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-cta-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Target Audience & Benefits Sections styling */
+.dash-audience, .dash-benefits {
+  padding-top: var(--sp-6);
+  padding-bottom: var(--sp-6);
+}
+
+.dash-audience__grid, .dash-benefits__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+  margin-top: var(--sp-5);
+}
+
+@media (min-width: 768px) {
+  .dash-audience__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .dash-benefits__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dash-benefits__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.dash-audience__card, .dash-benefit-card {
+  padding: var(--sp-5) var(--sp-6);
+  background: var(--glass-bg-light);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow-light);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+.dash-audience__card:hover, .dash-benefit-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(79, 70, 229, 0.2);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.dash-audience__icon-wrap, .dash-benefit-card__icon-wrap {
+  font-size: 24px;
+  margin-bottom: var(--sp-1);
+}
+
+.dash-audience__card h3, .dash-benefit-card h3 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.dash-audience__card p, .dash-benefit-card p {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+[data-theme="dark"] .dash-audience__card,
+[data-theme="dark"] .dash-benefit-card {
+  background: rgba(15, 20, 45, 0.55);
+  border-color: rgba(129, 140, 248, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
 

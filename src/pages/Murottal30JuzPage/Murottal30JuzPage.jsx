@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { useAuth } from '../../context/AuthContext';
 import { trackUserActivity } from '../../lib/syncService';
@@ -11,8 +11,8 @@ import './Murottal30JuzPage.css';
 
 export default function Murottal30JuzPage() {
   useSEO({
-    title: 'Murottal 30 Juz | Islamediaku',
-    description: 'Dengarkan murottal Al-Qur\'an 30 Juz lengkap dari berbagai Qari pilihan.',
+    title: 'Murottal Al-Qur\'an 30 Juz - Islamediaku',
+    description: 'Dengarkan murottal Al-Qur’an lengkap 30 juz dengan suara qari merdu untuk membantu hafalan dan ketenangan hati di Islamediaku.',
     path: '/murottal-30-juz'
   });
 
@@ -163,7 +163,7 @@ export default function Murottal30JuzPage() {
           <ArrowLeft size={20} />
         </button>
         <div>
-          <h1 className="murottal-juz-title">Murottal 30 Juz</h1>
+          <h1 className="murottal-juz-title">Murottal Al-Qur'an 30 Juz</h1>
           <p className="murottal-juz-subtitle">Dengarkan Al-Qur'an lengkap dari Qari pilihan</p>
         </div>
       </header>
@@ -296,6 +296,41 @@ export default function Murottal30JuzPage() {
         </div>
         <p className="tilawah-attribution">Sumber audio: <a href="https://mp3quran.net" target="_blank" rel="noopener noreferrer">MP3Quran.net</a></p>
       </main>
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section container" style={{ paddingLeft: 'var(--sp-4)', paddingRight: 'var(--sp-4)', paddingBottom: 'var(--sp-8)' }}>
+        <div className="feature-info-card">
+          <h2>Dengarkan Murottal Al-Qur'an 30 Juz Lengkap</h2>
+          <p>Mendengarkan lantunan merdu Al-Qur'an per Juz secara lengkap dari Qari internasional terpopuler untuk membantu hafalan (tahfidz), tadarus, maupun meningkatkan ketenangan batin.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🎧</span>
+              <div>
+                <h4>Audio 30 Juz Lengkap</h4>
+                <p>Akses audio Al-Qur'an lengkap dari Juz 1 sampai Juz 30 dengan kualitas suara yang jernih.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🎙️</span>
+              <div>
+                <h4>Pilihan Qari Internasional</h4>
+                <p>Pilih suara Qari favorit Anda dari database MP3Quran yang lengkap dengan navigasi mudah.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📱</span>
+              <div>
+                <h4>Kontrol Pemutaran Mudah</h4>
+                <p>Putar, jeda, lewati trek, dan kontrol status pemutar audio mini secara global dari mana saja.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/mushaf" className="btn btn--primary">Mulai Membaca Mushaf</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

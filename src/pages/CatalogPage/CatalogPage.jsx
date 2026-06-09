@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
@@ -36,8 +35,8 @@ export default function CatalogPage() {
   const activeCat = categories.find(c => c.id === activeCategory);
   const activeTypeName = types.find(t => t.id === activeType);
 
-  let seoTitle = `Khutbah & Materi Islami - Islamediaku`;
-  let seoDesc = `Temukan ${allKhutbah.length}+ teks khutbah Jumat, kultum, tausiyah, dan materi dakwah Islam siap pakai. Filter berdasarkan kategori, tipe, dan durasi.`;
+  let seoTitle = `Katalog Khutbah Jumat Pilihan & Kultum - Islamediaku`;
+  let seoDesc = `Dapatkan naskah khutbah Jumat singkat, ceramah islami, dan bahan kultum menarik terbaru gratis di Islamediaku.`;
 
   if (activeCat) {
     seoTitle = `Materi tentang ${activeCat.label} - Islamediaku`;
@@ -85,8 +84,8 @@ export default function CatalogPage() {
     <div className="catalog container">
       <div className="section__header">
         <div>
-          <h1 className="section__title">Katalog Materi Dakwah</h1>
-          <p className="section__subtitle">Temukan {allKhutbah.length} naskah khutbah dan kultum pilihan</p>
+          <h1 className="section__title">Katalog Khutbah Jumat Pilihan & Kultum</h1>
+          <p className="section__subtitle">Temukan naskah khutbah Jumat singkat, ceramah, dan kultum berkualitas gratis.</p>
         </div>
       </div>
 
@@ -209,6 +208,39 @@ export default function CatalogPage() {
           )}
         </div>
       )}
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section" style={{ paddingBottom: 'var(--sp-8)' }}>
+        <div className="feature-info-card">
+          <h2>Kumpulan Naskah Khutbah Jumat & Kultum Siap Pakai</h2>
+          <p>Membantu para khatib, da'i, dan pendakwah dalam menyusun materi ceramah berkualitas dengan koleksi naskah khutbah Jumat singkat, kultum ramadhan, dan materi dakwah terstruktur.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🕌</span>
+              <div>
+                <h4>Ratusan Naskah Siap Pakai</h4>
+                <p>Koleksi lengkap khutbah Jumat, ceramah hari besar, dan kultum praktis berbagai tema.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📋</span>
+              <div>
+                <h4>Kategori Tema Lengkap</h4>
+                <p>Pilih materi berdasarkan kategori seperti Akhlak, Ibadah, Keluarga, Tazkiyatun Nufus, dan Remaja.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📱</span>
+              <div>
+                <h4>Mode Baca Nyaman</h4>
+                <p>Tampilan teks bersih, ukuran font dapat disesuaikan, sangat cocok dibaca saat berada di mimbar.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

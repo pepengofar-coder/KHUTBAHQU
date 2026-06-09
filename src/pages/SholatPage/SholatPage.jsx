@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
 import { Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
@@ -15,7 +16,11 @@ function getNext(timings){const now=new Date();for(const k of MAIN_PRAYERS){cons
 export default function SholatPage(){
   const { t, language } = useI18n();
 
-  useSEO({title:'Jadwal Sholat - Islamediaku',description:'Jadwal waktu sholat hari ini dengan countdown otomatis. Subuh, Dzuhur, Ashar, Maghrib, Isya berdasarkan lokasi Anda.',path:'/sholat'});
+  useSEO({
+    title: 'Jadwal Sholat Harian - Islamediaku',
+    description: 'Cek jadwal sholat harian berdasarkan lokasi dengan tampilan sederhana dan mudah digunakan.',
+    path: '/sholat'
+  });
 
   const[mode,setMode]=useState('detecting');
   const[coords,setCoords]=useState(null);
@@ -79,7 +84,7 @@ export default function SholatPage(){
   return(
     <div className="sholat-page container">
       <div className="sholat-page__header">
-        <h1 className="sholat-page__title">{t('prayer.schedule')}</h1>
+        <h1 className="sholat-page__title">Jadwal Sholat Harian</h1>
         <p className="sholat-page__date">{now.toLocaleDateString(language === 'id' ? 'id-ID' : language === 'ar' ? 'ar-SA' : 'en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p>
       </div>
 
@@ -151,6 +156,41 @@ export default function SholatPage(){
           <p>{t('status.coming_soon')}</p>
         </div>
       </div>
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section">
+        <div className="feature-info-card">
+          <h2>Jadwal Sholat Harian & Deteksi Lokasi Otomatis</h2>
+          <p>Dapatkan jadwal sholat lima waktu secara akurat sesuai koordinat lokasi Anda dengan hitungan mundur (countdown) otomatis menuju waktu sholat berikutnya.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📡</span>
+              <div>
+                <h4>Deteksi GPS Otomatis</h4>
+                <p>Menentukan waktu sholat secara presisi berdasarkan koordinat lintang dan bujur lokasi riil Anda.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">⏰</span>
+              <div>
+                <h4>Countdown Waktu Sholat</h4>
+                <p>Menampilkan sisa waktu dalam jam, menit, dan detik menuju waktu ibadah wajib berikutnya.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🔔</span>
+              <div>
+                <h4>Alarm Adzan</h4>
+                <p>Persiapan notifikasi dan pengingat masuknya waktu sholat agar ibadah selalu tepat waktu.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/doa-dzikir" className="btn btn--primary">Lihat Doa & Dzikir Harian</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

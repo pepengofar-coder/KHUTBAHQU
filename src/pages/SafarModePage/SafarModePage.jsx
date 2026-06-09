@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { getPlaylistItems, getPlaylistById, JUZ_AMMA_NAMES } from '../../data/travelAudioContent';
@@ -79,8 +79,8 @@ const QORIS = [
 
 export default function SafarModePage() {
   useSEO({
-    title: "Mode Safar - Islamediaku",
-    description: "Pendamping perjalanan Islami premium. Dengarkan tilawah, pelajari panduan jamak & qashar, serta baca doa safar.",
+    title: "Mode Safar & Panduan Ibadah Perjalanan - Islamediaku",
+    description: "Fitur khusus perjalanan jauh yang menggabungkan panduan doa safar, kiblat, dan jadwal sholat jamak di Islamediaku.",
     path: '/mode-perjalanan'
   });
 
@@ -308,7 +308,7 @@ export default function SafarModePage() {
         };
         
         // Regenerate tracks list for playTrack context
-        let tracksList = [];
+        let tracksList;
         if (isJuzAmma) {
           tracksList = JUZ_AMMA_NAMES.map((name, index) => {
             const sNum = 78 + index;
@@ -387,7 +387,7 @@ export default function SafarModePage() {
 
   const selectedPlaylistTracks = useMemo(() => {
     if (!selectedPlaylistId) return [];
-    let tracks = [];
+    let tracks;
     
     if (selectedPlaylistId === 'murottal-juz-amma') {
       tracks = JUZ_AMMA_NAMES.map((name, index) => {
@@ -689,6 +689,41 @@ export default function SafarModePage() {
             </div>
           </div>
         </div>
+
+        {/* Detail Informasi Fitur (SEO & User Info) */}
+        <section className="feature-info-section container" style={{ paddingLeft: 'var(--sp-4)', paddingRight: 'var(--sp-4)', paddingBottom: 'var(--sp-6)' }}>
+          <div className="feature-info-card" style={{ background: 'rgba(15, 23, 42, 0.45)', borderColor: 'rgba(148, 163, 184, 0.12)' }}>
+            <h2 style={{ color: '#FFFFFF' }}>Panduan Ibadah Perjalanan (Safar) Islami</h2>
+            <p style={{ color: '#94A3B8' }}>Didesain khusus untuk mempermudah ibadah umat muslim selama melakukan perjalanan jauh (safar) dengan merangkum semua kebutuhan esensial dalam satu halaman praktis.</p>
+            <div className="feature-benefits-list">
+              <div className="feature-benefit-item">
+                <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>✈️</span>
+                <div>
+                  <h4 style={{ color: '#FFFFFF' }}>Tuntunan Sholat Jamak & Qashar</h4>
+                  <p style={{ color: '#94A3B8' }}>Langkah-langkah praktis dan syarat sah melaksanakan sholat jamak takdim, takhir, dan qashar.</p>
+                </div>
+              </div>
+              <div className="feature-benefit-item">
+                <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>🤲</span>
+                <div>
+                  <h4 style={{ color: '#FFFFFF' }}>Kumpulan Doa Safar</h4>
+                  <p style={{ color: '#94A3B8' }}>Doa keluar rumah, doa naik kendaraan, hingga doa singgah di suatu tempat lengkap transliterasi.</p>
+                </div>
+              </div>
+              <div className="feature-benefit-item">
+                <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>📻</span>
+                <div>
+                  <h4 style={{ color: '#FFFFFF' }}>Audio Perjalanan & Kajian</h4>
+                  <p style={{ color: '#94A3B8' }}>Radio tilawah nonstop, murottal juz amma, dan kajian audio islami ringan untuk menemani perjalanan.</p>
+                </div>
+              </div>
+            </div>
+            <div className="feature-info-ctas" style={{ borderColor: 'rgba(148, 163, 184, 0.12)' }}>
+              <Link to="/kiblat" className="btn btn--primary">Cek Arah Kiblat</Link>
+              <Link to="/" className="btn btn--outline" style={{ color: '#FFFFFF', borderColor: 'rgba(255, 255, 255, 0.25)' }}>Kembali ke Beranda</Link>
+            </div>
+          </div>
+        </section>
       </div>
 
       {/* ===== 9. Quick Tools Bottom Section / Footer Shortcut ===== */}

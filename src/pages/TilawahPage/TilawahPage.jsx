@@ -1,11 +1,16 @@
 import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
 import { Search, Loader2, Play, Pause, SkipBack, SkipForward, AlertTriangle } from 'lucide-react';
 import './TilawahPage.css';
 
 export default function TilawahPage() {
-  useSEO({ title: "Tilawah Live — Radio Al-Qur'an 24 Jam | Islamediaku", description: "Dengarkan tilawah Al-Qur'an live dari berbagai qari dunia.", path: '/tilawah' });
+  useSEO({
+    title: "Radio Tilawah Al-Qur'an 24 Jam - Islamediaku",
+    description: "Dengarkan lantunan ayat suci Al-Qur'an secara langsung 24 jam nonstop dari qari-qari terkemuka di Islamediaku.",
+    path: '/tilawah'
+  });
 
   const {
     radios, loading, error, favorites, activeId, activeRadio,
@@ -28,8 +33,8 @@ export default function TilawahPage() {
       <section className="tilawah-hero">
         <div className="tilawah-hero__inner container">
           <div className="tilawah-hero__text">
-            <h1 className="tilawah-hero__title">Tilawah Live</h1>
-            <p className="tilawah-hero__subtitle">Dengarkan tilawah Al-Qur&apos;an dari qari pilihan dunia, 24 jam.</p>
+            <h1 className="tilawah-hero__title">Radio Tilawah Al-Qur'an</h1>
+            <p className="tilawah-hero__subtitle">Dengarkan lantunan ayat suci Al-Qur'an nonstop 24 jam dari qari pilihan dunia.</p>
           </div>
           {activeRadio && (
             <div className="tilawah-now">
@@ -84,6 +89,41 @@ export default function TilawahPage() {
           </>
         )}
         <p className="tilawah-attribution">Audio source: <a href="https://mp3quran.net" target="_blank" rel="noopener noreferrer">MP3Quran.net</a></p>
+      </section>
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section container" style={{ paddingLeft: 'var(--sp-4)', paddingRight: 'var(--sp-4)', paddingBottom: 'var(--sp-8)' }}>
+        <div className="feature-info-card">
+          <h2>Radio Streaming Tilawah Al-Qur'an 24 Jam</h2>
+          <p>Mendengarkan lantunan suci ayat-ayat Al-Qur'an dari qari-qari terbaik dunia untuk menemani hari Anda dengan keberkahan dan ketenangan jiwa.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📻</span>
+              <div>
+                <h4>Streaming Nonstop 24 Jam</h4>
+                <p>Akses siaran tilawah langsung tanpa jeda sepanjang hari untuk menjaga ingatan pada firman Allah.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🎙️</span>
+              <div>
+                <h4>Qari Terkemuka Dunia</h4>
+                <p>Menghadirkan suara merdu dari qari internasional dengan bacaan yang fasih dan tartil.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">✨</span>
+              <div>
+                <h4>Ketenangan Hati</h4>
+                <p>Mendengarkan bacaan Al-Qur'an membantu menenangkan pikiran dan meningkatkan fokus beraktivitas.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/mushaf" className="btn btn--primary">Mulai Membaca Mushaf</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
       </section>
     </div>
   );

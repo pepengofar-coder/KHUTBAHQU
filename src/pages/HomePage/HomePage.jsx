@@ -73,8 +73,8 @@ export default function HomePage() {
   const { missions, toggleMission } = useDailyMission();
 
   useSEO({
-    title: 'Islamediaku - Sahabat Ibadah Harian',
-    description: 'Islamediaku adalah aplikasi Islami harian untuk jadwal sholat, Al-Qur’an, dzikir, tilawah, tracker ibadah, Good Path, Mode Perjalanan, dan konten Islami pilihan.',
+    title: 'Islamediaku - Platform Islami Modern untuk Ibadah Harian',
+    description: 'Baca Al-Qur’an, cek jadwal sholat, dengarkan murottal, catat ibadah, gunakan tasbih digital, dan akses doa harian dalam satu platform islami modern.',
     path: '/',
   });
 
@@ -186,6 +186,16 @@ export default function HomePage() {
             <h1 className="dash-hero__salam">{t('home.hero.title')}</h1>
             <p className="dash-hero__desc">{t('home.hero.subtitle')}</p>
             <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
+            
+            {/* Hero CTAs */}
+            <div className="dash-hero__ctas">
+              <Link to="/mushaf" className="btn btn--primary hero-cta-btn">
+                Mulai Baca Qur'an
+              </Link>
+              <Link to="/sholat" className="btn btn--secondary hero-cta-btn">
+                Cek Jadwal Sholat
+              </Link>
+            </div>
             
             {/* Compact Mini Goal Tracker */}
             <div className="dash-hero__mini-goals">
@@ -317,6 +327,55 @@ export default function HomePage() {
           />
         </div>
 
+      </section>
+
+      {/* Target Audience Section */}
+      <section className="dash-audience container home-section">
+        <h2 className="dash-section-title">👥 Untuk siapa Islamediaku?</h2>
+        <div className="dash-audience__grid">
+          <div className="dash-audience__card">
+            <div className="dash-audience__icon-wrap">🎯</div>
+            <h3>Ibadah Teratur</h3>
+            <p>Muslim yang ingin ibadah harian seperti sholat, tilawah, dan dzikir menjadi lebih teratur.</p>
+          </div>
+          <div className="dash-audience__card">
+            <div className="dash-audience__icon-wrap">📚</div>
+            <h3>Pelajar & Santri</h3>
+            <p>Pelajar atau santri yang butuh referensi materi islami praktis dan akses fitur penunjang belajar.</p>
+          </div>
+          <div className="dash-audience__card">
+            <div className="dash-audience__icon-wrap">⚡</div>
+            <h3>Pengguna Mobile</h3>
+            <p>Pengguna perangkat mobile yang ingin akses cepat, ringan, dan responsif ke berbagai fitur islami harian.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="dash-benefits container home-section">
+        <h2 className="dash-section-title">✨ Mengapa Memilih Kami?</h2>
+        <div className="dash-benefits__grid">
+          <div className="dash-benefit-card">
+            <div className="dash-benefit-card__icon-wrap">🕋</div>
+            <h3>Semua Fitur Islami</h3>
+            <p>Mulai dari jadwal sholat, Qur'an, murottal, tracker ibadah, tasbih digital hingga mode safar terintegrasi.</p>
+          </div>
+          <div className="dash-benefit-card">
+            <div className="dash-benefit-card__icon-wrap">🎨</div>
+            <h3>Tampilan Modern</h3>
+            <p>Tampilan modern, elegan, premium, dan sangat mudah digunakan oleh siapa saja.</p>
+          </div>
+          <div className="dash-benefit-card">
+            <div className="dash-benefit-card__icon-wrap">📅</div>
+            <h3>Cocok Harian</h3>
+            <p>Pendamping terbaik untuk mencatat dan memantau perkembangan ibadah harian Anda secara konsisten.</p>
+          </div>
+          <div className="dash-benefit-card">
+            <div className="dash-benefit-card__icon-wrap">🚀</div>
+            <h3>Ringan & Responsif</h3>
+            <p>Sangat ringan diakses, hemat memori, dan sangat responsif di berbagai perangkat mobile.</p>
+          </div>
+        </div>
       </section>
 
       {/* Travel Mode Shortcut Banner */}

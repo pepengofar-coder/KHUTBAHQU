@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { DOA_CATEGORIES, DOA_DZIKIR_DATA } from '../../data/doaDzikir';
 import { DZIKIR_PAGI_PETANG_DATA } from '../../data/dzikirPagiPetang';
@@ -37,8 +38,8 @@ function safeJsonParse(key, fallback) {
 
 export default function DoaDzikirPage() {
   useSEO({
-    title: "Doa & Dzikir - Islamediaku",
-    description: "Baca Dzikir Pagi dan Petang sesuai sunnah dengan fitur checklist, progress tracker, dan UI yang nyaman.",
+    title: "Kumpulan Doa & Dzikir Harian Lengkap - Islamediaku",
+    description: "Kumpulan doa harian, dzikir pagi petang, dan wirid setelah sholat lengkap dengan terjemahan di Islamediaku.",
     path: '/doa-dzikir'
   });
 
@@ -390,6 +391,41 @@ export default function DoaDzikirPage() {
           </div>
         </div>
       )}
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section">
+        <div className="feature-info-card">
+          <h2>Kumpulan Doa & Dzikir Pagi Petang Sesuai Sunnah</h2>
+          <p>Tingkatkan kualitas ibadah harian Anda dengan membaca dzikir pagi dan petang secara teratur, dilengkapi fitur counter interaktif dan progress tracker harian.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🤲</span>
+              <div>
+                <h4>Doa Harian Terlengkap</h4>
+                <p>Akses berbagai pilihan doa sehari-hari dari Hishnul Muslim untuk setiap aktivitas Anda.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🌅</span>
+              <div>
+                <h4>Dzikir Pagi & Petang</h4>
+                <p>Panduan dzikir pagi dan petang terstruktur sesuai sunnah dengan penghitung ketukan jari.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">✍️</span>
+              <div>
+                <h4>Transliterasi & Terjemahan</h4>
+                <p>Dilengkapi teks arab yang jelas, tulisan latin, dan terjemahan Indonesia untuk memahami makna.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/tasbih" className="btn btn--primary">Hitung Dzikir dengan Tasbih</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -7,8 +7,8 @@ import './MushafPage.css';
 
 export default function MushafPage() {
   useSEO({
-    title: "Mushaf Al-Qur’an - Islamediaku",
-    description: "Baca, dengarkan, cari, dan renungkan ayat Al-Qur'an. Mushaf Madinah online gratis dengan terjemahan Indonesia.",
+    title: "Mushaf Al-Qur’an Online - Islamediaku",
+    description: "Baca Al-Qur’an online dengan tampilan nyaman, navigasi surah mudah, dan pengalaman membaca yang bersih di Islamediaku.",
     path: '/mushaf',
   });
 
@@ -101,8 +101,8 @@ export default function MushafPage() {
   return (
     <div className="mushaf-home container">
       <header className="mushaf-home__header">
-        <h1 className="mushaf-home__title">Al-Qur'an</h1>
-        <p className="mushaf-home__subtitle">Baca, dengarkan, cari, dan renungkan ayat Al-Qur'an.</p>
+        <h1 className="mushaf-home__title">Mushaf Al-Qur’an Online</h1>
+        <p className="mushaf-home__subtitle">Baca Al-Qur’an online dengan tampilan nyaman, navigasi surah mudah, dan pengalaman membaca yang bersih.</p>
       </header>
 
       {lastRead && !searchQuery && activeTab === 'surah' && (
@@ -187,6 +187,41 @@ export default function MushafPage() {
           </div>
         )}
       </main>
+
+      {/* Detail Informasi Fitur (SEO & User Info) */}
+      <section className="feature-info-section">
+        <div className="feature-info-card">
+          <h2>Membaca Al-Qur'an Online di Islamediaku</h2>
+          <p>Nikmati pengalaman membaca Al-Qur'an digital terbaik yang dirancang untuk mendukung ibadah harian Anda secara optimal, kapan saja dan di mana saja.</p>
+          <div className="feature-benefits-list">
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📖</span>
+              <div>
+                <h4>Navigasi Surah Mudah</h4>
+                <p>Temukan surah, juz, dan halaman dengan pencarian cepat dan navigasi terstruktur.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">📱</span>
+              <div>
+                <h4>Tampilan Nyaman di Mobile</h4>
+                <p>Tampilan teks arab yang bersih dan responsif, sangat nyaman dibaca di layar smartphone Anda.</p>
+              </div>
+            </div>
+            <div className="feature-benefit-item">
+              <span className="benefit-icon">🎧</span>
+              <div>
+                <h4>Murottal & Audio Terintegrasi</h4>
+                <p>Dengarkan lantunan ayat dari qari pilihan untuk membantu menyempurnakan bacaan dan hafalan.</p>
+              </div>
+            </div>
+          </div>
+          <div className="feature-info-ctas">
+            <Link to="/tilawah" className="btn btn--primary">Dengarkan Radio Tilawah</Link>
+            <Link to="/" className="btn btn--outline">Kembali ke Beranda</Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
