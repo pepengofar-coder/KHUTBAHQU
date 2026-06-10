@@ -50,6 +50,8 @@ const RuangSayaMushaf = lazy(() => import('./pages/RuangSayaMushaf/RuangSayaMush
 const AuthCallbackPage = lazy(() => import('./pages/AuthCallbackPage/AuthCallbackPage'));
 const GoodPathPage = lazy(() => import('./pages/GoodPathPage/GoodPathPage'));
 const Program30HariPage = lazy(() => import('./pages/GoodPathPage/Program30HariPage'));
+const ArticlePage = lazy(() => import('./pages/ArticlePage/ArticlePage'));
+const ArticleDetailPage = lazy(() => import('./pages/ArticlePage/ArticleDetailPage'));
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function AnimatedRoutes() {

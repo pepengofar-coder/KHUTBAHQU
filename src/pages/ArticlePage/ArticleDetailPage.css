@@ -1,0 +1,42 @@
+.article-detail-page {
+  padding-top: var(--sp-6);
+  padding-bottom: var(--sp-16);
+}
+
+.article-content-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.article-detail-title {
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.article-detail-summary {
+  background: var(--color-bg-primary);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.article-detail-body {
+  color: var(--color-text-primary);
+}
+
+.legal-disclaimer-detail-box {
+  margin-top: var(--sp-8);
+}
+
+.article-attribution-block {
+  margin-top: var(--sp-4);
+}
+
+@media (max-width: 768px) {
+  .article-content-wrapper {
+    border-radius: var(--radius-2xl);
+    padding: var(--sp-5);
+  }
+  
+  .article-detail-title {
+    font-size: 20px;
+  }
+}
