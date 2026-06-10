@@ -73,6 +73,8 @@ function AnimatedRoutes() {
           <Route path="/tasbih" element={<TasbihPage />} />
           <Route path="/khutbah" element={<CatalogPage />} />
           <Route path="/khutbah/:slug" element={<DetailPage />} />
+          <Route path="/artikel" element={<ArticlePage />} />
+          <Route path="/artikel/:slug" element={<ArticleDetailPage />} />
           <Route path="/good-path" element={<GoodPathPage />} />
           <Route path="/good-path/program/30-hari" element={<Program30HariPage />} />
           <Route path="/tracker" element={<TrackerPage />} />

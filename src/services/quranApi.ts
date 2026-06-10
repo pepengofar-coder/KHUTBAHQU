@@ -1,58 +1,100 @@
 /**
- * Quran API Service Placeholder for Islamediaku
- * Prepared for integrating with api.quran.com or other public Quran APIs.
+ * Quran API Service for Islamediaku
+ * Connects with EQuran.id API v2.
  */
+
+const BASE_URL = 'https://equran.id/api/v2';
 
 export interface SurahSummary {
-  id: number;
-  name: string;
-  nameTransliteration: string;
-  nameTranslation: string;
-  numberOfVerses: number;
-  revelationType: 'meccan' | 'medinan';
+  nomor: number;
+  nama: string;
+  namaLatin: string;
+  jumlahAyat: number;
+  tempatTurun: 'Mekah' | 'Madinah';
+  arti: string;
+  deskripsi: string;
+  audioFull: Record<string, string>; // Maps qari ID to audio URL
 }
 
-export interface Verse {
-  number: number;
-  textArabic: string;
-  textLatin: string;
-  translationId: string;
-  audioUrl?: string;
+export interface Ayat {
+  nomorAyat: number;
+  teksArab: string;
+  teksLatin: string;
+  teksIndonesia: string;
+  audio: Record<string, string>;
 }
 
-export interface SurahDetail extends SurahSummary {
-  verses: Verse[];
+export interface SurahDetail {
+  nomor: number;
+  nama: string;
+  namaLatin: string;
+  jumlahAyat: number;
+  tempatTurun: 'Mekah' | 'Madinah';
+  arti: string;
+  deskripsi: string;
+  audioFull: Record<string, string>;
+  ayat: Ayat[];
+  suratSebelumnya: any;
+  suratSelanjutnya: any;
+}
+
+export interface TafsirAyat {
+  ayat: number;
+  teks: string;
+}
+
+export interface SurahTafsir {
+  nomor: number;
+  nama: string;
+  namaLatin: string;
+  tafsir: TafsirAyat[];
 }
 
 /**
- * Fetches all chapters (surahs) from the Quran API
+ * Fetches all surahs from EQuran.id
  */
 export async function getChapters(): Promise<SurahSummary[]> {
-  console.log('[quranApi] getChapters placeholder called');
-  // Mock data for compatibility
-  return [
-    { id: 1, name: 'الفاتحة', nameTransliteration: 'Al-Fatihah', nameTranslation: 'Pembukaan', numberOfVerses: 7, revelationType: 'meccan' },
-    { id: 2, name: 'البقرة', nameTransliteration: 'Al-Baqarah', nameTranslation: 'Sapi Betina', numberOfVerses: 286, revelationType: 'medinan' }
-  ];
+  console.log('[quranApi] Fetching all chapters from EQuran.id');
+  try {
+    const response = await fetch(`${BASE_URL}/surat`);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const result = await response.json();
+    return result.data || [];
+  } catch (error) {
+    console.error('[quranApi] Failed to fetch chapters:', error);
+    // Return empty list on failure, let components handle empty state
+    return [];
+  }
 }
 
 /**
- * Fetches detail of a single surah by its ID
+ * Fetches detail of a single surah by number
  */
 export async function getSurahDetail(surahId: number): Promise<SurahDetail | null> {
-  console.log(`[quranApi] getSurahDetail called for ID: ${surahId}`);
-  if (surahId === 1) {
-    return {
-      id: 1,
-      name: 'الفاتحة',
-      nameTransliteration: 'Al-Fatihah',
-      nameTranslation: 'Pembukaan',
-      numberOfVerses: 7,
-      revelationType: 'meccan',
-      verses: [
-        { number: 1, textArabic: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', textLatin: 'Bismillāhir-raḥmānir-raḥīm', translationId: 'Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.' }
-      ]
-    };
+  console.log(`[quranApi] Fetching surah detail for number: ${surahId}`);
+  try {
+    const response = await fetch(`${BASE_URL}/surat/${surahId}`);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const result = await response.json();
+    return result.data || null;
+  } catch (error) {
+    console.error(`[quranApi] Failed to fetch surah detail for ${surahId}:`, error);
+    return null;
   }
-  return null;
+}
+
+/**
+ * Fetches tafsir of a single surah by number
+ */
+export async function getTafsir(surahId: number): Promise<SurahTafsir | null> {
+  console.log(`[quranApi] Fetching tafsir for surah: ${surahId}`);
+  try {
+    const response = await fetch(`${BASE_URL}/tafsir/${surahId}`);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const result = await response.json();
+    return result.data || null;
+  } catch (error) {
+    console.error(`[quranApi] Failed to fetch tafsir for surah ${surahId}:`, error);
+    return null;
+  }
 }

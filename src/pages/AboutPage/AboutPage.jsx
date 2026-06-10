@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
-import { Compass, BookOpen, Heart, Headphones, CheckCircle2, Car, Activity, Sparkles } from 'lucide-react';
+import { Compass, BookOpen, Heart, Headphones, CheckCircle2, Car, Activity, Sparkles, Scale } from 'lucide-react';
 import './AboutPage.css';
 
 export default function AboutPage() {
@@ -116,6 +116,16 @@ export default function AboutPage() {
           <p className="about-closing-text mb-6">
             Islamediaku terus dikembangkan agar menjadi aplikasi Islami yang bermanfaat, ringan, dan nyaman digunakan oleh siapa saja.
           </p>
+
+          <div className="max-w-md mx-auto p-4 rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-left mb-8">
+            <div className="flex items-center gap-2 mb-2">
+              <Scale size={16} className="text-[var(--color-primary)]" />
+              <h4 className="text-xs font-bold text-[var(--color-text-primary)]">Komitmen Konten Legal</h4>
+            </div>
+            <p className="text-[11px] text-[var(--color-text-muted)] leading-relaxed">
+              Islamediaku berkomitmen menggunakan data dari API terbuka/terdokumentasi, sumber berlisensi terbuka, public domain, atau konten dengan izin tertulis. Islamediaku tidak menyalin artikel penuh dari website pihak ketiga tanpa izin.
+            </p>
+          </div>
           
           <div className="about-actions flex gap-4 justify-center flex-wrap">
             <Link to="/" className="btn-primary">Mulai Jelajahi</Link>

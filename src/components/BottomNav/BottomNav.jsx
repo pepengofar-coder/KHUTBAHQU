@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { House, Clock, BookOpen, Compass, Heart, CircleDot, ScrollText, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User, Calendar } from 'lucide-react';
+import { House, Clock, BookOpen, Compass, Heart, CircleDot, ScrollText, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User, Calendar, FileText } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
 import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
 import { useAuth } from '../../context/AuthContext';
@@ -42,6 +42,7 @@ const MORE_SECTIONS = [
     tTitleKey: 'nav.more',
     fallbackTitle: 'Konten',
     items: [
+      { to: '/artikel', tKey: 'nav.articles', icon: FileText, color: 'blue', tDescKey: 'nav.articles', fallbackDesc: 'Artikel & Edukasi Islam' },
       { to: '/khutbah', tKey: 'nav.khutbah', icon: ScrollText, color: 'amber', tDescKey: 'feature.khutbah' },
       { to: '/mode-perjalanan', tKey: 'nav.travel_mode', icon: Car, color: 'lime', tDescKey: 'feature.travel' },
       { to: '/kalender-hijriah', tKey: 'nav.calendar', icon: Calendar, color: 'indigo', tDescKey: 'feature.calendar' },
