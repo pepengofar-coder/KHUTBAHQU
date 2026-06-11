@@ -167,9 +167,10 @@ export default function HomePage() {
       <div className="blur-glow-shape blur-glow-shape--1"></div>
       <div className="blur-glow-shape blur-glow-shape--2"></div>
 
-      {/* Hero Container */}
-      <div className="container hero-container">
-        <div className="hero-dashboard-card islamic-pattern">
+      {/* Main Floating Dashboard Window */}
+      <div className="dashboard-app-window">
+        {/* Top Half: Dark Hero Section */}
+        <div className="dashboard-hero-section islamic-pattern">
           {/* Subtle crescent visual ornament */}
           <div className="hero-card-ornament">
             <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -177,367 +178,377 @@ export default function HomePage() {
             </svg>
           </div>
 
-          <div className="hero-dashboard-card__left">
-            <div className="hero-dashboard-card__brand">
-              <img src="/logo-icon.png" alt="" className="hero-dashboard-card__brand-logo" width={24} height={24} />
-              <span className="hero-dashboard-card__brand-name">Islamediaku</span>
-            </div>
-            <h1 className="hero-dashboard-card__title">Sahabat Ibadah Harian</h1>
-            <p className="hero-dashboard-card__desc">
-              Baca Qur’an, pantau jadwal sholat, dzikir, tilawah, dan catat ibadah harian dalam satu aplikasi.
-            </p>
-            <div className="hero-dashboard-card__ctas">
-              <Link to="/mushaf" className="btn btn--primary hero-dashboard-card__btn">
-                Baca Qur'an
-              </Link>
-              <Link to="/sholat" className="btn btn--secondary hero-dashboard-card__btn">
-                Jadwal Sholat
-              </Link>
-            </div>
-          </div>
-
-          <div className="hero-dashboard-card__right">
-            {timings && nextP && (
-              <div className="hero-prayer-layout-wrapper">
-                {/* Next Prayer Card */}
-                <div className="next-prayer-glass-card">
-                  <div className="next-prayer-glass-card__header">
-                    <span className="next-prayer-glass-card__label">Sholat Berikutnya</span>
-                    {locationName && (
-                      <span className="next-prayer-glass-card__city">
-                        <MapPin size={10} style={{ marginRight: '3px', display: 'inline-block', verticalAlign: 'middle' }} />
-                        {locationName}
-                      </span>
-                    )}
-                  </div>
-                  <div className="next-prayer-glass-card__body">
-                    {(() => {
-                      const NextPIcon = PRAYER_ICONS[nextP.key] || Sun;
-                      return (
-                        <h2 className="next-prayer-glass-card__name">
-                          <NextPIcon size={20} className="text-accent" />
-                          {nextPrayerDisplayName}
-                        </h2>
-                      );
-                    })()}
-                    <span className="next-prayer-glass-card__time">{nextPrayerTime}</span>
-                  </div>
-                  <div className="next-prayer-glass-card__footer">
-                    <span className="next-prayer-glass-card__countdown">{countdown}</span>
-                    <Link to="/sholat" className="next-prayer-glass-card__link">
-                      Lihat Jadwal
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Floating decorative mini cards */}
-                <div className="hero-floating-card hero-floating-card--1">
-                  <span className="hero-floating-card__icon text-cyan">📖</span>
-                  <div className="hero-floating-card__text">
-                    <strong>30 Juz</strong>
-                    <span>Tilawah Lengkap</span>
-                  </div>
-                </div>
-                
-                <div className="hero-floating-card hero-floating-card--2">
-                  <span className="hero-floating-card__icon text-gold">🧭</span>
-                  <div className="hero-floating-card__text">
-                    <strong>Kiblat</strong>
-                    <span>Arah Akurat</span>
-                  </div>
-                </div>
+          <div className="dashboard-hero-inner">
+            <div className="dashboard-hero-left">
+              <div className="dashboard-hero-brand">
+                <img src="/logo-icon.png" alt="" className="dashboard-hero-brand-logo" width={24} height={24} />
+                <span className="dashboard-hero-brand-name">Islamediaku</span>
               </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Today Summary Pills */}
-      <div className="container">
-        <div className="mini-dash-strip">
-          <div className="mini-dash-pill">
-            <CalendarDays size={14} className="text-blue" />
-            <span>{gregorian}</span>
-          </div>
-          <div className="mini-dash-pill">
-            <Moon size={14} className="text-gold" />
-            <span>{hijriStr}</span>
-          </div>
-          <div className="mini-dash-pill active-pill">
-            <Clock size={14} className="text-cyan" />
-            <span>{nextPrayerDisplayName ? `${nextPrayerDisplayName} ${nextPrayerTime}` : '--:--'}</span>
-          </div>
-          <div className="mini-dash-pill">
-            <CheckSquare size={14} className="text-mint" />
-            <span>{doneCount}/{totalItems} Selesai</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Akses Cepat (Quick Access Glass Cards) */}
-      <section className="container home-section">
-        <SectionHeader title="Akses Cepat" icon={Compass} />
-        <div className="quick-access-grid">
-          <Link to="/mushaf" className="quick-access-card quick-access-card--mushaf">
-            <span className="quick-access-icon bg-blue-soft"><BookOpen size={24} /></span>
-            <h4 className="quick-access-title">Mushaf</h4>
-            <p className="quick-access-desc">Baca Al-Qur’an harian</p>
-          </Link>
-          <Link to="/sholat" className="quick-access-card quick-access-card--sholat">
-            <span className="quick-access-icon bg-cyan-soft"><Clock size={24} /></span>
-            <h4 className="quick-access-title">Jadwal Sholat</h4>
-            <p className="quick-access-desc">Waktu sholat & imsak</p>
-          </Link>
-          <Link to="/doa-dzikir" className="quick-access-card quick-access-card--doa">
-            <span className="quick-access-icon bg-mint-soft"><Sparkles size={24} /></span>
-            <h4 className="quick-access-title">Doa & Dzikir</h4>
-            <p className="quick-access-desc">Kumpulan doa & dzikir</p>
-          </Link>
-          <Link to="/murottal-30-juz" className="quick-access-card quick-access-card--tilawah">
-            <span className="quick-access-icon bg-indigo-soft"><Headphones size={24} /></span>
-            <h4 className="quick-access-title">Tilawah 30 Juz</h4>
-            <p className="quick-access-desc">Dengarkan tilawah lengkap</p>
-          </Link>
-          <Link to="/tasbih" className="quick-access-card quick-access-card--tasbih">
-            <span className="quick-access-icon bg-lavender-soft"><CircleDot size={24} /></span>
-            <h4 className="quick-access-title">Tasbih</h4>
-            <p className="quick-access-desc">Tasbih digital</p>
-          </Link>
-          <Link to="/kiblat" className="quick-access-card quick-access-card--kiblat">
-            <span className="quick-access-icon bg-gold-soft"><Compass size={24} /></span>
-            <h4 className="quick-access-title">Kiblat</h4>
-            <p className="quick-access-desc">Cek arah kiblat</p>
-          </Link>
-        </div>
-      </section>
-
-      {/* Lanjutkan Aktivitas (Continue Activity) */}
-      <section className="container home-section">
-        <SectionHeader 
-          title="Lanjutkan Aktivitas" 
-          subtitle="Kembali ke aktivitas ibadah terakhir Anda"
-          icon={Bookmark}
-        />
-        <div className="continue-activity-grid">
-          {/* Card 1: Qur'an Reading */}
-          {lastRead ? (
-            <Card 
-              onClick={() => navigate(`/mushaf/${lastRead.surah}`)} 
-              className="continue-card-horiz continue-card-horiz--quran" 
-              hoverable
-            >
-              <div className="continue-card-horiz__left">
-                <div className="continue-card-horiz__icon bg-blue-soft">
-                  <BookOpen size={20} className="text-blue" />
-                </div>
-                <div className="continue-card-horiz__info">
-                  <h4 className="continue-card-horiz__title">Surat {lastRead.surahName || `Surat ${lastRead.surah}`}</h4>
-                  <p className="continue-card-horiz__subtitle">Ayat {lastRead.ayah} • Terakhir dibaca</p>
-                </div>
-              </div>
-              <div className="btn btn--primary btn--sm continue-card-horiz__btn">
-                Buka
-              </div>
-            </Card>
-          ) : (
-            <Card 
-              onClick={() => navigate('/mushaf')} 
-              className="continue-card-horiz continue-card-horiz--quran" 
-              hoverable
-            >
-              <div className="continue-card-horiz__left">
-                <div className="continue-card-horiz__icon bg-blue-soft">
-                  <BookOpen size={20} className="text-blue" />
-                </div>
-                <div className="continue-card-horiz__info">
-                  <h4 className="continue-card-horiz__title">Mulai dari Al-Fatihah</h4>
-                  <p className="continue-card-horiz__subtitle">Baca Al-Qur'an harian</p>
-                </div>
-              </div>
-              <div className="btn btn--outline btn--sm continue-card-horiz__btn">
-                Mulai
-              </div>
-            </Card>
-          )}
-
-          {/* Card 2: Tilawah 30 Juz */}
-          <Card 
-            onClick={() => navigate('/murottal-30-juz')} 
-            className="continue-card-horiz continue-card-horiz--tilawah" 
-            hoverable
-          >
-            <div className="continue-card-horiz__left">
-              <div className="continue-card-horiz__icon bg-indigo-soft">
-                <Headphones size={20} className="text-indigo" />
-              </div>
-              <div className="continue-card-horiz__info">
-                <h4 className="continue-card-horiz__title">Tilawah 30 Juz</h4>
-                <p className="continue-card-horiz__subtitle">Pilih qari dan dengarkan 30 juz</p>
-              </div>
-            </div>
-            <div className="btn btn--outline btn--sm continue-card-horiz__btn">
-              Putar
-            </div>
-          </Card>
-
-          {/* Card 3: Daily Dua */}
-          <Card 
-            onClick={() => navigate('/doa-dzikir')} 
-            className="continue-card-horiz continue-card-horiz--dua" 
-            hoverable
-          >
-            <div className="continue-card-horiz__left">
-              <div className="continue-card-horiz__icon bg-mint-soft">
-                <Sparkles size={20} className="text-mint" />
-              </div>
-              <div className="continue-card-horiz__info">
-                <h4 className="continue-card-horiz__title">Doa Pilihan</h4>
-                <p className="continue-card-horiz__subtitle">Baca doa pilihan hari ini</p>
-              </div>
-            </div>
-            <div className="btn btn--outline btn--sm continue-card-horiz__btn">
-              Buka
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      {/* Today Content Grid (Dua Hari Ini & Artikel Edukasi Side-by-Side) */}
-      <section className="container home-section">
-        <div className="today-content-grid">
-          {/* Today's Dua */}
-          {dailyDoa && (
-            <div className="today-content-grid__col">
-              <SectionHeader 
-                title="Doa Hari Ini" 
-                subtitle="Renungan dan doa harian untuk dibaca"
-                icon={Sparkles}
-              />
-              <Card className="p-5 flex flex-col justify-between h-full today-doa-card">
-                <div>
-                  <h4 className="text-sm font-bold text-[var(--color-primary)] mb-2">{dailyDoa.title}</h4>
-                  <p className="text-right text-lg font-semibold text-[var(--color-text-primary)] leading-loose my-2 font-arabic select-all">
-                    {dailyDoa.arabic}
-                  </p>
-                  {dailyDoa.latin && (
-                    <p className="text-xs italic text-[var(--color-text-muted)] leading-relaxed mb-2">
-                      "{dailyDoa.latin}"
-                    </p>
-                  )}
-                  <p className="text-xs text-[var(--color-text-primary)] leading-relaxed">
-                    <strong>Artinya:</strong> {dailyDoa.translation.length > 130 ? dailyDoa.translation.substring(0, 130) + '...' : dailyDoa.translation}
-                  </p>
-                  {dailyDoa.source && (
-                    <div className="text-[9px] text-[var(--color-text-muted)] mt-2 font-medium">
-                      Sumber: {dailyDoa.source}
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-start mt-4">
-                  <Link to="/doa-dzikir" className="btn btn--outline btn--sm">
-                    Semua Doa
-                  </Link>
-                </div>
-              </Card>
-            </div>
-          )}
-
-          {/* Educational Articles */}
-          <div className="today-content-grid__col">
-            <SectionHeader 
-              title="Artikel Edukasi" 
-              subtitle="Khazanah artikel Islami berlisensi resmi"
-              icon={ScrollText}
-            />
-            <div className="flex flex-col gap-3 h-full justify-between">
-              <div className="flex flex-col gap-3">
-                {DUMMY_ARTICLES.slice(0, 2).map(article => (
-                  <Card 
-                    key={article.slug}
-                    onClick={() => navigate(`/artikel/${article.slug}`)}
-                    className="p-4 flex flex-col justify-between today-article-card"
-                    hoverable
-                  >
-                    <div>
-                      <span className="text-[9px] font-bold text-[var(--color-primary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded uppercase tracking-wide category-badge">
-                        {article.category.replace('-', ' ')}
-                      </span>
-                      <h4 className="text-sm font-bold text-[var(--color-text-primary)] mt-2 line-clamp-1 hover:text-[var(--color-primary)] transition-colors">
-                        {article.title}
-                      </h4>
-                      <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-1 leading-relaxed">
-                        {article.summary}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between text-[9px] text-[var(--color-text-muted)] border-t border-[var(--color-border)] pt-2.5 mt-2.5">
-                      <span>Sumber: {article.author}</span>
-                      <span className="px-1.5 py-0.25 rounded border border-[var(--color-border)] bg-[var(--color-bg-primary)] license-badge">
-                        {article.license}
-                      </span>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-              <div className="flex justify-start mt-3">
-                <Link to="/artikel" className="btn btn--outline btn--sm">
-                  Lihat Semua Artikel
+              <h1 className="dashboard-hero-title">Sahabat Ibadah Harian</h1>
+              <p className="dashboard-hero-desc">
+                Baca Qur’an, pantau jadwal sholat, dzikir, tilawah, dan catat ibadah harian dalam satu aplikasi.
+              </p>
+              <div className="dashboard-hero-ctas">
+                <Link to="/mushaf" className="btn btn--primary dashboard-hero-btn">
+                  Baca Qur'an
+                </Link>
+                <Link to="/sholat" className="btn btn--secondary dashboard-hero-btn">
+                  Jadwal Sholat
                 </Link>
               </div>
             </div>
+
+            <div className="dashboard-hero-right">
+              {timings && nextP && (
+                <div className="hero-prayer-layout-wrapper">
+                  {/* Next Prayer Card */}
+                  <div className="next-prayer-glass-card">
+                    <div className="next-prayer-glass-card__header">
+                      <span className="next-prayer-glass-card__label">Sholat Berikutnya</span>
+                      {locationName && (
+                        <span className="next-prayer-glass-card__city">
+                          <MapPin size={10} style={{ marginRight: '3px', display: 'inline-block', verticalAlign: 'middle' }} />
+                          {locationName}
+                        </span>
+                      )}
+                    </div>
+                    <div className="next-prayer-glass-card__body">
+                      {(() => {
+                        const NextPIcon = PRAYER_ICONS[nextP.key] || Sun;
+                        return (
+                          <h2 className="next-prayer-glass-card__name">
+                            <NextPIcon size={20} className="text-accent" />
+                            {nextPrayerDisplayName}
+                          </h2>
+                        );
+                      })()}
+                      <span className="next-prayer-glass-card__time">{nextPrayerTime}</span>
+                    </div>
+                    <div className="next-prayer-glass-card__footer">
+                      <span className="next-prayer-glass-card__countdown">{countdown}</span>
+                      <Link to="/sholat" className="next-prayer-glass-card__link">
+                        Lihat Jadwal
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Floating decorative mini cards */}
+                  <div className="hero-floating-card hero-floating-card--1">
+                    <span className="hero-floating-card__icon text-cyan">📖</span>
+                    <div className="hero-floating-card__text">
+                      <strong>30 Juz</strong>
+                      <span>Tilawah Lengkap</span>
+                    </div>
+                  </div>
+                  
+                  <div className="hero-floating-card hero-floating-card--2">
+                    <span className="hero-floating-card__icon text-gold">🧭</span>
+                    <div className="hero-floating-card__text">
+                      <strong>Kiblat</strong>
+                      <span>Arah Akurat</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Wave Divider SVG */}
+          <div className="hero-wave-divider">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,32L120,42.7C240,53,480,75,720,80C960,85,1200,75,1320,69.3L1440,64L1440,120L1320,120C1200,120,960,120,720,120C480,120,240,120,120,120L0,120Z" fill="var(--dashboard-bottom-bg)"></path>
+            </svg>
           </div>
         </div>
-      </section>
 
-      {/* Tracker Summary Card */}
-      <section className="container home-section">
-        <SectionHeader 
-          title="Ringkasan Ibadah Hari Ini" 
-          subtitle="Pantau progres ibadah harian Anda"
-          icon={CheckSquare}
-        />
-        <Card className="p-5 tracker-summary-card">
-          <div className="tracker-summary-header flex items-center justify-between mb-4">
-            <div>
-              <h4 className="text-base font-bold text-[var(--color-text-primary)]">Progres Hari Ini</h4>
-              <p className="text-xs text-[var(--color-text-muted)] mt-1">{doneCount} dari {totalItems} aktivitas selesai</p>
+        {/* Bottom Half: Content Section */}
+        <div className="dashboard-content-section">
+          {/* Today Summary Pills */}
+          <div className="mini-dash-strip">
+            <div className="mini-dash-pill">
+              <CalendarDays size={14} className="text-blue" />
+              <span>{gregorian}</span>
             </div>
-            <div className="tracker-summary-percentage font-bold text-lg text-[var(--color-primary)]">
-              {percent}%
+            <div className="mini-dash-pill">
+              <Moon size={14} className="text-gold" />
+              <span>{hijriStr}</span>
+            </div>
+            <div className="mini-dash-pill active-pill">
+              <Clock size={14} className="text-cyan" />
+              <span>{nextPrayerDisplayName ? `${nextPrayerDisplayName} ${nextPrayerTime}` : '--:--'}</span>
+            </div>
+            <div className="mini-dash-pill">
+              <CheckSquare size={14} className="text-mint" />
+              <span>{doneCount}/{totalItems} Selesai</span>
             </div>
           </div>
-          
-          <div className="w-full bg-[var(--color-border)] rounded-full h-2 mb-5 overflow-hidden">
-            <div 
-              className="bg-[var(--color-primary)] h-2 rounded-full transition-all duration-500" 
-              style={{ width: `${percent}%` }}
+
+          {/* Akses Cepat */}
+          <section className="dashboard-section">
+            <SectionHeader title="Akses Cepat" icon={Compass} />
+            <div className="quick-access-grid">
+              <Link to="/mushaf" className="quick-access-card quick-access-card--mushaf">
+                <span className="quick-access-icon bg-blue-soft"><BookOpen size={24} /></span>
+                <h4 className="quick-access-title">Mushaf</h4>
+                <p className="quick-access-desc">Baca Al-Qur’an harian</p>
+              </Link>
+              <Link to="/sholat" className="quick-access-card quick-access-card--sholat">
+                <span className="quick-access-icon bg-cyan-soft"><Clock size={24} /></span>
+                <h4 className="quick-access-title">Jadwal Sholat</h4>
+                <p className="quick-access-desc">Waktu sholat & imsak</p>
+              </Link>
+              <Link to="/doa-dzikir" className="quick-access-card quick-access-card--doa">
+                <span className="quick-access-icon bg-mint-soft"><Sparkles size={24} /></span>
+                <h4 className="quick-access-title">Doa & Dzikir</h4>
+                <p className="quick-access-desc">Kumpulan doa & dzikir</p>
+              </Link>
+              <Link to="/murottal-30-juz" className="quick-access-card quick-access-card--tilawah">
+                <span className="quick-access-icon bg-indigo-soft"><Headphones size={24} /></span>
+                <h4 className="quick-access-title">Tilawah 30 Juz</h4>
+                <p className="quick-access-desc">Dengarkan tilawah lengkap</p>
+              </Link>
+              <Link to="/tasbih" className="quick-access-card quick-access-card--tasbih">
+                <span className="quick-access-icon bg-lavender-soft"><CircleDot size={24} /></span>
+                <h4 className="quick-access-title">Tasbih</h4>
+                <p className="quick-access-desc">Tasbih digital</p>
+              </Link>
+              <Link to="/kiblat" className="quick-access-card quick-access-card--kiblat">
+                <span className="quick-access-icon bg-gold-soft"><Compass size={24} /></span>
+                <h4 className="quick-access-title">Kiblat</h4>
+                <p className="quick-access-desc">Cek arah kiblat</p>
+              </Link>
+            </div>
+          </section>
+
+          {/* Lanjutkan Aktivitas */}
+          <section className="dashboard-section">
+            <SectionHeader 
+              title="Lanjutkan Aktivitas" 
+              subtitle="Kembali ke aktivitas ibadah terakhir Anda"
+              icon={Bookmark}
             />
-          </div>
-          
-          <div className="grid grid-cols-3 gap-3 mb-4">
-            <div className="tracker-indicator-item p-3 rounded-xl bg-[var(--color-bg-secondary)] flex flex-col items-center justify-center border border-[var(--color-border)]">
-              <Clock size={16} className="text-cyan mb-1" />
-              <span className="text-[10px] font-bold text-[var(--color-text-muted)]">SHOLAT</span>
-              <span className="text-xs font-bold text-[var(--color-text-primary)] mt-0.5">{sholatDone}/5</span>
+            <div className="continue-activity-grid">
+              {/* Card 1: Qur'an Reading */}
+              {lastRead ? (
+                <Card 
+                  onClick={() => navigate(`/mushaf/${lastRead.surah}`)} 
+                  className="continue-card-horiz continue-card-horiz--quran" 
+                  hoverable
+                >
+                  <div className="continue-card-horiz__left">
+                    <div className="continue-card-horiz__icon bg-blue-soft">
+                      <BookOpen size={20} className="text-blue" />
+                    </div>
+                    <div className="continue-card-horiz__info">
+                      <h4 className="continue-card-horiz__title">Surat {lastRead.surahName || `Surat ${lastRead.surah}`}</h4>
+                      <p className="continue-card-horiz__subtitle">Ayat {lastRead.ayah} • Terakhir dibaca</p>
+                    </div>
+                  </div>
+                  <div className="btn btn--primary btn--sm continue-card-horiz__btn">
+                    Buka
+                  </div>
+                </Card>
+              ) : (
+                <Card 
+                  onClick={() => navigate('/mushaf')} 
+                  className="continue-card-horiz continue-card-horiz--quran" 
+                  hoverable
+                >
+                  <div className="continue-card-horiz__left">
+                    <div className="continue-card-horiz__icon bg-blue-soft">
+                      <BookOpen size={20} className="text-blue" />
+                    </div>
+                    <div className="continue-card-horiz__info">
+                      <h4 className="continue-card-horiz__title">Mulai dari Al-Fatihah</h4>
+                      <p className="continue-card-horiz__subtitle">Baca Al-Qur'an harian</p>
+                    </div>
+                  </div>
+                  <div className="btn btn--outline btn--sm continue-card-horiz__btn">
+                    Mulai
+                  </div>
+                </Card>
+              )}
+
+              {/* Card 2: Tilawah 30 Juz */}
+              <Card 
+                onClick={() => navigate('/murottal-30-juz')} 
+                className="continue-card-horiz continue-card-horiz--tilawah" 
+                hoverable
+              >
+                <div className="continue-card-horiz__left">
+                  <div className="continue-card-horiz__icon bg-indigo-soft">
+                    <Headphones size={20} className="text-indigo" />
+                  </div>
+                  <div className="continue-card-horiz__info">
+                    <h4 className="continue-card-horiz__title">Tilawah 30 Juz</h4>
+                    <p className="continue-card-horiz__subtitle">Pilih qari dan dengarkan 30 juz</p>
+                  </div>
+                </div>
+                <div className="btn btn--outline btn--sm continue-card-horiz__btn">
+                  Putar
+                </div>
+              </Card>
+
+              {/* Card 3: Daily Dua */}
+              <Card 
+                onClick={() => navigate('/doa-dzikir')} 
+                className="continue-card-horiz continue-card-horiz--dua" 
+                hoverable
+              >
+                <div className="continue-card-horiz__left">
+                  <div className="continue-card-horiz__icon bg-mint-soft">
+                    <Sparkles size={20} className="text-mint" />
+                  </div>
+                  <div className="continue-card-horiz__info">
+                    <h4 className="continue-card-horiz__title">Doa Pilihan</h4>
+                    <p className="continue-card-horiz__subtitle">Baca doa pilihan hari ini</p>
+                  </div>
+                </div>
+                <div className="btn btn--outline btn--sm continue-card-horiz__btn">
+                  Buka
+                </div>
+              </Card>
             </div>
-            <div className="tracker-indicator-item p-3 rounded-xl bg-[var(--color-bg-secondary)] flex flex-col items-center justify-center border border-[var(--color-border)]">
-              <Sparkles size={16} className="text-mint mb-1" />
-              <span className="text-[10px] font-bold text-[var(--color-text-muted)]">DZIKIR</span>
-              <span className="text-xs font-bold text-[var(--color-text-primary)] mt-0.5">{dzikirDone}/2</span>
+          </section>
+
+          {/* Today Content Grid (Dua Hari Ini & Artikel Edukasi Side-by-Side) */}
+          <section className="dashboard-section">
+            <div className="today-content-grid">
+              {/* Today's Dua */}
+              {dailyDoa && (
+                <div className="today-content-grid__col">
+                  <SectionHeader 
+                    title="Doa Hari Ini" 
+                    subtitle="Renungan dan doa harian untuk dibaca"
+                    icon={Sparkles}
+                  />
+                  <Card className="p-5 flex flex-col justify-between h-full today-doa-card">
+                    <div>
+                      <h4 className="text-sm font-bold text-[var(--color-primary)] mb-2">{dailyDoa.title}</h4>
+                      <p className="text-right text-lg font-semibold text-[var(--color-text-primary)] leading-loose my-2 font-arabic select-all">
+                        {dailyDoa.arabic}
+                      </p>
+                      {dailyDoa.latin && (
+                        <p className="text-xs italic text-[var(--color-text-muted)] leading-relaxed mb-2">
+                          "{dailyDoa.latin}"
+                        </p>
+                      )}
+                      <p className="text-xs text-[var(--color-text-primary)] leading-relaxed">
+                        <strong>Artinya:</strong> {dailyDoa.translation.length > 130 ? dailyDoa.translation.substring(0, 130) + '...' : dailyDoa.translation}
+                      </p>
+                      {dailyDoa.source && (
+                        <div className="text-[9px] text-[var(--color-text-muted)] mt-2 font-medium">
+                          Sumber: {dailyDoa.source}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex justify-start mt-4">
+                      <Link to="/doa-dzikir" className="btn btn--outline btn--sm">
+                        Semua Doa
+                      </Link>
+                    </div>
+                  </Card>
+                </div>
+              )}
+
+              {/* Educational Articles */}
+              <div className="today-content-grid__col">
+                <SectionHeader 
+                  title="Artikel Edukasi" 
+                  subtitle="Khazanah artikel Islami berlisensi resmi"
+                  icon={ScrollText}
+                />
+                <div className="flex flex-col gap-3 h-full justify-between">
+                  <div className="flex flex-col gap-3">
+                    {DUMMY_ARTICLES.slice(0, 2).map(article => (
+                      <Card 
+                        key={article.slug}
+                        onClick={() => navigate(`/artikel/${article.slug}`)}
+                        className="p-4 flex flex-col justify-between today-article-card"
+                        hoverable
+                      >
+                        <div>
+                          <span className="text-[9px] font-bold text-[var(--color-primary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded uppercase tracking-wide category-badge">
+                            {article.category.replace('-', ' ')}
+                          </span>
+                          <h4 className="text-sm font-bold text-[var(--color-text-primary)] mt-2 line-clamp-1 hover:text-[var(--color-primary)] transition-colors">
+                            {article.title}
+                          </h4>
+                          <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-1 leading-relaxed">
+                            {article.summary}
+                          </p>
+                        </div>
+                        <div className="flex items-center justify-between text-[9px] text-[var(--color-text-muted)] border-t border-[var(--color-border)] pt-2.5 mt-2.5">
+                          <span>Sumber: {article.author}</span>
+                          <span className="px-1.5 py-0.25 rounded border border-[var(--color-border)] bg-[var(--color-bg-primary)] license-badge">
+                            {article.license}
+                          </span>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                  <div className="flex justify-start mt-3">
+                    <Link to="/artikel" className="btn btn--outline btn--sm">
+                      Lihat Semua Artikel
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="tracker-indicator-item p-3 rounded-xl bg-[var(--color-bg-secondary)] flex flex-col items-center justify-center border border-[var(--color-border)]">
-              <BookOpen size={16} className="text-blue mb-1" />
-              <span className="text-[10px] font-bold text-[var(--color-text-muted)]">TILAWAH</span>
-              <span className="text-xs font-bold text-[var(--color-text-primary)] mt-0.5">{tilawahDone}/1</span>
-            </div>
-          </div>
-          
-          <div className="flex justify-end">
-            <Link to="/tracker" className="btn btn--primary btn--sm flex items-center gap-1">
-              Buka Tracker <ChevronRight size={14} />
-            </Link>
-          </div>
-        </Card>
-      </section>
+          </section>
+
+          {/* Tracker Summary Card */}
+          <section className="dashboard-section">
+            <SectionHeader 
+              title="Ringkasan Ibadah Hari Ini" 
+              subtitle="Pantau progres ibadah harian Anda"
+              icon={CheckSquare}
+            />
+            <Card className="p-5 tracker-summary-card">
+              <div className="tracker-summary-header flex items-center justify-between mb-4">
+                <div>
+                  <h4 className="text-base font-bold text-[var(--color-text-primary)]">Progres Hari Ini</h4>
+                  <p className="text-xs text-[var(--color-text-muted)] mt-1">{doneCount} dari {totalItems} aktivitas selesai</p>
+                </div>
+                <div className="tracker-summary-percentage font-bold text-lg text-[var(--color-primary)]">
+                  {percent}%
+                </div>
+              </div>
+              
+              <div className="w-full bg-[var(--color-border)] rounded-full h-2 mb-5 overflow-hidden">
+                <div 
+                  className="bg-[var(--color-primary)] h-2 rounded-full transition-all duration-500" 
+                  style={{ width: `${percent}%` }}
+                />
+              </div>
+              
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                <div className="tracker-indicator-item p-3 rounded-xl bg-[var(--color-bg-secondary)] flex flex-col items-center justify-center border border-[var(--color-border)]">
+                  <Clock size={16} className="text-cyan mb-1" />
+                  <span className="text-[10px] font-bold text-[var(--color-text-muted)]">SHOLAT</span>
+                  <span className="text-xs font-bold text-[var(--color-text-primary)] mt-0.5">{sholatDone}/5</span>
+                </div>
+                <div className="tracker-indicator-item p-3 rounded-xl bg-[var(--color-bg-secondary)] flex flex-col items-center justify-center border border-[var(--color-border)]">
+                  <Sparkles size={16} className="text-mint mb-1" />
+                  <span className="text-[10px] font-bold text-[var(--color-text-muted)]">DZIKIR</span>
+                  <span className="text-xs font-bold text-[var(--color-text-primary)] mt-0.5">{doneCount > 7 ? '2/2' : `${dzikirDone}/2`}</span>
+                </div>
+                <div className="tracker-indicator-item p-3 rounded-xl bg-[var(--color-bg-secondary)] flex flex-col items-center justify-center border border-[var(--color-border)]">
+                  <BookOpen size={16} className="text-blue mb-1" />
+                  <span className="text-[10px] font-bold text-[var(--color-text-muted)]">TILAWAH</span>
+                  <span className="text-xs font-bold text-[var(--color-text-primary)] mt-0.5">{tilawahDone}/1</span>
+                </div>
+              </div>
+              
+              <div className="flex justify-end">
+                <Link to="/tracker" className="btn btn--primary btn--sm flex items-center gap-1">
+                  Buka Tracker <ChevronRight size={14} />
+                </Link>
+              </div>
+            </Card>
+          </section>
+        </div>
+      </div>
     </div>
   );
 }
