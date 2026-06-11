@@ -12,7 +12,7 @@ export default {
   'nav.tracker': 'Tracker',
   'nav.my_space': 'Ruang Saya',
   'nav.good_path': 'Lanjutkan',
-  'nav.travel_mode': 'Mode Perjalanan',
+  'nav.travel_mode': 'Mode Safar',
   'nav.qibla': 'Kiblat',
   'nav.settings': 'Pengaturan',
   'nav.about': 'Tentang',

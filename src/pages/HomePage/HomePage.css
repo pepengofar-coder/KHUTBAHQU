@@ -1,11 +1,16 @@
 /* ==========================================================
-   Islamediaku — Redesigned Homepage CSS (Dashboard)
-   Indigo + Cyan + Violet • Immersive Glassmorphism
+   Islamediaku — Premium Islamic Daily Dashboard Styling v6.0
+   Indigo + Cyan + Violet • Glassmorphism & Modern Soft Glows
    ========================================================== */
 
 .home-page {
   padding-bottom: calc(var(--bottom-nav-h) + var(--sp-10));
-  background: transparent;
+  background: radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.09) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+              var(--color-bg);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 @media (min-width: 1024px) {
   .home-page {
@@ -13,8 +18,11 @@
   }
 }
 
+/* Section Spacing */
 .home-section {
-  padding: 0 var(--sp-4) var(--sp-6);
+  padding: 0 var(--sp-4) var(--sp-8);
+  position: relative;
+  z-index: 5;
 }
 @media (min-width: 1024px) {
   .home-section {
@@ -23,477 +31,518 @@
 }
 
 /* ==========================================================
-   Hero Section
+   Futuristic Glow Background Shapes
    ========================================================== */
-.dash-hero {
-  background: linear-gradient(135deg, #0C0F24 0%, #151A40 45%, #1D235C 100%);
-  padding: var(--sp-6) 0 var(--sp-10);
-  color: var(--color-text-inverse);
-  position: relative;
-  overflow: hidden;
-  margin-bottom: var(--sp-4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+.blur-glow-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+}
+.blur-glow-shape--1 {
+  top: 15%;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.25) 0%, transparent 80%);
+}
+.blur-glow-shape--2 {
+  top: 45%;
+  right: -120px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 80%);
 }
 
+/* ==========================================================
+   Main Hero Dashboard Card (32px rounded corner)
+   ========================================================== */
+.hero-container {
+  padding-top: var(--sp-4);
+  margin-bottom: var(--sp-5);
+  position: relative;
+  z-index: 5;
+}
 @media (min-width: 768px) {
-  .dash-hero {
-    padding: var(--sp-10) 0 var(--sp-12);
+  .hero-container {
+    padding-top: var(--sp-6);
     margin-bottom: var(--sp-6);
   }
 }
 
-/* Floating decorative glow orbs */
-.dash-hero::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  right: -50px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
-  pointer-events: none;
-  animation: heroOrbFloatOne 10s ease-in-out infinite alternate;
-}
-
-.dash-hero::after {
-  content: '';
-  position: absolute;
-  bottom: -120px;
-  left: -80px;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(129, 140, 248, 0.18) 0%, transparent 70%);
-  pointer-events: none;
-  animation: heroOrbFloatTwo 12s ease-in-out infinite alternate;
-}
-
-@keyframes heroOrbFloatOne {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-20px, 15px) scale(1.05); }
-}
-
-@keyframes heroOrbFloatTwo {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(30px, -15px) scale(1.1); }
-}
-
-.dash-hero__inner {
+.hero-dashboard-card {
+  background: linear-gradient(135deg, #0A0D22 0%, #151C48 50%, #1E2866 100%);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    0 20px 45px rgba(8, 12, 33, 0.35);
+  padding: 24px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-6);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: var(--sp-5);
+  position: relative;
+  overflow: hidden;
+  color: #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  .hero-dashboard-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--sp-8) var(--sp-10);
+    gap: var(--sp-8);
+  }
+}
+
+/* Card Ornament moon glow */
+.hero-card-ornament {
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.hero-dashboard-card__left {
+  flex: 1.2;
   position: relative;
   z-index: 5;
 }
 
-.dash-hero__content {
-  flex: 1.2;
-  min-width: 280px;
+.hero-dashboard-card__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.dash-hero__salam {
+.hero-dashboard-card__brand-logo {
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+.hero-dashboard-card__brand-name {
   font-family: var(--font-heading);
-  font-size: 26px;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin-bottom: 4px;
+  font-size: var(--fs-sm);
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-accent-soft);
+  text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+}
+
+.hero-dashboard-card__title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 850;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #FFFFFF 60%, var(--color-accent-soft) 100%);
+  background: linear-gradient(135deg, #FFFFFF 70%, var(--color-accent-soft) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 @media (min-width: 768px) {
-  .dash-hero__salam {
-    font-size: 32px;
+  .hero-dashboard-card__title {
+    font-size: 36px;
   }
 }
 
-.dash-hero__desc {
-  font-size: var(--fs-md);
-  font-weight: 600;
-  color: var(--color-accent-soft);
-  margin-bottom: 6px;
-}
-
-.dash-hero__description {
+.hero-dashboard-card__desc {
   font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.4;
-  margin-bottom: var(--sp-4);
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.5;
+  margin: 0 0 var(--sp-6) 0;
   max-width: 480px;
 }
 
-.dash-hero__ctas {
+.hero-dashboard-card__ctas {
   display: flex;
   gap: var(--sp-3);
-  margin-top: var(--sp-4);
   flex-wrap: wrap;
 }
 
-.hero-cta-btn {
+.hero-dashboard-card__btn {
   font-size: var(--fs-xs);
-  padding: 10px var(--sp-5);
+  padding: 10px 22px;
   text-decoration: none;
 }
 
-.dash-hero .btn--secondary {
+/* Customize secondary button inside dark hero */
+.hero-dashboard-card .btn--secondary {
   background: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
-.dash-hero .btn--secondary:hover {
+.hero-dashboard-card .btn--secondary:hover {
   background: rgba(255, 255, 255, 0.22);
   border-color: #FFFFFF;
 }
 
 @media (max-width: 480px) {
-  .dash-hero__ctas {
+  .hero-dashboard-card__ctas {
     flex-direction: column;
     width: 100%;
   }
-  .hero-cta-btn {
+  .hero-dashboard-card__btn {
     width: 100%;
     text-align: center;
   }
 }
 
-/* ---- Next Prayer Card ---- */
-.dash-hero__prayer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.hero-dashboard-card__right {
+  flex: 0.9;
   width: 100%;
-  padding: var(--sp-4) var(--sp-5);
-  border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.15),
-    0 8px 25px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-  flex: 1;
-  min-width: 290px;
-}
-.dash-hero__prayer:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  transform: translateY(-2px);
-}
-@media (min-width: 768px) {
-  .dash-hero__prayer {
-    max-width: 340px;
-  }
+  position: relative;
+  z-index: 5;
 }
 
-.dash-hero__prayer-left {
+/* ---- Next Prayer Glassmorphism Card ---- */
+.next-prayer-glass-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: var(--sp-4) var(--sp-5);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 12px 30px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 12px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.next-prayer-glass-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
-.dash-hero__prayer-label {
-  font-size: 9px;
-  font-weight: 700;
-  color: var(--color-accent-soft);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.dash-hero__prayer-name-row {
+.next-prayer-glass-card__header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
 }
 
-.dash-hero__prayer-name {
-  font-family: var(--font-heading);
-  font-size: 18px;
+.next-prayer-glass-card__label {
+  font-size: 10px;
   font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0;
-  color: #FFFFFF;
-}
-.dash-hero__prayer-name svg {
+  text-transform: uppercase;
+  letter-spacing: 1px;
   color: var(--color-accent-soft);
 }
 
-.dash-hero__prayer-time {
-  font-size: var(--fs-md);
-  font-weight: 700;
-  color: #FFFFFF;
-}
-
-.dash-hero__prayer-city {
+.next-prayer-glass-card__city {
   font-size: 10px;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
-  margin-top: 2px;
 }
 
-.dash-hero__prayer-right {
+.next-prayer-glass-card__body {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
 }
 
-.dash-hero__prayer-link {
-  font-size: 10px;
-  font-weight: 600;
-  color: #FFFFFF;
+.next-prayer-glass-card__name {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
   display: flex;
   align-items: center;
-  gap: 4px;
-  text-decoration: none;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  transition: background 0.2s, transform 0.2s;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-.dash-hero__prayer-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateX(2px);
+  gap: 6px;
+  color: #FFFFFF;
 }
 
-.dash-hero__prayer-countdown {
-  font-family: var(--font-heading);
-  font-size: 24px;
+.next-prayer-glass-card__time {
+  font-size: 20px;
   font-weight: 800;
+  color: #FFFFFF;
+}
+
+.next-prayer-glass-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.next-prayer-glass-card__countdown {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 850;
   font-variant-numeric: tabular-nums;
   color: var(--color-accent-soft);
   text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
 }
 
-/* ==========================================================
-   Today Summary
-   ========================================================== */
-.today-summary-container {
-  margin-top: calc(var(--sp-8) * -1);
-  margin-bottom: var(--sp-6);
-  position: relative;
-  z-index: 10;
+.next-prayer-glass-card__link {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--sp-2) 14px;
+  border-radius: var(--radius-pill);
+  transition: all 0.2s ease;
+}
+.next-prayer-glass-card__link:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(2px);
 }
 
-.today-summary-card {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: var(--sp-3) var(--sp-4);
+/* ==========================================================
+   Mini Dashboard Strip
+   ========================================================== */
+.mini-dash-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: var(--sp-8);
+  position: relative;
+  z-index: 5;
+}
+@media (min-width: 768px) {
+  .mini-dash-strip {
+    grid-template-columns: repeat(4, 1fr);
+    margin-bottom: var(--sp-10);
+  }
+}
+
+.mini-dash-pill {
   background: var(--glass-bg-strong);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border-light);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--glass-shadow-light);
-  align-items: flex-start;
-}
-@media (min-width: 640px) {
-  .today-summary-card {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--sp-3) var(--sp-5);
-  }
-}
-
-.today-summary-dates {
+  border-radius: 100px;
+  padding: 10px var(--sp-4);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-size: var(--fs-xs);
-  font-weight: 600;
-}
-.gregorian-text {
+  font-size: 11px;
+  font-weight: 700;
   color: var(--color-text-secondary);
+  box-shadow: var(--glass-shadow-light);
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
-.divider-dot {
-  color: var(--color-text-muted);
-}
-.hijri-text {
-  color: var(--color-primary);
-}
-
-.today-summary-message {
-  margin: 0;
-  font-size: var(--fs-xs);
-  color: var(--color-text-muted);
-  font-style: italic;
+.mini-dash-pill:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
 }
 
-[data-theme="dark"] .today-summary-card {
+.mini-dash-pill span {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .mini-dash-pill {
   background: rgba(15, 20, 45, 0.85);
   border-color: rgba(129, 140, 248, 0.15);
 }
 
 /* ==========================================================
-   Continue Activity Section
-   ========================================================== */
-.continue-activity-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-3);
-}
-@media (min-width: 768px) {
-  .continue-activity-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.continue-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--sp-3) var(--sp-4) !important;
-  border-radius: var(--radius-lg) !important;
-}
-
-.continue-card__body {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-}
-
-.continue-card__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  flex-shrink: 0;
-}
-
-.bg-blue-soft { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-.bg-indigo-soft { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
-.bg-mint-soft { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-.bg-cyan-soft { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
-.bg-lavender-soft { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
-.bg-gold-soft { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-
-.continue-card__info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.continue-card__title {
-  font-size: var(--fs-sm);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0;
-}
-
-.continue-card__subtitle {
-  font-size: 10px;
-  color: var(--color-text-muted);
-  margin: 0;
-}
-
-.continue-card__btn {
-  padding: 4px 10px !important;
-  font-size: 10px !important;
-  border-radius: var(--radius-sm) !important;
-}
-
-/* ==========================================================
-   Quick Access Section
+   Quick Access Section (Akses Cepat)
    ========================================================== */
 .quick-access-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--sp-3);
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
-@media (min-width: 768px) {
+@media (min-width: 640px) {
+  .quick-access-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+@media (min-width: 1024px) {
   .quick-access-grid {
     grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
   }
 }
 
-.quick-access-item {
+.quick-access-card {
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  border-radius: 20px;
+  padding: var(--sp-5) var(--sp-3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: var(--sp-4) var(--sp-2);
-  background: var(--glass-bg-light);
-  border: 1px solid var(--glass-border-light);
-  border-radius: var(--radius-lg);
+  text-align: center;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: var(--glass-shadow-light);
 }
 
-.quick-access-item:hover {
-  transform: translateY(-3px);
+.quick-access-card:hover {
+  transform: translateY(-4px);
   border-color: var(--color-primary);
-  box-shadow: 0 10px 20px rgba(0, 102, 255, 0.08);
+  background: var(--glass-bg-strong);
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.08);
 }
 
-.quick-access-icon-wrap {
+.quick-access-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  margin-bottom: var(--sp-2);
+  margin-bottom: var(--sp-3);
+  transition: transform 0.3s ease;
 }
 
-.quick-access-name {
-  font-size: 11px;
-  font-weight: 700;
+.quick-access-card:hover .quick-access-icon {
+  transform: scale(1.08) rotate(3deg);
+}
+
+.quick-access-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-sm);
+  font-weight: 750;
   color: var(--color-text-primary);
-  text-align: center;
+  margin: 0 0 2px 0;
 }
 
-[data-theme="dark"] .quick-access-item {
+.quick-access-desc {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+[data-theme="dark"] .quick-access-card {
   background: rgba(15, 20, 45, 0.55);
   border-color: rgba(129, 140, 248, 0.12);
 }
-[data-theme="dark"] .quick-access-item:hover {
+[data-theme="dark"] .quick-access-card:hover {
   background: rgba(15, 20, 45, 0.75);
   border-color: var(--color-primary);
 }
 
 /* ==========================================================
-   Dua Hari Ini Card
+   Continue Activity Section (Lanjutkan Aktivitas)
    ========================================================== */
-.doa-hari-ini-card {
-  border-radius: var(--radius-xl) !important;
+.continue-activity-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
 }
-.doa-title {
-  margin: 0 0 var(--sp-1) 0;
-  font-size: var(--fs-base);
+@media (min-width: 960px) {
+  .continue-activity-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-.doa-arabic {
-  font-size: 20px;
-  line-height: 2;
-  color: var(--color-text-primary);
+
+.continue-card-horiz {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-4) var(--sp-4) !important;
+  border-radius: 20px !important;
+  gap: 12px;
 }
-.doa-translation {
+
+.continue-card-horiz__left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.continue-card-horiz__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.continue-card-horiz__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.continue-card-horiz__title {
   font-size: var(--fs-sm);
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  margin: var(--sp-2) 0 var(--sp-1) 0;
+  font-weight: 750;
+  color: var(--color-text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.doa-source {
+
+.continue-card-horiz__subtitle {
   font-size: 10px;
   color: var(--color-text-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.continue-card-horiz__btn {
+  padding: 4px 12px !important;
+  font-size: 10px !important;
+  border-radius: 8px !important;
+  flex-shrink: 0;
+}
+
+/* ==========================================================
+   Today Content Grid (Side-by-side Today's Dua & Articles)
+   ========================================================== */
+.today-content-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+}
+@media (min-width: 960px) {
+  .today-content-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.today-content-grid__col {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.today-doa-card {
+  border-radius: 20px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* ==========================================================
    Worship Tracker Summary
    ========================================================== */
 .tracker-summary-card {
-  border-radius: var(--radius-xl) !important;
+  border-radius: 20px !important;
 }
 
 .tracker-indicator-item {
@@ -508,11 +557,11 @@
   background: rgba(10, 15, 35, 0.6) !important;
 }
 
-/* Desktop spacing adjustment */
+/* Desktop container overrides */
 @media (min-width: 1024px) {
   .home-page .container {
-    max-width: var(--max-w) !important;
-    padding-left: var(--sp-8) !important;
-    padding-right: var(--sp-8) !important;
+    max-width: 1200px !important;
+    padding-left: var(--sp-6) !important;
+    padding-right: var(--sp-6) !important;
   }
 }

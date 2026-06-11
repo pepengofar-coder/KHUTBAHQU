@@ -16,17 +16,17 @@ const DESKTOP_LINKS = [
 ];
 
 const MORE_LINKS = [
-  { to: '/kalender-hijriah', tKey: 'nav.calendar' },
-  { to: '/kiblat', tKey: 'nav.qibla' },
-  { to: '/tasbih', tKey: 'nav.tasbih', fallback: 'Tasbih' },
-  { to: '/khutbah', tKey: 'nav.khutbah' },
   { to: '/tilawah', tKey: 'nav.recitation' },
+  { to: '/tasbih', tKey: 'nav.tasbih', fallback: 'Tasbih' },
+  { to: '/kiblat', tKey: 'nav.qibla' },
+  { to: '/kalender-hijriah', tKey: 'nav.calendar' },
+  { to: '/khutbah', tKey: 'nav.khutbah' },
   { to: '/mode-perjalanan', tKey: 'nav.travel_mode' },
+  { to: '/tentang', tKey: 'nav.about' },
   { to: '/ruang-saya', tKey: 'nav.my_space' },
   { to: '/good-path', tKey: 'nav.good_path' },
   { to: '/favorit', tKey: 'nav.favorites', fallback: 'Favorit' },
   { to: '/pengaturan', tKey: 'nav.settings' },
-  { to: '/tentang', tKey: 'nav.about' },
 ];
 
 export default function Navbar() {
