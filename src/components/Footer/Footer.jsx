@@ -20,7 +20,6 @@ export default function Footer() {
         </div>
         <div className="footer__menu">
           <Link to="/tentang">Tentang</Link>
-          <Link to="/artikel">Artikel</Link>
           <Link to="/sholat">Jadwal Sholat</Link>
           <Link to="/mushaf">Mushaf</Link>
           <Link to="/doa-dzikir">Doa & Dzikir</Link>

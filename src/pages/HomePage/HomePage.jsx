@@ -5,12 +5,11 @@ import { useSEO, JsonLd, SITE_URL, SITE_NAME } from '../../utils/seo';
 import { getHijriDateString } from '../../data/hijriData';
 import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
 import { getDailyProgress } from '../../utils/dailyProgress';
-import { DUMMY_ARTICLES } from '../../data/articleCategories';
 import { DOA_DZIKIR_DATA } from '../../data/doaDzikir';
 import Card from '../../components/common/Card';
 import SectionHeader from '../../components/common/SectionHeader';
 import { 
-  BookOpen, Compass, ScrollText, Sparkles, ChevronRight, Headphones, 
+  BookOpen, Compass, Sparkles, ChevronRight, Headphones, 
   Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, 
   Moon, MapPin, Bookmark, CircleDot, CalendarDays
 } from 'lucide-react';
@@ -411,11 +410,10 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* Today Content Grid (Dua Hari Ini & Artikel Edukasi Side-by-Side) */}
-          <section className="dashboard-section">
-            <div className="today-content-grid">
-              {/* Today's Dua */}
-              {dailyDoa && (
+          {/* Today's Dua (Single centered element) */}
+          {dailyDoa && (
+            <section className="dashboard-section">
+              <div className="today-content-grid">
                 <div className="today-content-grid__col">
                   <SectionHeader 
                     title="Doa Hari Ini" 
@@ -449,53 +447,9 @@ export default function HomePage() {
                     </div>
                   </Card>
                 </div>
-              )}
-
-              {/* Educational Articles */}
-              <div className="today-content-grid__col">
-                <SectionHeader 
-                  title="Artikel Edukasi" 
-                  subtitle="Khazanah artikel Islami berlisensi resmi"
-                  icon={ScrollText}
-                />
-                <div className="flex flex-col gap-3 h-full justify-between">
-                  <div className="flex flex-col gap-3">
-                    {DUMMY_ARTICLES.slice(0, 2).map(article => (
-                      <Card 
-                        key={article.slug}
-                        onClick={() => navigate(`/artikel/${article.slug}`)}
-                        className="p-4 flex flex-col justify-between today-article-card"
-                        hoverable
-                      >
-                        <div>
-                          <span className="text-[9px] font-bold text-[var(--color-primary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded uppercase tracking-wide category-badge">
-                            {article.category.replace('-', ' ')}
-                          </span>
-                          <h4 className="text-sm font-bold text-[var(--color-text-primary)] mt-2 line-clamp-1 hover:text-[var(--color-primary)] transition-colors">
-                            {article.title}
-                          </h4>
-                          <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-1 leading-relaxed">
-                            {article.summary}
-                          </p>
-                        </div>
-                        <div className="flex items-center justify-between text-[9px] text-[var(--color-text-muted)] border-t border-[var(--color-border)] pt-2.5 mt-2.5">
-                          <span>Sumber: {article.author}</span>
-                          <span className="px-1.5 py-0.25 rounded border border-[var(--color-border)] bg-[var(--color-bg-primary)] license-badge">
-                            {article.license}
-                          </span>
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                  <div className="flex justify-start mt-3">
-                    <Link to="/artikel" className="btn btn--outline btn--sm">
-                      Lihat Semua Artikel
-                    </Link>
-                  </div>
-                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           {/* Tracker Summary Card */}
           <section className="dashboard-section">
