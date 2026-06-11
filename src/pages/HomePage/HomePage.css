@@ -1,24 +1,47 @@
 /* ==========================================================
-   Islamediaku — Premium Islamic Daily Dashboard Styling v6.0
-   Indigo + Cyan + Violet • Glassmorphism & Modern Soft Glows
+   Islamediaku — Premium Islamic Daily Dashboard v7.0
+   Design: Glassmorphism • Soft Glowing Orbs • Neon Accents
    ========================================================== */
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.58);
+  --glass-bg-strong: rgba(255, 255, 255, 0.76);
+  --glass-dark: rgba(15, 23, 42, 0.68);
+  --glass-border: rgba(255, 255, 255, 0.42);
+  --glass-shadow: 0 20px 60px rgba(68, 76, 180, 0.12);
+  --glass-shadow-hover: 0 28px 80px rgba(68, 76, 180, 0.2);
+  
+  --primary: #4f46e5;
+  --cyan: #06b6d4;
+  --violet: #8b5cf6;
+  --pink: #ec4899;
+  --amber: #f59e0b;
+  --emerald: #10b981;
+  --navy: #0f172a;
+}
 
 .home-page {
   padding-bottom: calc(var(--bottom-nav-h) + var(--sp-10));
-  background: radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.09) 0%, transparent 40%),
-              radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
-              var(--color-bg);
+  background: radial-gradient(circle at 5% 5%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+              radial-gradient(circle at 95% 95%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+              linear-gradient(to bottom, #F0EFFF 0%, #E0F2FE 50%, #F5F3FF 100%);
   min-height: 100vh;
   position: relative;
   overflow: hidden;
 }
+
+[data-theme="dark"] .home-page {
+  background: radial-gradient(circle at 5% 5%, rgba(99, 102, 241, 0.16) 0%, transparent 40%),
+              radial-gradient(circle at 95% 95%, rgba(34, 211, 238, 0.14) 0%, transparent 45%),
+              linear-gradient(to bottom, #05081E 0%, #080D2C 50%, #040615 100%);
+}
+
 @media (min-width: 1024px) {
   .home-page {
     padding-bottom: var(--sp-12);
   }
 }
 
-/* Section Spacing */
 .home-section {
   padding: 0 var(--sp-4) var(--sp-8);
   position: relative;
@@ -31,33 +54,33 @@
 }
 
 /* ==========================================================
-   Futuristic Glow Background Shapes
+   Background Glowing Shapes
    ========================================================== */
 .blur-glow-shape {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(90px);
   pointer-events: none;
   z-index: 1;
-  opacity: 0.5;
+  opacity: 0.65;
 }
 .blur-glow-shape--1 {
-  top: 15%;
-  left: -100px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(129, 140, 248, 0.25) 0%, transparent 80%);
-}
-.blur-glow-shape--2 {
-  top: 45%;
-  right: -120px;
+  top: 10%;
+  left: -120px;
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 80%);
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.22) 0%, transparent 80%);
+}
+.blur-glow-shape--2 {
+  top: 40%;
+  right: -150px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, transparent 80%);
 }
 
 /* ==========================================================
-   Main Hero Dashboard Card (32px rounded corner)
+   Premium Hero Dashboard Card
    ========================================================== */
 .hero-container {
   padding-top: var(--sp-4);
@@ -73,16 +96,16 @@
 }
 
 .hero-dashboard-card {
-  background: linear-gradient(135deg, #0A0D22 0%, #151C48 50%, #1E2866 100%);
-  border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, #070B1E 0%, #12183D 50%, #1A2154 100%);
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.15),
-    0 20px 45px rgba(8, 12, 33, 0.35);
-  padding: 24px;
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.15),
+    0 24px 50px rgba(6, 9, 31, 0.4);
+  padding: var(--sp-6) var(--sp-5);
   display: flex;
   flex-direction: column;
-  gap: var(--sp-5);
+  gap: var(--sp-6);
   position: relative;
   overflow: hidden;
   color: #FFFFFF;
@@ -94,23 +117,23 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--sp-8) var(--sp-10);
-    gap: var(--sp-8);
+    gap: var(--sp-6);
   }
 }
 
-/* Card Ornament moon glow */
 .hero-card-ornament {
   position: absolute;
-  bottom: -40px;
-  right: -40px;
-  width: 220px;
-  height: 220px;
+  bottom: -45px;
+  right: -45px;
+  width: 250px;
+  height: 250px;
   pointer-events: none;
-  opacity: 0.7;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.25));
 }
 
 .hero-dashboard-card__left {
-  flex: 1.2;
+  flex: 1.25;
   position: relative;
   z-index: 5;
 }
@@ -119,48 +142,48 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .hero-dashboard-card__brand-logo {
   border-radius: 6px;
-  box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.45);
 }
 
 .hero-dashboard-card__brand-name {
   font-family: var(--font-heading);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   font-weight: 850;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   color: var(--color-accent-soft);
-  text-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.35);
 }
 
 .hero-dashboard-card__title {
   font-family: var(--font-heading);
-  font-size: 28px;
-  font-weight: 850;
-  margin: 0 0 8px 0;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #FFFFFF 70%, var(--color-accent-soft) 100%);
+  font-size: 30px;
+  font-weight: 900;
+  margin: 0 0 10px 0;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #FFFFFF 65%, var(--color-accent-soft) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 @media (min-width: 768px) {
   .hero-dashboard-card__title {
-    font-size: 36px;
+    font-size: 40px;
   }
 }
 
 .hero-dashboard-card__desc {
   font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.82);
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.55;
   margin: 0 0 var(--sp-6) 0;
-  max-width: 480px;
+  max-width: 500px;
 }
 
 .hero-dashboard-card__ctas {
@@ -171,11 +194,11 @@
 
 .hero-dashboard-card__btn {
   font-size: var(--fs-xs);
-  padding: 10px 22px;
+  padding: 11px 24px;
+  border-radius: 999px !important;
   text-decoration: none;
 }
 
-/* Customize secondary button inside dark hero */
 .hero-dashboard-card .btn--secondary {
   background: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
@@ -200,31 +223,40 @@
 }
 
 .hero-dashboard-card__right {
-  flex: 0.9;
+  flex: 0.95;
   width: 100%;
   position: relative;
   z-index: 5;
 }
 
-/* ---- Next Prayer Glassmorphism Card ---- */
-.next-prayer-glass-card {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
-  padding: var(--sp-4) var(--sp-5);
-  box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.1),
-    0 12px 30px rgba(0, 0, 0, 0.2);
+.hero-prayer-layout-wrapper {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+
+/* ---- Next Prayer Glass Card ---- */
+.next-prayer-glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(28px) saturate(120%);
+  -webkit-backdrop-filter: blur(28px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  padding: 18px var(--sp-5);
+  box-shadow: 
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.12),
+    0 16px 36px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s var(--ease-out), border-color 0.3s ease;
+  position: relative;
+  z-index: 3;
 }
 .next-prayer-glass-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .next-prayer-glass-card__header {
@@ -235,40 +267,41 @@
 
 .next-prayer-glass-card__label {
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 850;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   color: var(--color-accent-soft);
+  text-shadow: 0 0 6px rgba(103, 232, 249, 0.2);
 }
 
 .next-prayer-glass-card__city {
   font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 600;
 }
 
 .next-prayer-glass-card__body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
   padding-bottom: 10px;
 }
 
 .next-prayer-glass-card__name {
   font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 800;
+  font-size: 24px;
+  font-weight: 850;
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   color: #FFFFFF;
 }
 
 .next-prayer-glass-card__time {
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 22px;
+  font-weight: 850;
   color: #FFFFFF;
 }
 
@@ -280,30 +313,96 @@
 
 .next-prayer-glass-card__countdown {
   font-family: var(--font-heading);
-  font-size: 22px;
-  font-weight: 850;
+  font-size: 24px;
+  font-weight: 900;
   font-variant-numeric: tabular-nums;
   color: var(--color-accent-soft);
-  text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+  text-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
 }
 
 .next-prayer-glass-card__link {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 750;
   color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: var(--sp-2) 14px;
-  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 14px;
+  border-radius: 999px;
   transition: all 0.2s ease;
 }
 .next-prayer-glass-card__link:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.26);
   transform: translateX(2px);
 }
 
+/* Floating info cards on right side hero (desktop only) */
+.hero-floating-card {
+  display: none;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 8px 14px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  z-index: 5;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+  .hero-floating-card {
+    display: flex;
+  }
+}
+
+.hero-floating-card--1 {
+  top: -24px;
+  right: -20px;
+  transform: rotate(4deg);
+}
+.hero-floating-card--1:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.hero-floating-card--2 {
+  bottom: -28px;
+  left: -24px;
+  transform: rotate(-3deg);
+}
+.hero-floating-card--2:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.hero-floating-card__icon {
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-floating-card__text {
+  display: flex;
+  flex-direction: column;
+}
+.hero-floating-card__text strong {
+  font-size: 11px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+.hero-floating-card__text span {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* ==========================================================
-   Mini Dashboard Strip
+   Today Summary Pills (Mini Dashboard Strip)
    ========================================================== */
 .mini-dash-strip {
   display: grid;
@@ -321,10 +420,10 @@
 }
 
 .mini-dash-pill {
-  background: var(--glass-bg-strong);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border-light);
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 100px;
   padding: 10px var(--sp-4);
   display: flex;
@@ -332,14 +431,21 @@
   justify-content: center;
   gap: 8px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 750;
   color: var(--color-text-secondary);
-  box-shadow: var(--glass-shadow-light);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 10px 30px rgba(68, 76, 180, 0.06);
+  transition: all 0.3s ease;
 }
+
 .mini-dash-pill:hover {
   transform: translateY(-2px);
-  border-color: var(--color-primary);
+  border-color: rgba(79, 70, 229, 0.4);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.mini-dash-pill.active-pill {
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.25), 0 10px 30px rgba(6, 182, 212, 0.08);
 }
 
 .mini-dash-pill span {
@@ -349,8 +455,18 @@
 }
 
 [data-theme="dark"] .mini-dash-pill {
+  background: rgba(15, 20, 45, 0.7);
+  border-color: rgba(129, 140, 248, 0.16);
+  color: #E2E8F0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .mini-dash-pill:hover {
   background: rgba(15, 20, 45, 0.85);
-  border-color: rgba(129, 140, 248, 0.15);
+  border-color: var(--color-primary);
+}
+[data-theme="dark"] .mini-dash-pill.active-pill {
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.25);
 }
 
 /* ==========================================================
@@ -375,24 +491,25 @@
 }
 
 .quick-access-card {
-  background: var(--glass-bg-light);
-  border: 1px solid var(--glass-border-light);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 24px;
   padding: var(--sp-5) var(--sp-3);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--glass-shadow-light);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 30px rgba(68, 76, 180, 0.07);
 }
 
 .quick-access-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-primary);
-  background: var(--glass-bg-strong);
-  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.08);
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 20px 45px rgba(68, 76, 180, 0.15);
 }
 
 .quick-access-icon {
@@ -413,7 +530,7 @@
 .quick-access-title {
   font-family: var(--font-heading);
   font-size: var(--fs-sm);
-  font-weight: 750;
+  font-weight: 800;
   color: var(--color-text-primary);
   margin: 0 0 2px 0;
 }
@@ -428,13 +545,32 @@
   width: 100%;
 }
 
+/* Card Specific Accent Border Glows */
+.quick-access-card--mushaf { border-color: rgba(6, 182, 212, 0.25); }
+.quick-access-card--mushaf:hover { border-color: rgba(6, 182, 212, 0.6); box-shadow: 0 15px 35px rgba(6, 182, 212, 0.15); }
+
+.quick-access-card--sholat { border-color: rgba(79, 70, 229, 0.25); }
+.quick-access-card--sholat:hover { border-color: rgba(79, 70, 229, 0.6); box-shadow: 0 15px 35px rgba(79, 70, 229, 0.15); }
+
+.quick-access-card--doa { border-color: rgba(139, 92, 246, 0.25); }
+.quick-access-card--doa:hover { border-color: rgba(139, 92, 246, 0.6); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.15); }
+
+.quick-access-card--tilawah { border-color: rgba(20, 184, 166, 0.25); }
+.quick-access-card--tilawah:hover { border-color: rgba(20, 184, 166, 0.6); box-shadow: 0 15px 35px rgba(20, 184, 166, 0.15); }
+
+.quick-access-card--tasbih { border-color: rgba(245, 158, 11, 0.25); }
+.quick-access-card--tasbih:hover { border-color: rgba(245, 158, 11, 0.6); box-shadow: 0 15px 35px rgba(245, 158, 11, 0.15); }
+
+.quick-access-card--kiblat { border-color: rgba(16, 185, 129, 0.25); }
+.quick-access-card--kiblat:hover { border-color: rgba(16, 185, 129, 0.6); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15); }
+
 [data-theme="dark"] .quick-access-card {
   background: rgba(15, 20, 45, 0.55);
   border-color: rgba(129, 140, 248, 0.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
 }
 [data-theme="dark"] .quick-access-card:hover {
   background: rgba(15, 20, 45, 0.75);
-  border-color: var(--color-primary);
 }
 
 /* ==========================================================
@@ -456,9 +592,21 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--sp-4) var(--sp-4) !important;
-  border-radius: 20px !important;
+  border-radius: 22px !important;
   gap: 12px;
+  background: rgba(255, 255, 255, 0.58) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 10px 30px rgba(68, 76, 180, 0.05);
 }
+.continue-card-horiz:hover {
+  background: rgba(255, 255, 255, 0.76) !important;
+  box-shadow: 0 16px 36px rgba(68, 76, 180, 0.12);
+}
+
+/* Accent Glows on Left edge of Continue cards */
+.continue-card-horiz--quran { border-left: 4px solid var(--color-primary) !important; }
+.continue-card-horiz--tilawah { border-left: 4px solid var(--color-accent) !important; }
+.continue-card-horiz--dua { border-left: 4px solid var(--color-success) !important; }
 
 .continue-card-horiz__left {
   display: flex;
@@ -487,7 +635,7 @@
 
 .continue-card-horiz__title {
   font-size: var(--fs-sm);
-  font-weight: 750;
+  font-weight: 800;
   color: var(--color-text-primary);
   margin: 0;
   white-space: nowrap;
@@ -507,12 +655,21 @@
 .continue-card-horiz__btn {
   padding: 4px 12px !important;
   font-size: 10px !important;
-  border-radius: 8px !important;
+  border-radius: 999px !important;
   flex-shrink: 0;
 }
 
+[data-theme="dark"] .continue-card-horiz {
+  background: rgba(15, 20, 45, 0.55) !important;
+  border: 1px solid rgba(129, 140, 248, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .continue-card-horiz:hover {
+  background: rgba(15, 20, 45, 0.7) !important;
+}
+
 /* ==========================================================
-   Today Content Grid (Side-by-side Today's Dua & Articles)
+   Today Content Grid
    ========================================================== */
 .today-content-grid {
   display: grid;
@@ -531,30 +688,89 @@
   height: 100%;
 }
 
+.today-content-grid__col .card {
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+}
+[data-theme="dark"] .today-content-grid__col .card {
+  background: rgba(15, 20, 45, 0.55);
+  border-color: rgba(129, 140, 248, 0.12);
+}
+
 .today-doa-card {
-  border-radius: 20px !important;
+  border-radius: 28px !important;
+  background: linear-gradient(135deg, rgba(245, 243, 255, 0.75) 0%, rgba(224, 242, 254, 0.75) 100%) !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+[data-theme="dark"] .today-doa-card {
+  background: linear-gradient(135deg, rgba(15, 20, 45, 0.8) 0%, rgba(10, 15, 35, 0.8) 100%) !important;
+}
+
+.today-article-card {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+}
+.today-article-card:hover {
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+[data-theme="dark"] .today-article-card {
+  background: rgba(15, 20, 45, 0.55) !important;
+  border-color: rgba(129, 140, 248, 0.12) !important;
+}
+[data-theme="dark"] .today-article-card:hover {
+  background: rgba(15, 20, 45, 0.7) !important;
+}
+
+.category-badge {
+  background: rgba(79, 70, 229, 0.08) !important;
+  color: var(--color-primary) !important;
+}
+.license-badge {
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+[data-theme="dark"] .license-badge {
+  background: rgba(15, 20, 45, 0.4) !important;
+  border-color: rgba(129, 140, 248, 0.1) !important;
 }
 
 /* ==========================================================
    Worship Tracker Summary
    ========================================================== */
 .tracker-summary-card {
-  border-radius: 20px !important;
+  border-radius: 28px !important;
+  background: rgba(255, 255, 255, 0.58) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 20px 60px rgba(68, 76, 180, 0.08);
+}
+[data-theme="dark"] .tracker-summary-card {
+  background: rgba(15, 20, 45, 0.55) !important;
+  border-color: rgba(129, 140, 248, 0.12) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
 .tracker-indicator-item {
+  border-radius: 18px !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  background: rgba(255, 255, 255, 0.4) !important;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 .tracker-indicator-item:hover {
   transform: translateY(-2px);
-  border-color: var(--color-primary);
+  border-color: var(--color-primary) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
 }
 
 [data-theme="dark"] .tracker-indicator-item {
   background: rgba(10, 15, 35, 0.6) !important;
+  border-color: rgba(129, 140, 248, 0.12) !important;
+}
+[data-theme="dark"] .tracker-indicator-item:hover {
+  background: rgba(10, 15, 35, 0.8) !important;
 }
 
 /* Desktop container overrides */

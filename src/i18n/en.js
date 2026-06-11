@@ -16,7 +16,7 @@ export default {
   'nav.qibla': 'Qibla',
   'nav.settings': 'Settings',
   'nav.about': 'About',
-  'nav.recitation': 'Murottal',
+  'nav.recitation': 'Tilawah 30 Juz',
 
   // Hero
   'home.hero.title': 'Your Daily Worship Companion',
@@ -60,7 +60,7 @@ export default {
   // Features
   'feature.mushaf': 'Mushaf - Read the Qur’an',
   'feature.prayer': 'Prayer - Times & Reminders',
-  'feature.recitation': 'Recitation - Listen to Qur’an',
+  'feature.recitation': 'Tilawah 30 Juz - Listen to full recitation',
   'feature.dua': 'Dua & Dhikr - Morning, Evening, Daily',
   'feature.calendar': 'Calendar - Hijri & Islamic Days',
   'feature.qibla': 'Qibla - Prayer Direction',

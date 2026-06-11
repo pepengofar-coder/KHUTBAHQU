@@ -16,7 +16,7 @@ export default {
   'nav.qibla': 'Kiblat',
   'nav.settings': 'Pengaturan',
   'nav.about': 'Tentang',
-  'nav.recitation': 'Murottal',
+  'nav.recitation': 'Tilawah 30 Juz',
 
   // Hero
   'home.hero.title': 'Islamediaku',
@@ -60,7 +60,7 @@ export default {
   // Features
   'feature.mushaf': 'Mushaf - Baca Qur’an',
   'feature.prayer': 'Jadwal Sholat - Waktu & Pengingat',
-  'feature.recitation': 'Murottal - Dengarkan Qur’an',
+  'feature.recitation': 'Tilawah 30 Juz - Dengarkan tilawah lengkap',
   'feature.dua': 'Doa & Dzikir - Pagi, Petang, Harian',
   'feature.calendar': 'Kalender - Hijriah & Hari Besar Islam',
   'feature.qibla': 'Kiblat - Arah Kiblat',

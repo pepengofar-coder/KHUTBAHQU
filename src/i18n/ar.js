@@ -16,7 +16,7 @@ export default {
   'nav.qibla': 'القبلة',
   'nav.settings': 'الإعدادات',
   'nav.about': 'حول التطبيق',
-  'nav.recitation': 'التلاوة',
+  'nav.recitation': 'Tilawah 30 Juz',
 
   // Hero
   'home.hero.title': 'رفيقك اليومي في العبادة',
