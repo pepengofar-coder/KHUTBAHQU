@@ -11,21 +11,21 @@ const DESKTOP_LINKS = [
   { to: '/sholat', tKey: 'nav.prayer' },
   { to: '/mushaf', tKey: 'nav.mushaf' },
   { to: '/doa-dzikir', tKey: 'nav.dua_dhikr' },
+  { to: '/artikel', tKey: 'nav.articles' },
+  { to: '/khutbah', tKey: 'nav.khutbah' },
   { to: '/tracker', tKey: 'nav.tracker' },
 ];
 
 const MORE_LINKS = [
-  { to: '/tilawah', tKey: 'nav.recitation' },
-  { to: '/tasbih', tKey: 'nav.tasbih', fallback: 'Tasbih' },
-  { to: '/kiblat', tKey: 'nav.qibla' },
-  { to: '/kalender-hijriah', tKey: 'nav.calendar' },
-  { to: '/khutbah', tKey: 'nav.khutbah' },
-  { to: '/mode-perjalanan', tKey: 'nav.travel_mode' },
-  { to: '/tentang', tKey: 'nav.about' },
   { to: '/ruang-saya', tKey: 'nav.my_space' },
   { to: '/good-path', tKey: 'nav.good_path' },
+  { to: '/kiblat', tKey: 'nav.qibla' },
+  { to: '/kalender-hijriah', tKey: 'nav.calendar' },
+  { to: '/tilawah', tKey: 'nav.recitation', fallback: 'Tilawah' }, // using tKey 'nav.recitation' or 'nav.tilawah'
   { to: '/favorit', tKey: 'nav.favorites', fallback: 'Favorit' },
+  { to: '/tasbih', tKey: 'nav.tasbih', fallback: 'Tasbih' },
   { to: '/pengaturan', tKey: 'nav.settings' },
+  { to: '/tentang', tKey: 'nav.about' },
 ];
 
 export default function Navbar() {
