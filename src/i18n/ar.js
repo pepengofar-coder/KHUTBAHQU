@@ -16,6 +16,7 @@ export default {
   'nav.qibla': 'القبلة',
   'nav.settings': 'الإعدادات',
   'nav.about': 'حول التطبيق',
+  'nav.recitation': 'التلاوة',
 
   // Hero
   'home.hero.title': 'رفيقك اليومي في العبادة',

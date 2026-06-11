@@ -7,21 +7,23 @@ export default function Footer() {
       <div className="footer__inner">
         <div className="footer__brand">
           <h3><img src="/logo-icon.png" alt="" width={24} height={24} style={{verticalAlign: 'middle', marginRight: '8px', borderRadius: '4px'}} />Islamediaku</h3>
-          <p>Platform materi khutbah Islam siap pakai untuk khatib, pendakwah, dan umat muslim.</p>
+          <p>Platform Islami harian untuk Qur’an, doa, jadwal sholat, murottal, artikel edukasi, dan tracker ibadah.</p>
         </div>
         <div className="footer__col">
           <h4>Menu</h4>
-          <Link to="/khutbah">Khutbah Jumat</Link>
-          <Link to="/kalender-hijriah">Kalender Hijriah</Link>
-          <Link to="/favorit">Favorit</Link>
           <Link to="/tentang">Tentang</Link>
+          <Link to="/artikel">Artikel</Link>
+          <Link to="/sholat">Jadwal Sholat</Link>
+          <Link to="/mushaf">Mushaf</Link>
+          <Link to="/doa-dzikir">Doa & Dzikir</Link>
         </div>
         <div className="footer__col">
           <h4>Kategori</h4>
-          <Link to="/khutbah?cat=akhlak">Akhlak</Link>
-          <Link to="/khutbah?cat=ibadah">Ibadah</Link>
-          <Link to="/khutbah?cat=family">Keluarga</Link>
-          <Link to="/khutbah?cat=taqwa">Taqwa</Link>
+          <Link to="/mushaf">Qur’an</Link>
+          <Link to="/tracker">Ibadah</Link>
+          <Link to="/doa-dzikir">Doa</Link>
+          <Link to="/artikel">Artikel</Link>
+          <Link to="/khutbah">Khutbah</Link>
         </div>
       </div>
       <div className="footer__bottom">

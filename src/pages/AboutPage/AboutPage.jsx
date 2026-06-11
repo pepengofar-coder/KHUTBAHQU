@@ -111,6 +111,44 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* Why Choose Us Section */}
+        <section className="about-features-section" style={{ marginTop: '48px' }}>
+          <h2 className="section-title text-center mb-6">Mengapa Memilih Kami?</h2>
+          <div className="about-feature-grid">
+            <div className="about-feature-item">
+              <span className="feature-icon" style={{ fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>🕋</span>
+              <div className="feature-content">
+                <h3>Semua Fitur Islami</h3>
+                <p>Mulai dari jadwal sholat, Qur'an, murottal, tracker ibadah, tasbih digital hingga mode safar terintegrasi.</p>
+              </div>
+            </div>
+            
+            <div className="about-feature-item">
+              <span className="feature-icon" style={{ fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>🎨</span>
+              <div className="feature-content">
+                <h3>Tampilan Modern</h3>
+                <p>Tampilan modern, elegan, premium, dan sangat mudah digunakan oleh siapa saja.</p>
+              </div>
+            </div>
+
+            <div className="about-feature-item">
+              <span className="feature-icon" style={{ fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>📅</span>
+              <div className="feature-content">
+                <h3>Cocok Harian</h3>
+                <p>Pendamping terbaik untuk mencatat dan memantau perkembangan ibadah harian Anda secara konsisten.</p>
+              </div>
+            </div>
+
+            <div className="about-feature-item">
+              <span className="feature-icon" style={{ fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', lineHeight: 1 }}>🚀</span>
+              <div className="feature-content">
+                <h3>Ringan & Responsif</h3>
+                <p>Sangat ringan diakses, hemat memori, dan sangat responsif di berbagai perangkat mobile.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* APK Note (Optional/If Exists) & Closing */}
         <section className="about-closing text-center mt-12 mb-12">
           <p className="about-closing-text mb-6">

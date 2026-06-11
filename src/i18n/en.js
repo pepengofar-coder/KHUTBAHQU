@@ -16,6 +16,7 @@ export default {
   'nav.qibla': 'Qibla',
   'nav.settings': 'Settings',
   'nav.about': 'About',
+  'nav.recitation': 'Murottal',
 
   // Hero
   'home.hero.title': 'Your Daily Worship Companion',

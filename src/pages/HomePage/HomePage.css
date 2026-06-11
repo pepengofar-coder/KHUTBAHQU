@@ -1,5 +1,5 @@
 /* ==========================================================
-   Islamediaku — Premium HomePage (Dashboard) Styling v5.0
+   Islamediaku — Redesigned Homepage CSS (Dashboard)
    Indigo + Cyan + Violet • Immersive Glassmorphism
    ========================================================== */
 
@@ -13,46 +13,44 @@
   }
 }
 
-/* Home Sections spacing */
 .home-section {
-  padding: 0 var(--sp-4) var(--sp-8);
+  padding: 0 var(--sp-4) var(--sp-6);
 }
 @media (min-width: 1024px) {
   .home-section {
-    padding: 0 var(--sp-8) var(--sp-12);
+    padding: 0 var(--sp-8) var(--sp-10);
   }
 }
 
 /* ==========================================================
-   Hero Section — Premium Glass & Immersive Gradient
+   Hero Section
    ========================================================== */
 .dash-hero {
-  /* Premium Deep Cosmic Dark Gradient */
   background: linear-gradient(135deg, #0C0F24 0%, #151A40 45%, #1D235C 100%);
-  padding: var(--sp-8) 0 var(--sp-12);
+  padding: var(--sp-6) 0 var(--sp-10);
   color: var(--color-text-inverse);
   position: relative;
   overflow: hidden;
-  margin-bottom: calc(var(--sp-6) * -1);
+  margin-bottom: var(--sp-4);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 @media (min-width: 768px) {
   .dash-hero {
-    padding: var(--sp-12) 0 var(--sp-16);
-    margin-bottom: calc(var(--sp-8) * -1);
+    padding: var(--sp-10) 0 var(--sp-12);
+    margin-bottom: var(--sp-6);
   }
 }
 
-/* Immersive background decoration (floating decorative glow orbs) */
+/* Floating decorative glow orbs */
 .dash-hero::before {
   content: '';
   position: absolute;
   top: -100px;
   right: -50px;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, transparent 70%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
   pointer-events: none;
   animation: heroOrbFloatOne 10s ease-in-out infinite alternate;
 }
@@ -62,21 +60,21 @@
   position: absolute;
   bottom: -120px;
   left: -80px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(129, 140, 248, 0.22) 0%, transparent 70%);
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.18) 0%, transparent 70%);
   pointer-events: none;
   animation: heroOrbFloatTwo 12s ease-in-out infinite alternate;
 }
 
 @keyframes heroOrbFloatOne {
   0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-30px, 20px) scale(1.1); }
+  100% { transform: translate(-20px, 15px) scale(1.05); }
 }
 
 @keyframes heroOrbFloatTwo {
   0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(40px, -20px) scale(1.15); }
+  100% { transform: translate(30px, -15px) scale(1.1); }
 }
 
 .dash-hero__inner {
@@ -90,18 +88,17 @@
 }
 
 .dash-hero__content {
-  flex: 1;
+  flex: 1.2;
   min-width: 280px;
 }
 
 .dash-hero__salam {
   font-family: var(--font-heading);
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 800;
   color: #FFFFFF;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   letter-spacing: -0.02em;
-  line-height: 1.25;
   background: linear-gradient(135deg, #FFFFFF 60%, var(--color-accent-soft) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -109,819 +106,46 @@
 }
 @media (min-width: 768px) {
   .dash-hero__salam {
-    font-size: 38px;
+    font-size: 32px;
   }
 }
 
 .dash-hero__desc {
-  font-size: var(--fs-base);
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--color-accent-soft);
+  margin-bottom: 6px;
+}
+
+.dash-hero__description {
+  font-size: var(--fs-sm);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
   margin-bottom: var(--sp-4);
-  max-width: 520px;
-  font-weight: 400;
+  max-width: 480px;
 }
 
-.dash-hero__date {
-  font-size: var(--fs-sm);
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-}
-.dash-hero__date span {
-  color: var(--color-accent-soft);
-  font-weight: 600;
-}
-
-/* ---- Next Prayer Card (Inside Hero) ---- */
-.dash-hero__prayer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: var(--sp-5);
-  border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.dash-hero__prayer:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-}
-@media (min-width: 768px) {
-  .dash-hero__prayer {
-    width: auto;
-    min-width: 350px;
-  }
-}
-
-.dash-hero__prayer-left {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.dash-hero__prayer-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--color-accent-soft);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.dash-hero__prayer-name-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dash-hero__prayer-name {
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  color: #FFFFFF;
-}
-.dash-hero__prayer-name svg {
-  color: var(--color-accent-soft);
-}
-
-.dash-hero__prayer-time {
-  font-size: var(--fs-base);
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.dash-hero__prayer-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
-
-.dash-hero__prayer-link {
-  font-size: var(--fs-xs);
-  font-weight: 600;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  text-decoration: none;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 6px 12px;
-  border-radius: var(--radius-pill);
-  transition: background 0.2s, transform 0.2s;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-.dash-hero__prayer-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
-  transform: translateX(2px);
-}
-
-.dash-hero__prayer-countdown {
-  font-family: var(--font-heading);
-  font-size: 26px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  color: var(--color-accent-soft);
-  text-shadow: 0 0 12px rgba(6, 182, 212, 0.45);
-}
-@media (min-width: 768px) {
-  .dash-hero__prayer-countdown {
-    font-size: 30px;
-  }
-}
-
-/* ==========================================================
-   Greeting Card (Floating banner just below Hero)
-   ========================================================== */
-.greeting-card-wrapper {
-  position: relative;
-  z-index: 10;
-  margin-top: calc(var(--sp-6) * -1);
-  margin-bottom: var(--sp-6);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-.greeting-card-wrapper.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-.greeting-card-wrapper.fade-out {
-  opacity: 0;
-  transform: translateY(-8px);
-}
-
-.greeting-card {
-  padding: var(--sp-4) var(--sp-5);
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
-  background: var(--glass-bg-strong);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border-light);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--glass-shadow-light);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.greeting-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(79, 70, 229, 0.12);
-}
-
-.greeting-card-icon {
-  font-size: 22px;
-  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
-}
-
-.greeting-card-text {
-  margin: 0;
-  font-size: var(--fs-base);
-  color: var(--color-text);
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-[data-theme="dark"] .greeting-card {
-  background: rgba(15, 20, 45, 0.8);
-  border-color: rgba(129, 140, 248, 0.15);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
-}
-
-/* ==========================================================
-   Quick Actions Section
-   ========================================================== */
-.dash-actions {
-  padding: var(--sp-6) var(--sp-4);
-}
-@media (min-width: 1024px) {
-  .dash-actions {
-    padding: var(--sp-8) var(--sp-8);
-  }
-}
-
-.dash-actions__title {
-  margin-bottom: var(--sp-5);
-}
-
-.dash-actions__grid-main {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--sp-4);
-  width: 100%;
-}
-@media (min-width: 640px) {
-  .dash-actions__grid-main {
-    gap: var(--sp-5);
-  }
-}
-@media (min-width: 768px) {
-  .dash-actions__grid-main {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--sp-5);
-  }
-}
-@media (min-width: 1024px) {
-  .dash-actions__grid-main {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--sp-6);
-  }
-}
-
-/* Make first featured card span full width on mobile/tablet and 2 cols on desktop */
-.dash-actions__grid-main .featured-card-wrap {
-  grid-column: 1 / -1;
-}
-@media (min-width: 1024px) {
-  .dash-actions__grid-main .featured-card-wrap {
-    grid-column: span 2;
-  }
-}
-
-/* Section titles with premium visual accent */
-.dash-section-title {
-  font-family: var(--font-heading);
-  font-size: var(--fs-lg);
-  font-weight: 800;
-  color: var(--color-text);
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  margin: 0;
-  letter-spacing: -0.01em;
-}
-@media (min-width: 768px) {
-  .dash-section-title {
-    font-size: var(--fs-xl);
-  }
-}
-
-.dash-link {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--color-primary);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: color 0.2s, transform 0.2s;
-  display: flex;
-  align-items: center;
-}
-.dash-link:hover {
-  color: var(--color-primary-light);
-  text-decoration: none;
-  transform: translateX(3px);
-}
-
-/* ==========================================================
-   Prayer Schedule Component (Mini Grid on Dashboard)
-   ========================================================== */
-.dash-prayer {
-  padding: 0 var(--sp-4) var(--sp-8);
-}
-@media (min-width: 1024px) {
-  .dash-prayer {
-    padding: 0 var(--sp-8) var(--sp-12);
-  }
-}
-
-.dash-prayer__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--sp-5);
-}
-
-.dash-prayer__grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--sp-2);
-}
-@media (max-width: 480px) {
-  .dash-prayer__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 320px) {
-  .dash-prayer__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.dash-prayer-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--sp-1);
-  padding: var(--sp-4) var(--sp-3);
-  background: var(--glass-bg-light);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border-light);
-  border-radius: var(--radius-xl);
-  transition: all 0.3s var(--ease-spring);
-  box-shadow: var(--glass-shadow-light);
-}
-
-.dash-prayer-card:hover {
-  transform: translateY(-4px);
-  background: var(--glass-bg-strong);
-  border-color: rgba(79, 70, 229, 0.2);
-  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.08);
-}
-
-/* Next Prayer High-Light Premium Card */
-.dash-prayer-card--next {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-accent) 100%);
-  border-color: transparent;
-  color: #FFFFFF;
-  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.22);
-}
-.dash-prayer-card--next:hover {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 40%, var(--color-accent) 100%);
-  box-shadow: 0 20px 45px rgba(79, 70, 229, 0.3);
-  transform: translateY(-6px);
-}
-
-.dash-prayer-card__icon-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  margin-bottom: var(--sp-2);
-  transition: all 0.3s ease;
-}
-
-/* Individual Icon Colors */
-.dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(6, 182, 212, 0.12); color: #0891b2; }
-.dash-prayer-card:nth-child(2) .dash-prayer-card__icon-wrapper { background: rgba(234, 179, 8, 0.12); color: #ca8a04; }
-.dash-prayer-card:nth-child(3) .dash-prayer-card__icon-wrapper { background: rgba(249, 115, 22, 0.12); color: #ea580c; }
-.dash-prayer-card:nth-child(4) .dash-prayer-card__icon-wrapper { background: rgba(244, 63, 94, 0.12); color: #e11d48; }
-.dash-prayer-card:nth-child(5) .dash-prayer-card__icon-wrapper { background: rgba(79, 70, 229, 0.12); color: #4f46e5; }
-
-[data-theme="dark"] .dash-prayer-card {
-  background: rgba(15, 20, 45, 0.55);
-  border-color: rgba(129, 140, 248, 0.12);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-[data-theme="dark"] .dash-prayer-card:hover {
-  background: rgba(15, 20, 45, 0.75);
-  border-color: rgba(129, 140, 248, 0.25);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-}
-
-/* Dark mode overrides for high contrast icon wrapper */
-[data-theme="dark"] .dash-prayer-card:nth-child(1) .dash-prayer-card__icon-wrapper { background: rgba(34, 211, 238, 0.15); color: #22d3ee; }
-[data-theme="dark"] .dash-prayer-card:nth-child(2) .dash-prayer-card__icon-wrapper { background: rgba(250, 204, 21, 0.15); color: #facc15; }
-[data-theme="dark"] .dash-prayer-card:nth-child(3) .dash-prayer-card__icon-wrapper { background: rgba(253, 186, 116, 0.15); color: #fdba74; }
-[data-theme="dark"] .dash-prayer-card:nth-child(4) .dash-prayer-card__icon-wrapper { background: rgba(253, 164, 175, 0.15); color: #fda4af; }
-[data-theme="dark"] .dash-prayer-card:nth-child(5) .dash-prayer-card__icon-wrapper { background: rgba(165, 180, 252, 0.15); color: #a5b4fc; }
-
-.dash-prayer-card--next .dash-prayer-card__icon-wrapper {
-  background: rgba(255, 255, 255, 0.2) !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
-}
-
-.dash-prayer-card__icon {
-  width: 18px;
-  height: 18px;
-}
-
-.dash-prayer-card__name {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-.dash-prayer-card--next .dash-prayer-card__name {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.dash-prayer-card__time {
-  font-size: var(--fs-sm);
-  font-weight: 700;
-  color: var(--color-text);
-  font-variant-numeric: tabular-nums;
-  margin-top: 2px;
-}
-.dash-prayer-card--next .dash-prayer-card__time {
-  color: #FFFFFF;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
-
-/* ==========================================================
-   Tracker summary CTA section
-   ========================================================== */
-.dash-tracker {
-  padding: 0 var(--sp-4) var(--sp-8);
-}
-@media (min-width: 1024px) {
-  .dash-tracker {
-    padding: 0 var(--sp-8) var(--sp-12);
-  }
-}
-
-.dash-tracker__card {
-  padding: var(--sp-5) var(--sp-6);
-  background: var(--glass-bg-strong);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border-light);
-  border-radius: var(--radius-xl);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  flex-wrap: wrap;
-  margin-top: var(--sp-4);
-  box-shadow: var(--glass-shadow-light);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.dash-tracker__card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(79, 70, 229, 0.2);
-}
-
-.dash-tracker__card p {
-  font-size: var(--fs-base);
-  color: var(--color-text-secondary);
-  margin: 0;
-  font-weight: 500;
-  max-width: 600px;
-  line-height: 1.5;
-}
-
-[data-theme="dark"] .dash-tracker__card {
-  background: rgba(15, 20, 45, 0.7);
-  border-color: rgba(129, 140, 248, 0.15);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-}
-
-/* Desktop spacing adjustment */
-@media (min-width: 1024px) {
-  .home-page .container {
-    max-width: var(--max-w) !important;
-    padding-left: var(--sp-8) !important;
-    padding-right: var(--sp-8) !important;
-  }
-}
-
-/* Fade-in-slide animation for cards */
-.fade-in-slide {
-  animation: slideInFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-@keyframes slideInFade {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ==========================================================
-   Travel Mode Shortcut Banner — Redesigned Premium Glass Card
-   ========================================================== */
-.dash-travel-banner {
-  padding-top: var(--sp-2);
-  padding-bottom: var(--sp-6);
-}
-
-.travel-banner-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-6);
-  width: 100%;
-  padding: 24px 32px;
-  border-radius: var(--radius-2xl);
-  background: linear-gradient(135deg, rgba(11, 15, 36, 0.9) 0%, rgba(21, 26, 60, 0.85) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-spring), border-color 0.4s var(--ease-spring);
-  text-decoration: none;
-}
-
-/* Micro-interaction: card hover lift and glow */
-.travel-banner-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 
-    0 25px 50px rgba(13, 148, 136, 0.15), 
-    0 0 35px rgba(139, 92, 246, 0.15),
-    0 10px 20px rgba(0, 0, 0, 0.3);
-  border-color: rgba(20, 184, 166, 0.45);
-}
-
-.travel-banner-card:active {
-  transform: translateY(-2px) scale(0.995);
-  transition-duration: 80ms;
-}
-
-/* Background Animated elements */
-.travel-banner__bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-}
-
-.travel-banner-card:hover .travel-banner__bg {
-  opacity: 1;
-}
-
-.travel-banner__stars {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(1.5px 1.5px at 20px 30px, #fff, rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 150px 70px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 280px 40px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 420px 90px, #fff, rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 560px 20px, rgba(255,255,255,0.7), rgba(0,0,0,0));
-  opacity: 0.4;
-}
-
-.travel-banner__aurora {
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(20, 184, 166, 0.18) 0%, rgba(139, 92, 246, 0.08) 50%, transparent 80%);
-  filter: blur(20px);
-  pointer-events: none;
-  transition: transform 0.8s ease;
-}
-.travel-banner-card:hover .travel-banner__aurora {
-  transform: translate(-20px, 10px) scale(1.1);
-}
-
-/* Card Content layout */
-.travel-banner-content {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-6);
-  position: relative;
-  z-index: 2;
-  flex: 1;
-}
-
-.travel-banner-icon-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s var(--ease-spring);
-}
-
-.safar-dashboard-icon {
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-  transition: transform 0.4s var(--ease-spring);
-}
-
-/* Micro-interaction: Icon tilt and bounce on card hover */
-.travel-banner-card:hover .safar-dashboard-icon {
-  transform: scale(1.08) rotate(5deg);
-}
-
-.travel-banner-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* "Cocok untuk perjalanan" Badge */
-.travel-banner-badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--color-accent-soft);
-  background: rgba(34, 211, 238, 0.12);
-  border: 1px solid rgba(34, 211, 238, 0.25);
-  padding: 3px 10px;
-  border-radius: var(--radius-sm);
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 6px rgba(34, 211, 238, 0.05);
-}
-
-.travel-banner-text strong {
-  font-family: var(--font-heading);
-  font-size: 19px;
-  font-weight: 850;
-  color: #FFFFFF;
-  margin-bottom: var(--sp-1);
-  letter-spacing: -0.01em;
-  background: linear-gradient(135deg, #FFFFFF 70%, var(--color-accent-soft) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.travel-banner-text p {
-  font-size: var(--fs-base);
-  color: #A8B3CC;
-  line-height: 1.5;
-  margin: 0;
-  max-width: 540px;
-}
-
-/* Action CTA Button */
-.travel-banner-action {
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: 10px 22px;
-  border-radius: var(--radius-pill);
-  background: rgba(20, 184, 166, 0.1);
-  border: 1.5px solid rgba(20, 184, 166, 0.25);
-  color: var(--color-accent-soft);
-  font-weight: 750;
-  font-size: var(--fs-sm);
-  white-space: nowrap;
-  transition: all 0.3s var(--ease-spring);
-}
-
-.travel-banner-action svg {
-  transition: transform 0.3s var(--ease-spring);
-}
-
-/* Micro-interaction: Action hover scale and chevron nudge */
-.travel-banner-card:hover .travel-banner-action {
-  background: var(--color-accent-dark);
-  border-color: var(--color-accent);
-  color: #FFFFFF;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.45);
-}
-
-.travel-banner-card:hover .travel-banner-action svg {
-  transform: translateX(4px);
-}
-
-/* Responsive adjustment for Mobile */
-@media (max-width: 768px) {
-  .travel-banner-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-5);
-    padding: 24px;
-  }
-  .travel-banner-content {
-    flex-direction: row;
-    gap: var(--sp-4);
-  }
-  .travel-banner-action {
-    width: 100%;
-    justify-content: center;
-    padding: 12px;
-  }
-  .travel-banner-text strong {
-    font-size: 17px;
-  }
-  .travel-banner-text p {
-    font-size: var(--fs-sm);
-  }
-}
-@media (max-width: 480px) {
-  .travel-banner-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-4);
-  }
-  .travel-banner-icon-wrap {
-    margin-bottom: -4px;
-  }
-}
-
-/* ==========================================================
-   Hero Section - Mini Daily Goals Tracker
-   ========================================================== */
-.dash-hero__mini-goals {
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  max-width: 380px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.dash-hero__mini-goals-title {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.dash-hero__mini-goals-list {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dash-hero__mini-goal-item {
-  position: relative;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 0;
-}
-
-.dash-hero__mini-goal-item:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
-}
-
-.dash-hero__mini-goal-item.done {
-  background: rgba(16, 185, 129, 0.2);
-  border-color: #10B981;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
-}
-
-.dash-hero__mini-goal-emoji {
-  font-size: 16px;
-  line-height: 1;
-}
-
-.dash-hero__mini-goal-dot {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  border: 1.5px solid #151A40;
-  transition: all 0.2s;
-}
-
-.dash-hero__mini-goal-item.done .dash-hero__mini-goal-dot {
-  background: #10B981;
-}
-
-/* Homepage Hero CTAs */
 .dash-hero__ctas {
   display: flex;
   gap: var(--sp-3);
-  margin-top: var(--sp-5);
-  margin-bottom: var(--sp-6);
+  margin-top: var(--sp-4);
   flex-wrap: wrap;
 }
 
 .hero-cta-btn {
-  font-size: var(--fs-sm);
-  padding: var(--sp-3) var(--sp-6);
+  font-size: var(--fs-xs);
+  padding: 10px var(--sp-5);
   text-decoration: none;
 }
 
-/* Adjust secondary CTA in dark hero background to look premium and high contrast */
 .dash-hero .btn--secondary {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
 }
 .dash-hero .btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.22);
   border-color: #FFFFFF;
 }
 
@@ -936,81 +160,359 @@
   }
 }
 
-/* Target Audience & Benefits Sections styling */
-.dash-audience, .dash-benefits {
-  padding-top: var(--sp-6);
-  padding-bottom: var(--sp-6);
+/* ---- Next Prayer Card ---- */
+.dash-hero__prayer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  flex: 1;
+  min-width: 290px;
 }
-
-.dash-audience__grid, .dash-benefits__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--sp-4);
-  margin-top: var(--sp-5);
+.dash-hero__prayer:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
 }
-
 @media (min-width: 768px) {
-  .dash-audience__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .dash-benefits__grid {
-    grid-template-columns: repeat(2, 1fr);
+  .dash-hero__prayer {
+    max-width: 340px;
   }
 }
 
-@media (min-width: 1024px) {
-  .dash-benefits__grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.dash-hero__prayer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.dash-audience__card, .dash-benefit-card {
-  padding: var(--sp-5) var(--sp-6);
-  background: var(--glass-bg-light);
+.dash-hero__prayer-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-accent-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dash-hero__prayer-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dash-hero__prayer-name {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: #FFFFFF;
+}
+.dash-hero__prayer-name svg {
+  color: var(--color-accent-soft);
+}
+
+.dash-hero__prayer-time {
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.dash-hero__prayer-city {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.dash-hero__prayer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.dash-hero__prayer-link {
+  font-size: 10px;
+  font-weight: 600;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  transition: background 0.2s, transform 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.dash-hero__prayer-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(2px);
+}
+
+.dash-hero__prayer-countdown {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent-soft);
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+/* ==========================================================
+   Today Summary
+   ========================================================== */
+.today-summary-container {
+  margin-top: calc(var(--sp-8) * -1);
+  margin-bottom: var(--sp-6);
+  position: relative;
+  z-index: 10;
+}
+
+.today-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--glass-bg-strong);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border-light);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   box-shadow: var(--glass-shadow-light);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  align-items: flex-start;
+}
+@media (min-width: 640px) {
+  .today-summary-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--sp-3) var(--sp-5);
+  }
+}
+
+.today-summary-dates {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.gregorian-text {
+  color: var(--color-text-secondary);
+}
+.divider-dot {
+  color: var(--color-text-muted);
+}
+.hijri-text {
+  color: var(--color-primary);
+}
+
+.today-summary-message {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+[data-theme="dark"] .today-summary-card {
+  background: rgba(15, 20, 45, 0.85);
+  border-color: rgba(129, 140, 248, 0.15);
+}
+
+/* ==========================================================
+   Continue Activity Section
+   ========================================================== */
+.continue-activity-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-3);
+}
+@media (min-width: 768px) {
+  .continue-activity-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.continue-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-3) var(--sp-4) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+.continue-card__body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.continue-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.bg-blue-soft { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.bg-indigo-soft { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
+.bg-mint-soft { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.bg-cyan-soft { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+.bg-lavender-soft { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+.bg-gold-soft { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+.continue-card__info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: var(--sp-2);
+  gap: 2px;
 }
 
-.dash-audience__card:hover, .dash-benefit-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(79, 70, 229, 0.2);
-  box-shadow: var(--shadow-card-hover);
-}
-
-.dash-audience__icon-wrap, .dash-benefit-card__icon-wrap {
-  font-size: 24px;
-  margin-bottom: var(--sp-1);
-}
-
-.dash-audience__card h3, .dash-benefit-card h3 {
-  font-family: var(--font-heading);
-  font-size: var(--fs-md);
+.continue-card__title {
+  font-size: var(--fs-sm);
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
-.dash-audience__card p, .dash-benefit-card p {
+.continue-card__subtitle {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.continue-card__btn {
+  padding: 4px 10px !important;
+  font-size: 10px !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+/* ==========================================================
+   Quick Access Section
+   ========================================================== */
+.quick-access-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+}
+@media (min-width: 768px) {
+  .quick-access-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.quick-access-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4) var(--sp-2);
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--glass-shadow-light);
+}
+
+.quick-access-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 20px rgba(0, 102, 255, 0.08);
+}
+
+.quick-access-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  margin-bottom: var(--sp-2);
+}
+
+.quick-access-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+[data-theme="dark"] .quick-access-item {
+  background: rgba(15, 20, 45, 0.55);
+  border-color: rgba(129, 140, 248, 0.12);
+}
+[data-theme="dark"] .quick-access-item:hover {
+  background: rgba(15, 20, 45, 0.75);
+  border-color: var(--color-primary);
+}
+
+/* ==========================================================
+   Dua Hari Ini Card
+   ========================================================== */
+.doa-hari-ini-card {
+  border-radius: var(--radius-xl) !important;
+}
+.doa-title {
+  margin: 0 0 var(--sp-1) 0;
+  font-size: var(--fs-base);
+}
+.doa-arabic {
+  font-size: 20px;
+  line-height: 2;
+  color: var(--color-text-primary);
+}
+.doa-translation {
   font-size: var(--fs-sm);
   color: var(--color-text-secondary);
   line-height: 1.5;
-  margin: 0;
+  margin: var(--sp-2) 0 var(--sp-1) 0;
+}
+.doa-source {
+  font-size: 10px;
+  color: var(--color-text-muted);
 }
 
-[data-theme="dark"] .dash-audience__card,
-[data-theme="dark"] .dash-benefit-card {
-  background: rgba(15, 20, 45, 0.55);
-  border-color: rgba(129, 140, 248, 0.12);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+/* ==========================================================
+   Worship Tracker Summary
+   ========================================================== */
+.tracker-summary-card {
+  border-radius: var(--radius-xl) !important;
 }
 
+.tracker-indicator-item {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.tracker-indicator-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+}
 
+[data-theme="dark"] .tracker-indicator-item {
+  background: rgba(10, 15, 35, 0.6) !important;
+}
 
+/* Desktop spacing adjustment */
+@media (min-width: 1024px) {
+  .home-page .container {
+    max-width: var(--max-w) !important;
+    padding-left: var(--sp-8) !important;
+    padding-right: var(--sp-8) !important;
+  }
+}
