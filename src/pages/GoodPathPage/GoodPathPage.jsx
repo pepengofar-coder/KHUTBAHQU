@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { 
   getHabits, 
@@ -11,7 +11,7 @@ import {
   saveDisabledHabits,
   getDisabledHabits
 } from '../../utils/goodPathData';
-import { CheckCircle2, Circle, Plus, Compass, ChevronLeft } from 'lucide-react';
+import { CheckCircle2, Circle, Plus, Compass, ChevronLeft, Activity } from 'lucide-react';
 import HabitDetailSheet from '../../components/HabitDetailSheet/HabitDetailSheet';
 import './GoodPathPage.css';
 
@@ -52,6 +52,7 @@ export default function GoodPathPage() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData();
   }, []);
 
@@ -137,6 +138,28 @@ export default function GoodPathPage() {
       </header>
 
       <main className="gp-main">
+        {/* Home Workout Feature Card */}
+        <Link to="/good-path/home-workout" className="gp-feature-link" style={{
+          display: 'flex', alignItems: 'center', gap: '14px',
+          padding: '16px', borderRadius: '16px', marginBottom: '16px',
+          background: 'linear-gradient(135deg, #065f4618, #0d948818)',
+          border: '1px solid #04785725', textDecoration: 'none',
+          transition: 'transform 0.2s, box-shadow 0.2s'
+        }}>
+          <div style={{
+            width: '48px', height: '48px', borderRadius: '14px',
+            background: 'linear-gradient(135deg, #047857, #0d9488)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+          }}>
+            <Activity size={24} color="white" />
+          </div>
+          <div style={{ flex: 1 }}>
+            <h3 style={{ margin: '0 0 2px', fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-color, #1e293b)' }}>🏋️ Home Workout</h3>
+            <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-muted, #64748b)' }}>Olahraga di Rumah — Latihan ringan dan terstruktur</p>
+          </div>
+          <ChevronLeft size={18} style={{ transform: 'rotate(180deg)', color: 'var(--text-muted, #64748b)' }} />
+        </Link>
+
         <div className="gp-list">
           {habits.map(habit => {
             const isDone = todayProgress[habit.id];
