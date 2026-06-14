@@ -1042,3 +1042,372 @@
     font-size: 14px;
   }
 }
+
+/* ==========================================================
+   Dashboard Spacing and Container Width Upgrades
+   ========================================================== */
+.home-page .container {
+  max-width: 1280px !important;
+  padding-left: var(--sp-4) !important;
+  padding-right: var(--sp-4) !important;
+}
+
+@media (min-width: 640px) {
+  .home-page .container {
+    padding-left: var(--sp-6) !important;
+    padding-right: var(--sp-6) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-page .container {
+    padding-left: var(--sp-8) !important;
+    padding-right: var(--sp-8) !important;
+  }
+}
+
+/* Unified sections margins & paddings on home dashboard */
+.home-page .home-section,
+.home-page .dash-actions,
+.home-page .dash-prayer {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 28px !important;
+}
+
+@media (min-width: 1024px) {
+  .home-page .home-section,
+  .home-page .dash-actions,
+  .home-page .dash-prayer {
+    padding-bottom: 40px !important;
+  }
+}
+
+/* ==========================================================
+   Redesigned Continue Reading Card (Lanjutkan Membaca)
+   ========================================================== */
+.continue-reading-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow-light);
+  transition: transform var(--tr-base), box-shadow var(--tr-base), border-color var(--tr-base);
+  width: 100%;
+  cursor: pointer;
+}
+
+.continue-reading-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(5, 150, 105, 0.12), var(--glass-shadow-light);
+  border-color: rgba(5, 150, 105, 0.35);
+}
+
+.continue-reading-card:active {
+  transform: translateY(-1px) scale(0.99);
+  transition-duration: 80ms;
+}
+
+.continue-reading-card__body {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex: 1;
+}
+
+.continue-reading-card__icon-container {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(5, 150, 105, 0.08);
+  color: var(--color-islamic);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--tr-base), background-color var(--tr-base);
+}
+
+[data-theme="dark"] .continue-reading-card__icon-container {
+  background: rgba(5, 150, 105, 0.15);
+  color: #34d399;
+}
+
+.continue-reading-card:hover .continue-reading-card__icon-container {
+  transform: scale(1.08) rotate(3deg);
+  background: rgba(5, 150, 105, 0.12);
+}
+
+.continue-reading-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.continue-reading-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.continue-reading-card__title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-islamic);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .continue-reading-card__title {
+  color: #34d399;
+}
+
+.continue-reading-card__subtitle {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.continue-reading-card__location {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.continue-reading-card__surah {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.continue-reading-card__ayah {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+.continue-reading-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2);
+  transition: all 0.25s var(--ease-spring);
+  cursor: pointer;
+  border: none;
+}
+
+.continue-reading-card__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(5, 150, 105, 0.3);
+  filter: brightness(1.05);
+}
+
+.continue-reading-card__btn:active {
+  transform: scale(0.96);
+}
+
+.continue-reading-card__btn--start {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+}
+
+.continue-reading-card__btn--start:hover {
+  box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3);
+}
+
+@media (max-width: 639px) {
+  .continue-reading-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--sp-4);
+    gap: var(--sp-4);
+  }
+  .continue-reading-card__body {
+    align-items: flex-start;
+  }
+  .continue-reading-card__btn {
+    width: 100%;
+  }
+}
+
+/* ==========================================================
+   Redesigned Today's Dua Card (Doa Hari Ini)
+   ========================================================== */
+.daily-doa-section {
+  width: 100%;
+}
+
+.daily-doa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-4);
+  gap: var(--sp-4);
+}
+
+.daily-doa-header__left {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.daily-doa-header__icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-surface);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.daily-doa-header__title {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.daily-doa-header__subtitle {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.daily-doa-header__link {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-surface);
+  transition: all 0.2s ease;
+}
+
+.daily-doa-header__link:hover {
+  background: rgba(79, 70, 229, 0.15);
+  transform: translateX(2px);
+}
+
+.daily-doa-header__link .arrow {
+  transition: transform 0.2s ease;
+}
+
+.daily-doa-header__link:hover .arrow {
+  transform: translateX(3px);
+}
+
+.daily-doa-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  overflow: hidden;
+  transition: transform var(--tr-base), box-shadow var(--tr-base), border-color var(--tr-base);
+}
+
+.daily-doa-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(79, 70, 229, 0.15);
+}
+
+.daily-doa-card__body {
+  padding: var(--sp-5) var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.daily-doa-card__title {
+  font-size: var(--fs-base);
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+  letter-spacing: -0.01em;
+}
+
+.daily-doa-card__arabic {
+  font-size: 1.625rem;
+  line-height: 2.2;
+  color: var(--color-text);
+  text-align: right;
+  direction: rtl;
+  margin: var(--sp-1) 0;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+@media (max-width: 639px) {
+  .daily-doa-card__arabic {
+    font-size: 1.375rem;
+    line-height: 2.0;
+  }
+  .daily-doa-card__body {
+    padding: var(--sp-4) var(--sp-5);
+  }
+}
+
+.daily-doa-card__latin {
+  font-size: var(--fs-sm);
+  font-style: italic;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  border-left: 2px solid var(--color-primary-light);
+  padding-left: var(--sp-3);
+  margin: 0;
+}
+
+.daily-doa-card__translation {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.daily-doa-card__translation-label {
+  color: var(--color-text);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.daily-doa-card__translation-text {
+  display: inline;
+  margin: 0;
+}
+
+.daily-doa-card__footer {
+  border-top: 1px solid var(--color-border-light);
+  padding-top: var(--sp-3);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.daily-doa-card__source {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+

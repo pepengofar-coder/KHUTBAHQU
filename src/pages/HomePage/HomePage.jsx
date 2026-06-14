@@ -288,7 +288,7 @@ export default function HomePage() {
       <SpiritualJourney />
 
       {/* ═══════════════ Lanjutkan Bacaan ═══════════════ */}
-      <section className="container home-section" style={{ marginTop: 'var(--sp-2)' }}>
+      <section className="container home-section">
         <SectionHeader 
           title="Lanjutkan Bacaan" 
           subtitle="Aktivitas membaca Al-Qur'an terakhir Anda"
@@ -297,38 +297,68 @@ export default function HomePage() {
         {lastRead ? (
           <Card 
             onClick={() => navigate(`/mushaf/${lastRead.surah}`)} 
-            className="flex items-center justify-between p-4" 
+            className="continue-reading-card" 
             hoverable
           >
-            <div>
-              <h4 className="text-sm font-bold text-[var(--color-text-primary)]">
-                Surat {lastRead.surahName || `Surat ${lastRead.surah}`}
-              </h4>
-              <p className="text-xs text-[var(--color-text-muted)] mt-1">
-                Ayat {lastRead.ayah} • Terakhir dibaca
-              </p>
+            <div className="continue-reading-card__body">
+              <div className="continue-reading-card__icon-container">
+                <BookOpen size={20} />
+              </div>
+              <div className="continue-reading-card__details">
+                <div className="continue-reading-card__header">
+                  <span className="continue-reading-card__title">Lanjutkan Membaca</span>
+                  <span className="continue-reading-card__subtitle">Aktivitas terakhir Anda</span>
+                </div>
+                <div className="continue-reading-card__location">
+                  <span className="continue-reading-card__surah">
+                    Surat {lastRead.surahName || `Surat ${lastRead.surah}`}
+                  </span>
+                  <span className="continue-reading-card__ayah">
+                    Ayat {lastRead.ayah}
+                  </span>
+                </div>
+              </div>
             </div>
-            <div className="btn btn--primary btn--sm flex items-center gap-1">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/mushaf/${lastRead.surah}`);
+              }}
+              className="continue-reading-card__btn"
+            >
               Buka <ChevronRight size={14} />
-            </div>
+            </button>
           </Card>
         ) : (
           <Card 
             onClick={() => navigate('/mushaf')} 
-            className="flex items-center justify-between p-4" 
+            className="continue-reading-card" 
             hoverable
           >
-            <div>
-              <h4 className="text-sm font-bold text-[var(--color-text-primary)]">
-                Mulai Membaca Al-Qur'an
-              </h4>
-              <p className="text-xs text-[var(--color-text-muted)] mt-1">
-                Belum ada riwayat membaca. Klik untuk membuka surat Al-Fatihah.
-              </p>
+            <div className="continue-reading-card__body">
+              <div className="continue-reading-card__icon-container">
+                <BookOpen size={20} />
+              </div>
+              <div className="continue-reading-card__details">
+                <div className="continue-reading-card__header">
+                  <span className="continue-reading-card__title">Mulai Membaca Al-Qur'an</span>
+                  <span className="continue-reading-card__subtitle">Belum ada riwayat membaca</span>
+                </div>
+                <div className="continue-reading-card__location">
+                  <span className="continue-reading-card__surah">Surat Al-Fatihah</span>
+                  <span className="continue-reading-card__ayah">Ayat 1</span>
+                </div>
+              </div>
             </div>
-            <div className="btn btn--outline btn--sm flex items-center gap-1">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/mushaf');
+              }}
+              className="continue-reading-card__btn continue-reading-card__btn--start"
+            >
               Mulai <ChevronRight size={14} />
-            </div>
+            </button>
           </Card>
         )}
       </section>
@@ -447,30 +477,45 @@ export default function HomePage() {
 
       {/* ═══════════════ C. Doa Hari Ini ═══════════════ */}
       {dailyDoa && (
-        <section className="container home-section">
-          <SectionHeader 
-            title="Doa Hari Ini" 
-            subtitle="Renungan dan doa harian untuk dibaca"
-            icon={Sparkles}
-            actionLink="/doa-dzikir"
-            actionLabel="Semua Doa"
-          />
-          <Card className="p-5 flex flex-col gap-3">
-            <h4 className="text-sm font-bold text-[var(--color-primary)]">{dailyDoa.title}</h4>
-            <p className="text-right text-lg md:text-xl font-semibold text-[var(--color-text-primary)] leading-loose my-2 font-arabic select-all">
-              {dailyDoa.arabic}
-            </p>
-            {dailyDoa.latin && (
-              <p className="text-xs italic text-[var(--color-text-muted)] leading-relaxed">
-                "{dailyDoa.latin}"
+        <section className="container home-section daily-doa-section">
+          <div className="daily-doa-header">
+            <div className="daily-doa-header__left">
+              <div className="daily-doa-header__icon-wrapper">
+                <Sparkles size={20} />
+              </div>
+              <div>
+                <h3 className="daily-doa-header__title">Doa Hari Ini</h3>
+                <p className="daily-doa-header__subtitle">Renungan dan doa harian untuk dibaca</p>
+              </div>
+            </div>
+            <Link to="/doa-dzikir" className="daily-doa-header__link">
+              Semua Doa <span className="arrow">&rarr;</span>
+            </Link>
+          </div>
+
+          <Card className="daily-doa-card">
+            <div className="daily-doa-card__body">
+              <h4 className="daily-doa-card__title">{dailyDoa.title}</h4>
+              
+              <p className="daily-doa-card__arabic font-arabic select-all">
+                {dailyDoa.arabic}
               </p>
-            )}
-            <p className="text-xs text-[var(--color-text-primary)] leading-relaxed">
-              <strong>Artinya:</strong> {dailyDoa.translation}
-            </p>
-            <span className="text-[9px] text-[var(--color-text-muted)] mt-1 font-medium">
-              Sumber: {dailyDoa.source}
-            </span>
+              
+              {dailyDoa.latin && (
+                <p className="daily-doa-card__latin">
+                  "{dailyDoa.latin}"
+                </p>
+              )}
+              
+              <div className="daily-doa-card__translation">
+                <strong className="daily-doa-card__translation-label">Artinya:</strong>
+                <p className="daily-doa-card__translation-text">{dailyDoa.translation}</p>
+              </div>
+              
+              <div className="daily-doa-card__footer">
+                <span className="daily-doa-card__source">Sumber: {dailyDoa.source}</span>
+              </div>
+            </div>
           </Card>
         </section>
       )}
@@ -573,7 +618,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ Daily Recommendations ═══════════════ */}
-      <section className="home-section container" style={{ marginTop: 'var(--sp-4)' }}>
+      <section className="home-section container">
         <DailyRecommendations />
       </section>
 
