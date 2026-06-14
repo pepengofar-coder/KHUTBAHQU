@@ -341,6 +341,51 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+/* Purple (Murottal) - Deep Purple Glass */
+.ifc-card--purple {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0)),
+    radial-gradient(circle at 85% 20%, rgba(236, 72, 153, 0.3), transparent 60%),
+    linear-gradient(135deg, rgba(126, 34, 206, 0.45), rgba(76, 29, 149, 0.55));
+}
+.ifc-card--purple:hover {
+  border-color: rgba(236, 72, 153, 0.55);
+  box-shadow:
+    0 24px 55px rgba(15, 10, 40, 0.25),
+    0 0 35px rgba(126, 34, 206, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Amber (Khutbah card) - Warm Amber Glass */
+.ifc-card--amber {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0)),
+    radial-gradient(circle at 85% 20%, rgba(234, 88, 12, 0.3), transparent 60%),
+    linear-gradient(135deg, rgba(217, 119, 6, 0.45), rgba(120, 53, 15, 0.55));
+}
+.ifc-card--amber:hover {
+  border-color: rgba(234, 88, 12, 0.55);
+  box-shadow:
+    0 24px 55px rgba(15, 10, 40, 0.25),
+    0 0 35px rgba(217, 119, 6, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Teal (Mode Perjalanan) - Teal/Cyan Glass */
+.ifc-card--teal {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0)),
+    radial-gradient(circle at 85% 20%, rgba(45, 212, 191, 0.35), transparent 60%),
+    linear-gradient(135deg, rgba(13, 148, 136, 0.45), rgba(17, 94, 89, 0.55));
+}
+.ifc-card--teal:hover {
+  border-color: rgba(45, 212, 191, 0.55);
+  box-shadow:
+    0 24px 55px rgba(15, 10, 40, 0.25),
+    0 0 35px rgba(13, 148, 136, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
 /* ================================================
    Dark Mode Overrides (Deeper colorful backgrounds)
    ================================================ */
@@ -413,6 +458,27 @@
     linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
     radial-gradient(circle at 85% 20%, rgba(79, 70, 229, 0.25), transparent 60%),
     linear-gradient(135deg, rgba(124, 45, 18, 0.45), rgba(69, 26, 3, 0.75));
+}
+
+[data-theme="dark"] .ifc-card--purple, [data-theme="midnight"] .ifc-card--purple {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
+    radial-gradient(circle at 85% 20%, rgba(236, 72, 153, 0.2), transparent 60%),
+    linear-gradient(135deg, rgba(76, 29, 149, 0.45), rgba(30, 10, 60, 0.75));
+}
+
+[data-theme="dark"] .ifc-card--amber, [data-theme="midnight"] .ifc-card--amber {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
+    radial-gradient(circle at 85% 20%, rgba(234, 88, 12, 0.2), transparent 60%),
+    linear-gradient(135deg, rgba(120, 53, 15, 0.45), rgba(69, 26, 3, 0.75));
+}
+
+[data-theme="dark"] .ifc-card--teal, [data-theme="midnight"] .ifc-card--teal {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
+    radial-gradient(circle at 85% 20%, rgba(45, 212, 191, 0.2), transparent 60%),
+    linear-gradient(135deg, rgba(17, 94, 89, 0.45), rgba(5, 40, 35, 0.75));
 }
 
 /* ================================================

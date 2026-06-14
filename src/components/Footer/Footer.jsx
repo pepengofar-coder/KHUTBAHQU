@@ -16,7 +16,7 @@ export default function Footer() {
             />
             Islamediaku
           </h3>
-          <p>Platform Islami harian untuk Qur’an, doa, jadwal sholat, tilawah, artikel edukasi, dan tracker ibadah.</p>
+          <p>Platform Islami harian untuk Qur’an, doa, jadwal sholat, tilawah, dan tracker ibadah.</p>
         </div>
         <div className="footer__menu">
           <Link to="/tentang">Tentang</Link>

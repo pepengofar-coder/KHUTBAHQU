@@ -1012,5 +1012,33 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* ==========================================================
+   Feature Group Labels — Categorized Card Headings
+   ========================================================== */
+.feature-group-label {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: var(--sp-6) 0 var(--sp-3);
+  padding-left: var(--sp-1);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
 
+.feature-group-label:first-of-type {
+  margin-top: var(--sp-4);
+}
 
+[data-theme="dark"] .feature-group-label {
+  color: rgba(165, 180, 252, 0.7);
+}
+
+@media (min-width: 768px) {
+  .feature-group-label {
+    font-size: 14px;
+  }
+}

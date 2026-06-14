@@ -8,7 +8,6 @@ export default {
   'nav.calendar': 'Calendar',
   'nav.more': 'More',
   'nav.khutbah': 'Khutbah',
-  'nav.articles': 'Articles',
   'nav.tracker': 'Tracker',
   'nav.my_space': 'My Space',
   'nav.good_path': 'Good Path',

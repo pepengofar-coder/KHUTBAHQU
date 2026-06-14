@@ -10,16 +10,14 @@ import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/Illu
 import DailyRecommendations from '../../components/DailyRecommendations/DailyRecommendations';
 import SpiritualJourney from '../../components/SpiritualJourney/SpiritualJourney';
 import useDailyMission from '../../hooks/useDailyMission';
-import { getDailyProgress, updateTrackerItem } from '../../utils/dailyProgress';
-import { DUMMY_ARTICLES } from '../../data/articleCategories';
 import { DOA_DZIKIR_DATA } from '../../data/doaDzikir';
 import Card from '../../components/common/Card';
 import SectionHeader from '../../components/common/SectionHeader';
 import { motion } from 'framer-motion';
 import { 
-  BookOpen, Compass, ScrollText, Sparkles, ChevronRight, Headphones, 
+  BookOpen, Compass, Sparkles, ChevronRight, Headphones, 
   CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, 
-  Moon, MapPin, CheckCircle2, Circle, FileText, Bookmark 
+  Moon, MapPin, Bookmark, CircleDot, ScrollText, Music, Car
 } from 'lucide-react';
 import './HomePage.css';
 
@@ -89,8 +87,8 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   useSEO({
-    title: 'Islamediaku - Platform Islami Modern untuk Ibadah Harian',
-    description: 'Baca Al-Qur’an, cek jadwal sholat, dengarkan murottal, catat ibadah, gunakan tasbih digital, dan akses doa harian dalam satu platform islami modern.',
+    title: 'Islamediaku — Sahabat Ibadah Harian Muslim',
+    description: 'Baca Al-Qur\'an, cek jadwal sholat, dengarkan murottal 30 juz, catat ibadah harian, gunakan tasbih digital, dan akses doa & dzikir dalam satu platform Islami modern.',
     path: '/',
   });
 
@@ -110,9 +108,6 @@ export default function HomePage() {
 
   // Random Daily Doa state
   const [dailyDoa, setDailyDoa] = useState(null);
-
-  // Tracker Progress state
-  const [progressData, setProgressData] = useState(() => getDailyProgress());
 
   useEffect(() => {
     // Load last read surah from localStorage
@@ -208,11 +203,7 @@ export default function HomePage() {
     setCountdown(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`);
   }, [nowTime, timings, nextKey]);
 
-  const toggleIbadah = (id) => {
-    setProgressData(prev => updateTrackerItem(id, prev));
-  };
-
-  const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform materi khutbah Islam siap pakai.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/khutbah?q={search_term_string}`, 'query-input': 'required name=search_term_string' } };
+  const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, description: 'Platform Islami harian untuk Qur\'an, jadwal sholat, doa, dzikir, tilawah, dan tracker ibadah.', inLanguage: 'id-ID', potentialAction: { '@type': 'SearchAction', target: `${SITE_URL}/khutbah?q={search_term_string}`, 'query-input': 'required name=search_term_string' } };
   const orgSchema = { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL, logo: `${SITE_URL}/logo.png` };
 
   return (
@@ -220,12 +211,12 @@ export default function HomePage() {
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
 
-      {/* Hero Section */}
+      {/* ═══════════════ A. Hero Section ═══════════════ */}
       <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
           <div className="dash-hero__content">
-            <h1 className="dash-hero__salam">{t('home.hero.title')}</h1>
-            <p className="dash-hero__desc">{t('home.hero.subtitle')}</p>
+            <h1 className="dash-hero__salam">Islamediaku</h1>
+            <p className="dash-hero__desc">Sahabat ibadah harian Anda — Al-Qur'an, jadwal sholat, doa & dzikir, arah kiblat, dan tracker ibadah dalam satu platform.</p>
             <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
             
             {/* Hero CTAs */}
@@ -293,10 +284,10 @@ export default function HomePage() {
          </div>
       </div>
 
-      {/* Daily Mission Section */}
+      {/* ═══════════════ Perjalanan Spiritual (Unified Tracker) ═══════════════ */}
       <SpiritualJourney />
 
-      {/* NEW: Lanjutkan Bacaan (Last Read Progress) */}
+      {/* ═══════════════ Lanjutkan Bacaan ═══════════════ */}
       <section className="container home-section" style={{ marginTop: 'var(--sp-2)' }}>
         <SectionHeader 
           title="Lanjutkan Bacaan" 
@@ -342,10 +333,12 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* Quick Actions / Shortcuts */}
+      {/* ═══════════════ B. Main Feature Cards ═══════════════ */}
       <section className="dash-actions container">
         <SectionHeader title={t('nav.more')} icon={Compass} />
         
+        {/* Group: Al-Qur'an */}
+        <h4 className="feature-group-label">📖 Al-Qur'an</h4>
         <div className="dash-actions__grid-main">
           <div className="featured-card-wrap">
             <IllustratedFeatureCard
@@ -359,43 +352,31 @@ export default function HomePage() {
           </div>
 
           <IllustratedFeatureCard
+            to="/tilawah"
+            visual={Headphones}
+            colorVariant="indigo"
+            title="Tilawah"
+            subtitle="Dengarkan tilawah Al-Qur'an"
+          />
+
+          <IllustratedFeatureCard
+            to="/murottal-30-juz"
+            visual={Music}
+            colorVariant="purple"
+            title="Murottal 30 Juz"
+            subtitle="Murottal lengkap 30 Juz"
+          />
+        </div>
+
+        {/* Group: Ibadah Harian */}
+        <h4 className="feature-group-label">🕌 Ibadah Harian</h4>
+        <div className="dash-actions__grid-main">
+          <IllustratedFeatureCard
             to="/sholat"
             visual={Clock}
             colorVariant="cyan"
             title={t('nav.prayer')}
             subtitle={t('feature.prayer').split(' - ')[1] || t('feature.prayer')}
-          />
-
-          <IllustratedFeatureCard
-            to="/tilawah"
-            visual={Headphones}
-            colorVariant="indigo"
-            title={t('nav.recitation')}
-            subtitle={t('feature.recitation').split(' - ')[1] || t('feature.recitation')}
-          />
-
-          <IllustratedFeatureCard
-            to="/doa-dzikir"
-            visual={Sparkles}
-            colorVariant="mint"
-            title={t('nav.dua_dhikr')}
-            subtitle={t('feature.dua').split(' - ')[1] || t('feature.dua')}
-          />
-
-          <IllustratedFeatureCard
-            to="/artikel"
-            visual={FileText}
-            colorVariant="blue"
-            title="Artikel"
-            subtitle="Edukasi & Sejarah Islam Legal"
-          />
-
-          <IllustratedFeatureCard
-            to="/kalender-hijriah"
-            visual={CalendarDays}
-            colorVariant="lavender"
-            title={t('nav.calendar')}
-            subtitle={t('feature.calendar').split(' - ')[1] || t('feature.calendar')}
           />
 
           <IllustratedFeatureCard
@@ -407,6 +388,26 @@ export default function HomePage() {
           />
 
           <IllustratedFeatureCard
+            to="/doa-dzikir"
+            visual={Sparkles}
+            colorVariant="mint"
+            title={t('nav.dua_dhikr')}
+            subtitle={t('feature.dua').split(' - ')[1] || t('feature.dua')}
+          />
+
+          <IllustratedFeatureCard
+            to="/tasbih"
+            visual={CircleDot}
+            colorVariant="indigo"
+            title="Tasbih Digital"
+            subtitle="Counter dzikir & tasbih"
+          />
+        </div>
+
+        {/* Group: Produktivitas Ibadah */}
+        <h4 className="feature-group-label">✅ Produktivitas Ibadah</h4>
+        <div className="dash-actions__grid-main">
+          <IllustratedFeatureCard
             to="/tracker"
             visual={CheckSquare}
             colorVariant="lime"
@@ -414,9 +415,37 @@ export default function HomePage() {
             subtitle={t('feature.tracker').split(' - ')[1] || t('feature.tracker')}
           />
         </div>
+
+        {/* Group: Fitur Pendukung */}
+        <h4 className="feature-group-label">🌙 Fitur Pendukung</h4>
+        <div className="dash-actions__grid-main">
+          <IllustratedFeatureCard
+            to="/kalender-hijriah"
+            visual={CalendarDays}
+            colorVariant="lavender"
+            title={t('nav.calendar')}
+            subtitle={t('feature.calendar').split(' - ')[1] || t('feature.calendar')}
+          />
+
+          <IllustratedFeatureCard
+            to="/khutbah"
+            visual={ScrollText}
+            colorVariant="amber"
+            title="Khutbah"
+            subtitle="Materi khutbah pilihan"
+          />
+
+          <IllustratedFeatureCard
+            to="/mode-perjalanan"
+            visual={Car}
+            colorVariant="teal"
+            title="Mode Perjalanan"
+            subtitle="Panduan ibadah saat safar"
+          />
+        </div>
       </section>
 
-      {/* NEW: Doa Harian Ringkas */}
+      {/* ═══════════════ C. Doa Hari Ini ═══════════════ */}
       {dailyDoa && (
         <section className="container home-section">
           <SectionHeader 
@@ -446,83 +475,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* NEW: Tracker Ibadah Ringkas */}
-      <section className="container home-section">
-        <SectionHeader 
-          title="Tracker Sholat Hari Ini" 
-          subtitle="Catat ibadah wajib sholat lima waktu"
-          icon={CheckSquare}
-          actionLink="/tracker"
-          actionLabel="Tracker Lengkap"
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-          {['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'].map(id => {
-            const isDone = progressData.tracker?.[id];
-            const labels = { subuh: 'Subuh', dzuhur: 'Dzuhur', ashar: 'Ashar', maghrib: 'Maghrib', isya: 'Isya' };
-            const icons = { subuh: '🌙', dzuhur: '☀️', ashar: '🌤️', maghrib: '🌇', isya: '🌃' };
-            
-            return (
-              <Card 
-                key={id}
-                onClick={() => toggleIbadah(id)}
-                className={`flex items-center justify-between p-3.5 transition-all ${
-                  isDone ? 'bg-[var(--color-primary-light)]/20 border-[var(--color-primary)]/40' : ''
-                }`}
-                hoverable
-              >
-                <div className="flex items-center gap-2.5">
-                  <span className="text-base">{icons[id]}</span>
-                  <span className="text-xs font-semibold text-[var(--color-text-primary)]">{labels[id]}</span>
-                </div>
-                <div className="text-[var(--color-primary)]">
-                  {isDone ? <CheckCircle2 size={18} fill="currentColor" className="text-white" /> : <Circle size={18} className="text-[var(--color-border)]" />}
-                </div>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* NEW: Artikel Edukasi Terkini */}
-      <section className="container home-section">
-        <SectionHeader 
-          title="Artikel Edukasi" 
-          subtitle="Khazanah artikel Islami legal berlisensi resmi"
-          icon={ScrollText}
-          actionLink="/artikel"
-          actionLabel="Lihat Semua"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {DUMMY_ARTICLES.slice(0, 2).map(article => (
-            <Card 
-              key={article.slug}
-              onClick={() => navigate(`/artikel/${article.slug}`)}
-              className="p-4 flex flex-col justify-between"
-              hoverable
-            >
-              <div>
-                <span className="text-[9px] font-bold text-[var(--color-primary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded uppercase tracking-wide">
-                  {article.category.replace('-', ' ')}
-                </span>
-                <h4 className="text-sm font-bold text-[var(--color-text-primary)] mt-2 line-clamp-1 hover:text-[var(--color-primary)] transition-colors">
-                  {article.title}
-                </h4>
-                <p className="text-xs text-[var(--color-text-muted)] mt-1 line-clamp-2 leading-relaxed">
-                  {article.summary}
-                </p>
-              </div>
-              <div className="flex items-center justify-between text-[9px] text-[var(--color-text-muted)] border-t border-[var(--color-border)] pt-3 mt-3">
-                <span>Sumber: {article.author}</span>
-                <span className="px-1.5 py-0.25 rounded border border-[var(--color-border)] bg-[var(--color-bg-primary)]">
-                  {article.license}
-                </span>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Travel Mode Shortcut Banner */}
+      {/* ═══════════════ Travel Mode Shortcut Banner ═══════════════ */}
       <section className="home-section dash-travel-banner container">
         <Link to="/mode-perjalanan" className="travel-banner-card">
           <div className="travel-banner__bg">
@@ -564,7 +517,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* Prayer Times Mini Schedule */}
+      {/* ═══════════════ Prayer Times Mini Schedule ═══════════════ */}
       {timings && (
         <section className="home-section dash-prayer container">
           <div className="dash-prayer__header">
@@ -592,7 +545,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Benefits Section */}
+      {/* ═══════════════ Benefits Section ═══════════════ */}
       <section className="dash-benefits container home-section">
         <SectionHeader title="Mengapa Memilih Kami?" icon={Sparkles} />
         <div className="dash-benefits__grid">
@@ -619,7 +572,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Today's Choices (Daily Recommendations) */}
+      {/* ═══════════════ Daily Recommendations ═══════════════ */}
       <section className="home-section container" style={{ marginTop: 'var(--sp-4)' }}>
         <DailyRecommendations />
       </section>

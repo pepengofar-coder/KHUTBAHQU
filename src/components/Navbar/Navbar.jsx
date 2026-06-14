@@ -11,7 +11,6 @@ const DESKTOP_LINKS = [
   { to: '/sholat', tKey: 'nav.prayer' },
   { to: '/mushaf', tKey: 'nav.mushaf' },
   { to: '/doa-dzikir', tKey: 'nav.dua_dhikr' },
-  { to: '/artikel', tKey: 'nav.articles' },
   { to: '/khutbah', tKey: 'nav.khutbah' },
   { to: '/tracker', tKey: 'nav.tracker' },
 ];

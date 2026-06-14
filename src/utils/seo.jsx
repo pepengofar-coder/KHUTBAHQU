@@ -13,7 +13,7 @@ export const SITE_NAME = 'Islamediaku';
 
 export const DEFAULT_SEO = {
   title: 'Islamediaku - Sahabat Ibadah Harian',
-  description: 'Islamediaku adalah aplikasi Islami harian untuk jadwal sholat, Al-Qur’an, dzikir, tilawah, tracker ibadah, Good Path, Mode Perjalanan, dan konten Islami pilihan.',
+  description: 'Islamediaku adalah aplikasi Islami harian untuk jadwal sholat, Al-Qur\'an, dzikir, tilawah, murottal 30 juz, tracker ibadah, tasbih digital, dan mode perjalanan.',
   image: `${SITE_URL}/logo.png`,
 };
 

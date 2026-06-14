@@ -8,7 +8,6 @@ export default {
   'nav.calendar': 'التقويم',
   'nav.more': 'المزيد',
   'nav.khutbah': 'الخطبة',
-  'nav.articles': 'المقالات',
   'nav.tracker': 'المتابعة',
   'nav.my_space': 'مساحتي',
   'nav.good_path': 'الطريق الطيب',
