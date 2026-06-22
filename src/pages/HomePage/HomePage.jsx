@@ -15,7 +15,7 @@ import { motion } from 'framer-motion';
 import { 
   BookOpen, Compass, Sparkles, ChevronRight, Headphones, 
   CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, 
-  Moon, MapPin, CircleDot, ScrollText, Music, Car
+  Moon, MapPin, CircleDot, ScrollText, Music, Car, Dumbbell
 } from 'lucide-react';
 import './HomePage.css';
 
@@ -423,8 +423,8 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Group: Produktivitas Ibadah */}
-        <h4 className="feature-group-label">✅ Produktivitas Ibadah</h4>
+        {/* Group: Produktivitas & Kebiasaan */}
+        <h4 className="feature-group-label">✅ Produktivitas & Kebiasaan</h4>
         <div className="dash-actions__grid-main">
           <IllustratedFeatureCard
             to="/tracker"
@@ -432,6 +432,22 @@ export default function HomePage() {
             colorVariant="lime"
             title={t('nav.tracker')}
             subtitle={t('feature.tracker').split(' - ')[1] || t('feature.tracker')}
+          />
+
+          <IllustratedFeatureCard
+            to="/good-path"
+            visual={Compass}
+            colorVariant="emerald"
+            title="Good Path"
+            subtitle="Sistem pembiasaan & perbaikan diri"
+          />
+
+          <IllustratedFeatureCard
+            to="/good-path/home-workout"
+            visual={Dumbbell}
+            colorVariant="orange"
+            title="Home Workout"
+            subtitle="Latihan fisik terstruktur di rumah"
           />
         </div>
 

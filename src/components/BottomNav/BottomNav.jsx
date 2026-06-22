@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { House, Clock, BookOpen, Compass, Heart, CircleDot, ScrollText, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User, Calendar, Music } from 'lucide-react';
+import { House, Clock, BookOpen, Compass, Heart, CircleDot, ScrollText, CheckSquare, Star, Info, Settings, MoreHorizontal, Download, Headphones, Car, User, Calendar, Music, Dumbbell } from 'lucide-react';
 import { App as CapacitorApp } from '@capacitor/app';
 import VariedFeatureCard from '../VariedFeatureCard/VariedFeatureCard';
 import { useAuth } from '../../context/AuthContext';
@@ -35,6 +35,7 @@ const MORE_SECTIONS = [
     items: [
       { to: '/ruang-saya', tKey: 'nav.my_space', icon: User, color: 'cyan', tDescKey: 'nav.my_space', fallbackDesc: 'Dashboard pribadi dan progres' },
       { to: '/good-path', tKey: 'nav.good_path', icon: Compass, color: 'emerald', tDescKey: 'feature.good_path' },
+      { to: '/good-path/home-workout', tKey: 'nav.home_workout', fallbackKey: 'Home Workout', icon: Dumbbell, color: 'orange', fallbackDesc: 'Latihan fisik terstruktur di rumah' },
       { to: '/tracker', tKey: 'nav.tracker', icon: CheckSquare, color: 'lime', tDescKey: 'feature.tracker' },
       { to: '/favorit', tKey: 'nav.favorites', fallbackKey: 'Favorit', icon: Star, color: 'amber', tDescKey: 'feature.favorites', fallbackDesc: 'Daftar konten yang Anda simpan' },
     ],

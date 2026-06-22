@@ -18,6 +18,7 @@ const DESKTOP_LINKS = [
 const MORE_LINKS = [
   { to: '/ruang-saya', tKey: 'nav.my_space' },
   { to: '/good-path', tKey: 'nav.good_path' },
+  { to: '/good-path/home-workout', tKey: 'nav.home_workout', fallback: 'Home Workout' },
   { to: '/kiblat', tKey: 'nav.qibla' },
   { to: '/kalender-hijriah', tKey: 'nav.calendar' },
   { to: '/tilawah', tKey: 'nav.recitation', fallback: 'Tilawah' }, // using tKey 'nav.recitation' or 'nav.tilawah'
