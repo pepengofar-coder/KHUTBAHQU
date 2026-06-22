@@ -595,226 +595,87 @@
 }
 
 /* ==========================================================
-   Travel Mode Shortcut Banner — Redesigned Premium Glass Card
+   Travel Mode — Compact Card (Lightweight)
    ========================================================== */
-.dash-travel-banner {
-  padding-top: var(--sp-2);
-  padding-bottom: var(--sp-6);
-}
-
-.travel-banner-card {
+.travel-compact-card {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-6);
-  width: 100%;
-  padding: 24px 32px;
-  border-radius: var(--radius-2xl);
-  background: linear-gradient(135deg, rgba(11, 15, 36, 0.9) 0%, rgba(21, 26, 60, 0.85) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  transition: transform 0.4s var(--ease-spring), box-shadow 0.4s var(--ease-spring), border-color 0.4s var(--ease-spring);
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--radius-xl);
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--shadow-sm);
   text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s var(--ease-spring), border-color 0.3s var(--ease-spring);
 }
 
-/* Micro-interaction: card hover lift and glow */
-.travel-banner-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 
-    0 25px 50px rgba(13, 148, 136, 0.15), 
-    0 0 35px rgba(139, 92, 246, 0.15),
-    0 10px 20px rgba(0, 0, 0, 0.3);
-  border-color: rgba(20, 184, 166, 0.45);
+.travel-compact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(13, 148, 136, 0.3);
 }
 
-.travel-banner-card:active {
-  transform: translateY(-2px) scale(0.995);
+.travel-compact-card:active {
+  transform: translateY(-1px) scale(0.99);
   transition-duration: 80ms;
 }
 
-/* Background Animated elements */
-.travel-banner__bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.85;
-  transition: opacity 0.3s ease;
-}
-
-.travel-banner-card:hover .travel-banner__bg {
-  opacity: 1;
-}
-
-.travel-banner__stars {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(1.5px 1.5px at 20px 30px, #fff, rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 150px 70px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 280px 40px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 420px 90px, #fff, rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 560px 20px, rgba(255,255,255,0.7), rgba(0,0,0,0));
-  opacity: 0.4;
-}
-
-.travel-banner__aurora {
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(20, 184, 166, 0.18) 0%, rgba(139, 92, 246, 0.08) 50%, transparent 80%);
-  filter: blur(20px);
-  pointer-events: none;
-  transition: transform 0.8s ease;
-}
-.travel-banner-card:hover .travel-banner__aurora {
-  transform: translate(-20px, 10px) scale(1.1);
-}
-
-/* Card Content layout */
-.travel-banner-content {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-6);
-  position: relative;
-  z-index: 2;
-  flex: 1;
-}
-
-.travel-banner-icon-wrap {
-  position: relative;
+.travel-compact-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s var(--ease-spring);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
 }
 
-.safar-dashboard-icon {
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
-  transition: transform 0.4s var(--ease-spring);
+.travel-compact-card__text {
+  flex: 1;
+  min-width: 0;
 }
 
-/* Micro-interaction: Icon tilt and bounce on card hover */
-.travel-banner-card:hover .safar-dashboard-icon {
-  transform: scale(1.08) rotate(5deg);
-}
-
-.travel-banner-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* "Cocok untuk perjalanan" Badge */
-.travel-banner-badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--color-accent-soft);
-  background: rgba(34, 211, 238, 0.12);
-  border: 1px solid rgba(34, 211, 238, 0.25);
-  padding: 3px 10px;
-  border-radius: var(--radius-sm);
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 6px rgba(34, 211, 238, 0.05);
-}
-
-.travel-banner-text strong {
-  font-family: var(--font-heading);
-  font-size: 19px;
-  font-weight: 850;
-  color: #FFFFFF;
-  margin-bottom: var(--sp-1);
-  letter-spacing: -0.01em;
-  background: linear-gradient(135deg, #FFFFFF 70%, var(--color-accent-soft) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.travel-banner-text p {
+.travel-compact-card__text strong {
+  display: block;
   font-size: var(--fs-base);
-  color: #A8B3CC;
-  line-height: 1.5;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.travel-compact-card__text p {
   margin: 0;
-  max-width: 540px;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
 }
 
-/* Action CTA Button */
-.travel-banner-action {
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: 10px 22px;
-  border-radius: var(--radius-pill);
-  background: rgba(20, 184, 166, 0.1);
-  border: 1.5px solid rgba(20, 184, 166, 0.25);
-  color: var(--color-accent-soft);
-  font-weight: 750;
-  font-size: var(--fs-sm);
-  white-space: nowrap;
-  transition: all 0.3s var(--ease-spring);
+.travel-compact-card__arrow {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
-.travel-banner-action svg {
-  transition: transform 0.3s var(--ease-spring);
+.travel-compact-card:hover .travel-compact-card__arrow {
+  transform: translateX(3px);
+  color: var(--color-primary);
 }
 
-/* Micro-interaction: Action hover scale and chevron nudge */
-.travel-banner-card:hover .travel-banner-action {
-  background: var(--color-accent-dark);
-  border-color: var(--color-accent);
-  color: #FFFFFF;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.45);
+[data-theme="dark"] .travel-compact-card {
+  background: rgba(15, 20, 45, 0.6);
+  border-color: rgba(20, 184, 166, 0.15);
 }
 
-.travel-banner-card:hover .travel-banner-action svg {
-  transform: translateX(4px);
-}
-
-/* Responsive adjustment for Mobile */
-@media (max-width: 768px) {
-  .travel-banner-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-5);
-    padding: 24px;
-  }
-  .travel-banner-content {
-    flex-direction: row;
-    gap: var(--sp-4);
-  }
-  .travel-banner-action {
-    width: 100%;
-    justify-content: center;
-    padding: 12px;
-  }
-  .travel-banner-text strong {
-    font-size: 17px;
-  }
-  .travel-banner-text p {
-    font-size: var(--fs-sm);
-  }
-}
-@media (max-width: 480px) {
-  .travel-banner-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-4);
-  }
-  .travel-banner-icon-wrap {
-    margin-bottom: -4px;
-  }
+[data-theme="dark"] .travel-compact-card:hover {
+  border-color: rgba(20, 184, 166, 0.35);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* ==========================================================

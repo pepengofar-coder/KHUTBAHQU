@@ -5,9 +5,7 @@ import { useSEO, JsonLd, SITE_URL, SITE_NAME } from '../../utils/seo';
 import { getHijriDateString } from '../../data/hijriData';
 import { getLocalizedGreeting } from '../../utils/dailyGreeting';
 import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
-import ApkDownloadBar from '../../components/ApkDownloadBar/ApkDownloadBar';
 import IllustratedFeatureCard from '../../components/IllustratedFeatureCard/IllustratedFeatureCard';
-import DailyRecommendations from '../../components/DailyRecommendations/DailyRecommendations';
 import SpiritualJourney from '../../components/SpiritualJourney/SpiritualJourney';
 import useDailyMission from '../../hooks/useDailyMission';
 import { DOA_DZIKIR_DATA } from '../../data/doaDzikir';
@@ -17,32 +15,9 @@ import { motion } from 'framer-motion';
 import { 
   BookOpen, Compass, Sparkles, ChevronRight, Headphones, 
   CalendarDays, Clock, CheckSquare, Sunrise, Sun, CloudSun, Sunset, 
-  Moon, MapPin, Bookmark, CircleDot, ScrollText, Music, Car
+  Moon, MapPin, CircleDot, ScrollText, Music, Car
 } from 'lucide-react';
 import './HomePage.css';
-
-function SafarDashboardIcon() {
-  return (
-    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" className="safar-dashboard-icon">
-      <defs>
-        <linearGradient id="safarBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#22d3ee" />
-          <stop offset="50%" stopColor="#0d9488" />
-          <stop offset="100%" stopColor="#f59e0b" />
-        </linearGradient>
-        <filter id="safarGlow" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-      <circle cx="28" cy="28" r="26" fill="url(#safarBgGrad)" opacity="0.9" />
-      <circle cx="28" cy="28" r="20" stroke="#ffffff" strokeWidth="2.5" strokeDasharray="1 7" strokeLinecap="round" opacity="0.8" />
-      <path d="M 33 16 A 11 11 0 0 1 24 33 A 11 11 0 0 0 33 16" fill="#ffffff" opacity="0.95" filter="url(#safarGlow)" />
-      <path d="M 19 36 C 22 36, 25 38, 28 39 C 31 38, 34 36, 37 36 V 44 C 34 44, 31 45, 28 47 C 25 45, 22 44, 19 44 Z" fill="#ffffff" />
-      <path d="M 28 39 V 47" stroke="#0d9488" strokeWidth="1.5" />
-    </svg>
-  );
-}
 
 const PRAYERS = [
   { key: 'Fajr',    label: 'Subuh' },
@@ -211,27 +186,41 @@ export default function HomePage() {
       <JsonLd data={websiteSchema} />
       <JsonLd data={orgSchema} />
 
-      {/* ═══════════════ A. Hero Section ═══════════════ */}
+      {/* ═══════════════ A. Hero Section — Premium Immersive ═══════════════ */}
       <section className="dash-hero islamic-pattern">
         <div className="dash-hero__inner container">
           <div className="dash-hero__content">
-            <h1 className="dash-hero__salam">Islamediaku</h1>
-            <p className="dash-hero__desc">Sahabat ibadah harian Anda — Al-Qur'an, jadwal sholat, doa & dzikir, arah kiblat, dan tracker ibadah dalam satu platform.</p>
+            <motion.h1 
+              className="dash-hero__salam"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Islamediaku
+            </motion.h1>
+            <motion.p 
+              className="dash-hero__desc"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              Sahabat ibadah harian Anda — Al-Qur'an, jadwal sholat, doa & dzikir, arah kiblat, dan tracker ibadah dalam satu platform.
+            </motion.p>
             <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
             
             {/* Hero CTAs */}
             <div className="dash-hero__ctas">
               <Link to="/mushaf" className="btn btn--primary hero-cta-btn">
-                Mulai Baca Qur'an
+                <BookOpen size={16} /> Baca Qur'an
               </Link>
               <Link to="/sholat" className="btn btn--secondary hero-cta-btn">
-                Cek Jadwal Sholat
+                <Clock size={16} /> Jadwal Sholat
               </Link>
             </div>
             
             {/* Compact Mini Goal Tracker */}
             <div className="dash-hero__mini-goals">
-              <span className="dash-hero__mini-goals-title">Misi</span>
+              <span className="dash-hero__mini-goals-title">Misi Harian</span>
               <div className="dash-hero__mini-goals-list">
                 {missions.map(m => (
                   <motion.button
@@ -255,7 +244,12 @@ export default function HomePage() {
           </div>
 
           {timings && nextP && (
-            <div className="dash-hero__prayer">
+            <motion.div 
+              className="dash-hero__prayer"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+            >
               <div className="dash-hero__prayer-left">
                 <span className="dash-hero__prayer-label">{t('home.next_prayer.title')}</span>
                 <div className="dash-hero__prayer-name-row">
@@ -271,7 +265,7 @@ export default function HomePage() {
                 <Link to="/sholat" className="dash-hero__prayer-link">{t('home.next_prayer.view')} <ChevronRight size={14} /></Link>
                 <span className="dash-hero__prayer-countdown">{countdown}</span>
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
       </section>
@@ -289,11 +283,6 @@ export default function HomePage() {
 
       {/* ═══════════════ Lanjutkan Bacaan ═══════════════ */}
       <section className="container home-section">
-        <SectionHeader 
-          title="Lanjutkan Bacaan" 
-          subtitle="Aktivitas membaca Al-Qur'an terakhir Anda"
-          icon={Bookmark}
-        />
         {lastRead ? (
           <Card 
             onClick={() => navigate(`/mushaf/${lastRead.surah}`)} 
@@ -520,45 +509,17 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ═══════════════ Travel Mode Shortcut Banner ═══════════════ */}
-      <section className="home-section dash-travel-banner container">
-        <Link to="/mode-perjalanan" className="travel-banner-card">
-          <div className="travel-banner__bg">
-            <div className="travel-banner__stars" />
-            <div className="travel-banner__aurora" />
-            <div className="travel-banner__road">
-              <div className="travel-banner__road-dash" />
-              <div className="travel-banner__road-dash" />
-              <div className="travel-banner__road-dash" />
-              <div className="travel-banner__road-dash" />
-              <div className="travel-banner__road-dash" />
-            </div>
-            <div className="travel-banner__mosque" />
-            <div className="travel-banner__particle travel-banner__particle--1" />
-            <div className="travel-banner__particle travel-banner__particle--2" />
-            <div className="travel-banner__particle travel-banner__particle--3" />
-            <div className="travel-banner__particle travel-banner__particle--4" />
-            <div className="travel-banner__particle travel-banner__particle--5" />
+      {/* ═══════════════ Travel Mode Compact Card ═══════════════ */}
+      <section className="home-section container">
+        <Link to="/mode-perjalanan" className="travel-compact-card">
+          <div className="travel-compact-card__icon">
+            <Car size={22} />
           </div>
-          <div className="travel-banner-content">
-            <motion.div 
-              className="travel-banner-icon-wrap"
-              whileHover={{ scale: 1.15, rotate: 6 }}
-              whileTap={{ scale: 0.92, rotate: -4 }}
-              transition={{ type: "spring", stiffness: 400, damping: 14 }}
-            >
-              <SafarDashboardIcon />
-              <div className="travel-banner__compass-glow" />
-            </motion.div>
-            <div className="travel-banner-text">
-              <span className="travel-banner-badge">Cocok untuk perjalanan</span>
-              <strong>Sedang dalam perjalanan?</strong>
-              <p>Panduan ibadah saat perjalanan, doa safar, qiblat, dan radio Islami dalam satu tempat.</p>
-            </div>
+          <div className="travel-compact-card__text">
+            <strong>Mode Perjalanan</strong>
+            <p>Panduan ibadah, doa safar, kiblat & radio Islami saat bepergian</p>
           </div>
-          <div className="travel-banner-action">
-            Buka Mode Safar <ChevronRight size={16} />
-          </div>
+          <ChevronRight size={18} className="travel-compact-card__arrow" />
         </Link>
       </section>
 
@@ -616,18 +577,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ═══════════════ Daily Recommendations ═══════════════ */}
-      <section className="home-section container">
-        <DailyRecommendations />
-      </section>
-
-      {/* Apk Download Component */}
-      {import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL ? (
-        <section className="home-section container" style={{ paddingBottom: 'var(--sp-12)' }}>
-          <ApkDownloadBar />
-        </section>
-      ) : null}
     </div>
   );
 }

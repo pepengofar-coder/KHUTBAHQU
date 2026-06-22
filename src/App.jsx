@@ -14,7 +14,6 @@ import PageLoader from './components/PageLoader/PageLoader';
 import PageTransition from './components/PageTransition/PageTransition';
 import OfflineBanner from './components/OfflineBanner/OfflineBanner';
 import UpdateBanner from './components/UpdateBanner/UpdateBanner';
-import AppDownloadPopup from './components/AppDownloadPopup/AppDownloadPopup';
 import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
 import { useAdzanAlarm } from './hooks/useAdzanAlarm';
 
@@ -29,7 +28,6 @@ const SurahPage = lazy(() => import('./pages/MushafPage/SurahPage'));
 const Murottal30JuzPage = lazy(() => import('./pages/Murottal30JuzPage/Murottal30JuzPage'));
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'));
-const MimbarMode = lazy(() => import('./pages/MimbarMode/MimbarMode'));
 const AdminPage = lazy(() => import('./pages/AdminPage/AdminPage'));
 const BannerAdminPage = lazy(() => import('./pages/AdminPage/BannerAdminPage'));
 const SubmitPage = lazy(() => import('./pages/SubmitPage/SubmitPage'));
@@ -49,8 +47,6 @@ const RuangSayaPage = lazy(() => import('./pages/RuangSayaPage/RuangSayaPage'));
 const RuangSayaMushaf = lazy(() => import('./pages/RuangSayaMushaf/RuangSayaMushaf'));
 const AuthCallbackPage = lazy(() => import('./pages/AuthCallbackPage/AuthCallbackPage'));
 const GoodPathPage = lazy(() => import('./pages/GoodPathPage/GoodPathPage'));
-const Program30HariPage = lazy(() => import('./pages/GoodPathPage/Program30HariPage'));
-const HomeWorkoutPage = lazy(() => import('./pages/GoodPathPage/HomeWorkoutPage'));
 
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
@@ -75,8 +71,6 @@ function AnimatedRoutes() {
           <Route path="/khutbah/:slug" element={<DetailPage />} />
 
           <Route path="/good-path" element={<GoodPathPage />} />
-          <Route path="/good-path/program/30-hari" element={<Program30HariPage />} />
-          <Route path="/good-path/home-workout" element={<HomeWorkoutPage />} />
           <Route path="/tracker" element={<TrackerPage />} />
           <Route path="/tilawah" element={<TilawahPage />} />
           <Route path="/mode-perjalanan" element={<Suspense fallback={<PageLoader />}><SafarModePage /></Suspense>} />
@@ -101,18 +95,11 @@ function AnimatedRoutes() {
 }
 
 function AppLayout() {
-  useAdzanAlarm(); // Initialize global alarm
+  useAdzanAlarm();
   const location = useLocation();
-  const isMimbar = location.pathname === '/mimbar';
   const isDetail = location.pathname.startsWith('/khutbah/') && location.pathname.split('/').length === 3;
   const isAdmin = location.pathname === '/admin280292' || location.pathname === '/admin/banners';
   const isSafar = location.pathname === '/mode-perjalanan';
-
-  if (isMimbar) return (
-    <Suspense fallback={<PageLoader />}>
-      <MimbarMode />
-    </Suspense>
-  );
 
   return (
     <>
@@ -125,7 +112,6 @@ function AppLayout() {
       <GlobalMiniTilawahPlayer />
       <YouTubeEmbedModal />
       <UpdateBanner />
-      <AppDownloadPopup />
       {!isSafar && <BottomNav />}
     </>
   );

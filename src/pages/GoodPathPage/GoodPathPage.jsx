@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { 
   getHabits, 
@@ -11,7 +11,8 @@ import {
   saveDisabledHabits,
   getDisabledHabits
 } from '../../utils/goodPathData';
-import { CheckCircle2, Circle, Plus, Compass, ChevronLeft, Activity } from 'lucide-react';
+import { CheckCircle2, Circle, Plus, Compass, ChevronLeft, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import HabitDetailSheet from '../../components/HabitDetailSheet/HabitDetailSheet';
 import './GoodPathPage.css';
 
@@ -57,7 +58,7 @@ export default function GoodPathPage() {
   }, []);
 
   const handleToggle = (e, habitId) => {
-    e.stopPropagation(); // Prevent opening detail sheet
+    e.stopPropagation();
     const newProgress = toggleHabitProgress(habitId, today);
     setProgress({...newProgress});
   };
@@ -68,7 +69,7 @@ export default function GoodPathPage() {
 
   const handleCloseDetail = () => {
     setSelectedHabit(null);
-    loadData(); // Reload in case notes/stats changed
+    loadData();
   };
 
   // Custom Habit Handlers
@@ -118,11 +119,23 @@ export default function GoodPathPage() {
   };
 
   const todayProgress = progress[today] || {};
+  const completedCount = habits.filter(h => todayProgress[h.id]).length;
+  const totalHabits = habits.length;
+  const progressPercent = totalHabits > 0 ? Math.round((completedCount / totalHabits) * 100) : 0;
+
+  // Group habits by category
+  const grouped = habits.reduce((acc, habit) => {
+    const cat = habit.category || 'Lainnya';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(habit);
+    return acc;
+  }, {});
 
   return (
     <div className="good-path-page">
-      <header className="gp-header" style={{ position: 'relative' }}>
-        <div className="container">
+      {/* Premium Header with Progress Ring */}
+      <header className="gp-header">
+        <div className="gp-header__inner container">
           <button 
             onClick={handleBack}
             className="gp-header__back"
@@ -130,71 +143,94 @@ export default function GoodPathPage() {
           >
             <ChevronLeft size={20} />
           </button>
-          <div style={{ marginLeft: '40px' }}>
-            <h1 className="gp-header__title"><Compass size={28}/> Good Path</h1>
-            <p className="gp-header__subtitle">Bangun kebiasaan baik yang berkelanjutan, langkah demi langkah.</p>
+          
+          <div className="gp-header__content">
+            <div className="gp-header__text">
+              <h1 className="gp-header__title">
+                <Compass size={24} /> Good Path
+              </h1>
+              <p className="gp-header__subtitle">
+                Bangun kebiasaan baik, langkah demi langkah
+              </p>
+            </div>
+            
+            {/* Progress Ring */}
+            <div className="gp-progress-ring" title={`${completedCount}/${totalHabits} selesai`}>
+              <svg width="52" height="52" viewBox="0 0 52 52">
+                <circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="4" />
+                <circle 
+                  cx="26" cy="26" r="22" fill="none" 
+                  stroke="#10B981" strokeWidth="4" strokeLinecap="round"
+                  strokeDasharray={`${2 * Math.PI * 22}`}
+                  strokeDashoffset={`${2 * Math.PI * 22 * (1 - progressPercent / 100)}`}
+                  style={{ transition: 'stroke-dashoffset 0.6s ease', transform: 'rotate(-90deg)', transformOrigin: 'center' }}
+                />
+              </svg>
+              <span className="gp-progress-ring__text">{progressPercent}%</span>
+            </div>
+          </div>
+          
+          <div className="gp-header__stats">
+            <span className="gp-header__stat">
+              <strong>{completedCount}</strong> / {totalHabits} selesai hari ini
+            </span>
           </div>
         </div>
       </header>
 
-      <main className="gp-main">
-        {/* Home Workout Feature Card */}
-        <Link to="/good-path/home-workout" className="gp-feature-link" style={{
-          display: 'flex', alignItems: 'center', gap: '14px',
-          padding: '16px', borderRadius: '16px', marginBottom: '16px',
-          background: 'linear-gradient(135deg, #065f4618, #0d948818)',
-          border: '1px solid #04785725', textDecoration: 'none',
-          transition: 'transform 0.2s, box-shadow 0.2s'
-        }}>
-          <div style={{
-            width: '48px', height: '48px', borderRadius: '14px',
-            background: 'linear-gradient(135deg, #047857, #0d9488)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
-          }}>
-            <Activity size={24} color="white" />
+      <main className="gp-main container">
+        {/* Habit List grouped by Category */}
+        {Object.entries(grouped).map(([category, categoryHabits]) => (
+          <div key={category} className="gp-category-group">
+            <h3 className="gp-category-label">{category}</h3>
+            <div className="gp-list">
+              {categoryHabits.map((habit, index) => {
+                const isDone = todayProgress[habit.id];
+                return (
+                  <motion.div 
+                    key={habit.id} 
+                    className={`gp-card ${isDone ? 'gp-card--done' : ''}`}
+                    onClick={() => handleOpenDetail(habit)}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <div className="gp-card__icon-wrap">
+                      {habit.icon}
+                    </div>
+                    <div className="gp-card__content">
+                      <h3 className="gp-card__title">{habit.title}</h3>
+                      <p className="gp-card__desc">{habit.frequency || habit.priority}</p>
+                    </div>
+                    <motion.button 
+                      className="gp-card__check" 
+                      onClick={(e) => handleToggle(e, habit.id)}
+                      aria-label="Tandai selesai"
+                      whileTap={{ scale: 0.8 }}
+                    >
+                      {isDone ? (
+                        <CheckCircle2 className="gp-icon-checked" size={26} />
+                      ) : (
+                        <Circle className="gp-icon-unchecked" size={26} />
+                      )}
+                    </motion.button>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
-          <div style={{ flex: 1 }}>
-            <h3 style={{ margin: '0 0 2px', fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-color, #1e293b)' }}>🏋️ Home Workout</h3>
-            <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-muted, #64748b)' }}>Olahraga di Rumah — Latihan ringan dan terstruktur</p>
-          </div>
-          <ChevronLeft size={18} style={{ transform: 'rotate(180deg)', color: 'var(--text-muted, #64748b)' }} />
-        </Link>
+        ))}
 
-        <div className="gp-list">
-          {habits.map(habit => {
-            const isDone = todayProgress[habit.id];
-            return (
-              <div 
-                key={habit.id} 
-                className={`gp-card ${isDone ? 'gp-card--done' : ''}`}
-                onClick={() => handleOpenDetail(habit)}
-              >
-                <div className="gp-card__icon-wrap">
-                  {habit.icon}
-                </div>
-                <div className="gp-card__content">
-                  <h3 className="gp-card__title">{habit.title}</h3>
-                  <p className="gp-card__desc">{habit.category} • {habit.priority}</p>
-                </div>
-                <button 
-                  className="gp-card__check" 
-                  onClick={(e) => handleToggle(e, habit.id)}
-                  aria-label="Tandai selesai"
-                >
-                  {isDone ? (
-                    <CheckCircle2 className="gp-icon-checked" size={28} />
-                  ) : (
-                    <Circle className="gp-icon-unchecked" size={28} />
-                  )}
-                </button>
-              </div>
-            );
-          })}
-        </div>
-
-        <button className="gp-add-btn" onClick={() => setShowCustomModal(true)}>
-          <Plus size={20} /> Buat Habit Sendiri
-        </button>
+        {/* Floating Add Button */}
+        <motion.button 
+          className="gp-fab" 
+          onClick={() => setShowCustomModal(true)}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          title="Buat Habit Baru"
+        >
+          <Plus size={22} />
+        </motion.button>
       </main>
 
       {/* Habit Detail Sheet */}
@@ -205,56 +241,75 @@ export default function GoodPathPage() {
           onDelete={handleDeleteCustom}
           onDisable={handleDisableDefault}
           onUpdate={() => {
-             // In future, can implement full edit custom habit here
              alert("Fitur edit akan segera hadir.");
           }}
         />
       )}
 
-      {/* Custom Habit Modal */}
-      {showCustomModal && (
-        <div className="gp-custom-modal-overlay">
-          <div className="gp-custom-modal">
-            <h3>Buat Habit Baru</h3>
-            <form onSubmit={handleSaveCustomHabit} style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-              <div className="gp-form-group">
-                <label>Nama Habit</label>
-                <input 
-                  className="gp-input" 
-                  value={customTitle} 
-                  onChange={e => setCustomTitle(e.target.value)} 
-                  placeholder="Misal: Puasa Senin Kamis"
-                  required
-                  autoFocus
-                />
+      {/* Custom Habit Modal — Glassmorphism */}
+      <AnimatePresence>
+        {showCustomModal && (
+          <motion.div 
+            className="gp-custom-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowCustomModal(false)}
+          >
+            <motion.div 
+              className="gp-custom-modal"
+              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="gp-modal-header">
+                <h3>Buat Habit Baru</h3>
+                <button className="gp-modal-close" onClick={() => setShowCustomModal(false)}>
+                  <X size={18} />
+                </button>
               </div>
-              <div className="gp-form-group">
-                <label>Icon (Emoji)</label>
-                <input 
-                  className="gp-input" 
-                  value={customIcon} 
-                  onChange={e => setCustomIcon(e.target.value)} 
-                  placeholder="Misal: 🌟"
-                  maxLength={5}
-                />
-              </div>
-              <div className="gp-form-group">
-                <label>Tujuan</label>
-                <input 
-                  className="gp-input" 
-                  value={customPurpose} 
-                  onChange={e => setCustomPurpose(e.target.value)} 
-                  placeholder="Misal: Menjaga kesehatan dan sunnah"
-                />
-              </div>
-              <div className="gp-modal-actions">
-                <button type="button" className="gp-btn-cancel" onClick={() => setShowCustomModal(false)}>Batal</button>
-                <button type="submit" className="gp-btn-save">Simpan</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+              <form onSubmit={handleSaveCustomHabit} className="gp-modal-form">
+                <div className="gp-form-group">
+                  <label>Nama Habit</label>
+                  <input 
+                    className="gp-input" 
+                    value={customTitle} 
+                    onChange={e => setCustomTitle(e.target.value)} 
+                    placeholder="Misal: Puasa Senin Kamis"
+                    required
+                    autoFocus
+                  />
+                </div>
+                <div className="gp-form-group">
+                  <label>Icon (Emoji)</label>
+                  <input 
+                    className="gp-input gp-input--icon" 
+                    value={customIcon} 
+                    onChange={e => setCustomIcon(e.target.value)} 
+                    placeholder="🌟"
+                    maxLength={5}
+                  />
+                </div>
+                <div className="gp-form-group">
+                  <label>Tujuan</label>
+                  <input 
+                    className="gp-input" 
+                    value={customPurpose} 
+                    onChange={e => setCustomPurpose(e.target.value)} 
+                    placeholder="Misal: Menjaga kesehatan dan sunnah"
+                  />
+                </div>
+                <div className="gp-modal-actions">
+                  <button type="button" className="gp-btn-cancel" onClick={() => setShowCustomModal(false)}>Batal</button>
+                  <button type="submit" className="gp-btn-save">Simpan</button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
