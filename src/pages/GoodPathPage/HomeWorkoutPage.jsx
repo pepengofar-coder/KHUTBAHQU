@@ -9,10 +9,33 @@ import {
 } from '../../data/homeWorkoutData';
 import {
   ChevronLeft, Play, Pause, RotateCcw, Heart, Clock, Flame, Target,
-  CheckCircle2, Circle, AlertTriangle, ChevronRight, SkipForward, Trophy, Calendar
+  CheckCircle2, Circle, AlertTriangle, ChevronRight, SkipForward, Trophy, Calendar,
+  Zap, Timer, Volume2, VolumeX, X, Share2
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './HomeWorkoutPage.css';
+
+// ---- Web Audio API Beep (no external files needed) ----
+function playBeep(freq = 880, duration = 0.18, count = 1) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    for (let i = 0; i < count; i++) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.3, ctx.currentTime + i * 0.25);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.25 + duration);
+      osc.start(ctx.currentTime + i * 0.25);
+      osc.stop(ctx.currentTime + i * 0.25 + duration);
+    }
+  } catch (e) { /* silent fallback */ }
+}
+
+function playFinishSound() { playBeep(1046, 0.15, 3); }
+function playTickSound() { playBeep(660, 0.08, 1); }
 
 export default function HomeWorkoutPage() {
   useSEO({
@@ -32,17 +55,31 @@ export default function HomeWorkoutPage() {
   const [isWorkoutActive, setIsWorkoutActive] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [completedSteps, setCompletedSteps] = useState({});
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   // Timer
   const [timerSeconds, setTimerSeconds] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
   const [timerMode, setTimerMode] = useState('countdown');
+  const [timerTotal, setTimerTotal] = useState(0);
   const timerRef = useRef(null);
+
+  // Elapsed time & calories
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const elapsedRef = useRef(null);
 
   // Favorites & Progress
   const [favorites, setFavorites] = useState(getWorkoutFavorites);
   const [progress, setProgress] = useState(getWorkoutProgress);
   const [lastWorkout, setLastWorkout] = useState(getLastWorkout);
+
+  // Touch swipe
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const stepRef = useRef(null);
+  const checklistRef = useRef(null);
 
   // Build workout flow
   const workoutFlow = useMemo(() => {
@@ -70,18 +107,38 @@ export default function HomeWorkoutPage() {
       d.setDate(d.getDate() - i);
       const dateStr = d.toISOString().split('T')[0];
       const done = progress.some(p => p.date === dateStr);
-      dots.push({ date: dateStr, done, dayName: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'][d.getDay()] });
+      const isToday = i === 0;
+      dots.push({ date: dateStr, done, isToday, dayName: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'][d.getDay()] });
     }
     return dots;
   }, [progress]);
 
-  // Timer logic
+  // Today's day name for weekly plan highlight
+  const todayDayName = useMemo(() => {
+    return ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'][new Date().getDay()];
+  }, []);
+
+  // Estimated calories burned
+  const caloriesBurned = useMemo(() => {
+    if (!workoutFlow.length) return 0;
+    return Object.keys(completedSteps).reduce((sum, idx) => {
+      const step = workoutFlow[parseInt(idx)];
+      return sum + (step?.calories || 2);
+    }, 0);
+  }, [completedSteps, workoutFlow]);
+
+  // ---- Timer logic ----
   useEffect(() => {
     if (timerRunning) {
       timerRef.current = setInterval(() => {
         setTimerSeconds(prev => {
           if (timerMode === 'countdown') {
-            if (prev <= 1) { setTimerRunning(false); return 0; }
+            if (prev <= 1) {
+              setTimerRunning(false);
+              if (soundEnabled) playFinishSound();
+              return 0;
+            }
+            if (prev <= 4 && prev > 1 && soundEnabled) playTickSound();
             return prev - 1;
           }
           return prev + 1;
@@ -89,9 +146,38 @@ export default function HomeWorkoutPage() {
       }, 1000);
     }
     return () => clearInterval(timerRef.current);
-  }, [timerRunning, timerMode]);
+  }, [timerRunning, timerMode, soundEnabled]);
+
+  // Elapsed time tracker
+  useEffect(() => {
+    if (isWorkoutActive) {
+      elapsedRef.current = setInterval(() => setElapsedTime(prev => prev + 1), 1000);
+    }
+    return () => clearInterval(elapsedRef.current);
+  }, [isWorkoutActive]);
+
+  // Auto-start timer when step changes (if step has duration)
+  useEffect(() => {
+    if (isWorkoutActive && currentStep?.duration && !completedSteps[currentStepIndex]) {
+      setTimerTotal(currentStep.duration);
+      setTimerSeconds(currentStep.duration);
+      setTimerMode('countdown');
+      setTimerRunning(true);
+    }
+  }, [currentStepIndex, isWorkoutActive]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Auto-scroll checklist to current step
+  useEffect(() => {
+    if (checklistRef.current && isWorkoutActive) {
+      const currentItem = checklistRef.current.querySelector('.hw-checklist-item.current');
+      if (currentItem) {
+        currentItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  }, [currentStepIndex, isWorkoutActive]);
 
   const startTimer = useCallback((seconds) => {
+    setTimerTotal(seconds || 0);
     setTimerSeconds(seconds || 0);
     setTimerMode(seconds ? 'countdown' : 'stopwatch');
     setTimerRunning(true);
@@ -106,7 +192,12 @@ export default function HomeWorkoutPage() {
     return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
   };
 
-  // Workout actions
+  // Timer progress (0 to 1)
+  const timerProgress = timerMode === 'countdown' && timerTotal > 0
+    ? (timerTotal - timerSeconds) / timerTotal
+    : 0;
+
+  // ---- Workout actions ----
   const startWorkout = (program) => {
     setSelectedProgram(program);
     setCurrentStepIndex(0);
@@ -114,6 +205,8 @@ export default function HomeWorkoutPage() {
     setIsWorkoutActive(true);
     setTimerSeconds(0);
     setTimerRunning(false);
+    setElapsedTime(0);
+    setShowCelebration(false);
   };
 
   const continueLastWorkout = () => {
@@ -124,22 +217,40 @@ export default function HomeWorkoutPage() {
       setCurrentStepIndex(lastWorkout.stepIndex || 0);
       setCompletedSteps({});
       setIsWorkoutActive(true);
+      setElapsedTime(0);
     }
   };
 
   const markStepDone = (idx) => {
     setCompletedSteps(prev => ({ ...prev, [idx]: true }));
     saveLastWorkout(selectedProgram.id, idx);
-    if (idx < workoutFlow.length - 1) setCurrentStepIndex(idx + 1);
+    if (soundEnabled) playBeep(520, 0.1, 1);
+    if (idx < workoutFlow.length - 1) {
+      setCurrentStepIndex(idx + 1);
+      setTimerRunning(false);
+    }
   };
 
   const finishWorkout = () => {
     saveWorkoutCompletion(selectedProgram.id, selectedProgram.titleId, selectedProgram.durationMinutes);
     clearLastWorkout();
     setProgress(getWorkoutProgress());
-    setIsWorkoutActive(false);
-    setSelectedProgram(null);
-    setLastWorkout(null);
+    setShowCelebration(true);
+    if (soundEnabled) playFinishSound();
+    setTimeout(() => {
+      setShowCelebration(false);
+      setIsWorkoutActive(false);
+      setSelectedProgram(null);
+      setLastWorkout(null);
+    }, 3000);
+  };
+
+  const handleExitWorkout = () => {
+    if (Object.keys(completedSteps).length > 0) {
+      setShowExitConfirm(true);
+    } else {
+      exitWorkout();
+    }
   };
 
   const exitWorkout = () => {
@@ -150,11 +261,29 @@ export default function HomeWorkoutPage() {
     setIsWorkoutActive(false);
     setSelectedProgram(null);
     setTimerRunning(false);
+    setShowExitConfirm(false);
   };
 
   const handleToggleFavorite = (programId) => {
     const newFavs = toggleWorkoutFavorite(programId);
     setFavorites([...newFavs]);
+  };
+
+  // ---- Swipe handlers ----
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchMove = (e) => { touchEndX.current = e.touches[0].clientX; };
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 60) {
+      if (diff > 0 && currentStepIndex < workoutFlow.length - 1) {
+        // swipe left → next
+        if (!completedSteps[currentStepIndex]) markStepDone(currentStepIndex);
+        else setCurrentStepIndex(prev => Math.min(prev + 1, workoutFlow.length - 1));
+      } else if (diff < 0 && currentStepIndex > 0) {
+        // swipe right → prev
+        setCurrentStepIndex(prev => Math.max(prev - 1, 0));
+      }
+    }
   };
 
   const getDifficultyColor = (d) => {
@@ -170,10 +299,84 @@ export default function HomeWorkoutPage() {
   };
 
   const getPhaseColor = (phase) => {
-    if (phase === 'warmup') return { bg: '#f59e0b22', color: '#d97706' };
-    if (phase === 'main') return { bg: '#6366f122', color: '#4f46e5' };
-    return { bg: '#10b98122', color: '#059669' };
+    if (phase === 'warmup') return { bg: '#f59e0b22', color: '#d97706', border: '#f59e0b44' };
+    if (phase === 'main') return { bg: '#6366f122', color: '#4f46e5', border: '#6366f144' };
+    return { bg: '#10b98122', color: '#059669', border: '#10b98144' };
   };
+
+  const handleImageError = (e) => {
+    e.target.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f0f0f0" width="100" height="100" rx="8"/><text x="50" y="54" text-anchor="middle" fill="%23999" font-size="30">🏋️</text></svg>');
+  };
+
+  // ---- Circular timer SVG ----
+  const TIMER_RADIUS = 54;
+  const TIMER_CIRCUMFERENCE = 2 * Math.PI * TIMER_RADIUS;
+  const timerStrokeDashoffset = TIMER_CIRCUMFERENCE * (1 - timerProgress);
+
+  // ============ RENDER: Celebration Overlay ============
+  if (showCelebration) {
+    return (
+      <div className="hw-page">
+        <motion.div
+          className="hw-celebration"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <div className="hw-celebration__confetti">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="hw-confetti-piece"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  background: ['#10B981', '#F59E0B', '#6366F1', '#EC4899', '#06B6D4', '#F97316'][i % 6],
+                  width: `${6 + Math.random() * 8}px`,
+                  height: `${6 + Math.random() * 8}px`,
+                  borderRadius: Math.random() > 0.5 ? '50%' : '2px',
+                }}
+                initial={{ y: -20, opacity: 1, rotate: 0 }}
+                animate={{
+                  y: window.innerHeight + 50,
+                  opacity: [1, 1, 0],
+                  rotate: Math.random() * 720 - 360,
+                  x: Math.random() * 100 - 50,
+                }}
+                transition={{ duration: 2 + Math.random() * 1.5, delay: Math.random() * 0.5, ease: 'easeOut' }}
+              />
+            ))}
+          </div>
+          <motion.div
+            className="hw-celebration__content"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 200, delay: 0.3 }}
+          >
+            <Trophy size={48} className="hw-celebration__trophy" />
+            <h2>Latihan Selesai! 🎉</h2>
+            <p>Luar biasa! Kamu telah menyelesaikan <strong>{selectedProgram?.titleId}</strong></p>
+            <div className="hw-celebration__stats">
+              <div className="hw-celebration__stat">
+                <Clock size={16} />
+                <span>{formatTimer(elapsedTime)}</span>
+                <small>Durasi</small>
+              </div>
+              <div className="hw-celebration__stat">
+                <Flame size={16} />
+                <span>~{caloriesBurned}</span>
+                <small>Kalori</small>
+              </div>
+              <div className="hw-celebration__stat">
+                <Zap size={16} />
+                <span>{workoutFlow.length}</span>
+                <small>Gerakan</small>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    );
+  }
 
   // ============ RENDER: Active Workout Mode ============
   if (isWorkoutActive && selectedProgram) {
@@ -182,32 +385,65 @@ export default function HomeWorkoutPage() {
     const progressPercent = totalSteps > 0 ? (completedCount / totalSteps) * 100 : 0;
 
     return (
-      <div className="hw-page">
+      <div className="hw-page hw-page--active">
+        {/* Exit Confirm Dialog */}
+        <AnimatePresence>
+          {showExitConfirm && (
+            <motion.div
+              className="hw-exit-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowExitConfirm(false)}
+            >
+              <motion.div
+                className="hw-exit-dialog"
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                onClick={e => e.stopPropagation()}
+              >
+                <AlertTriangle size={32} className="hw-exit-dialog__icon" />
+                <h3>Keluar dari Latihan?</h3>
+                <p>Progress kamu akan disimpan dan bisa dilanjutkan nanti.</p>
+                <div className="hw-exit-dialog__actions">
+                  <button className="hw-exit-dialog__btn hw-exit-dialog__btn--cancel" onClick={() => setShowExitConfirm(false)}>
+                    Lanjutkan Latihan
+                  </button>
+                  <button className="hw-exit-dialog__btn hw-exit-dialog__btn--exit" onClick={exitWorkout}>
+                    Keluar & Simpan
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <header className="hw-active-header">
           <div className="container">
             <div className="hw-active-header__top">
-              <button onClick={exitWorkout} className="hw-back-btn" aria-label="Keluar">
+              <button onClick={handleExitWorkout} className="hw-back-btn hw-back-btn--active" aria-label="Keluar">
                 <ChevronLeft size={20} />
               </button>
               <div className="hw-active-header__info">
                 <h1 className="hw-active-header__title">{selectedProgram.titleId}</h1>
-                <p className="hw-active-header__progress">{completedCount}/{totalSteps} langkah selesai</p>
+                <div className="hw-active-header__meta">
+                  <span><Clock size={12} /> {formatTimer(elapsedTime)}</span>
+                  <span><Flame size={12} /> ~{caloriesBurned} kal</span>
+                  <span>{completedCount}/{totalSteps} langkah</span>
+                </div>
               </div>
-              {completedCount === totalSteps && (
-                <motion.button 
-                  onClick={finishWorkout} 
-                  className="hw-finish-btn"
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ type: 'spring', stiffness: 200 }}
-                >
-                  <Trophy size={16} /> Selesai!
-                </motion.button>
-              )}
+              <button
+                className="hw-sound-toggle"
+                onClick={() => setSoundEnabled(prev => !prev)}
+                aria-label={soundEnabled ? 'Matikan suara' : 'Nyalakan suara'}
+              >
+                {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
+              </button>
             </div>
             <div className="hw-progress-bar">
-              <motion.div 
-                className="hw-progress-bar__fill" 
+              <motion.div
+                className="hw-progress-bar__fill"
                 animate={{ width: `${progressPercent}%` }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
               />
@@ -215,10 +451,39 @@ export default function HomeWorkoutPage() {
           </div>
         </header>
 
-        {/* Timer Section */}
+        {/* Circular Timer Section */}
         <section className="hw-timer-section container">
-          <div className="hw-timer-card">
-            <div className="hw-timer-display">{formatTimer(timerSeconds)}</div>
+          <div className="hw-timer-card hw-timer-card--circular">
+            <div className="hw-timer-ring-wrap">
+              <svg className="hw-timer-ring" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r={TIMER_RADIUS} fill="none" stroke="var(--color-bg-alt)" strokeWidth="6" />
+                {timerMode === 'countdown' && timerTotal > 0 && (
+                  <motion.circle
+                    cx="60" cy="60" r={TIMER_RADIUS}
+                    fill="none"
+                    stroke="url(#timerGrad)"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    strokeDasharray={TIMER_CIRCUMFERENCE}
+                    animate={{ strokeDashoffset: timerStrokeDashoffset }}
+                    transition={{ duration: 0.3 }}
+                    style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
+                  />
+                )}
+                <defs>
+                  <linearGradient id="timerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="var(--color-primary)" />
+                    <stop offset="100%" stopColor="#10b981" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div className="hw-timer-ring__inner">
+                <span className="hw-timer-display">{formatTimer(timerSeconds)}</span>
+                <span className="hw-timer-mode-label">
+                  {timerMode === 'countdown' ? 'Countdown' : 'Stopwatch'}
+                </span>
+              </div>
+            </div>
             <div className="hw-timer-controls">
               {!timerRunning ? (
                 <>
@@ -226,7 +491,7 @@ export default function HomeWorkoutPage() {
                     <Play size={20} fill="currentColor" />
                   </button>
                   <button onClick={() => startTimer(0)} className="hw-timer-btn hw-timer-btn--stopwatch" title="Stopwatch">
-                    <Clock size={16} />
+                    <Timer size={16} />
                   </button>
                 </>
               ) : (
@@ -241,33 +506,51 @@ export default function HomeWorkoutPage() {
           </div>
         </section>
 
-        {/* Current Step Detail with Silhouette */}
+        {/* Current Step Detail with Swipe */}
         <AnimatePresence mode="wait">
           {currentStep && (
-            <motion.section 
+            <motion.section
               className="hw-current-step container"
               key={currentStepIndex}
+              ref={stepRef}
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -30 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
+              {/* Step Counter */}
+              <div className="hw-step-counter">
+                <span>Langkah {currentStepIndex + 1} / {workoutFlow.length}</span>
+                <div className="hw-step-counter__dots">
+                  {workoutFlow.map((_, i) => (
+                    <span
+                      key={i}
+                      className={`hw-step-dot ${i === currentStepIndex ? 'active' : ''} ${completedSteps[i] ? 'done' : ''}`}
+                    />
+                  ))}
+                </div>
+              </div>
+
               {/* Silhouette Image */}
-              <div className="hw-step-image-wrap">
-                <img 
-                  src={currentStep.image} 
+              <div className="hw-step-image-wrap" style={{ borderColor: getPhaseColor(currentStep.phase).border }}>
+                <img
+                  src={currentStep.image}
                   alt={currentStep.nameId || currentStep.name}
                   className="hw-step-image"
                   loading="lazy"
+                  onError={handleImageError}
                 />
               </div>
-              
+
               <div className="hw-step-phase-badge" style={getPhaseColor(currentStep.phase)}>
                 {getPhaseLabel(currentStep.phase)}
               </div>
               <h2 className="hw-step-name">{currentStep.nameId || currentStep.name}</h2>
               <p className="hw-step-instruction">{currentStep.instruction}</p>
-              
+
               {/* Muscles targeted */}
               {currentStep.muscles && (
                 <div className="hw-step-muscles">
@@ -276,7 +559,7 @@ export default function HomeWorkoutPage() {
                   ))}
                 </div>
               )}
-              
+
               <div className="hw-step-meta-grid">
                 {currentStep.reps && (
                   <div className="hw-step-meta-item">
@@ -299,12 +582,17 @@ export default function HomeWorkoutPage() {
 
               {currentStep.lowImpact && <p className="hw-step-alt">💡 Alternatif ringan: {currentStep.lowImpact}</p>}
               {currentStep.note && <p className="hw-step-alt">📝 {currentStep.note}</p>}
+
+              {/* Swipe hint */}
+              <div className="hw-swipe-hint">
+                <ChevronLeft size={12} /> Geser untuk navigasi <ChevronRight size={12} />
+              </div>
             </motion.section>
           )}
         </AnimatePresence>
 
         {/* Exercise Checklist */}
-        <section className="hw-checklist container">
+        <section className="hw-checklist container" ref={checklistRef}>
           <h3 className="hw-checklist-title">Checklist Latihan</h3>
           <div className="hw-checklist-list">
             {workoutFlow.map((step, idx) => {
@@ -321,9 +609,9 @@ export default function HomeWorkoutPage() {
                       if (!isDone) markStepDone(idx);
                     }}
                   >
-                    <img src={step.image} alt="" className="hw-checklist-item__thumb" loading="lazy" />
+                    <img src={step.image} alt="" className="hw-checklist-item__thumb" loading="lazy" onError={handleImageError} />
                     {isDone ? <CheckCircle2 size={18} className="hw-check-icon--done" /> : <Circle size={18} className="hw-check-icon" />}
-                    <span className="hw-checklist-item__name">{step.nameId || step.name}</span>
+                    <span className={`hw-checklist-item__name ${isDone ? 'hw-checklist-item__name--done' : ''}`}>{step.nameId || step.name}</span>
                     {step.duration && <span className="hw-checklist-item__meta">{step.duration}s</span>}
                     {step.reps && <span className="hw-checklist-item__meta">×{step.reps}</span>}
                     {isCurrent && <ChevronRight size={14} className="hw-checklist-item__current" />}
@@ -332,28 +620,41 @@ export default function HomeWorkoutPage() {
               );
             })}
           </div>
-          {completedCount < totalSteps && currentStepIndex < totalSteps - 1 && (
-            <motion.button 
-              onClick={() => markStepDone(currentStepIndex)} 
-              className="hw-next-step-btn"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Selesai & Lanjut <SkipForward size={16} />
-            </motion.button>
-          )}
-          {completedCount === totalSteps && (
-            <motion.button 
-              onClick={finishWorkout} 
-              className="hw-finish-workout-btn"
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring' }}
-            >
-              <Trophy size={18} /> Latihan Selesai — Simpan Progress
-            </motion.button>
-          )}
         </section>
+
+        {/* Fixed Bottom Action Bar */}
+        <div className="hw-fixed-bottom">
+          <div className="container hw-fixed-bottom__inner">
+            {completedCount < totalSteps && currentStepIndex < totalSteps - 1 ? (
+              <motion.button
+                onClick={() => markStepDone(currentStepIndex)}
+                className="hw-next-step-btn"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <CheckCircle2 size={18} /> Selesai & Lanjut <SkipForward size={16} />
+              </motion.button>
+            ) : completedCount === totalSteps ? (
+              <motion.button
+                onClick={finishWorkout}
+                className="hw-finish-workout-btn"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring' }}
+              >
+                <Trophy size={18} /> Latihan Selesai — Simpan Progress
+              </motion.button>
+            ) : (
+              <motion.button
+                onClick={() => markStepDone(currentStepIndex)}
+                className="hw-next-step-btn"
+                whileTap={{ scale: 0.97 }}
+              >
+                <CheckCircle2 size={18} /> Tandai Selesai
+              </motion.button>
+            )}
+          </div>
+        </div>
       </div>
     );
   }
@@ -364,7 +665,7 @@ export default function HomeWorkoutPage() {
       {/* Header with Hero Image */}
       <header className="hw-header">
         <div className="hw-header__hero-bg">
-          <img src="/images/workout/hero.png" alt="" className="hw-header__hero-img" />
+          <img src="/images/workout/hero.png" alt="" className="hw-header__hero-img" onError={handleImageError} />
           <div className="hw-header__hero-overlay" />
         </div>
         <div className="container hw-header__content">
@@ -391,7 +692,7 @@ export default function HomeWorkoutPage() {
         <h3 className="hw-section-title"><Calendar size={16} /> Progress Minggu Ini</h3>
         <div className="hw-week-dots">
           {weekProgress.map(d => (
-            <div key={d.date} className={`hw-week-dot ${d.done ? 'done' : ''}`}>
+            <div key={d.date} className={`hw-week-dot ${d.done ? 'done' : ''} ${d.isToday ? 'today' : ''}`}>
               <div className="hw-week-dot__circle">{d.done ? '✓' : ''}</div>
               <span className="hw-week-dot__label">{d.dayName}</span>
             </div>
@@ -405,7 +706,7 @@ export default function HomeWorkoutPage() {
         return prog ? (
           <section className="container hw-continue">
             <button className="hw-continue-card" onClick={continueLastWorkout}>
-              <img src={prog.image} alt="" className="hw-continue-card__thumb" />
+              <img src={prog.image} alt="" className="hw-continue-card__thumb" onError={handleImageError} />
               <div className="hw-continue-card__info">
                 <span className="hw-continue-card__badge">▶ Lanjutkan</span>
                 <h3>{prog.titleId}</h3>
@@ -422,10 +723,11 @@ export default function HomeWorkoutPage() {
         <h3 className="hw-section-title"><Calendar size={16} /> Jadwal Mingguan</h3>
         <div className="hw-weekly-grid">
           {WEEKLY_PLAN.map(day => (
-            <div key={day.day} className={`hw-weekly-card ${day.rest ? 'rest' : ''}`}>
+            <div key={day.day} className={`hw-weekly-card ${day.rest ? 'rest' : ''} ${day.day === todayDayName ? 'hw-weekly-card--today' : ''}`}>
               <span className="hw-weekly-card__emoji">{day.emoji}</span>
               <strong className="hw-weekly-card__day">{day.day}</strong>
               <span className="hw-weekly-card__focus">{day.focus}</span>
+              {day.day === todayDayName && <span className="hw-weekly-card__today-badge">Hari ini</span>}
               {day.programId && (
                 <button className="hw-weekly-card__btn" onClick={() => {
                   const p = WORKOUT_PROGRAMS.find(pr => pr.id === day.programId);
@@ -467,8 +769,8 @@ export default function HomeWorkoutPage() {
             {filteredPrograms.map((program, i) => {
               const isFav = favorites.includes(program.id);
               return (
-                <motion.div 
-                  key={program.id} 
+                <motion.div
+                  key={program.id}
                   className="hw-program-card"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -476,13 +778,13 @@ export default function HomeWorkoutPage() {
                 >
                   {/* Silhouette Header */}
                   <div className="hw-program-card__image-wrap">
-                    <img src={program.image} alt={program.titleId} className="hw-program-card__image" loading="lazy" />
+                    <img src={program.image} alt={program.titleId} className="hw-program-card__image" loading="lazy" onError={handleImageError} />
                     <div className="hw-program-card__image-overlay" />
                     <button className={`hw-fav-btn ${isFav ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); handleToggleFavorite(program.id); }} aria-label="Favorit">
                       <Heart size={16} fill={isFav ? 'currentColor' : 'none'} />
                     </button>
                   </div>
-                  
+
                   <div className="hw-program-card__body">
                     <div className="hw-program-card__badges">
                       <span className="hw-badge" style={{ background: getDifficultyColor(program.difficulty) + '22', color: getDifficultyColor(program.difficulty) }}>
@@ -515,15 +817,15 @@ export default function HomeWorkoutPage() {
       {/* Program Detail Modal */}
       <AnimatePresence>
         {selectedProgram && !isWorkoutActive && (
-          <motion.div 
-            className="hw-modal-overlay" 
+          <motion.div
+            className="hw-modal-overlay"
             onClick={() => setSelectedProgram(null)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div 
-              className="hw-modal" 
+            <motion.div
+              className="hw-modal"
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -531,7 +833,7 @@ export default function HomeWorkoutPage() {
               transition={{ type: 'spring', stiffness: 260, damping: 25 }}
             >
               <div className="hw-modal__image-wrap">
-                <img src={selectedProgram.image} alt={selectedProgram.titleId} className="hw-modal__image" />
+                <img src={selectedProgram.image} alt={selectedProgram.titleId} className="hw-modal__image" onError={handleImageError} />
                 <div className="hw-modal__image-overlay" />
               </div>
               <div className="hw-modal__header">
@@ -560,7 +862,7 @@ export default function HomeWorkoutPage() {
                       <div className="hw-modal__steps">
                         {steps.map((s, i) => (
                           <div key={`${s.id}-${i}`} className="hw-modal__step-item">
-                            <img src={s.image} alt="" className="hw-modal__step-thumb" loading="lazy" />
+                            <img src={s.image} alt="" className="hw-modal__step-thumb" loading="lazy" onError={handleImageError} />
                             <div className="hw-modal__step-info">
                               <strong>{s.nameId || s.name}</strong>
                               {s.muscles && <span className="hw-modal__step-muscles">{s.muscles.join(', ')}</span>}

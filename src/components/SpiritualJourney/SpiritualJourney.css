@@ -438,3 +438,68 @@
   height: 14px;
   background: var(--color-border-light);
 }
+
+/* ---- Celebration Banner ---- */
+.sj-celebration {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 185, 129, 0.06);
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.sj-celebration__banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #059669, #10B981);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+  animation: celebrationBounce 0.6s ease;
+}
+
+@keyframes celebrationBounce {
+  0% { transform: scale(0.5); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ---- Progress bar shimmer ---- */
+.sj-progress__fill {
+  position: relative;
+  overflow: hidden;
+}
+
+.sj-progress__fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmerProgress 2s ease-in-out infinite;
+}
+
+@keyframes shimmerProgress {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ---- Badge level pulse ---- */
+.badge--gold {
+  animation: badgeGoldPulse 3s ease-in-out infinite;
+}
+
+@keyframes badgeGoldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(234, 179, 8, 0.12); }
+}

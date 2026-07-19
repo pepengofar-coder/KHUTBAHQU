@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Target, Check, ChevronRight, BookOpen, Sparkles, Trophy, Quote, Clock, Heart } from 'lucide-react';
+import { Target, Check, ChevronRight, BookOpen, Sparkles, Trophy, Quote, Clock, Heart, Zap } from 'lucide-react';
 import { getDailyProgress, updateDailyMission, updateTrackerItem, TRACKER_ITEMS } from '../../utils/dailyProgress';
 import useDailyMission from '../../hooks/useDailyMission';
 import './SpiritualJourney.css';
@@ -82,12 +82,42 @@ export default function SpiritualJourney() {
     return () => clearInterval(timer);
   }, []);
 
+  // Track if celebration was already shown for 100%
+  const [showCelebration, setShowCelebration] = useState(false);
+  const prevPercent = useRef(progressPercent);
+
+  useEffect(() => {
+    if (progressPercent === 100 && prevPercent.current < 100) {
+      setShowCelebration(true);
+      setTimeout(() => setShowCelebration(false), 3500);
+    }
+    prevPercent.current = progressPercent;
+  }, [progressPercent]);
+
+
+
   return (
     <section className="sj-section container">
       <div className="sj-card">
         {/* Glow Effects */}
         <div className="sj-card__glow-1" />
         <div className="sj-card__glow-2" />
+
+        {/* Celebration Confetti at 100% */}
+        <AnimatePresence>
+          {showCelebration && (
+            <motion.div
+              className="sj-celebration"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <div className="sj-celebration__banner">
+                <Zap size={16} /> Masya Allah! Semua goal hari ini tercapai! 🎉
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ─── Header: Master Stats & Badges ─── */}
         <div className="sj-header">
