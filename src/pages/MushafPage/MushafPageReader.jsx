@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark, ChevronsLeftRight } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
 import ReaderSettings from './components/ReaderSettings';
 import { saveFeatureState, loadFeatureState } from '../../lib/syncService';
@@ -30,6 +30,57 @@ export default function MushafPageReader() {
   const [readingMode, setReadingMode] = useState(() => localStorage.getItem('islamediaku_quran_reading_mode') || 'light');
 
   const [bookmarks, setBookmarks] = useState(() => JSON.parse(localStorage.getItem('islamediaku_quran_page_bookmarks') || '[]'));
+
+  // Swipe navigation state
+  const touchRef = useRef({ startX: 0, startY: 0 });
+  const [slideDirection, setSlideDirection] = useState(null);
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
+
+  // Show swipe hint on first visit
+  useEffect(() => {
+    const hintShown = localStorage.getItem('islamediaku_mushaf_swipe_hint');
+    if (!hintShown) {
+      setShowSwipeHint(true);
+      const timer = setTimeout(() => {
+        setShowSwipeHint(false);
+        localStorage.setItem('islamediaku_mushaf_swipe_hint', 'true');
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Swipe handlers
+  const handleTouchStart = useCallback((e) => {
+    const touch = e.touches[0];
+    touchRef.current = { startX: touch.clientX, startY: touch.clientY };
+  }, []);
+
+  const handleTouchEnd = useCallback((e) => {
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchRef.current.startX;
+    const deltaY = touch.clientY - touchRef.current.startY;
+
+    // Only trigger on predominantly horizontal swipes (>50px) with less vertical movement
+    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+      if (deltaX < 0 && id < 604) {
+        // Swipe left → next page
+        setSlideDirection('left');
+        setTimeout(() => navigate(`/mushaf/page/${id + 1}`), 150);
+      } else if (deltaX > 0 && id > 1) {
+        // Swipe right → previous page
+        setSlideDirection('right');
+        setTimeout(() => navigate(`/mushaf/page/${id - 1}`), 150);
+      }
+    }
+  }, [id, navigate]);
+
+  // Reset slide animation when page changes
+  useEffect(() => {
+    if (slideDirection) {
+      const timer = setTimeout(() => setSlideDirection(null), 400);
+      return () => clearTimeout(timer);
+    }
+  }, [id, slideDirection]);
 
   useSEO({
     title: id ? `Mushaf Halaman ${id} | Islamediaku` : "Mushaf Per Halaman | Islamediaku",
@@ -204,7 +255,18 @@ export default function MushafPageReader() {
         </header>
 
         {/* ─── Paper Container ─── */}
-        <div className="mushaf-paper">
+        <div
+          className={`mushaf-paper ${slideDirection ? `mushaf-paper--slide-${slideDirection}` : ''}`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Swipe Hint */}
+          {showSwipeHint && (
+            <div className="mushaf-swipe-hint">
+              <ChevronsLeftRight size={16} />
+              <span>Geser untuk berpindah halaman</span>
+            </div>
+          )}
           {loading && (
             <div className="mushaf-status">Memuat halaman mushaf...</div>
           )}

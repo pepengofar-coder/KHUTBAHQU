@@ -386,6 +386,36 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+/* Emerald (Good Path) - Vibrant Emerald/Neon Glass — HIGH CONTRAST */
+.ifc-card--emerald {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0)),
+    radial-gradient(circle at 80% 15%, rgba(52, 211, 153, 0.5), transparent 55%),
+    linear-gradient(135deg, rgba(5, 150, 105, 0.65), rgba(4, 120, 87, 0.75));
+}
+.ifc-card--emerald:hover {
+  border-color: rgba(52, 211, 153, 0.7);
+  box-shadow:
+    0 24px 55px rgba(5, 80, 50, 0.3),
+    0 0 45px rgba(16, 185, 129, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Orange (Home Workout) - Hot Orange/Red Glass — HIGH CONTRAST */
+.ifc-card--orange {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0)),
+    radial-gradient(circle at 80% 15%, rgba(251, 146, 60, 0.5), transparent 55%),
+    linear-gradient(135deg, rgba(234, 88, 12, 0.65), rgba(194, 65, 12, 0.75));
+}
+.ifc-card--orange:hover {
+  border-color: rgba(251, 146, 60, 0.7);
+  box-shadow:
+    0 24px 55px rgba(80, 30, 5, 0.3),
+    0 0 45px rgba(249, 115, 22, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
 /* ================================================
    Dark Mode Overrides (Deeper colorful backgrounds)
    ================================================ */
@@ -479,6 +509,20 @@
     linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0)),
     radial-gradient(circle at 85% 20%, rgba(45, 212, 191, 0.2), transparent 60%),
     linear-gradient(135deg, rgba(17, 94, 89, 0.45), rgba(5, 40, 35, 0.75));
+}
+
+[data-theme="dark"] .ifc-card--emerald, [data-theme="midnight"] .ifc-card--emerald {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0)),
+    radial-gradient(circle at 80% 15%, rgba(52, 211, 153, 0.3), transparent 55%),
+    linear-gradient(135deg, rgba(4, 120, 87, 0.5), rgba(2, 60, 44, 0.8));
+}
+
+[data-theme="dark"] .ifc-card--orange, [data-theme="midnight"] .ifc-card--orange {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0)),
+    radial-gradient(circle at 80% 15%, rgba(251, 146, 60, 0.3), transparent 55%),
+    linear-gradient(135deg, rgba(194, 65, 12, 0.5), rgba(100, 30, 5, 0.8));
 }
 
 /* ================================================

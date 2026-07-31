@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Search, History, BookMarked, BookOpen } from 'lucide-react';
+import { Search, History, BookMarked, BookOpen, BookCopy, ChevronRight, Check } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
 import SurahCard from './components/SurahCard';
 import './MushafPage.css';
@@ -120,16 +120,24 @@ export default function MushafPage() {
         </div>
       )}
 
-      <div className="mushaf-home__modes" style={{display: 'flex', gap: '12px', marginBottom: '24px'}}>
-        <div style={{flex: 1, background: 'var(--glass-bg-strong)', padding: '16px', borderRadius: '16px', border: '1px solid var(--color-border-light)'}}>
-          <h3 style={{fontSize: '16px', marginBottom: '4px'}}>Mode Surah</h3>
-          <p style={{fontSize: '12px', color: 'var(--color-text-muted)', marginBottom: '0'}}>Baca per surah</p>
+      <div className="mushaf-mode-selector">
+        <div className="mushaf-mode-card mushaf-mode-card--active">
+          <div className="mushaf-mode-card__badge"><Check size={12} /></div>
+          <div className="mushaf-mode-card__icon mushaf-mode-card__icon--surah">
+            <BookOpen size={28} />
+          </div>
+          <h3 className="mushaf-mode-card__title">Mushaf per Ayah</h3>
+          <p className="mushaf-mode-card__desc">Baca Al-Qur'an per surah dengan terjemahan ayat demi ayat</p>
         </div>
-        <Link to={`/mushaf/page/${lastPageRead || 1}`} style={{flex: 1, background: 'var(--color-primary-surface)', padding: '16px', borderRadius: '16px', border: '1px solid var(--color-primary)', textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-          <h3 style={{fontSize: '16px', color: 'var(--color-primary)', marginBottom: '4px'}}>Mode Halaman</h3>
-          <p style={{fontSize: '12px', color: 'var(--color-text-muted)', marginBottom: '0'}}>
-            {lastPageRead ? `Lanjut Hal. ${lastPageRead}` : 'Mulai dari Hal. 1'}
+        <Link to={`/mushaf/page/${lastPageRead || 1}`} className="mushaf-mode-card mushaf-mode-card--link">
+          <div className="mushaf-mode-card__icon mushaf-mode-card__icon--page">
+            <BookCopy size={28} />
+          </div>
+          <h3 className="mushaf-mode-card__title">Mushaf per Page</h3>
+          <p className="mushaf-mode-card__desc">
+            {lastPageRead ? `Lanjut Halaman ${lastPageRead}` : 'Mulai dari Halaman 1'}
           </p>
+          <span className="mushaf-mode-card__arrow"><ChevronRight size={18} /></span>
         </Link>
       </div>
 
