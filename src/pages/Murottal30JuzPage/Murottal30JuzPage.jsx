@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import {
@@ -7,8 +7,8 @@ import {
   getJuzPlaylist, JUZ_MAP, ALL_SURAH_NAMES
 } from '../../services/mp3QuranApi';
 import {
-  ArrowLeft, Play, Pause, SkipBack, SkipForward, Search, RefreshCw,
-  Loader, BookOpen, AlertCircle, Repeat, Repeat1, ChevronDown
+  ArrowLeft, Play, Pause, SkipBack, SkipForward, Search,
+  Loader, AlertCircle, Repeat, Repeat1, BookOpen
 } from 'lucide-react';
 import './Murottal30JuzPage.css';
 
@@ -51,9 +51,8 @@ export default function Murottal30JuzPage() {
   const [playlistInfo, setPlaylistInfo] = useState(null);
   const [playlistLoading, setPlaylistLoading] = useState(false);
 
-  // Search & Filter States
+  // Search
   const [searchQuery, setSearchQuery] = useState('');
-  const [showJuzNav, setShowJuzNav] = useState(false);
 
   // Audio Playback States
   const [currentSurahId, setCurrentSurahId] = useState(savedState?.surahId || null);
@@ -61,11 +60,12 @@ export default function Murottal30JuzPage() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [audioBuffering, setAudioBuffering] = useState(false);
-  const [repeatMode, setRepeatMode] = useState(savedState?.repeat || 'none'); // 'none' | 'surah' | 'juz'
+  const [repeatMode, setRepeatMode] = useState(savedState?.repeat || 'none');
 
-  // Audio Reference
+  // Refs
   const audioRef = useRef(new Audio());
   const handleNextRef = useRef();
+  const juzScrollerRef = useRef(null);
 
   // Load Reciters
   const loadReciters = async (refresh = false) => {
@@ -87,7 +87,6 @@ export default function Murottal30JuzPage() {
           setSelectedMoshafId(defaultReciter.moshafs[0].moshafId);
         }
       } else if (data.length > 0 && selectedReciterId) {
-        // Verify saved reciter still exists in filtered list
         const exists = data.find(r => r.reciterId === selectedReciterId);
         if (!exists) {
           setSelectedReciterId(data[0].reciterId);
@@ -220,8 +219,17 @@ export default function Murottal30JuzPage() {
     reciters.find(r => r.reciterId === selectedReciterId) || null
   , [reciters, selectedReciterId]);
 
+  // Auto-scroll active juz pill into view
+  useEffect(() => {
+    if (mode !== 'full30' || !juzScrollerRef.current) return;
+    const activePill = juzScrollerRef.current.querySelector('.juz-pill.active');
+    if (activePill) {
+      activePill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [selectedJuz, mode]);
+
   // Controls
-  const handlePlayPause = () => {
+  const handlePlayPause = useCallback(() => {
     const audio = audioRef.current;
     if (isPlaying) {
       audio.pause();
@@ -229,23 +237,22 @@ export default function Murottal30JuzPage() {
       audio.play().catch(() => setIsPlaying(false));
       setIsPlaying(true);
     }
-  };
+  }, [isPlaying]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (!playlistInfo || playlistInfo.playlist.length === 0) return;
     const idx = playlistInfo.playlist.findIndex(s => s.surahId === currentSurahId);
     if (idx > 0) {
       setCurrentSurahId(playlistInfo.playlist[idx - 1].surahId);
       setIsPlaying(true);
     }
-  };
+  }, [playlistInfo, currentSurahId]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (!playlistInfo || playlistInfo.playlist.length === 0) return;
     const idx = playlistInfo.playlist.findIndex(s => s.surahId === currentSurahId);
 
     if (repeatMode === 'surah') {
-      // Repeat current surah
       const audio = audioRef.current;
       audio.currentTime = 0;
       audio.play().catch(() => {});
@@ -256,13 +263,10 @@ export default function Murottal30JuzPage() {
       setCurrentSurahId(playlistInfo.playlist[idx + 1].surahId);
       setIsPlaying(true);
     } else {
-      // End of current Juz playlist
       if (repeatMode === 'juz') {
-        // Repeat from first surah of this Juz
         setCurrentSurahId(playlistInfo.playlist[0].surahId);
         setIsPlaying(true);
       } else if (mode === 'full30' && selectedJuz < 30) {
-        // Auto-advance to next Juz
         setSelectedJuz(prev => prev + 1);
         setIsPlaying(true);
       } else {
@@ -270,7 +274,7 @@ export default function Murottal30JuzPage() {
         audioRef.current.currentTime = 0;
       }
     }
-  };
+  }, [playlistInfo, currentSurahId, repeatMode, mode, selectedJuz]);
 
   useEffect(() => {
     handleNextRef.current = handleNext;
@@ -302,53 +306,51 @@ export default function Murottal30JuzPage() {
     return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
   };
 
-  // Current Juz info
   const currentJuzInfo = useMemo(() =>
     JUZ_MAP.find(j => j.juz === selectedJuz) || JUZ_MAP[29]
   , [selectedJuz]);
 
-  return (
-    <div className="murottal-juz-page container">
-      {/* Header */}
-      <header className="murottal-header flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <button
-            className="btn-back p-2 rounded-xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] hover:bg-[var(--color-border)] transition-colors"
-            onClick={() => navigate('/')}
-            aria-label="Kembali ke Beranda"
-          >
-            <ArrowLeft size={18} />
-          </button>
-          <div>
-            <h1 className="text-xl md:text-2xl font-bold text-[var(--color-text-primary)]">
-              {mode === 'full30' ? 'Murottal 30 Juz' : 'Murottal Juz 30'}
-            </h1>
-            <p className="text-xs text-[var(--color-text-muted)]">
-              {mode === 'full30'
-                ? `Juz ${selectedJuz} — ${ALL_SURAH_NAMES[currentJuzInfo.startSurah]} s/d ${ALL_SURAH_NAMES[currentJuzInfo.endSurah]}`
-                : 'Dengarkan lantunan Juz Amma per Surah dari Qari pilihan'
-              }
-            </p>
-          </div>
-        </div>
+  const handleResume = () => {
+    if (savedState?.surahId && playlistInfo) {
+      const exists = playlistInfo.playlist.some(s => s.surahId === savedState.surahId);
+      if (exists) {
+        setCurrentSurahId(savedState.surahId);
+        setIsPlaying(true);
+      }
+    }
+  };
 
+  return (
+    <div className="murottal-page container">
+
+      {/* ─── Header ─── */}
+      <header className="murottal-header">
         <button
-          onClick={() => loadReciters(true)}
-          className="refresh-btn p-2 rounded-xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all flex items-center gap-1.5 text-xs font-semibold"
-          title="Segarkan data qari"
+          className="murottal-header__back"
+          onClick={() => navigate('/')}
+          aria-label="Kembali ke Beranda"
         >
-          <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
-          <span className="hidden sm:inline">Refresh</span>
+          <ArrowLeft size={18} />
         </button>
+        <div>
+          <h1 className="murottal-header__title">
+            {mode === 'full30' ? 'Murottal 30 Juz' : 'Murottal Juz Amma'}
+          </h1>
+          <p className="murottal-header__subtitle">
+            {mode === 'full30'
+              ? `Juz ${selectedJuz} — ${ALL_SURAH_NAMES[currentJuzInfo.startSurah]} s/d ${ALL_SURAH_NAMES[currentJuzInfo.endSurah]}`
+              : 'Juz 30 • Surat An-Naba s/d An-Nas'}
+          </p>
+        </div>
       </header>
 
-      {/* Mode Toggle */}
-      <div className="murottal-mode-toggle mb-5">
+      {/* ─── Mode Toggle ─── */}
+      <div className="murottal-mode-toggle">
         <button
           className={`murottal-mode-btn ${mode === 'juz30' ? 'active' : ''}`}
           onClick={() => { setMode('juz30'); setSelectedJuz(30); setReciters([]); setSelectedReciterId(null); }}
         >
-          Juz 30 (Juz Amma)
+          Juz Amma
         </button>
         <button
           className={`murottal-mode-btn ${mode === 'full30' ? 'active' : ''}`}
@@ -358,323 +360,231 @@ export default function Murottal30JuzPage() {
         </button>
       </div>
 
-      {/* Resume Card */}
+      {/* ─── Resume Card ─── */}
       {savedState && savedState.surahId && savedState.reciterId && !isPlaying && (
-        <div className="murottal-resume-card mb-5">
-          <div className="murottal-resume-card__info">
-            <span className="murottal-resume-card__badge">▶ Lanjutkan</span>
-            <p className="murottal-resume-card__text">
+        <div className="murottal-resume" onClick={handleResume} role="button" tabIndex={0}>
+          <div className="murottal-resume__icon">
+            <Play size={18} fill="currentColor" />
+          </div>
+          <div>
+            <div className="murottal-resume__label">Lanjutkan</div>
+            <p className="murottal-resume__text">
               {ALL_SURAH_NAMES[savedState.surahId] || `Surat ${savedState.surahId}`} — Juz {savedState.juz}
             </p>
           </div>
         </div>
       )}
 
-      {/* Juz Navigation (full30 mode only) */}
-      {mode === 'full30' && (
-        <div className="murottal-juz-nav mb-5">
-          <button
-            className="murottal-juz-nav__toggle"
-            onClick={() => setShowJuzNav(v => !v)}
+      {/* ─── Qari Bar ─── */}
+      <div className="qari-bar">
+        <div className="qari-bar__search">
+          <Search className="qari-bar__search-icon" size={15} />
+          <input
+            type="text"
+            placeholder="Cari Qari..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="qari-bar__search-input"
+          />
+        </div>
+        <select
+          value={selectedReciterId || ''}
+          onChange={(e) => {
+            const id = parseInt(e.target.value, 10);
+            setSelectedReciterId(id);
+            const rec = reciters.find(r => r.reciterId === id);
+            if (rec && rec.moshafs.length > 0) {
+              setSelectedMoshafId(rec.moshafs[0].moshafId);
+            }
+          }}
+          className="qari-bar__select"
+          disabled={loading || filteredReciters.length === 0}
+        >
+          {filteredReciters.map(r => (
+            <option key={r.reciterId} value={r.reciterId}>
+              {r.reciterName}
+            </option>
+          ))}
+          {filteredReciters.length === 0 && <option value="">Qari tidak ditemukan</option>}
+        </select>
+
+        {selectedReciter && selectedReciter.moshafs.length > 1 && (
+          <select
+            value={selectedMoshafId || ''}
+            onChange={(e) => setSelectedMoshafId(parseInt(e.target.value, 10))}
+            className="qari-bar__select qari-bar__moshaf"
           >
-            <BookOpen size={14} /> Juz {selectedJuz} — {ALL_SURAH_NAMES[currentJuzInfo.startSurah]} s/d {ALL_SURAH_NAMES[currentJuzInfo.endSurah]}
-            <ChevronDown size={14} className={`murottal-juz-nav__chevron ${showJuzNav ? 'open' : ''}`} />
-          </button>
-          {showJuzNav && (
-            <div className="murottal-juz-grid">
-              {JUZ_MAP.map(j => (
-                <button
-                  key={j.juz}
-                  className={`murottal-juz-pill ${selectedJuz === j.juz ? 'active' : ''}`}
-                  onClick={() => { setSelectedJuz(j.juz); setShowJuzNav(false); }}
-                >
-                  <strong>Juz {j.juz}</strong>
-                  <span>{ALL_SURAH_NAMES[j.startSurah]}</span>
-                </button>
-              ))}
-            </div>
-          )}
+            {selectedReciter.moshafs.map(m => (
+              <option key={m.moshafId} value={m.moshafId}>
+                {m.rewayaName}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
+
+      {/* ─── Juz Navigation (horizontal scroll) ─── */}
+      {mode === 'full30' && (
+        <div className="juz-scroller" ref={juzScrollerRef}>
+          {JUZ_MAP.map(j => (
+            <button
+              key={j.juz}
+              className={`juz-pill ${selectedJuz === j.juz ? 'active' : ''}`}
+              onClick={() => setSelectedJuz(j.juz)}
+            >
+              Juz {j.juz}
+            </button>
+          ))}
         </div>
       )}
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24">
-
-        {/* Left: Qari & Settings */}
-        <div className="lg:col-span-1 flex flex-col gap-5">
-          <div className="controls-box p-5 rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)]">
-            <h3 className="text-sm font-bold text-[var(--color-text-primary)] mb-4">Pengaturan Qari</h3>
-
-            {/* Search */}
-            <div className="search-qari relative mb-4">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" size={16} />
-              <input
-                type="text"
-                placeholder="Cari nama Qari..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-xl text-xs focus:outline-none focus:border-[var(--color-primary)] text-[var(--color-text-primary)] transition-all"
-              />
-            </div>
-
-            {/* Qari Selector */}
-            <div className="qari-selector flex flex-col gap-1.5">
-              <label className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
-                Pilih Qari ({filteredReciters.length})
-                {mode === 'full30' && <span className="ml-1 text-[var(--color-primary)]">• 114 Surah</span>}
-              </label>
-              <select
-                value={selectedReciterId || ''}
-                onChange={(e) => {
-                  const id = parseInt(e.target.value, 10);
-                  setSelectedReciterId(id);
-                  const rec = reciters.find(r => r.reciterId === id);
-                  if (rec && rec.moshafs.length > 0) {
-                    setSelectedMoshafId(rec.moshafs[0].moshafId);
-                  }
-                }}
-                className="w-full p-2.5 bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-xl text-xs text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]"
-                disabled={loading || filteredReciters.length === 0}
-              >
-                {filteredReciters.map(r => (
-                  <option key={r.reciterId} value={r.reciterId}>
-                    {r.reciterName}
-                  </option>
-                ))}
-                {filteredReciters.length === 0 && <option value="">Qari tidak ditemukan</option>}
-              </select>
-            </div>
-
-            {/* Moshaf/Riwayat Selection */}
-            {selectedReciter && selectedReciter.moshafs.length > 1 && (
-              <div className="moshaf-selector flex flex-col gap-1.5 mt-3">
-                <label className="text-[10px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
-                  Pilih Riwayat / Jenis Moshaf
-                </label>
-                <select
-                  value={selectedMoshafId || ''}
-                  onChange={(e) => setSelectedMoshafId(parseInt(e.target.value, 10))}
-                  className="w-full p-2.5 bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-xl text-xs text-[var(--color-text-primary)] focus:outline-none"
-                >
-                  {selectedReciter.moshafs.map(m => (
-                    <option key={m.moshafId} value={m.moshafId}>
-                      {m.rewayaName} ({m.moshafName})
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-
-            {/* Repeat Mode */}
-            <div className="mt-4 flex items-center gap-2">
-              <button
-                onClick={cycleRepeat}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
-                  repeatMode !== 'none'
-                    ? 'bg-[var(--color-primary)] text-white'
-                    : 'bg-[var(--color-bg-primary)] text-[var(--color-text-muted)] border border-[var(--color-border)]'
-                }`}
-                title={repeatMode === 'none' ? 'Repeat Off' : repeatMode === 'surah' ? 'Repeat Surah' : 'Repeat Juz'}
-              >
-                {repeatMode === 'surah' ? <Repeat1 size={12} /> : <Repeat size={12} />}
-                {repeatMode === 'none' ? 'Repeat Off' : repeatMode === 'surah' ? 'Repeat Surah' : 'Repeat Juz'}
-              </button>
-            </div>
-          </div>
-
-          {/* Info Box */}
-          <div className="info-box p-4 rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] flex gap-3">
-            <BookOpen size={20} className="text-[var(--color-primary)] shrink-0" />
+      {/* ─── Playlist ─── */}
+      {loading || playlistLoading ? (
+        <div className="murottal-status">
+          <Loader className="animate-spin" size={28} style={{ color: 'var(--color-primary)' }} />
+          <span>Memuat playlist...</span>
+        </div>
+      ) : error ? (
+        <div className="murottal-status">
+          <AlertCircle size={32} style={{ color: 'var(--color-error)' }} />
+          <p style={{ color: 'var(--color-error)', fontWeight: 600 }}>{error}</p>
+          <button onClick={() => loadReciters()} className="btn btn--outline btn--sm">
+            Coba Lagi
+          </button>
+        </div>
+      ) : !playlistInfo || playlistInfo.playlist.length === 0 ? (
+        <div className="murottal-status">
+          Tidak ada surah tersedia untuk Qari ini.
+        </div>
+      ) : (
+        <div className="playlist-box">
+          <div className="playlist-header">
             <div>
-              <h4 className="text-xs font-bold text-[var(--color-text-primary)] mb-1">
-                {mode === 'full30' ? 'Mode 30 Juz Lengkap' : 'Murottal Non-Streaming'}
-              </h4>
-              <p className="text-[10px] text-[var(--color-text-muted)] leading-relaxed">
-                {mode === 'full30'
-                  ? 'Dengarkan Al-Qur\'an 30 Juz lengkap dari qari dengan koleksi 114 surah. Putar per Juz atau surah secara berurutan.'
-                  : 'Islamediaku memutar langsung file audio per Surah berkualitas tinggi dari server MP3Quran.net.'
-                }
-              </p>
+              <div className="playlist-header__title">
+                {mode === 'full30' ? `Juz ${selectedJuz}` : 'Juz 30 (Juz Amma)'}
+              </div>
+              <div className="playlist-header__qari">
+                {playlistInfo.reciterName} • <span>{playlistInfo.rewayaName}</span>
+              </div>
             </div>
+            <span className="playlist-header__count">
+              {playlistInfo.playlist.length} Surah
+            </span>
+          </div>
+
+          <div className="surah-list">
+            {playlistInfo.playlist.map((surah) => {
+              const isActive = surah.surahId === currentSurahId;
+              const isCurrentlyPlaying = isActive && isPlaying;
+              return (
+                <div
+                  key={surah.surahId}
+                  onClick={() => selectSurah(surah.surahId)}
+                  className={`surah-item ${isActive ? 'active' : ''}`}
+                >
+                  <div className="surah-item__left">
+                    <div className="surah-item__number">{surah.surahId}</div>
+                    <span className="surah-item__name">{surah.surahName}</span>
+                  </div>
+
+                  <div className="surah-item__play">
+                    {isCurrentlyPlaying ? (
+                      <div className="wave-bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    ) : (
+                      <Play size={13} fill={isActive ? 'currentColor' : 'none'} />
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
+      )}
 
-        {/* Right: Playlist */}
-        <div className="lg:col-span-2">
-
-          {loading || playlistLoading ? (
-            <div className="p-8 rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)]">
-              <div className="flex flex-col items-center justify-center py-12 text-center text-xs text-[var(--color-text-muted)] font-medium gap-3">
-                <Loader className="animate-spin text-[var(--color-primary)]" size={32} />
-                <span>Memuat data dan playlist audio Qari...</span>
-              </div>
-            </div>
-          ) : error ? (
-            <div className="p-8 rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-center text-xs">
-              <AlertCircle className="text-[var(--color-error)] mx-auto mb-3" size={36} />
-              <p className="text-[var(--color-error)] font-bold mb-3">{error}</p>
-              <button
-                onClick={() => loadReciters()}
-                className="btn btn--outline text-xs px-4 py-2 rounded-xl"
-              >
-                Coba Lagi
-              </button>
-            </div>
-          ) : !playlistInfo || playlistInfo.playlist.length === 0 ? (
-            <div className="p-8 rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-center text-xs text-[var(--color-text-muted)]">
-              Tidak ada surah yang tersedia untuk Qari dan riwayat yang dipilih.
-            </div>
-          ) : (
-            <div className="playlist-box rounded-2xl bg-[var(--color-bg-secondary)] border border-[var(--color-border)] overflow-hidden shadow-sm">
-              <div className="playlist-header p-4 bg-[var(--color-bg-secondary)] border-b border-[var(--color-border)] flex items-center justify-between">
-                <div>
-                  <h3 className="text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
-                    {mode === 'full30' ? `Daftar Surah — Juz ${selectedJuz}` : 'Daftar Surah Juz 30'}
-                  </h3>
-                  <h4 className="text-sm font-bold text-[var(--color-text-primary)] mt-1">
-                    {playlistInfo.reciterName} • <span className="text-[var(--color-primary)]">{playlistInfo.rewayaName}</span>
-                  </h4>
-                </div>
-                <span className="text-[10px] font-bold bg-[var(--color-primary-light)] text-[var(--color-primary)] px-2.5 py-1 rounded-md">
-                  {playlistInfo.playlist.length} Surah
-                </span>
-              </div>
-
-              {/* Surah List */}
-              <div className="surah-list divide-y divide-[var(--color-border)] max-h-[500px] overflow-y-auto">
-                {playlistInfo.playlist.map((surah) => {
-                  const isActive = surah.surahId === currentSurahId;
-                  return (
-                    <div
-                      key={surah.surahId}
-                      onClick={() => selectSurah(surah.surahId)}
-                      className={`playlist-item p-3.5 flex items-center justify-between cursor-pointer hover:bg-[var(--color-border)]/20 transition-all ${
-                        isActive ? 'bg-[var(--color-primary-light)]/30' : ''
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`surah-number w-8 h-8 rounded-xl flex items-center justify-center border text-[11px] font-bold transition-all ${
-                          isActive
-                            ? 'bg-[var(--color-primary)] text-white border-[var(--color-primary)]'
-                            : 'bg-[var(--color-bg-primary)] text-[var(--color-text-muted)] border-[var(--color-border)]'
-                        }`}>
-                          {surah.surahId}
-                        </div>
-                        <div>
-                          <h4 className={`text-xs font-bold transition-all ${
-                            isActive ? 'text-[var(--color-primary)] font-extrabold' : 'text-[var(--color-text-primary)]'
-                          }`}>
-                            {surah.surahName}
-                          </h4>
-                          <p className="text-[10px] text-[var(--color-text-muted)] mt-0.5">
-                            Surat Ke-{surah.surahId}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        {isActive && isPlaying ? (
-                          <span className="flex gap-0.5 items-end h-3">
-                            <span className="w-0.5 bg-[var(--color-primary)] rounded-full animate-[bounce_0.8s_infinite] h-2"></span>
-                            <span className="w-0.5 bg-[var(--color-primary)] rounded-full animate-[bounce_0.8s_infinite_0.2s] h-3"></span>
-                            <span className="w-0.5 bg-[var(--color-primary)] rounded-full animate-[bounce_0.8s_infinite_0.4s] h-1.5"></span>
-                          </span>
-                        ) : (
-                          <div className={`p-1.5 rounded-full border transition-all ${
-                            isActive
-                              ? 'text-[var(--color-primary)] border-[var(--color-primary)] bg-white shadow-sm'
-                              : 'text-[var(--color-text-muted)] border-[var(--color-border)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]'
-                          }`}>
-                            <Play size={12} fill={isActive ? 'currentColor' : 'none'} />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Floating Bottom Audio Player Bar */}
+      {/* ─── Floating Player Bar ─── */}
       {activeTrack && playlistInfo && (
-        <div className="floating-player-bar fixed bottom-16 sm:bottom-0 left-0 right-0 z-40 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)] shadow-xl p-4 transition-all">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+        <div className="floating-player">
+          <div className="floating-player__inner">
 
-            {/* Info Track */}
-            <div className="player-track-info flex items-center gap-3 w-full md:w-auto">
-              <div className="w-10 h-10 rounded-2xl bg-[var(--color-primary-light)] text-[var(--color-primary)] flex items-center justify-center shrink-0">
-                <BookOpen size={20} />
+            {/* Main row: info + controls */}
+            <div className="floating-player__main">
+              <div className="floating-player__info">
+                <div className="floating-player__icon">
+                  {audioBuffering
+                    ? <Loader className="animate-spin" size={18} />
+                    : <BookOpen size={18} />
+                  }
+                </div>
+                <div className="floating-player__meta">
+                  <div className="floating-player__track">{activeTrack.surahName}</div>
+                  <div className="floating-player__artist">
+                    {playlistInfo.reciterName} • {mode === 'full30' ? `Juz ${selectedJuz}` : 'Juz 30'}
+                  </div>
+                </div>
               </div>
-              <div className="overflow-hidden">
-                <h4 className="text-xs font-bold text-[var(--color-text-primary)] truncate">
-                  {activeTrack.surahName}
-                </h4>
-                <p className="text-[10px] text-[var(--color-text-muted)] truncate">
-                  {playlistInfo.reciterName} • {mode === 'full30' ? `Juz ${selectedJuz}` : 'Juz 30'}
-                </p>
+
+              <div className="floating-player__controls">
+                <button
+                  className={`fp-btn fp-btn--repeat ${repeatMode !== 'none' ? 'active' : ''}`}
+                  onClick={cycleRepeat}
+                  title={repeatMode === 'none' ? 'Repeat Off' : repeatMode === 'surah' ? 'Repeat Surah' : 'Repeat Juz'}
+                >
+                  {repeatMode === 'surah' ? <Repeat1 size={15} /> : <Repeat size={15} />}
+                </button>
+
+                <button
+                  className="fp-btn"
+                  onClick={handlePrev}
+                  disabled={playlistInfo.playlist.findIndex(s => s.surahId === currentSurahId) === 0}
+                  title="Sebelumnya"
+                >
+                  <SkipBack size={17} />
+                </button>
+
+                <button
+                  className="fp-btn fp-btn--play"
+                  onClick={handlePlayPause}
+                  title={isPlaying ? 'Jeda' : 'Putar'}
+                >
+                  {isPlaying
+                    ? <Pause size={17} fill="currentColor" />
+                    : <Play size={17} fill="currentColor" style={{ marginLeft: 2 }} />
+                  }
+                </button>
+
+                <button
+                  className="fp-btn"
+                  onClick={handleNext}
+                  disabled={
+                    playlistInfo.playlist.findIndex(s => s.surahId === currentSurahId) === playlistInfo.playlist.length - 1
+                    && repeatMode === 'none'
+                    && !(mode === 'full30' && selectedJuz < 30)
+                  }
+                  title="Berikutnya"
+                >
+                  <SkipForward size={17} />
+                </button>
               </div>
-              {audioBuffering && (
-                <Loader className="animate-spin text-[var(--color-primary)] shrink-0 ml-1" size={14} />
-              )}
             </div>
 
-            {/* Audio Controls */}
-            <div className="flex items-center gap-4">
-              <button
-                onClick={cycleRepeat}
-                className={`p-1.5 rounded-full transition-colors ${repeatMode !== 'none' ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-muted)]'}`}
-                title={repeatMode === 'none' ? 'Repeat Off' : repeatMode === 'surah' ? 'Repeat Surah' : 'Repeat Juz'}
-              >
-                {repeatMode === 'surah' ? <Repeat1 size={14} /> : <Repeat size={14} />}
-              </button>
-
-              <button
-                onClick={handlePrev}
-                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
-                disabled={playlistInfo.playlist.findIndex(s => s.surahId === currentSurahId) === 0}
-                title="Sebelumnya"
-              >
-                <SkipBack size={18} />
-              </button>
-
-              <button
-                onClick={handlePlayPause}
-                className="w-10 h-10 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center hover:scale-105 active:scale-95 shadow-md transition-all"
-                title={isPlaying ? 'Jeda' : 'Putar'}
-              >
-                {isPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} className="translate-x-0.5" fill="currentColor" />}
-              </button>
-
-              <button
-                onClick={handleNext}
-                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors"
-                disabled={playlistInfo.playlist.findIndex(s => s.surahId === currentSurahId) === playlistInfo.playlist.length - 1 && repeatMode === 'none' && !(mode === 'full30' && selectedJuz < 30)}
-                title="Berikutnya"
-              >
-                <SkipForward size={18} />
-              </button>
-            </div>
-
-            {/* Seek Slider */}
-            <div className="player-progress-bar flex items-center gap-2.5 w-full md:flex-1 md:max-w-md">
-              <span className="text-[9px] font-bold text-[var(--color-text-muted)] w-8 text-right">
-                {formatTime(currentTime)}
-              </span>
+            {/* Progress bar */}
+            <div className="floating-player__progress">
+              <span className="fp-time">{formatTime(currentTime)}</span>
               <input
                 type="range"
                 min="0"
                 max={duration || 0}
                 value={currentTime}
                 onChange={handleSeek}
-                className="player-slider flex-1 h-1 bg-[var(--color-border)] rounded-lg appearance-none cursor-pointer accent-[var(--color-primary)]"
+                className="fp-slider"
               />
-              <span className="text-[9px] font-bold text-[var(--color-text-muted)] w-8">
-                {formatTime(duration)}
-              </span>
+              <span className="fp-time">{formatTime(duration)}</span>
             </div>
+
           </div>
         </div>
       )}
