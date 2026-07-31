@@ -340,30 +340,6 @@ export default function MushafPageReader() {
           )}
         </div>
 
-        {/* ─── Translation Section ─── */}
-        {!loading && !error && showTranslation && (
-          <div className="mushaf-translations">
-            <div className="mushaf-translations__header">
-              <span className="mushaf-translations__line"></span>
-              <span className="mushaf-translations__label">Terjemahan</span>
-              <span className="mushaf-translations__line"></span>
-            </div>
-
-            {ayahs.map(ayah => (
-              <div key={`trans-${ayah.id}`} className="trans-item">
-                <span className="trans-item__ref">
-                  {surahNames[ayah.surah_id]?.name_simple} {ayah.surah_id}:{ayah.ayah_number}
-                </span>
-                <div
-                  className="trans-item__text"
-                  style={{ fontSize: `${translationFontSize}px` }}
-                  dangerouslySetInnerHTML={{ __html: ayah.translation }}
-                />
-              </div>
-            ))}
-          </div>
-        )}
-
       </div>
 
       {/* ─── Sticky Bottom Navigation ─── */}

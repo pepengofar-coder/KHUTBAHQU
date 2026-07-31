@@ -22,6 +22,7 @@ import SafarErrorBoundary from './components/SafarErrorBoundary';
 // Below-the-fold components lazy loaded for better initial load performance
 const QuickAccessSafar = lazy(() => import('./components/QuickAccessSafar'));
 const SafarTabs = lazy(() => import('./components/SafarTabs'));
+const FiqhSafar = lazy(() => import('./components/FiqhSafar'));
 const PanduanSafar = lazy(() => import('./components/PanduanSafar'));
 const DoaSafar = lazy(() => import('./components/DoaSafar'));
 const AudioSafar = lazy(() => import('./components/AudioSafar'));
@@ -133,6 +134,7 @@ export default function SafarModePage() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPos = window.scrollY + 250;
+      const fiqhEl = document.getElementById('fiqh');
       const guidanceEl = document.getElementById('guidance');
       const duasEl = document.getElementById('duas');
       const audioEl = document.getElementById('audio');
@@ -143,6 +145,8 @@ export default function SafarModePage() {
         setActiveTab('duas');
       } else if (guidanceEl && scrollPos >= guidanceEl.offsetTop) {
         setActiveTab('guidance');
+      } else if (fiqhEl && scrollPos >= fiqhEl.offsetTop) {
+        setActiveTab('fiqh');
       } else {
         setActiveTab('overview');
       }
@@ -642,6 +646,15 @@ export default function SafarModePage() {
           {/* ===== 5. Sticky Section Tabs (Lazy Loaded) ===== */}
           <Suspense fallback={<div className="safar-tabs-skeleton" style={{ height: '52px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '12px' }} />}>
             <SafarTabs activeTab={activeTab} onTabClick={handleTabClick} />
+          </Suspense>
+
+          {/* ===== 5b. Fiqih Safar Educational Section (Lazy Loaded) ===== */}
+          <Suspense fallback={<SkeletonCard count={2} />}>
+            <SafarErrorBoundary>
+              <div className="safar-section-container safar-section--fiqh">
+                <FiqhSafar />
+              </div>
+            </SafarErrorBoundary>
           </Suspense>
 
           {/* ===== 6. Travel Guidance Section (Lazy Loaded) ===== */}

@@ -11,14 +11,15 @@ import {
   saveDisabledHabits,
   getDisabledHabits
 } from '../../utils/goodPathData';
-import { CheckCircle2, Circle, Plus, Compass, ChevronLeft, X } from 'lucide-react';
+import { CheckCircle2, Circle, Plus, Compass, ChevronLeft, X, Flame, Award, BookOpen, CheckSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import HabitDetailSheet from '../../components/HabitDetailSheet/HabitDetailSheet';
+import HijrahGuide from './components/HijrahGuide';
 import './GoodPathPage.css';
 
 export default function GoodPathPage() {
   useSEO({
-    title: 'Good Path - Islamediaku',
+    title: 'Good Path & Panduan Hijrah - Islamediaku',
     description: 'Sistem pembiasaan dan perbaikan diri islami secara konsisten.',
     path: '/good-path'
   });
@@ -27,6 +28,7 @@ export default function GoodPathPage() {
   const [progress, setProgress] = useState({});
   const [selectedHabit, setSelectedHabit] = useState(null);
   const [showCustomModal, setShowCustomModal] = useState(false);
+  const [activeTab, setActiveTab] = useState('tracker'); // 'tracker' | 'guide'
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -175,62 +177,84 @@ export default function GoodPathPage() {
               <strong>{completedCount}</strong> / {totalHabits} selesai hari ini
             </span>
           </div>
+
+          {/* Nav Tabs */}
+          <div className="gp-tabs">
+            <button 
+              className={`gp-tab-btn ${activeTab === 'tracker' ? 'gp-tab-btn--active' : ''}`}
+              onClick={() => setActiveTab('tracker')}
+            >
+              <CheckSquare size={16} /> Habit Tracker Harian
+            </button>
+            <button 
+              className={`gp-tab-btn ${activeTab === 'guide' ? 'gp-tab-btn--active' : ''}`}
+              onClick={() => setActiveTab('guide')}
+            >
+              <BookOpen size={16} /> Panduan Hijrah Step-by-Step
+            </button>
+          </div>
         </div>
       </header>
 
       <main className="gp-main container">
-        {/* Habit List grouped by Category */}
-        {Object.entries(grouped).map(([category, categoryHabits]) => (
-          <div key={category} className="gp-category-group">
-            <h3 className="gp-category-label">{category}</h3>
-            <div className="gp-list">
-              {categoryHabits.map((habit, index) => {
-                const isDone = todayProgress[habit.id];
-                return (
-                  <motion.div 
-                    key={habit.id} 
-                    className={`gp-card ${isDone ? 'gp-card--done' : ''}`}
-                    onClick={() => handleOpenDetail(habit)}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <div className="gp-card__icon-wrap">
-                      {habit.icon}
-                    </div>
-                    <div className="gp-card__content">
-                      <h3 className="gp-card__title">{habit.title}</h3>
-                      <p className="gp-card__desc">{habit.frequency || habit.priority}</p>
-                    </div>
-                    <motion.button 
-                      className="gp-card__check" 
-                      onClick={(e) => handleToggle(e, habit.id)}
-                      aria-label="Tandai selesai"
-                      whileTap={{ scale: 0.8 }}
-                    >
-                      {isDone ? (
-                        <CheckCircle2 className="gp-icon-checked" size={26} />
-                      ) : (
-                        <Circle className="gp-icon-unchecked" size={26} />
-                      )}
-                    </motion.button>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+        {activeTab === 'guide' ? (
+          <HijrahGuide onSwitchToTracker={() => setActiveTab('tracker')} />
+        ) : (
+          <>
+            {/* Habit List grouped by Category */}
+            {Object.entries(grouped).map(([category, categoryHabits]) => (
+              <div key={category} className="gp-category-group">
+                <h3 className="gp-category-label">{category}</h3>
+                <div className="gp-list">
+                  {categoryHabits.map((habit, index) => {
+                    const isDone = todayProgress[habit.id];
+                    return (
+                      <motion.div 
+                        key={habit.id} 
+                        className={`gp-card ${isDone ? 'gp-card--done' : ''}`}
+                        onClick={() => handleOpenDetail(habit)}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="gp-card__icon-wrap">
+                          {habit.icon}
+                        </div>
+                        <div className="gp-card__content">
+                          <h3 className="gp-card__title">{habit.title}</h3>
+                          <p className="gp-card__desc">{habit.frequency || habit.priority}</p>
+                        </div>
+                        <motion.button 
+                          className="gp-card__check" 
+                          onClick={(e) => handleToggle(e, habit.id)}
+                          aria-label="Tandai selesai"
+                          whileTap={{ scale: 0.8 }}
+                        >
+                          {isDone ? (
+                            <CheckCircle2 className="gp-icon-checked" size={26} />
+                          ) : (
+                            <Circle className="gp-icon-unchecked" size={26} />
+                          )}
+                        </motion.button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
 
-        {/* Floating Add Button */}
-        <motion.button 
-          className="gp-fab" 
-          onClick={() => setShowCustomModal(true)}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.92 }}
-          title="Buat Habit Baru"
-        >
-          <Plus size={22} />
-        </motion.button>
+            {/* Floating Add Button */}
+            <motion.button 
+              className="gp-fab" 
+              onClick={() => setShowCustomModal(true)}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              title="Buat Habit Baru"
+            >
+              <Plus size={22} />
+            </motion.button>
+          </>
+        )}
       </main>
 
       {/* Habit Detail Sheet */}

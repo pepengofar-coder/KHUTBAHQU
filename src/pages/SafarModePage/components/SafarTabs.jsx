@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 export default function SafarTabs({ activeTab, onTabClick }) {
   const tabs = useMemo(() => [
     { label: 'Overview', id: 'overview' },
+    { label: 'Fiqih Safar', id: 'fiqh' },
     { label: 'Guidance', id: 'guidance' },
     { label: 'Du’a', id: 'duas' },
     { label: 'Audio', id: 'audio' },

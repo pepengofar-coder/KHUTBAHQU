@@ -2715,4 +2715,337 @@
   color: var(--safar-teal);
 }
 
+/* ==========================================================================
+   Fiqh Safar Section — Premium Mobile-First Styling
+   ========================================================================== */
+.fiqh-safar-container {
+  padding: 24px 0;
+  scroll-margin-top: 90px;
+}
+
+.fiqh-safar-hero {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(15, 23, 42, 0.6) 100%);
+  border: 1px solid rgba(20, 184, 166, 0.25);
+  border-radius: 24px;
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.fiqh-safar-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(20, 184, 166, 0.18);
+  color: #2dd4bf;
+  border: 1px solid rgba(45, 212, 191, 0.3);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.fiqh-safar-hero__title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.fiqh-safar-hero__desc {
+  font-size: 14px;
+  color: #94a3b8;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+/* Search Bar */
+.fiqh-safar-search {
+  position: relative;
+  width: 100%;
+}
+
+.fiqh-safar-search__icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+
+.fiqh-safar-search__input {
+  width: 100%;
+  padding: 12px 16px 12px 46px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.fiqh-safar-search__input:focus {
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
+}
+
+.fiqh-safar-search__input::placeholder {
+  color: #64748b;
+}
+
+/* Category Pills */
+.fiqh-safar-categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.fiqh-safar-categories::-webkit-scrollbar {
+  display: none;
+}
+
+.fiqh-cat-btn {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fiqh-cat-btn:hover {
+  color: #ffffff;
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.fiqh-cat-btn.active {
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  color: #ffffff;
+  border-color: #2dd4bf;
+  box-shadow: 0 4px 14px rgba(20, 184, 166, 0.3);
+}
+
+/* List & Cards */
+.fiqh-safar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fiqh-card {
+  background: rgba(30, 41, 59, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fiqh-card:hover {
+  border-color: rgba(45, 212, 191, 0.3);
+  background: rgba(30, 41, 59, 0.65);
+}
+
+.fiqh-card--open {
+  border-color: rgba(45, 212, 191, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: rgba(30, 41, 59, 0.75);
+}
+
+.fiqh-card__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  gap: 14px;
+}
+
+.fiqh-card__header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.fiqh-card__icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(20, 184, 166, 0.12);
+  color: #2dd4bf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fiqh-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.fiqh-card__badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2dd4bf;
+  background: rgba(20, 184, 166, 0.15);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.fiqh-card__dalil {
+  font-size: 11px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.fiqh-card__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.fiqh-card__arrow {
+  color: #94a3b8;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.fiqh-card__arrow.rotated {
+  transform: rotate(180deg);
+  color: #2dd4bf;
+}
+
+/* Card Body */
+.fiqh-card__body {
+  padding: 0 20px 22px 20px;
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+  animation: fiqhFadeIn 0.3s ease-out;
+}
+
+@keyframes fiqhFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fiqh-card__summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(20, 184, 166, 0.08);
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  padding: 12px 16px;
+  border-radius: 14px;
+  color: #e2e8f0;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 16px;
+  margin-bottom: 18px;
+}
+
+.fiqh-card__points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fiqh-point-item {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  padding: 14px 16px;
+  border-radius: 14px;
+}
+
+.fiqh-point-head {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fiqh-point-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0d9488;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.fiqh-point-body {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.fiqh-empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #64748b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Mobile-First Tweaks for Safar Page */
+@media (max-width: 640px) {
+  .fiqh-safar-hero {
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+  .fiqh-safar-hero__title {
+    font-size: 1.35rem;
+  }
+  .fiqh-card__header {
+    padding: 14px 16px;
+  }
+  .fiqh-card__body {
+    padding: 0 16px 18px 16px;
+  }
+  .fiqh-card__icon-box {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+  .fiqh-card__title {
+    font-size: 14px;
+  }
+}
+
 
