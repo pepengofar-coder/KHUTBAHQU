@@ -36,6 +36,8 @@ export default function GoodPathPage() {
   const handleBack = () => {
     if (location.state?.from) {
       navigate(location.state.from);
+    } else if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
     } else {
       navigate('/ruang-saya');
     }

@@ -1,10 +1,10 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { DOA_CATEGORIES, DOA_DZIKIR_DATA } from '../../data/doaDzikir';
 import { DZIKIR_PAGI_PETANG_DATA } from '../../data/dzikirPagiPetang';
 import VariedFeatureCard from '../../components/VariedFeatureCard/VariedFeatureCard';
-import { Sun, Moon, BookOpen, RotateCcw, ChevronDown, ChevronUp, CheckCircle2, Circle, Copy, Check } from 'lucide-react';
+import { Sun, Moon, BookOpen, RotateCcw, ChevronDown, ChevronUp, CheckCircle2, Circle, Copy, Check, ChevronLeft } from 'lucide-react';
 import './DoaDzikirPage.css';
 
 const CATEGORY_COLORS = {
@@ -185,8 +185,28 @@ export default function DoaDzikirPage() {
     });
   };
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="doa-page container">
+      {/* Top Header */}
+      <div className="doa-page__header" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-text)', margin: 0 }}>Doa & Dzikir Harian</h1>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: '2px 0 0' }}>Kumpulan doa shahih & dzikir pagi petang terverifikasi</p>
+        </div>
+      </div>
+
       {/* Category Grid */}
       <div className="doa-cats-grid">
         {DOA_CATEGORIES.map(c => {

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars, react-hooks/exhaustive-deps */
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
 import {
@@ -62,13 +63,27 @@ export default function HijriCalendarPage() {
     sf.type === 'date' ? sf.month === viewHijriMonth : sf.type !== 'info'
   );
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="hijri-page container">
-      {/* ── Top: Today's date ── */}
-      <div className="hijri-page__today-card">
-        <div className="hijri-page__today-hijri">{hijriStr}</div>
-        <div className="hijri-page__today-greg">
-          {now.toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' })}
+      {/* ── Top: Today's date & Back Button ── */}
+      <div className="hijri-page__today-card" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <div className="hijri-page__today-hijri">{hijriStr}</div>
+          <div className="hijri-page__today-greg">
+            {now.toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' })}
+          </div>
         </div>
       </div>
 

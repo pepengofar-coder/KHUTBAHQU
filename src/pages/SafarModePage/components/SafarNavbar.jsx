@@ -1,10 +1,18 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Compass, User, Search } from 'lucide-react';
+import { Compass, User, Search, ChevronLeft } from 'lucide-react';
 
 export default function SafarNavbar() {
   const navigate = useNavigate();
   const [safarActive, setSafarActive] = useState(true);
+
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
 
   const handleToggleSafar = () => {
     setSafarActive(false);
@@ -27,10 +35,15 @@ export default function SafarNavbar() {
   return (
     <header className="safar-nav">
       <div className="safar-nav__inner">
-        {/* Brand/Logo */}
-        <div className="safar-nav__brand" onClick={() => navigate('/')}>
-          <img src="/logo-icon.png" alt="Islamediaku" className="safar-nav__logo" />
-          <span className="safar-nav__title">Islamediaku</span>
+        {/* Back Button & Brand */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button className="page-back-btn" onClick={handleBack} aria-label="Kembali" style={{ width: '34px', height: '34px', margin: 0, color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+            <ChevronLeft size={18} />
+          </button>
+          <div className="safar-nav__brand" onClick={() => navigate('/')}>
+            <img src="/logo-icon.png" alt="Islamediaku" className="safar-nav__logo" />
+            <span className="safar-nav__title">Islamediaku</span>
+          </div>
         </div>
 
         {/* Center Navigation Links */}

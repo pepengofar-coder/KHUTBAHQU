@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { usePremium } from '../../context/PremiumContext';
 import { useSEO } from '../../utils/seo';
 import { PLANS } from '../../config/premium';
-import { Crown, Sparkles, Construction } from 'lucide-react';
+import { Crown, Sparkles, Construction, ChevronLeft } from 'lucide-react';
 import './PremiumPage.css';
 
 export default function PremiumPage() {
@@ -12,13 +12,24 @@ export default function PremiumPage() {
   const { isPremiumUser } = usePremium();
   const navigate = useNavigate();
 
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   useSEO({ title: 'Islamediaku Premium — Segera Hadir | Islamediaku', description: 'Fitur Premium Islamediaku sedang dalam tahap pengembangan. Nantikan pembaruannya!', path: '/premium' });
 
   const isActive = isPremiumUser();
 
   return (
     <div className="premium-page container">
-      <div className="premium-hero">
+      <div className="premium-hero" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali" style={{ alignSelf: 'flex-start', marginBottom: '16px' }}>
+          <ChevronLeft size={20} />
+        </button>
         <span className="premium-hero__badge"><Crown size={14} style={{marginRight: 4}} /> Segera Hadir</span>
         <h1 className="premium-hero__title">Islamediaku Premium</h1>
         <p className="premium-hero__sub">Pengalaman Islami tanpa batas sedang kami siapkan untuk Anda.</p>

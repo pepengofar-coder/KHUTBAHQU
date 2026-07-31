@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import {
   getDailyProgress,
@@ -9,7 +9,7 @@ import {
   safeSaveJSON,
   getTodayKey,
 } from '../../utils/dailyProgress';
-import { Target, Footprints, Plus, Trash2, HeartPulse, Sparkles, CheckCircle2, Circle, Compass, ChevronRight } from 'lucide-react';
+import { Target, Footprints, Plus, Trash2, HeartPulse, Sparkles, CheckCircle2, Circle, Compass, ChevronRight, ChevronLeft } from 'lucide-react';
 import './TrackerPage.css';
 
 const MOTIVATIONS = [
@@ -111,13 +111,27 @@ export default function TrackerPage() {
     });
   };
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="tracker-page">
       {/* Header */}
       <header className="tracker-header">
-        <div className="container">
-          <h1 className="tracker-header__title">Tracker Ibadah Harian</h1>
-          <p className="tracker-header__subtitle">Pantau rutinitas ibadah dan kebiasaan baik harianmu.</p>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+            <ChevronLeft size={20} />
+          </button>
+          <div>
+            <h1 className="tracker-header__title">Tracker Ibadah Harian</h1>
+            <p className="tracker-header__subtitle">Pantau rutinitas ibadah dan kebiasaan baik harianmu.</p>
+          </div>
         </div>
       </header>
 

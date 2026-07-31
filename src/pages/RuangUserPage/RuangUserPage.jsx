@@ -15,7 +15,7 @@ import {
   Check, X, RefreshCw, Cloud, CloudOff,
   Palette, MapPin, Shield, Camera, Trash2,
   Car, Compass, Clock, Loader2,
-  FileText, Target, TrendingUp, Settings
+  FileText, Target, TrendingUp, Settings, ChevronLeft
 } from 'lucide-react';
 import './RuangUserPage.css';
 
@@ -32,6 +32,14 @@ export default function RuangUserPage() {
   const { user, profile, logout, updateDisplayName, isEmailConfirmed, refreshProfile } = useAuth();
   const { appTheme } = useApp();
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/ruang-saya');
+    }
+  };
 
   // ── Profile editing ──
   const [editingName, setEditingName] = useState(false);
@@ -204,9 +212,14 @@ export default function RuangUserPage() {
   return (
     <div className="ruang-user">
       <header className="ruang-user__header">
-        <div className="container">
-          <h1 className="ruang-user__header-title">Ruang User</h1>
-          <p className="ruang-user__header-sub">Dashboard ibadah dan aktivitas kamu</p>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+            <ChevronLeft size={20} />
+          </button>
+          <div>
+            <h1 className="ruang-user__header-title">Ruang User</h1>
+            <p className="ruang-user__header-sub">Dashboard ibadah dan aktivitas kamu</p>
+          </div>
         </div>
       </header>
 

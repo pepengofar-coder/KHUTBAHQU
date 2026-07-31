@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
 import './QiblaPage.css';
 
@@ -73,14 +74,28 @@ export default function QiblaPage(){
     }
   };
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   const needleRotation=bearing!=null?(bearing-heading)%360:0;
 
   return(
     <div className="qibla-page container">
-      <div className="qibla-page__header">
-        <h1 className="qibla-page__title">Arah Kiblat Online</h1>
-        {locLabel&&<p className="qibla-page__loc">📍 {locLabel}</p>}
-        {bearing!=null&&<p className="qibla-page__bearing">{Math.round(bearing)}° dari Utara</p>}
+      <div className="qibla-page__header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <h1 className="qibla-page__title">Arah Kiblat Online</h1>
+          {locLabel&&<p className="qibla-page__loc">📍 {locLabel}</p>}
+          {bearing!=null&&<p className="qibla-page__bearing">{Math.round(bearing)}° dari Utara</p>}
+        </div>
       </div>
 
       {loading?(

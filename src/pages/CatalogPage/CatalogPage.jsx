@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
@@ -80,9 +81,21 @@ export default function CatalogPage() {
     { id: 'taubat', title: 'Taubat', desc: 'Kembali kepada jalan yang benar', icon: '😭' }
   ];
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="catalog container">
-      <div className="section__header">
+      <div className="section__header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
         <div>
           <h1 className="section__title">Katalog Khutbah Jumat Pilihan & Kultum</h1>
           <p className="section__subtitle">Temukan naskah khutbah Jumat singkat, ceramah, dan kultum berkualitas gratis.</p>

@@ -327,8 +327,14 @@ export default function Murottal30JuzPage() {
       <header className="murottal-header">
         <button
           className="murottal-header__back"
-          onClick={() => navigate('/')}
-          aria-label="Kembali ke Beranda"
+          onClick={() => {
+            if (window.history.state && window.history.state.idx > 0) {
+              navigate(-1);
+            } else {
+              navigate('/');
+            }
+          }}
+          aria-label="Kembali"
         >
           <ArrowLeft size={18} />
         </button>

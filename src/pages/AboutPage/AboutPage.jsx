@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
-import { Compass, BookOpen, Heart, Headphones, CheckCircle2, Car, Activity, Sparkles, Scale } from 'lucide-react';
+import { Compass, BookOpen, Heart, Headphones, CheckCircle2, Car, Activity, Sparkles, Scale, ChevronLeft } from 'lucide-react';
 import './AboutPage.css';
 
 export default function AboutPage() {
@@ -10,11 +10,23 @@ export default function AboutPage() {
     path: '/tentang',
   });
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="about-page">
       {/* Header Section */}
       <header className="about-header">
-        <div className="about-brand">
+        <div className="about-brand" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <button className="page-back-btn" onClick={handleBack} aria-label="Kembali" style={{ alignSelf: 'flex-start', marginBottom: '12px' }}>
+            <ChevronLeft size={20} />
+          </button>
           <span className="about-badge">TENTANG</span>
           <h1 className="about-title">Tentang Islamediaku</h1>
           <p className="about-subtitle">Sahabat ibadah harian untuk sholat, Al-Qur’an, dzikir, tilawah, dan kebiasaan baik.</p>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
 import { useAdzanAlarm } from '../../hooks/useAdzanAlarm';
@@ -8,7 +8,7 @@ import { useI18n } from '../../context/I18nContext';
 import { 
   Moon, MapPin, Type, BookOpen, Focus, 
   Trash2, Smartphone, Download, Info, ShieldAlert,
-  ChevronRight, Volume2, CheckCircle2, User, Globe
+  ChevronRight, Volume2, CheckCircle2, User, Globe, ChevronLeft
 } from 'lucide-react';
 import './SettingsPage.css';
 
@@ -102,12 +102,27 @@ export default function SettingsPage() {
 
   const apkUrl = import.meta.env.VITE_APK_URL || import.meta.env.NEXT_PUBLIC_APK_URL;
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="settings-page">
+      {/* Header */}
       <header className="settings-header">
-        <div className="container">
-          <h1 className="settings-header__title">Pengaturan</h1>
-          <p className="settings-header__subtitle">Pusat kontrol aplikasi Islamediaku</p>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+            <ChevronLeft size={20} />
+          </button>
+          <div>
+            <h1 className="settings-header__title">Pengaturan</h1>
+            <p className="settings-header__subtitle">Pusat kontrol aplikasi Islamediaku</p>
+          </div>
         </div>
       </header>
 

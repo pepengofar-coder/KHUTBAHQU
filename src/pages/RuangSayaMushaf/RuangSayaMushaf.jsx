@@ -71,7 +71,13 @@ export default function RuangSayaMushaf() {
     <div className={`rsm-page theme-${theme}`}>
       <header className="rsm-header">
         <div className="rsm-header__left">
-          <button className="rsm-header__btn" onClick={() => navigate('/ruang-saya')}>
+          <button className="rsm-header__btn" onClick={() => {
+            if (window.history.state && window.history.state.idx > 0) {
+              navigate(-1);
+            } else {
+              navigate('/ruang-saya');
+            }
+          }}>
             <ArrowLeft size={24} />
           </button>
           <div className="rsm-header__title">

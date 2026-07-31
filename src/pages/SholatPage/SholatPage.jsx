@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useI18n, getPrayerDisplayName } from '../../context/I18nContext';
-import { Sunrise, Sun, CloudSun, Sunset, Moon, MapPin } from 'lucide-react';
+import { Sunrise, Sun, CloudSun, Sunset, Moon, MapPin, ChevronLeft } from 'lucide-react';
 import './SholatPage.css';
 
 const CITIES=[{name:'Jakarta',lat:-6.2088,lon:106.8456},{name:'Surabaya',lat:-7.2575,lon:112.7521},{name:'Bandung',lat:-6.9175,lon:107.6191},{name:'Medan',lat:3.5952,lon:98.6722},{name:'Semarang',lat:-6.9667,lon:110.4167},{name:'Makassar',lat:-5.1477,lon:119.4327},{name:'Yogyakarta',lat:-7.7956,lon:110.3695},{name:'Malang',lat:-7.9666,lon:112.6326},{name:'Denpasar',lat:-8.6705,lon:115.2126},{name:'Aceh',lat:5.5483,lon:95.3238},{name:'Padang',lat:-0.9492,lon:100.3543},{name:'Pekanbaru',lat:0.5335,lon:101.45},{name:'Palembang',lat:-2.9761,lon:104.7754},{name:'Bogor',lat:-6.5971,lon:106.806},{name:'Bekasi',lat:-6.2349,lon:106.9896},{name:'Tangerang',lat:-6.1783,lon:106.63},{name:'Depok',lat:-6.4025,lon:106.7942},{name:'Banjarmasin',lat:-3.3194,lon:114.5908},{name:'Balikpapan',lat:-1.2676,lon:116.8289},{name:'Manado',lat:1.4748,lon:124.8421}];
@@ -79,13 +79,27 @@ export default function SholatPage(){
     setCountdown(`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`);
   },[now,timings,nextKey]);
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   const locLabel=mode==='gps'?label:mode==='detecting'?'Mendeteksi...':city;
 
   return(
     <div className="sholat-page container">
-      <div className="sholat-page__header">
-        <h1 className="sholat-page__title">Jadwal Sholat Harian</h1>
-        <p className="sholat-page__date">{now.toLocaleDateString(language === 'id' ? 'id-ID' : language === 'ar' ? 'ar-SA' : 'en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p>
+      <div className="sholat-page__header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <h1 className="sholat-page__title">Jadwal Sholat Harian</h1>
+          <p className="sholat-page__date">{now.toLocaleDateString(language === 'id' ? 'id-ID' : language === 'ar' ? 'ar-SA' : 'en-US',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p>
+        </div>
       </div>
 
       {/* Next Prayer Hero */}

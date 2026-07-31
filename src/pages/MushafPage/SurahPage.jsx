@@ -131,7 +131,13 @@ export default function SurahPage() {
       {!focusMode && (
         <header className="surah-page__header">
           <div className="surah-page__header-inner container">
-            <button className="surah-page__back" onClick={() => navigate('/mushaf')}>
+            <button className="surah-page__back" onClick={() => {
+              if (window.history.state && window.history.state.idx > 0) {
+                navigate(-1);
+              } else {
+                navigate('/mushaf');
+              }
+            }}>
               <ArrowLeft size={24} />
             </button>
             <div className="surah-page__title-wrap">

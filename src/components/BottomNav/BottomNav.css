@@ -9,19 +9,14 @@
   right: 0;
   z-index: 100;
   height: var(--bottom-nav-h);
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(28px) saturate(170%);
-  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  background: #ffffff; /* Solid opaque theme background */
   display: flex;
   align-items: center;
   justify-content: center;
   padding-bottom: env(safe-area-inset-bottom, 0);
   transition: transform 0.45s var(--ease-spring);
-  /* Gradient top-border glow line: indigo → cyan → violet */
-  border-top: none;
-  box-shadow:
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.55),
-    0 -1px 0 0 rgba(79, 70, 229, 0.06);
+  border-top: 1px solid var(--color-border, #E0E7FF);
+  box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.08);
 }
 
 /* Gradient top-border glow (pseudo-element) */
@@ -60,12 +55,11 @@
   pointer-events: none;
 }
 
-/* Dark mode nav */
+/* Dark mode nav - Solid dark background */
 [data-theme="dark"] .btm-nav {
-  background: rgba(5, 10, 26, 0.82);
-  box-shadow:
-    inset 0 1px 0 0 rgba(129, 140, 248, 0.08),
-    0 -1px 0 0 rgba(129, 140, 248, 0.04);
+  background: #0A1128; /* Solid opaque dark theme background */
+  border-top: 1px solid rgba(129, 140, 248, 0.18);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] .btm-nav::before {
@@ -267,18 +261,13 @@
   left: 0;
   right: 0;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.78);
-  backdrop-filter: blur(28px) saturate(160%);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
-  border-top: 1px solid rgba(79, 70, 229, 0.1);
+  background: #ffffff;
+  border-top: 1px solid rgba(79, 70, 229, 0.15);
   border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
   padding: var(--sp-3) var(--sp-4) calc(var(--sp-8) + env(safe-area-inset-bottom, 0));
   transform: translateY(100%);
   transition: transform 0.4s var(--ease-spring), opacity 0.3s ease;
-  box-shadow:
-    0 -4px 30px rgba(79, 70, 229, 0.08),
-    0 -1px 0 rgba(79, 70, 229, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 -10px 40px rgba(15, 23, 42, 0.15);
   max-height: 75vh;
   overflow-y: auto;
   opacity: 0;
@@ -286,12 +275,9 @@
 }
 
 [data-theme="dark"] .more-sheet {
-  background: rgba(8, 15, 35, 0.88);
-  border-top-color: rgba(129, 140, 248, 0.12);
-  box-shadow:
-    0 -4px 30px rgba(129, 140, 248, 0.06),
-    0 -1px 0 rgba(129, 140, 248, 0.08),
-    inset 0 1px 0 rgba(129, 140, 248, 0.06);
+  background: #0A1128;
+  border-top-color: rgba(129, 140, 248, 0.2);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .more-sheet.open {

@@ -669,7 +669,13 @@ export default function HomeWorkoutPage() {
           <div className="hw-header__hero-overlay" />
         </div>
         <div className="container hw-header__content">
-          <button onClick={() => navigate('/good-path', { state: { from: '/good-path/home-workout' } })} className="hw-back-btn" aria-label="Kembali">
+          <button onClick={() => {
+            if (window.history.state && window.history.state.idx > 0) {
+              navigate(-1);
+            } else {
+              navigate('/good-path');
+            }
+          }} className="hw-back-btn" aria-label="Kembali">
             <ChevronLeft size={20} />
           </button>
           <div className="hw-header__text">

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { usePremium } from '../../context/PremiumContext';
 import { useSEO } from '../../utils/seo';
@@ -10,6 +11,14 @@ export default function AccountPage() {
   const { user, loading, logout } = useAuth();
   const { subscription, isPremiumUser, toggleMockPremium } = usePremium();
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/ruang-saya');
+    }
+  };
 
   useSEO({
     title: 'Akun Saya | Islamediaku',
@@ -43,9 +52,14 @@ export default function AccountPage() {
 
   return (
     <div className="account-page container">
-      <div className="section__header">
-        <h1 className="section__title">Akun Saya</h1>
-        <p className="section__subtitle">Kelola profil dan langganan Anda.</p>
+      <div className="section__header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <h1 className="section__title">Akun Saya</h1>
+          <p className="section__subtitle">Kelola profil dan langganan Anda.</p>
+        </div>
       </div>
 
       <div className="account-grid">

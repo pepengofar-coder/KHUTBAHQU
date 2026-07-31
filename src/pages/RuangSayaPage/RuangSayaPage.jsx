@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
 import { getHijriDateString } from '../../data/hijriData';
 import { getLocalizedGreeting } from '../../utils/dailyGreeting';
@@ -173,12 +174,24 @@ export default function RuangSayaPage() {
     window.location.reload();
   };
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="ruang-saya">
       {/* ═══ PREMIUM HERO ═══ */}
       <header className="rs-hero">
         <div className="rs-hero__inner">
-          <div className="rs-hero__top">
+          <div className="rs-hero__top" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <button className="page-back-btn" onClick={handleBack} aria-label="Kembali" style={{ color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+              <ChevronLeft size={20} />
+            </button>
             <img
               src="/logo-icon.png"
               alt="Islamediaku"

@@ -1,9 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
 import KhutbahCard from '../../components/KhutbahCard/KhutbahCard';
 
 export default function FavoritesPage() {
   const { bookmarkedKhutbah, recentKhutbah } = useApp();
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
 
   useSEO({
     title: 'Favorit Saya — Khutbah Tersimpan | Islamediaku',
@@ -13,10 +24,15 @@ export default function FavoritesPage() {
   });
   return (
     <div className="container" style={{ padding: '32px 16px 80px' }}>
-      <div className="section__header"><div>
-        <h1 className="section__title">⭐ Favorit</h1>
-        <p className="section__subtitle">Khutbah yang Anda simpan</p>
-      </div></div>
+      <div className="section__header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <h1 className="section__title">⭐ Favorit</h1>
+          <p className="section__subtitle">Khutbah yang Anda simpan</p>
+        </div>
+      </div>
 
       {recentKhutbah.length > 0 && <>
         <h2 style={{ fontSize: 'var(--fs-lg)', fontWeight: 600, marginBottom: 12, color: 'var(--color-text-muted)' }}>🕐 Terakhir Dibaca</h2>

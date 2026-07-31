@@ -230,7 +230,13 @@ export default function MushafPageReader() {
         <header className="mushaf-reader-header">
           <button
             className="mushaf-reader-header__btn"
-            onClick={() => navigate('/mushaf')}
+            onClick={() => {
+              if (window.history.state && window.history.state.idx > 0) {
+                navigate(-1);
+              } else {
+                navigate('/mushaf');
+              }
+            }}
             aria-label="Kembali"
           >
             <ArrowLeft size={22} />

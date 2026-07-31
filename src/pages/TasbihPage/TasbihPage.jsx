@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
 import './TasbihPage.css';
 
@@ -35,9 +36,21 @@ export default function TasbihPage() {
   const progress = target > 0 ? Math.min((count / target) * 100, 100) : 0;
   const completed = count >= target && target > 0;
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="tasbih-page container">
-      <div className="tasbih-page__header">
+      <div className="tasbih-page__header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
         <h1 className="tasbih-page__title">Tasbih Digital Online</h1>
       </div>
 

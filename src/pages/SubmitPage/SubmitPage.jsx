@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useSEO } from '../../utils/seo';
 import './SubmitPage.css';
@@ -136,12 +138,26 @@ export default function SubmitPage() {
     );
   }
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="submit-page container">
-      <div className="submit-page__header">
-        <div className="submit-page__badge">Kontribusi Umat</div>
-        <h1>📤 Kirim Naskah Khutbah</h1>
-        <p>Bagikan ilmu dan raih pahala jariyah dengan mengirimkan naskah khutbah Anda. Setiap khutbah akan direview oleh admin sebelum diterbitkan.</p>
+      <div className="submit-page__header" style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <div className="submit-page__badge">Kontribusi Umat</div>
+          <h1>📤 Kirim Naskah Khutbah</h1>
+          <p>Bagikan ilmu dan raih pahala jariyah dengan mengirimkan naskah khutbah Anda. Setiap khutbah akan direview oleh admin sebelum diterbitkan.</p>
+        </div>
       </div>
 
       {/* Info Banner */}

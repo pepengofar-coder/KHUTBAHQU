@@ -177,7 +177,13 @@ export default function DetailPage() {
       <div className="detail__progress" style={{ width: `${progress}%` }} />
       <header className={`detail__topbar${barsHidden ? ' hidden' : ''}`}>
         <div className="detail__topbar-inner">
-          <button className="detail__back" onClick={() => nav(-1)}>‹ Kembali</button>
+          <button className="detail__back" onClick={() => {
+            if (window.history.state && window.history.state.idx > 0) {
+              nav(-1);
+            } else {
+              nav('/khutbah');
+            }
+          }}>‹ Kembali</button>
           <div className="detail__toolbar">
             <button className="detail__tool-btn" onClick={cycleFontSize} title={`Font: ${fLabel}`}>
               Aa<span className="detail__tool-badge">{fBadge}</span>

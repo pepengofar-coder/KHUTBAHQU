@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSEO } from '../../utils/seo';
 import { useTilawahAudio } from '../../context/TilawahContext';
-import { Search, Loader2, Play, Pause, SkipBack, SkipForward, AlertTriangle } from 'lucide-react';
+import { Search, Loader2, Play, Pause, SkipBack, SkipForward, AlertTriangle, ChevronLeft } from 'lucide-react';
 import './TilawahPage.css';
 
 export default function TilawahPage() {
@@ -28,10 +28,22 @@ export default function TilawahPage() {
     return list;
   }, [radios, search, favorites, showFavOnly]);
 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="tilawah-page">
       <section className="tilawah-hero">
-        <div className="tilawah-hero__inner container">
+        <div className="tilawah-hero__inner container" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button className="page-back-btn" onClick={handleBack} aria-label="Kembali" style={{ color: '#ffffff', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+            <ChevronLeft size={20} />
+          </button>
           <div className="tilawah-hero__text">
             <h1 className="tilawah-hero__title">Radio Tilawah Al-Qur'an</h1>
             <p className="tilawah-hero__subtitle">Dengarkan lantunan ayat suci Al-Qur'an nonstop 24 jam dari qari pilihan dunia.</p>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { Search, History, BookMarked, BookOpen, BookCopy, ChevronRight, Check } from 'lucide-react';
+import { Search, History, BookMarked, BookOpen, BookCopy, ChevronRight, ChevronLeft, Check } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
 import SurahCard from './components/SurahCard';
 import './MushafPage.css';
@@ -98,11 +98,24 @@ export default function MushafPage() {
     return result;
   }, [surahs, activeTab, searchQuery, bookmarks, lastRead]);
 
+  const handleBack = () => {
+    if (window.history.state && window.history.state.idx > 0) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="mushaf-home container">
-      <header className="mushaf-home__header">
-        <h1 className="mushaf-home__title">Mushaf Al-Qur’an Online</h1>
-        <p className="mushaf-home__subtitle">Baca Al-Qur’an online dengan tampilan nyaman, navigasi surah mudah, dan pengalaman membaca yang bersih.</p>
+      <header className="mushaf-home__header" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <button className="page-back-btn" onClick={handleBack} aria-label="Kembali">
+          <ChevronLeft size={20} />
+        </button>
+        <div>
+          <h1 className="mushaf-home__title">Mushaf Al-Qur’an Online</h1>
+          <p className="mushaf-home__subtitle">Baca Al-Qur’an online dengan tampilan nyaman, navigasi surah mudah, dan pengalaman membaca yang bersih.</p>
+        </div>
       </header>
 
       {lastRead && !searchQuery && activeTab === 'surah' && (
