@@ -24,6 +24,7 @@ export default function MushafPage() {
 
   const [bookmarks, setBookmarks] = useState([]);
   const [lastRead, setLastRead] = useState(null);
+  const [lastPageRead, setLastPageRead] = useState(null);
   const [lastPageState, setLastPageState] = useState(null);
 
   // Load from local storage
@@ -72,16 +73,16 @@ export default function MushafPage() {
   }, []);
 
   const filteredSurahs = useMemo(() => {
-    let result = surahs;
+    let result = surahs || [];
     
     // Tab Filter
     if (activeTab === 'favorit') {
       // Find surahs that have bookmarked ayahs
-      const bookmarkedSurahIds = [...new Set(bookmarks.map(b => parseInt(b.split(':')[0])))];
-      result = result.filter(s => bookmarkedSurahIds.includes(s.id));
+      const bookmarkedSurahIds = [...new Set((bookmarks || []).map(b => parseInt(String(b).split(':')[0])))];
+      result = result.filter(s => s && bookmarkedSurahIds.includes(s.id));
     } else if (activeTab === 'terakhir') {
-      if (lastRead) {
-        result = result.filter(s => s.id === lastRead.surah);
+      if (lastRead?.surah) {
+        result = result.filter(s => s && s.id === lastRead.surah);
       } else {
         result = [];
       }
@@ -91,9 +92,11 @@ export default function MushafPage() {
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter(s => 
-        s.name_simple.toLowerCase().includes(q) ||
-        s.translated_name.name.toLowerCase().includes(q) ||
-        s.id.toString() === q
+        s && (
+          (s.name_simple && s.name_simple.toLowerCase().includes(q)) ||
+          (s.translated_name?.name && s.translated_name.name.toLowerCase().includes(q)) ||
+          (s.id && s.id.toString() === q)
+        )
       );
     }
     
