@@ -18,8 +18,6 @@ export default function MushafPageReader() {
   const [ayahs, setAyahs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  // Surah names map (fetched once)
   const [surahNames, setSurahNames] = useState({});
 
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -109,7 +107,7 @@ export default function MushafPageReader() {
       });
   }, [id, navigate, user]);
 
-  // Group ayahs by surah to display surah headers
+  // Group ayahs by surah
   const groupedAyahs = useMemo(() => {
     if (!ayahs.length) return [];
     const groups = [];
@@ -128,7 +126,7 @@ export default function MushafPageReader() {
     return groups;
   }, [ayahs]);
 
-  // Derive unique Juz for the header
+  // Derive Juz for header
   const pageJuz = useMemo(() => {
     if (!ayahs.length) return null;
     return ayahs[0].juz_number;
@@ -137,7 +135,7 @@ export default function MushafPageReader() {
   // Derive surah names on this page
   const pageSurahNames = useMemo(() => {
     if (!groupedAyahs.length || Object.keys(surahNames).length === 0) return '';
-    return groupedAyahs.map(g => surahNames[g.surah_id]?.name_simple).filter(Boolean).join(', ');
+    return groupedAyahs.map(g => surahNames[g.surah_id]?.name_simple).filter(Boolean).join(' - ');
   }, [groupedAyahs, surahNames]);
 
   const toggleBookmark = () => {
@@ -176,116 +174,168 @@ export default function MushafPageReader() {
       )}
 
       <div className="mushaf-page__container">
-        
-        {/* Top Header / Entry point to go back */}
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 0'}}>
-          <button className="btn btn--outline" onClick={() => navigate('/mushaf')} style={{border: 'none', padding: '8px', background: 'transparent'}}>
-            <ArrowLeft size={24} />
-          </button>
-          <div style={{textAlign: 'center'}}>
-            <h1 style={{fontSize: '18px', fontWeight: 800, margin: 0}}>Halaman {id}</h1>
-            <p style={{fontSize: '12px', color: 'var(--color-text-muted)', margin: 0}}>
-              {pageSurahNames} • Juz {pageJuz}
-            </p>
-          </div>
-          <button 
-            className="btn btn--outline" 
-            onClick={toggleBookmark}
-            style={{border: 'none', padding: '8px', background: 'transparent', color: isBookmarked ? 'var(--color-primary)' : 'inherit'}}
-          >
-            <Bookmark size={24} fill={isBookmarked ? 'currentColor' : 'none'} />
-          </button>
-        </div>
 
-        {/* Paper Container */}
-        <div className="mushaf-page__paper">
-          {loading && <div style={{textAlign:'center', padding: '40px', color: '#666'}}>Memuat halaman mushaf...</div>}
-          {error && <div style={{textAlign:'center', padding: '40px', color: '#ef4444'}}>{error}</div>}
+        {/* ─── Header ─── */}
+        <header className="mushaf-reader-header">
+          <button
+            className="mushaf-reader-header__btn"
+            onClick={() => navigate('/mushaf')}
+            aria-label="Kembali"
+          >
+            <ArrowLeft size={22} />
+          </button>
+
+          <div className="mushaf-reader-header__center">
+            <div className="mushaf-reader-header__page">
+              {toArabicNumber(id)}
+            </div>
+            <div className="mushaf-reader-header__info">
+              {pageSurahNames}{pageJuz ? ` • Juz ${pageJuz}` : ''}
+            </div>
+          </div>
+
+          <button
+            className={`mushaf-reader-header__btn ${isBookmarked ? 'bookmarked' : ''}`}
+            onClick={toggleBookmark}
+            aria-label={isBookmarked ? 'Hapus Bookmark' : 'Tambah Bookmark'}
+          >
+            <Bookmark size={22} fill={isBookmarked ? 'currentColor' : 'none'} />
+          </button>
+        </header>
+
+        {/* ─── Paper Container ─── */}
+        <div className="mushaf-paper">
+          {loading && (
+            <div className="mushaf-status">Memuat halaman mushaf...</div>
+          )}
+
+          {error && (
+            <div className="mushaf-status mushaf-status--error">{error}</div>
+          )}
 
           {!loading && !error && (
-            <div className="mushaf-page__inline-text" style={{ fontSize: `${arabicFontSize}px` }}>
-              {groupedAyahs.map((group, groupIndex) => {
-                const surahInfo = surahNames[group.surah_id];
-                return (
-                  <span key={group.surah_id}>
-                    
-                    {/* Surah Header inline block */}
-                    {(groupIndex > 0 || group.ayahs[0].ayah_number === 1) && surahInfo && (
-                      <div className="mushaf-page__surah-header" style={{ marginTop: groupIndex > 0 ? '2rem' : 0 }}>
-                        <div className="mushaf-page__surah-arabic">{surahInfo.name_arabic}</div>
-                        {group.surah_id !== 1 && group.surah_id !== 9 && group.ayahs[0].ayah_number === 1 && (
-                          <div className="mushaf-page__surah-bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
-                        )}
-                      </div>
-                    )}
+            <>
+              {/* Arabic Quran Text */}
+              <div className="mushaf-arabic-text" style={{ fontSize: `${arabicFontSize}px` }}>
+                {groupedAyahs.map((group, groupIndex) => {
+                  const surahInfo = surahNames[group.surah_id];
+                  const showHeader = (groupIndex > 0 || group.ayahs[0].ayah_number === 1) && surahInfo;
 
-                    {/* Verses inline */}
-                    {group.ayahs.map((ayah) => {
-                      let arabicText = ayah.arabic;
-                      // Remove bismillah from ayah 1 text if it's not Al-Fatihah, as we render it in the header
-                      if (group.surah_id !== 1 && ayah.ayah_number === 1) {
-                        arabicText = arabicText.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ', '');
-                      }
+                  return (
+                    <span key={group.surah_id}>
+                      {/* Surah Banner */}
+                      {showHeader && (
+                        <div className={`surah-banner ${groupIndex > 0 ? 'surah-banner--spaced' : ''}`}>
+                          <div className="surah-banner__frame">
+                            <span className="corner corner--tl"></span>
+                            <span className="corner corner--tr"></span>
+                            <span className="corner corner--bl"></span>
+                            <span className="corner corner--br"></span>
+                            <div className="surah-banner__name">{surahInfo.name_arabic}</div>
+                          </div>
+                          {group.surah_id !== 1 && group.surah_id !== 9 && group.ayahs[0].ayah_number === 1 && (
+                            <div className="surah-banner__bismillah">
+                              بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+                            </div>
+                          )}
+                        </div>
+                      )}
 
-                      return (
-                        <span key={ayah.id} className="mushaf-page__inline-ayah">
-                          {arabicText}
-                          <span className="mushaf-page__ayah-marker">
-                            {toArabicNumber(ayah.ayah_number)}
+                      {/* Verses inline */}
+                      {group.ayahs.map((ayah) => {
+                        let arabicText = ayah.arabic;
+                        // Remove bismillah from ayah 1 text if it's not Al-Fatihah, as we render it in the header
+                        if (group.surah_id !== 1 && ayah.ayah_number === 1) {
+                          arabicText = arabicText.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ', '');
+                        }
+
+                        return (
+                          <span key={ayah.id} className="mushaf-ayah">
+                            {arabicText}
+                            <span className="ayah-marker">
+                              <span className="ayah-marker__num">
+                                {toArabicNumber(ayah.ayah_number)}
+                              </span>
+                            </span>
                           </span>
-                        </span>
-                      );
-                    })}
-                  </span>
-                );
-              })}
-            </div>
-          )}
+                        );
+                      })}
+                    </span>
+                  );
+                })}
+              </div>
 
-          {/* Optional Translations Block */}
-          {!loading && !error && showTranslation && (
-            <div className="mushaf-page__translations">
-              <div className="mushaf-page__translations-title">Terjemahan Halaman {id}</div>
-              {ayahs.map(ayah => (
-                <div key={`trans-${ayah.id}`} className="mushaf-page__trans-item">
-                  <span className="mushaf-page__trans-num">{surahNames[ayah.surah_id]?.name_simple} {ayah.surah_id}:{ayah.ayah_number}</span>
-                  <div className="mushaf-page__trans-text" style={{ fontSize: `${translationFontSize}px` }} dangerouslySetInnerHTML={{ __html: ayah.translation }} />
+              {/* Page Number Footer (inside paper) */}
+              <div className="mushaf-page-number">
+                <div className="mushaf-page-number__divider">
+                  <span className="mushaf-page-number__line"></span>
+                  <span className="mushaf-page-number__diamond"></span>
+                  <span className="mushaf-page-number__line"></span>
                 </div>
-              ))}
-            </div>
+                {toArabicNumber(id)}
+              </div>
+            </>
           )}
         </div>
+
+        {/* ─── Translation Section ─── */}
+        {!loading && !error && showTranslation && (
+          <div className="mushaf-translations">
+            <div className="mushaf-translations__header">
+              <span className="mushaf-translations__line"></span>
+              <span className="mushaf-translations__label">Terjemahan</span>
+              <span className="mushaf-translations__line"></span>
+            </div>
+
+            {ayahs.map(ayah => (
+              <div key={`trans-${ayah.id}`} className="trans-item">
+                <span className="trans-item__ref">
+                  {surahNames[ayah.surah_id]?.name_simple} {ayah.surah_id}:{ayah.ayah_number}
+                </span>
+                <div
+                  className="trans-item__text"
+                  style={{ fontSize: `${translationFontSize}px` }}
+                  dangerouslySetInnerHTML={{ __html: ayah.translation }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
       </div>
 
-      {/* Sticky Bottom Controls */}
-      <div className="mushaf-page__footer-controls">
-        <div className="mushaf-page__controls-inner">
-          <Link 
-            to={`/mushaf/page/${id + 1}`} 
-            className={`mushaf-page__ctrl-btn ${id >= 604 ? 'disabled' : ''}`}
-            onClick={(e) => { if(id >= 604) e.preventDefault(); }}
+      {/* ─── Sticky Bottom Navigation ─── */}
+      <div className="mushaf-nav">
+        <div className="mushaf-nav__inner">
+          <Link
+            to={`/mushaf/page/${id - 1}`}
+            className={`mushaf-nav__btn ${id <= 1 ? 'disabled' : ''}`}
+            onClick={(e) => { if (id <= 1) e.preventDefault(); }}
           >
-            <ChevronRight size={20} /> Berikutnya
+            <ChevronLeft size={18} />
+            <span>Sebelumnya</span>
           </Link>
-          
-          <form className="mushaf-page__ctrl-center" onSubmit={handleJump}>
+
+          <form className="mushaf-nav__center" onSubmit={handleJump}>
             <span>Hal.</span>
-            <input 
-              type="number" 
-              className="mushaf-page__ctrl-input" 
+            <input
+              type="number"
+              className="mushaf-nav__input"
               value={jumpInput}
               onChange={(e) => setJumpInput(e.target.value)}
               onBlur={handleJump}
-              min="1" max="604"
+              min="1"
+              max="604"
             />
           </form>
 
-          <Link 
-            to={`/mushaf/page/${id - 1}`} 
-            className={`mushaf-page__ctrl-btn ${id <= 1 ? 'disabled' : ''}`}
-            onClick={(e) => { if(id <= 1) e.preventDefault(); }}
+          <Link
+            to={`/mushaf/page/${id + 1}`}
+            className={`mushaf-nav__btn ${id >= 604 ? 'disabled' : ''}`}
+            onClick={(e) => { if (id >= 604) e.preventDefault(); }}
           >
-             Sebelumnya <ChevronLeft size={20} />
+            <span>Berikutnya</span>
+            <ChevronRight size={18} />
           </Link>
         </div>
       </div>
