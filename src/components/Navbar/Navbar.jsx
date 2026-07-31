@@ -12,7 +12,7 @@ const DESKTOP_LINKS = [
   { to: '/mushaf', tKey: 'nav.mushaf' },
   { to: '/doa-dzikir', tKey: 'nav.dua_dhikr' },
   { to: '/khutbah', tKey: 'nav.khutbah' },
-  { to: '/tracker', tKey: 'nav.tracker' },
+  { to: '/murottal-30-juz', fallback: 'Murotal 30 Juz' },
 ];
 
 const MORE_LINKS = [

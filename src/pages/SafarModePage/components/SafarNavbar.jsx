@@ -28,7 +28,7 @@ export default function SafarNavbar() {
     { label: 'Mushaf', path: '/mushaf' },
     { label: 'Du’a & Dhikr', path: '/doa-dzikir' },
     { label: 'Khutbah', path: '/khutbah' },
-    { label: 'Tracker', path: '/tracker' },
+    { label: 'Murotal 30 Juz', path: '/murottal-30-juz' },
     { label: 'More', path: '/pengaturan' },
   ];
 

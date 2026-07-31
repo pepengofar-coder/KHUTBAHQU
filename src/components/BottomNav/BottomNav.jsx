@@ -36,7 +36,7 @@ const MORE_SECTIONS = [
       { to: '/ruang-saya', tKey: 'nav.my_space', icon: User, color: 'cyan', tDescKey: 'nav.my_space', fallbackDesc: 'Dashboard pribadi dan progres' },
       { to: '/good-path', tKey: 'nav.good_path', icon: Compass, color: 'emerald', tDescKey: 'feature.good_path' },
       { to: '/good-path/home-workout', tKey: 'nav.home_workout', fallbackKey: 'Home Workout', icon: Dumbbell, color: 'orange', fallbackDesc: 'Latihan fisik terstruktur di rumah' },
-      { to: '/tracker', tKey: 'nav.tracker', icon: CheckSquare, color: 'lime', tDescKey: 'feature.tracker' },
+      { to: '/murottal-30-juz', fallbackKey: 'Murotal 30 Juz', icon: Music, color: 'purple', fallbackDesc: 'Dengarkan murottal Al-Quran 30 Juz' },
       { to: '/favorit', tKey: 'nav.favorites', fallbackKey: 'Favorit', icon: Star, color: 'amber', tDescKey: 'feature.favorites', fallbackDesc: 'Daftar konten yang Anda simpan' },
     ],
   },

@@ -26,6 +26,12 @@ export default function MushafPage() {
   const [lastRead, setLastRead] = useState(null);
   const [lastPageRead, setLastPageRead] = useState(null);
   const [lastPageState, setLastPageState] = useState(null);
+  const [mushafMode, setMushafMode] = useState(() => localStorage.getItem('islamediaku_mushaf_active_mode') || 'ayah');
+
+  const selectMode = (mode) => {
+    setMushafMode(mode);
+    localStorage.setItem('islamediaku_mushaf_active_mode', mode);
+  };
 
   // Load from local storage
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -157,24 +163,37 @@ export default function MushafPage() {
       )}
 
       <div className="mushaf-mode-selector">
-        <div className="mushaf-mode-card mushaf-mode-card--active">
-          <div className="mushaf-mode-card__badge"><Check size={12} /></div>
+        <div 
+          className={`mushaf-mode-card ${mushafMode === 'ayah' ? 'mushaf-mode-card--active' : ''}`}
+          onClick={() => selectMode('ayah')}
+          role="button"
+          tabIndex={0}
+          style={{ cursor: 'pointer' }}
+        >
+          {mushafMode === 'ayah' && <div className="mushaf-mode-card__badge"><Check size={12} /></div>}
           <div className="mushaf-mode-card__icon mushaf-mode-card__icon--surah">
             <BookOpen size={28} />
           </div>
-          <h3 className="mushaf-mode-card__title">Mushaf per Ayah</h3>
-          <p className="mushaf-mode-card__desc">Baca Al-Qur'an per surah dengan terjemahan ayat demi ayat</p>
+          <h3 className="mushaf-mode-card__title">Mushaf per Ayat</h3>
+          <p className="mushaf-mode-card__desc">Pilih & baca per surah dengan terjemahan ayat demi ayat</p>
         </div>
-        <Link to={`/mushaf/page/${lastPageRead || 1}`} className="mushaf-mode-card mushaf-mode-card--link">
+
+        <div 
+          className={`mushaf-mode-card ${mushafMode === 'page' ? 'mushaf-mode-card--active' : ''}`}
+          onClick={() => selectMode('page')}
+          role="button"
+          tabIndex={0}
+          style={{ cursor: 'pointer' }}
+        >
+          {mushafMode === 'page' && <div className="mushaf-mode-card__badge"><Check size={12} /></div>}
           <div className="mushaf-mode-card__icon mushaf-mode-card__icon--page">
             <BookCopy size={28} />
           </div>
           <h3 className="mushaf-mode-card__title">Mushaf per Page</h3>
           <p className="mushaf-mode-card__desc">
-            {lastPageState ? `Lanjut Halaman ${lastPageState.last_page} (${lastPageState.surah_name || 'Mushaf'})` : 'Mulai dari Halaman 1'}
+            Pilih surah dari indeks di bawah untuk baca dari halaman awalnya (604 Hal)
           </p>
-          <span className="mushaf-mode-card__arrow"><ChevronRight size={18} /></span>
-        </Link>
+        </div>
       </div>
 
       <div className="mushaf-home__search-bar">
@@ -208,6 +227,15 @@ export default function MushafPage() {
         </button>
       </div>
 
+      <div style={{ padding: '0 var(--sp-2) 12px', fontSize: '0.85rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+        <span>ℹ️</span>
+        <span>
+          {mushafMode === 'page' 
+            ? 'Mode Halaman Aktif: Klik surah di bawah untuk membuka Halaman Awal Surah tersebut.' 
+            : 'Mode Ayat Aktif: Klik surah di bawah untuk membaca per surah & ayat dengan terjemahan.'}
+        </span>
+      </div>
+
       <main className="mushaf-home__content">
         {loading && <div className="mushaf-home__loading">Memuat daftar surah...</div>}
         {error && <div className="mushaf-home__error">{error}</div>}
@@ -224,7 +252,8 @@ export default function MushafPage() {
               <SurahCard 
                 key={surah.id} 
                 surah={surah} 
-                isFavorite={bookmarks.some(b => b.startsWith(`${surah.id}:`))}
+                mushafMode={mushafMode}
+                isFavorite={bookmarks.some(b => String(b).startsWith(`${surah.id}:`))}
                 lastReadAyah={lastRead && lastRead.surah === surah.id ? lastRead.ayah : null}
               />
             ))}

@@ -8,7 +8,7 @@ export default {
   'nav.calendar': 'Kalender',
   'nav.more': 'Lainnya',
   'nav.khutbah': 'Khutbah',
-  'nav.tracker': 'Tracker',
+  'nav.tracker': 'Murotal 30 Juz',
   'nav.my_space': 'Ruang Saya',
   'nav.good_path': 'Lanjutkan',
   'nav.travel_mode': 'Mode Safar',
