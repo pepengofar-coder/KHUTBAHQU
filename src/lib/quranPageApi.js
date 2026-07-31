@@ -47,3 +47,15 @@ export function toArabicNumber(num) {
     .map(digit => arabicNumbers[parseInt(digit, 10)])
     .join('');
 }
+
+export async function getVersePageNumber(surahId, ayahNum = 1) {
+  try {
+    const res = await fetch(`https://api.quran.com/api/v4/verses/by_key/${surahId}:${ayahNum}?fields=page_number`);
+    if (!res.ok) throw new Error('Failed to resolve verse page');
+    const data = await res.json();
+    return data.verse.page_number;
+  } catch (err) {
+    console.error("Verse Page Lookup Error:", err);
+    return null;
+  }
+}

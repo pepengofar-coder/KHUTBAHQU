@@ -1,11 +1,11 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark, ChevronsLeftRight } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Bookmark, ChevronsLeftRight, ListFilter, Search, X, BookOpen, Layers } from 'lucide-react';
 import { useSEO } from '../../utils/seo';
 import ReaderSettings from './components/ReaderSettings';
 import { saveFeatureState, loadFeatureState } from '../../lib/syncService';
 import { useAuth } from '../../context/AuthContext';
-import { getMushafPage, toArabicNumber } from '../../lib/quranPageApi';
+import { getMushafPage, toArabicNumber, getVersePageNumber } from '../../lib/quranPageApi';
 import './MushafPageReader.css';
 
 export default function MushafPageReader() {
@@ -21,6 +21,11 @@ export default function MushafPageReader() {
   const [surahNames, setSurahNames] = useState({});
 
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [indexModalOpen, setIndexModalOpen] = useState(false);
+  const [chaptersList, setChaptersList] = useState([]);
+  const [indexSearch, setIndexSearch] = useState('');
+  const [selectedSurahForAyah, setSelectedSurahForAyah] = useState(null);
+  const [selectedAyahInput, setSelectedAyahInput] = useState('1');
   const [jumpInput, setJumpInput] = useState('');
   
   // Settings State
@@ -121,8 +126,9 @@ export default function MushafPageReader() {
     fetch('https://api.quran.com/api/v4/chapters?language=id')
       .then(res => res.json())
       .then(data => {
+        setChaptersList(data.chapters || []);
         const map = {};
-        data.chapters.forEach(c => map[c.id] = c);
+        (data.chapters || []).forEach(c => map[c.id] = c);
         setSurahNames(map);
       })
       .catch(console.error);
@@ -141,22 +147,32 @@ export default function MushafPageReader() {
     setError(null);
     window.scrollTo(0, 0);
 
-    // Save as last read
-    const stateData = { last_page: id };
-    localStorage.setItem('islamediaku_quran_page_state', JSON.stringify(stateData));
-    if (user) saveFeatureState(user.id, 'quran_page', stateData);
-
     getMushafPage(id)
       .then(data => {
         setAyahs(data);
         setLoading(false);
+
+        // Save detailed last read page state
+        const firstAyah = data[0];
+        const sId = firstAyah?.surah_id;
+        const jNum = firstAyah?.juz_number;
+        const sName = surahNames[sId]?.name_simple || (sId ? `Surah ${sId}` : '');
+        const stateData = {
+          last_page: id,
+          surah_id: sId,
+          surah_name: sName,
+          juz: jNum,
+          timestamp: Date.now()
+        };
+        localStorage.setItem('islamediaku_quran_page_state', JSON.stringify(stateData));
+        if (user) saveFeatureState(user.id, 'quran_page', stateData);
       })
       .catch(err => {
         console.error(err);
         setError("Data halaman mushaf belum tersedia. Coba lagi nanti.");
         setLoading(false);
       });
-  }, [id, navigate, user]);
+  }, [id, navigate, user, surahNames]);
 
   // Group ayahs by surah
   const groupedAyahs = useMemo(() => {
@@ -251,14 +267,116 @@ export default function MushafPageReader() {
             </div>
           </div>
 
-          <button
-            className={`mushaf-reader-header__btn ${isBookmarked ? 'bookmarked' : ''}`}
-            onClick={toggleBookmark}
-            aria-label={isBookmarked ? 'Hapus Bookmark' : 'Tambah Bookmark'}
-          >
-            <Bookmark size={22} fill={isBookmarked ? 'currentColor' : 'none'} />
-          </button>
+          <div style={{ display: 'flex', gap: '6px' }}>
+            <button
+              className="mushaf-reader-header__btn"
+              onClick={() => setIndexModalOpen(true)}
+              aria-label="Indeks Surah & Ayat"
+              title="Indeks Surah & Ayat"
+            >
+              <ListFilter size={20} />
+            </button>
+            <button
+              className={`mushaf-reader-header__btn ${isBookmarked ? 'bookmarked' : ''}`}
+              onClick={toggleBookmark}
+              aria-label={isBookmarked ? 'Hapus Bookmark' : 'Tambah Bookmark'}
+            >
+              <Bookmark size={20} fill={isBookmarked ? 'currentColor' : 'none'} />
+            </button>
+          </div>
         </header>
+
+        {/* ─── Index Modal (Surah & Ayah Selector) ─── */}
+        {indexModalOpen && (
+          <div className="mushaf-index-modal-overlay" onClick={() => setIndexModalOpen(false)}>
+            <div className="mushaf-index-modal" onClick={e => e.stopPropagation()}>
+              <div className="mushaf-index-modal__header">
+                <div className="mushaf-index-modal__title">
+                  <ListFilter size={20} />
+                  <span>Indeks Surah & Ayat</span>
+                </div>
+                <button className="mushaf-index-modal__close" onClick={() => setIndexModalOpen(false)}>
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="mushaf-index-modal__search">
+                <Search size={18} />
+                <input
+                  type="text"
+                  placeholder="Cari surah (nama atau nomor)..."
+                  value={indexSearch}
+                  onChange={e => setIndexSearch(e.target.value)}
+                />
+              </div>
+
+              <div className="mushaf-index-modal__list">
+                {chaptersList
+                  .filter(c => 
+                    c.name_simple.toLowerCase().includes(indexSearch.toLowerCase()) ||
+                    c.translated_name?.name.toLowerCase().includes(indexSearch.toLowerCase()) ||
+                    c.id.toString() === indexSearch.trim()
+                  )
+                  .map(surah => {
+                    const startPage = surah.pages ? surah.pages[0] : 1;
+                    const isSelected = selectedSurahForAyah?.id === surah.id;
+
+                    return (
+                      <div key={surah.id} className={`mushaf-index-item ${isSelected ? 'active' : ''}`}>
+                        <div className="mushaf-index-item__main" onClick={() => {
+                          setSelectedSurahForAyah(isSelected ? null : surah);
+                          setSelectedAyahInput('1');
+                        }}>
+                          <span className="mushaf-index-item__num">{surah.id}</span>
+                          <div className="mushaf-index-item__info">
+                            <strong className="mushaf-index-item__name">{surah.name_simple}</strong>
+                            <span className="mushaf-index-item__sub">{surah.translated_name?.name} • {surah.verses_count} Ayat</span>
+                          </div>
+                          <span className="mushaf-index-item__page">Hal. {startPage}</span>
+                        </div>
+
+                        {isSelected && (
+                          <div className="mushaf-index-item__ayah-picker">
+                            <button
+                              className="btn btn--primary btn--sm"
+                              onClick={() => {
+                                setIndexModalOpen(false);
+                                navigate(`/mushaf/page/${startPage}`);
+                              }}
+                            >
+                              Mulai Halaman {startPage}
+                            </button>
+                            <div className="mushaf-index-item__jump-group">
+                              <span>Ayat:</span>
+                              <input
+                                type="number"
+                                min="1"
+                                max={surah.verses_count}
+                                value={selectedAyahInput}
+                                onChange={e => setSelectedAyahInput(e.target.value)}
+                                className="mushaf-index-item__ayah-input"
+                              />
+                              <button
+                                className="btn btn--secondary btn--sm"
+                                onClick={async () => {
+                                  const aNum = parseInt(selectedAyahInput, 10) || 1;
+                                  const pageNum = await getVersePageNumber(surah.id, aNum);
+                                  setIndexModalOpen(false);
+                                  navigate(`/mushaf/page/${pageNum || startPage}`);
+                                }}
+                              >
+                                Lompat
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* ─── Paper Container ─── */}
         <div

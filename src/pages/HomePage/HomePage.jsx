@@ -306,7 +306,32 @@ export default function HomePage() {
             >
               Sahabat ibadah harian Anda — Al-Qur'an, jadwal sholat, doa & dzikir, arah kiblat, dan tracker ibadah dalam satu platform.
             </motion.p>
-            <p className="dash-hero__date">{gregorian} &bull; <span>{hijriStr}</span></p>
+
+            {/* Interactive Today's Calendar Card */}
+            <motion.div
+              className="dash-calendar-card"
+              onClick={() => navigate('/kalender-hijriah')}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.15 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              role="button"
+              tabIndex={0}
+              aria-label="Buka Kalender Hijriah"
+            >
+              <div className="dash-calendar-card__icon-wrap">
+                <CalendarDays size={20} className="dash-calendar-card__icon" />
+              </div>
+              <div className="dash-calendar-card__content">
+                <span className="dash-calendar-card__greg">{gregorian}</span>
+                <span className="dash-calendar-card__hijri">{hijriStr}</span>
+              </div>
+              <div className="dash-calendar-card__action">
+                <span>Kalender</span>
+                <ChevronRight size={16} />
+              </div>
+            </motion.div>
             
             {/* Streak Badge */}
             {streak > 1 && (

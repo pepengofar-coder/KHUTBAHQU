@@ -10,6 +10,7 @@ import './DoaDzikirPage.css';
 const CATEGORY_COLORS = {
   pagi: 'blue',
   petang: 'lavender',
+  'setelah-shalat': 'emerald',
   harian: 'mint',
   tidur: 'cyan',
   masjid: 'gold',

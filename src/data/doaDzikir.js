@@ -10,6 +10,7 @@
 export const DOA_CATEGORIES = [
   { id: 'pagi', label: 'Dzikir Pagi', icon: '🌅' },
   { id: 'petang', label: 'Dzikir Petang', icon: '🌇' },
+  { id: 'setelah-shalat', label: 'Dzikir Setelah Shalat', icon: '📿' },
   { id: 'harian', label: 'Doa Harian', icon: '🤲' },
   { id: 'tidur', label: 'Doa Tidur', icon: '🌙' },
   { id: 'masjid', label: 'Doa Masjid', icon: '🕌' },
@@ -19,6 +20,86 @@ export const DOA_CATEGORIES = [
 ];
 
 export const DOA_DZIKIR_DATA = [
+  {
+    id: "setelah-shalat-1",
+    category: "setelah-shalat",
+    title: "Istighfar 3x & Doa Keselamatan",
+    arabic: "أَسْتَغْفِرُ اللهَ (٣x)\nاللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ",
+    latin: "Astaghfirullah (3x). Allahumma antas-salaam wa minkas-salaam tabaarakta yaa dzal-jalaali wal-ikraam.",
+    translation: "Aku memohon ampun kepada Allah (3x). Ya Allah, Engkau Mahasejahtera dan dari-Mu keselamatan, Mahasuci Engkau wahai Tuhan pemilik keagungan dan kemuliaan.",
+    repetition: 1,
+    source: "Rumaysho.com (HR. Muslim no. 591)"
+  },
+  {
+    id: "setelah-shalat-2",
+    category: "setelah-shalat",
+    title: "Doa Tauhid & Pengakuan Keagungan Allah",
+    arabic: "لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ لاَ مَانِعَ لِمَا أَعْطَيْتَ، وَلاَ مُعْطِيَ لِمَا مَنَعْتَ، وَلاَ يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ",
+    latin: "Laa ilaha illallahu wahdahu laa syarika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli syai-in qadiir. Allahumma laa maani'a limaa a'thaita wa laa mu'thiya limaa mana'ta wa laa yanfa'u dzal-jaddi minkal-jaddu.",
+    translation: "Tiada sesembahan yang berhak disembah selain Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan dan pujian, dan Dia Mahakuasa atas segala sesuatu. Ya Allah, tidak ada yang dapat menghalangi apa yang Engkau berikan dan tidak ada yang dapat memberi apa yang Engkau halangi, dan tidak bermanfaat kekayaan/kebesaran bagi pemiliknya dari azab-Mu.",
+    repetition: 1,
+    source: "Rumaysho.com (HR. Bukhari no. 844 & Muslim no. 593)"
+  },
+  {
+    id: "setelah-shalat-3",
+    category: "setelah-shalat",
+    title: "Doa Memohon Pertolongan Ibadah & Syukur",
+    arabic: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+    latin: "Allahumma a'inni 'ala dzikrika wa syukrika wa husni 'ibaadatik.",
+    translation: "Ya Allah, tolonglah aku agar selalu mengingat-Mu, bersyukur kepada-Mu, dan memperbaiki ibadah kepada-Mu.",
+    repetition: 1,
+    source: "Rumaysho.com (HR. Abu Daud no. 1522, Shahih)"
+  },
+  {
+    id: "setelah-shalat-4",
+    category: "setelah-shalat",
+    title: "Tahlil & Pengukuhan Nikmat",
+    arabic: "لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللهِ، لاَ إِلَهَ إِلاَّ اللهُ وَلاَ نَعْبُدُ إِلاَّ إِيَّاهُ، لَهُ النِّعْمَةُ وَلَهُ الْفَضْلُ وَلَهُ الثَّنَاءُ الْحَسَنُ، لاَ إِلَهَ إِلاَّ اللهُ مُخْلِصِينَ لَهُ الدِّينَ وَلَوْ كَرِهَ الْكَافِرُونَ",
+    latin: "Laa ilaha illallahu wahdahu laa syarika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli syai-in qadiir. Laa haula wa laa quwwata illa billah. Laa ilaha illallahu wa laa na'budu illa iyyaah, lahun-ni'matu wa lahul-fadhlu wa lahusts-tsanaa-ul-hasan. Laa ilaha illallahu mukhlishiina lahud-diina walau karihal-kaafirun.",
+    translation: "Tiada sesembahan yang berhak disembah selain Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan dan pujian, dan Dia Mahakuasa atas segala sesuatu. Tiada daya dan upaya kecuali dengan pertolongan Allah. Tiada sesembahan selain Allah dan kami tidak menyembah kecuali hanya kepada-Nya. Bagi-Nya nikmat, karunia, dan pujian yang baik. Tiada sesembahan selain Allah dengan mengikhlaskan agama bagi-Nya walaupun orang-orang kafir tidak menyukai.",
+    repetition: 1,
+    source: "Rumaysho.com (HR. Muslim no. 594)"
+  },
+  {
+    id: "setelah-shalat-5",
+    category: "setelah-shalat",
+    title: "Tasbih 33x, Tahmid 33x, Takbir 33x & Penutup Tahlil",
+    arabic: "سُبْحَانَ اللهِ (٣٣x)\nالْحَمْدُ للهِ (٣٣x)\nاللهُ أَكْبَرُ (٣٣x)\n\nPenutup (ke-100):\nلاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+    latin: "Subhanallah (33x). Alhamdulillah (33x). Allahu Akbar (33x).\n\nPenutup (ke-100):\nLaa ilaha illallahu wahdahu laa syarika lah, lahul-mulku wa lahul-hamdu wa huwa 'ala kulli syai-in qadiir.",
+    translation: "Mahasuci Allah (33x). Segala puji bagi Allah (33x). Allah Mahabesar (33x).\n\nPenutup (ke-100):\nTiada sesembahan yang berhak disembah selain Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan dan pujian, dan Dia Mahakuasa atas segala sesuatu. (Diampuni dosa-dosanya walaupun sebanyak buih di lautan).",
+    repetition: 33,
+    source: "Rumaysho.com (HR. Muslim no. 597)"
+  },
+  {
+    id: "setelah-shalat-6",
+    category: "setelah-shalat",
+    title: "Membaca Ayat Kursi (Al-Baqarah: 255)",
+    arabic: "اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلاَ يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالأَرْضَ وَلاَ يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ",
+    latin: "Allahu laa ilaha illa huwal-hayyul-qayyum, laa ta'khudzuhu sinatuw-wa laa naum, lahu maa fis-samawaati wa maa fil-ardh, man dzalladzii yasyfa'u 'indahuu illa bi-idznih, ya'lamu maa baina aidiihim wa maa khalfahum, wa laa yuhiithuuna bi-syai-im min 'ilmihii illa bimaa syaa', wasi'a kursiyyuhus-samawaati wal-ardh, wa laa ya-uuduhuu hifzhuhumaa wa huwal-'aliyyul-'azhiim.",
+    translation: "Allah, tidak ada Tuhan (yang berhak disembah) melainkan Dia Yang Hidup kekal lagi terus menerus mengurus (makhluk-Nya); tidak mengantuk dan tidak tidur. Kepunyaan-Nya apa yang di langit dan di bumi. Tiada yang dapat memberi syafaat di sisi Allah tanpa izin-Nya. Allah mengetahui apa-apa yang di hadapan mereka dan di belakang mereka. Dan barangsiapa membacanya setiap selesai shalat fardhu, tidak ada yang menghalanginya masuk surga selain kematian.",
+    repetition: 1,
+    source: "Rumaysho.com (HR. An-Nasa'i dalam Al-Kubra 6: 30, Shahih)"
+  },
+  {
+    id: "setelah-shalat-7",
+    category: "setelah-shalat",
+    title: "Membaca Surat Al-Ikhlas, Al-Falaq, dan An-Nas",
+    arabic: "قُلْ هُوَ اللهُ أَحَدٌ ... \nقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ... \nقُلْ أَعُوذُ بِرَبِّ النَّاسِ ...",
+    latin: "Membaca Surah Al-Ikhlas, Al-Falaq, dan An-Nas. (Dibaca 1x setelah shalat Dzuhur, Ashar, dan Isya; Dibaca 3x setelah shalat Subuh dan Maghrib).",
+    translation: "Membaca 3 Surah Mu'awwidzat (Al-Ikhlas, Al-Falaq, An-Nas). Barangsiapa membacanya setelah shalat fardhu, Allah akan memelihara dan melindunginya.",
+    repetition: 1,
+    source: "Rumaysho.com (HR. Abu Daud no. 1523, An-Nasa'i 3: 68)"
+  },
+  {
+    id: "setelah-shalat-8",
+    category: "setelah-shalat",
+    title: "Doa Memohon Ilmu, Rezeki, dan Amal Diterima (Setelah Subuh)",
+    arabic: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلاً مُتَقَبَّلاً",
+    latin: "Allahumma inni as-aluka 'ilman naafi'aw-wa rizqan thayyibaw-wa 'amalam-mutaqabbala.",
+    translation: "Ya Allah, sesungguhnya aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang halal dan baik, serta amalan yang diterima.",
+    repetition: 1,
+    source: "Rumaysho.com (HR. Ibnu Majah no. 925, Shahih)"
+  },
   {
     id: "pagi-1",
     category: "pagi",

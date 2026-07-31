@@ -24,7 +24,7 @@ export default function MushafPage() {
 
   const [bookmarks, setBookmarks] = useState([]);
   const [lastRead, setLastRead] = useState(null);
-  const [lastPageRead, setLastPageRead] = useState(null);
+  const [lastPageState, setLastPageState] = useState(null);
 
   // Load from local storage
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,6 +40,8 @@ export default function MushafPage() {
       if (storedPage?.last_page) {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setLastPageRead(storedPage.last_page);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setLastPageState(storedPage);
       }
     } catch (err) {
       console.error("Local storage error", err);
@@ -118,18 +120,36 @@ export default function MushafPage() {
         </div>
       </header>
 
-      {lastRead && !searchQuery && activeTab === 'surah' && (
-        <div className="mushaf-home__last-read">
-          <div className="mushaf-home__last-read-content">
-            <span className="mushaf-home__last-read-label">
-              <History size={16} /> Terakhir Dibaca
-            </span>
-            <h3>{lastRead.surahName}</h3>
-            <p>Ayat {lastRead.ayah}</p>
-          </div>
-          <Link to={`/mushaf/${lastRead.surah}`} className="btn btn--primary">
-            Lanjut Baca
-          </Link>
+      {!searchQuery && activeTab === 'surah' && (lastRead || lastPageState) && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px', marginBottom: '24px' }}>
+          {lastRead && (
+            <div className="mushaf-home__last-read" style={{ margin: 0 }}>
+              <div className="mushaf-home__last-read-content">
+                <span className="mushaf-home__last-read-label">
+                  <History size={16} /> Terakhir Dibaca (Per Ayah)
+                </span>
+                <h3>{lastRead.surahName}</h3>
+                <p>Ayat {lastRead.ayah}</p>
+              </div>
+              <Link to={`/mushaf/${lastRead.surah}`} className="btn btn--primary">
+                Lanjut
+              </Link>
+            </div>
+          )}
+          {lastPageState && (
+            <div className="mushaf-home__last-read" style={{ margin: 0, background: 'linear-gradient(135deg, rgba(0, 71, 255, 0.08) 0%, rgba(198, 255, 0, 0.12) 100%)', borderColor: 'var(--color-primary)' }}>
+              <div className="mushaf-home__last-read-content">
+                <span className="mushaf-home__last-read-label" style={{ color: 'var(--color-primary)' }}>
+                  <BookCopy size={16} /> Terakhir Dibaca (Per Page)
+                </span>
+                <h3>Halaman {lastPageState.last_page}</h3>
+                <p>{lastPageState.surah_name ? `${lastPageState.surah_name}${lastPageState.juz ? ` • Juz ${lastPageState.juz}` : ''}` : 'Mushaf Madinah'}</p>
+              </div>
+              <Link to={`/mushaf/page/${lastPageState.last_page}`} className="btn btn--primary">
+                Lanjut
+              </Link>
+            </div>
+          )}
         </div>
       )}
 
@@ -148,7 +168,7 @@ export default function MushafPage() {
           </div>
           <h3 className="mushaf-mode-card__title">Mushaf per Page</h3>
           <p className="mushaf-mode-card__desc">
-            {lastPageRead ? `Lanjut Halaman ${lastPageRead}` : 'Mulai dari Halaman 1'}
+            {lastPageState ? `Lanjut Halaman ${lastPageState.last_page} (${lastPageState.surah_name || 'Mushaf'})` : 'Mulai dari Halaman 1'}
           </p>
           <span className="mushaf-mode-card__arrow"><ChevronRight size={18} /></span>
         </Link>

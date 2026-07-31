@@ -114,12 +114,89 @@
 }
 
 .dash-hero__desc {
-  font-size: var(--fs-base);
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.5;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  color: rgba(243, 244, 246, 0.85);
+  max-width: 480px;
   margin-bottom: var(--sp-4);
-  max-width: 520px;
-  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+/* ---- Interactive Medium Today's Calendar Card ---- */
+.dash-calendar-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 10px 16px;
+  border-radius: var(--radius-xl, 14px);
+  margin-bottom: var(--sp-4);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  color: #ffffff;
+  outline: none;
+}
+
+.dash-calendar-card:hover, .dash-calendar-card:focus-visible {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(198, 255, 0, 0.5);
+  box-shadow: 0 6px 20px rgba(0, 71, 255, 0.25), 0 0 12px rgba(198, 255, 0, 0.2);
+}
+
+.dash-calendar-card__icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(0, 71, 255, 0.4) 0%, rgba(198, 255, 0, 0.4) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #C6FF00;
+  flex-shrink: 0;
+}
+
+.dash-calendar-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.dash-calendar-card__greg {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+
+.dash-calendar-card__hijri {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #C6FF00;
+  letter-spacing: 0.2px;
+}
+
+.dash-calendar-card__action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-left: 6px;
+  transition: all 0.2s ease;
+}
+
+.dash-calendar-card:hover .dash-calendar-card__action {
+  color: #ffffff;
+  background: var(--color-primary, #0047FF);
 }
 
 .dash-hero__date {
