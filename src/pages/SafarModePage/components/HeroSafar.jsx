@@ -3,7 +3,7 @@ import { Compass, BookOpen } from 'lucide-react';
 
 export default function HeroSafar({ onStartGuidance, onOpenDua }) {
   return (
-    <section className="safar-hero" role="banner" style={{ minHeight: '380px' }}>
+    <section className="safar-hero" role="banner">
       {/* Decorative Background Glows */}
       <div className="safar-hero__decor">
         <div className="safar-hero__orb safar-hero__orb--1" />
@@ -26,32 +26,30 @@ export default function HeroSafar({ onStartGuidance, onOpenDua }) {
             </span>
           </div>
 
-          <h1 className="safar-hero__title" style={{ fontSize: '2.5rem', fontWeight: 800 }}>
+          <h1 className="safar-hero__title">
             Mode Safar
           </h1>
 
-          <p className="safar-hero__subtitle" style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
+          <p className="safar-hero__subtitle">
             Pendamping Perjalanan Islami Anda. Temukan panduan ibadah lengkap, 
             kumpulan doa safar esensial, kompas arah kiblat presisi, serta audio dzikir 
             dan tilawah penyejuk perjalanan — semua terintegrasi dalam satu dasbor premium.
           </p>
 
-          <div className="safar-hero__ctas" style={{ display: 'flex', gap: '12px' }}>
+          <div className="safar-hero__ctas">
             <button 
               onClick={onStartGuidance}
               className="safar-hero__cta-primary"
-              style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer' }}
             >
-              <Compass size={16} style={{ marginRight: '8px' }} />
-              Start Guidance
+              <Compass size={18} />
+              <span>Start Guidance</span>
             </button>
             <button 
               onClick={onOpenDua}
               className="safar-hero__cta-secondary"
-              style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer' }}
             >
-              <BookOpen size={16} style={{ marginRight: '8px' }} />
-              Open Travel Du'a
+              <BookOpen size={18} />
+              <span>Open Travel Du'a</span>
             </button>
           </div>
         </motion.div>
@@ -62,7 +60,6 @@ export default function HeroSafar({ onStartGuidance, onOpenDua }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="safar-hero__illustration-container"
-          style={{ width: '400px', height: '400px' }}
         >
           <svg
             viewBox="0 0 400 400"

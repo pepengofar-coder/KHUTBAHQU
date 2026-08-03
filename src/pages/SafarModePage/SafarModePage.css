@@ -275,7 +275,7 @@
 .safar-hero {
   position: relative;
   overflow: hidden;
-  padding: 60px 0 20px;
+  padding: 56px 0 24px;
 }
 
 .safar-hero__decor {
@@ -314,16 +314,20 @@
 .safar-hero__content {
   position: relative;
   z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
   display: grid;
-  grid-template-cols: 1.1fr 0.9fr;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 64px;
+  gap: 48px;
 }
-@media (max-width: 950px) {
+@media (max-width: 768px) {
   .safar-hero__content {
-    grid-template-cols: 1fr;
+    grid-template-columns: 1fr;
     text-align: center;
-    gap: 40px;
+    gap: 36px;
+    padding: 0 20px;
   }
 }
 
@@ -331,15 +335,16 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
 }
-@media (max-width: 950px) {
+@media (max-width: 768px) {
   .safar-hero__text {
     align-items: center;
   }
 }
 
 .safar-hero__badge-row {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .safar-hero__label-badge {
   display: inline-flex;
@@ -371,34 +376,34 @@
 }
 
 .safar-hero__title {
-  font-size: 3.75rem;
+  font-size: 3rem;
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
-  margin: 0 0 20px;
+  letter-spacing: -1.2px;
+  line-height: 1.15;
+  margin: 0 0 16px;
   background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 @media (max-width: 768px) {
   .safar-hero__title {
-    font-size: 2.75rem;
+    font-size: 2.25rem;
   }
 }
 
 .safar-hero__subtitle {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--safar-text-secondary);
-  line-height: 1.8;
-  margin: 0 0 36px;
-  max-width: 600px;
+  line-height: 1.75;
+  margin: 0 0 28px;
+  max-width: 540px;
 }
 
 .safar-hero__ctas {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
 }
 @media (max-width: 480px) {
   .safar-hero__ctas {
@@ -420,7 +425,7 @@
   cursor: pointer;
   transition: var(--safar-transition);
   box-shadow: 0 4px 20px rgba(20, 184, 166, 0.25);
-  gap: 8px;
+  gap: 10px;
 }
 .safar-hero__cta-primary:hover {
   background: #11a393;
@@ -440,7 +445,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   cursor: pointer;
   transition: var(--safar-transition);
-  gap: 8px;
+  gap: 10px;
 }
 .safar-hero__cta-secondary:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -459,14 +464,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .safar-hero__svg {
-  max-width: 360px;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
 }
 @media (max-width: 950px) {
   .safar-hero__svg {
-    max-width: 280px;
+    max-width: 340px;
+  }
+}
+@media (max-width: 480px) {
+  .safar-hero__svg {
+    max-width: 270px;
   }
 }
 
