@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRightLeft, Clock, Timer, Compass,
-  BookHeart, Lightbulb, CheckSquare, X, ArrowRight
+  BookHeart, Lightbulb, CheckSquare, X, ArrowRight, ChevronRight
 } from 'lucide-react';
 
 const STATIC_FEATURES = [
@@ -261,7 +261,7 @@ export default function QuickAccessSafar() {
                 <p className="safar-feature-card__desc">{feature.description}</p>
               </div>
               <div className="safar-feature-card__shortcut-indicator">
-                <ArrowRight size={14} className="safar-feature-card__arrow" />
+                <ChevronRight size={16} className="safar-feature-card__arrow" />
               </div>
             </div>
           );

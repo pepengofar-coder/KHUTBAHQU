@@ -504,13 +504,30 @@
 @media (max-width: 1024px) {
   .safar-summary-grid {
     grid-template-cols: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 }
 @media (max-width: 600px) {
   .safar-summary-grid {
-    grid-template-cols: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .safar-summary-card {
+    padding: 16px 14px;
     gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .safar-summary-card__icon-box {
+    width: 38px;
+    height: 38px;
+  }
+  .safar-summary-card__value {
+    font-size: 0.85rem;
+  }
+  .safar-summary-card__desc {
+    font-size: 0.7rem;
   }
 }
 
@@ -538,6 +555,30 @@
   border-color: rgba(255, 255, 255, 0.12);
   transform: translateY(-3px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Static non-clickable summary cards — no hover effects */
+.safar-summary-card--static {
+  cursor: default;
+}
+.safar-summary-card--static:hover {
+  background: var(--safar-glass-bg);
+  transform: none;
+  box-shadow: var(--safar-shadow);
+}
+.safar-summary-card--static:hover .safar-summary-card__icon-box {
+  transform: none;
+}
+
+/* Chevron indicator for clickable summary cards */
+.safar-summary-card__chevron {
+  color: var(--safar-text-muted);
+  flex-shrink: 0;
+  transition: var(--safar-transition);
+}
+.safar-summary-card--clickable:hover .safar-summary-card__chevron {
+  color: var(--safar-text);
+  transform: translateX(3px);
 }
 
 .safar-summary-card__icon-box {
@@ -625,18 +666,45 @@
    ============================================ */
 .safar-essentials-grid {
   display: grid;
-  grid-template-cols: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 @media (max-width: 950px) {
   .safar-essentials-grid {
-    grid-template-cols: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 600px) {
   .safar-essentials-grid {
-    grid-template-cols: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .safar-feature-card {
+    padding: 18px;
+    min-height: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+  }
+  .safar-feature-card__icon-wrap {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .safar-feature-card__title {
+    font-size: 0.9rem;
+  }
+  .safar-feature-card__desc {
+    font-size: 0.75rem;
+    -webkit-line-clamp: 2;
+  }
+  .safar-feature-card__shortcut-indicator {
+    position: static;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-left: auto;
   }
 }
 
@@ -710,15 +778,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--safar-text-secondary);
-  opacity: 0;
-  transform: translateX(-8px);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--safar-text-muted);
+  opacity: 1;
+  transform: translateX(0);
   transition: var(--safar-transition);
 }
 .safar-feature-card:hover .safar-feature-card__shortcut-indicator {
-  opacity: 1;
-  transform: translateX(0);
+  transform: translateX(4px);
 }
 
 /* Feature specific glow hovers */
@@ -815,6 +882,15 @@
   color: var(--safar-teal);
   background: var(--safar-teal-glow) !important;
   border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+/* Tab content fade-in transition */
+@keyframes safar-tab-fadein {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.safar-tab-content {
+  animation: safar-tab-fadein 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ============================================
@@ -948,12 +1024,12 @@
    ============================================ */
 .safar-duas-layout {
   display: grid;
-  grid-template-cols: 0.85fr 1.15fr;
+  grid-template-columns: 0.85fr 1.15fr;
   gap: 28px;
 }
 @media (max-width: 950px) {
   .safar-duas-layout {
-    grid-template-cols: 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1255,13 +1331,37 @@
    ============================================ */
 .safar-audio-grid {
   display: grid;
-  grid-template-cols: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 @media (max-width: 768px) {
   .safar-audio-grid {
-    grid-template-cols: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .safar-audio-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px;
+    gap: 14px;
+  }
+  .safar-audio-card__icon-box {
+    width: 42px;
+    height: 42px;
+  }
+  .safar-audio-card__title {
+    font-size: 0.9rem;
+  }
+  .safar-audio-card__desc {
+    font-size: 0.75rem;
+    -webkit-line-clamp: 2;
+  }
+  .safar-audio-card__play-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 28px;
+    height: 28px;
   }
 }
 

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Play, Headphones, Radio, Sparkles, Heart } from 'lucide-react';
+import { ChevronRight, Headphones, Radio, Sparkles, Heart } from 'lucide-react';
 import { getPlaylistItems } from '../../../data/travelAudioContent';
 
 const PLAYLIST_MAPPING = [
@@ -79,10 +79,10 @@ export default function AudioSafar({ onOpenPlaylist }) {
 
                 <button
                   className="safar-audio-card__play-btn"
-                  aria-label={`Play ${playlist.displayTitle}`}
+                  aria-label={`Open ${playlist.displayTitle}`}
                   style={{ cursor: 'pointer' }}
                 >
-                  <Play size={16} fill="currentColor" />
+                  <ChevronRight size={18} />
                 </button>
               </motion.div>
             );

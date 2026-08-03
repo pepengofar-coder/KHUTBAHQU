@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Compass, Clock, Route, Headphones, Play, Pause } from 'lucide-react';
+import { Compass, Clock, Route, Headphones, Play, Pause, ChevronRight } from 'lucide-react';
 import { useTilawahAudio } from '../../../context/TilawahContext';
 
 export default function SafarSummaryCards({ onPlayLastAudio, lastPlayed }) {
@@ -18,7 +18,7 @@ export default function SafarSummaryCards({ onPlayLastAudio, lastPlayed }) {
     {
       title: 'Qibla Direction',
       value: '294° Northwest',
-      desc: 'Arah Ka’bah presisi',
+      desc: 'Arah Ka\'bah presisi',
       icon: Compass,
       color: 'gold',
     },
@@ -58,7 +58,7 @@ export default function SafarSummaryCards({ onPlayLastAudio, lastPlayed }) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: idx * 0.1 }}
-            className={`safar-summary-card ${colors[card.color]} ${card.clickable ? 'safar-summary-card--clickable' : ''}`}
+            className={`safar-summary-card ${colors[card.color]} ${card.clickable ? 'safar-summary-card--clickable' : 'safar-summary-card--static'}`}
             onClick={card.clickable ? card.action : undefined}
           >
             <div className="safar-summary-card__icon-box">
@@ -70,12 +70,15 @@ export default function SafarSummaryCards({ onPlayLastAudio, lastPlayed }) {
               <p className="safar-summary-card__desc">{card.desc}</p>
             </div>
             {isAudioCard && (
-              <button 
-                className="safar-summary-card__audio-btn"
-                aria-label={isAudioPlaying ? 'Pause Audio' : 'Play Audio'}
-              >
-                {isAudioPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
-              </button>
+              <>
+                <button 
+                  className="safar-summary-card__audio-btn"
+                  aria-label={isAudioPlaying ? 'Pause Audio' : 'Play Audio'}
+                >
+                  {isAudioPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+                </button>
+                <ChevronRight size={18} className="safar-summary-card__chevron" />
+              </>
             )}
           </motion.div>
         );

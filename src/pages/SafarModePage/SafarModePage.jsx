@@ -130,30 +130,7 @@ export default function SafarModePage() {
     setTimeout(() => setToastActive(false), 3000);
   }, []);
 
-  // Track active tab scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY + 250;
-      const fiqhEl = document.getElementById('fiqh');
-      const guidanceEl = document.getElementById('guidance');
-      const duasEl = document.getElementById('duas');
-      const audioEl = document.getElementById('audio');
-      
-      if (audioEl && scrollPos >= audioEl.offsetTop) {
-        setActiveTab('audio');
-      } else if (duasEl && scrollPos >= duasEl.offsetTop) {
-        setActiveTab('duas');
-      } else if (guidanceEl && scrollPos >= guidanceEl.offsetTop) {
-        setActiveTab('guidance');
-      } else if (fiqhEl && scrollPos >= fiqhEl.offsetTop) {
-        setActiveTab('fiqh');
-      } else {
-        setActiveTab('overview');
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Tab switcher — no scroll-spy needed, user clicks to switch tabs
 
   useEffect(() => {
     const handleSleepTimerEnd = () => showToast("Audio dihentikan sesuai sleep timer. 😴");
@@ -170,13 +147,8 @@ export default function SafarModePage() {
     if (targetId) {
       const validIds = ['doa-keluar-rumah', 'doa-naik-kendaraan', 'doa-safar', 'doa-singgah', 'doa-macet', 'doa-kembali'];
       if (validIds.includes(targetId)) {
+        setActiveTab('duas');
         window.dispatchEvent(new CustomEvent('safar-open-dua', { detail: { duaId: targetId } }));
-        setTimeout(() => {
-          const element = document.getElementById(targetId);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 300);
       }
     }
   }, [location]);
@@ -461,16 +433,12 @@ export default function SafarModePage() {
       navigate(tab.path);
       return;
     }
-    if (tab.id === 'overview') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (tab.id === 'tips') {
+    if (tab.id === 'tips') {
       window.dispatchEvent(new CustomEvent('safar-open-checklist'));
-    } else {
-      const el = document.getElementById(tab.id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      return;
     }
+    setActiveTab(tab.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const renderPlaylistDetail = () => {
@@ -622,122 +590,143 @@ export default function SafarModePage() {
         {/* ===== 2. Hero Section ===== */}
         <SafarErrorBoundary>
           <HeroSafar 
-            onStartGuidance={() => document.getElementById('guidance')?.scrollIntoView({ behavior: 'smooth' })}
-            onOpenDua={() => document.getElementById('duas')?.scrollIntoView({ behavior: 'smooth' })}
+            onStartGuidance={() => { setActiveTab('guidance'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            onOpenDua={() => { setActiveTab('duas'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           />
         </SafarErrorBoundary>
 
         {/* ===== Main Content ===== */}
         <div className="safar-page__content">
 
-          {/* ===== 3. Summary Info Cards ===== */}
-          <SafarSummaryCards 
-            lastPlayed={lastPlayed}
-            onPlayLastAudio={() => lastPlayed && handlePlayItem(lastPlayed)}
-          />
-
-          {/* ===== 4. Quick Access / Travel Essentials (Lazy Loaded) ===== */}
-          <Suspense fallback={<SkeletonCard count={3} />}>
-            <div className="safar-section-container safar-section--essentials">
-              <QuickAccessSafar />
-            </div>
-          </Suspense>
-
-          {/* ===== 5. Sticky Section Tabs (Lazy Loaded) ===== */}
+          {/* ===== Sticky Section Tabs (always visible) ===== */}
           <Suspense fallback={<div className="safar-tabs-skeleton" style={{ height: '52px', background: 'rgba(255, 255, 255, 0.02)', borderRadius: '12px' }} />}>
             <SafarTabs activeTab={activeTab} onTabClick={handleTabClick} />
           </Suspense>
 
-          {/* ===== 5b. Fiqih Safar Educational Section (Lazy Loaded) ===== */}
-          <Suspense fallback={<SkeletonCard count={2} />}>
-            <SafarErrorBoundary>
-              <div className="safar-section-container safar-section--fiqh">
-                <FiqhSafar />
-              </div>
-            </SafarErrorBoundary>
-          </Suspense>
+          {/* ===== Tab Content: Overview ===== */}
+          {activeTab === 'overview' && (
+            <div className="safar-tab-content" key="overview">
+              {/* Summary Info Cards */}
+              <SafarSummaryCards 
+                lastPlayed={lastPlayed}
+                onPlayLastAudio={() => lastPlayed && handlePlayItem(lastPlayed)}
+              />
 
-          {/* ===== 6. Travel Guidance Section (Lazy Loaded) ===== */}
-          <Suspense fallback={<SkeletonCard count={2} />}>
-            <div className="safar-section-container safar-section--guidance">
-              <PanduanSafar />
+              {/* Quick Access / Travel Essentials */}
+              <Suspense fallback={<SkeletonCard count={3} />}>
+                <div className="safar-section-container safar-section--essentials" style={{ marginTop: '48px' }}>
+                  <QuickAccessSafar />
+                </div>
+              </Suspense>
             </div>
-          </Suspense>
+          )}
 
-          {/* ===== 7. Essential Travel Du’a Section (Lazy Loaded) ===== */}
-          <Suspense fallback={<SkeletonCard count={3} />}>
-            <SafarErrorBoundary>
-              <div className="safar-section-container safar-section--duas">
-                <DoaSafar showToast={showToast} />
-              </div>
-            </SafarErrorBoundary>
-          </Suspense>
+          {/* ===== Tab Content: Fiqih Safar ===== */}
+          {activeTab === 'fiqh' && (
+            <div className="safar-tab-content" key="fiqh">
+              <Suspense fallback={<SkeletonCard count={2} />}>
+                <SafarErrorBoundary>
+                  <div className="safar-section-container safar-section--fiqh">
+                    <FiqhSafar />
+                  </div>
+                </SafarErrorBoundary>
+              </Suspense>
+            </div>
+          )}
 
-          {/* ===== 8. Audio & Travel Playlist Section (Lazy Loaded) ===== */}
-          <Suspense fallback={<SkeletonCard count={2} />}>
-            <SafarErrorBoundary>
-              <div className="safar-section-container safar-section--audio">
-                <AudioSafar onOpenPlaylist={handleOpenPlaylist} />
-              </div>
-            </SafarErrorBoundary>
-          </Suspense>
+          {/* ===== Tab Content: Guidance ===== */}
+          {activeTab === 'guidance' && (
+            <div className="safar-tab-content" key="guidance">
+              <Suspense fallback={<SkeletonCard count={2} />}>
+                <div className="safar-section-container safar-section--guidance">
+                  <PanduanSafar />
+                </div>
+              </Suspense>
+            </div>
+          )}
 
-        {/* Sleep Timer component */}
-        <div className="w-full pb-8" style={{ marginTop: '24px' }}>
-          <div className="safar-sleep-timer-card" onClick={() => setShowSleepModal(true)}>
-            <div className="flex items-center gap-4" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div className="safar-sleep-timer-card__icon-wrap">
-                <Clock size={20} className="text-slate-350" />
-              </div>
-              <div>
-                <h3 className="safar-sleep-timer-card__title">Sleep Timer Safar</h3>
-                <p className="safar-sleep-timer-card__desc">Hentikan audio otomatis agar hemat baterai</p>
+          {/* ===== Tab Content: Du'a ===== */}
+          {activeTab === 'duas' && (
+            <div className="safar-tab-content" key="duas">
+              <Suspense fallback={<SkeletonCard count={3} />}>
+                <SafarErrorBoundary>
+                  <div className="safar-section-container safar-section--duas">
+                    <DoaSafar showToast={showToast} />
+                  </div>
+                </SafarErrorBoundary>
+              </Suspense>
+            </div>
+          )}
+
+          {/* ===== Tab Content: Audio ===== */}
+          {activeTab === 'audio' && (
+            <div className="safar-tab-content" key="audio">
+              <Suspense fallback={<SkeletonCard count={2} />}>
+                <SafarErrorBoundary>
+                  <div className="safar-section-container safar-section--audio">
+                    <AudioSafar onOpenPlaylist={handleOpenPlaylist} />
+                  </div>
+                </SafarErrorBoundary>
+              </Suspense>
+
+              {/* Sleep Timer component — lives inside Audio tab */}
+              <div style={{ marginTop: '24px' }}>
+                <div className="safar-sleep-timer-card" onClick={() => setShowSleepModal(true)}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div className="safar-sleep-timer-card__icon-wrap">
+                      <Clock size={20} className="text-slate-350" />
+                    </div>
+                    <div>
+                      <h3 className="safar-sleep-timer-card__title">Sleep Timer Safar</h3>
+                      <p className="safar-sleep-timer-card__desc">Hentikan audio otomatis agar hemat baterai</p>
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span className="safar-sleep-timer-card__badge">
+                      {getSleepTimerLabel(sleepTimer)}
+                    </span>
+                    <ChevronRight size={20} className="text-slate-500" />
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span className="safar-sleep-timer-card__badge">
-                {getSleepTimerLabel(sleepTimer)}
-              </span>
-              <ChevronRight size={20} className="text-slate-500" />
+          )}
+
+          {/* SEO Feature Info — always visible below tabs */}
+          <section className="feature-info-section container" style={{ paddingLeft: 'var(--sp-4)', paddingRight: 'var(--sp-4)', paddingBottom: 'var(--sp-6)' }}>
+            <div className="feature-info-card" style={{ background: 'rgba(15, 23, 42, 0.45)', borderColor: 'rgba(148, 163, 184, 0.12)' }}>
+              <h2 style={{ color: '#FFFFFF' }}>Panduan Ibadah Perjalanan (Safar) Islami</h2>
+              <p style={{ color: '#94A3B8' }}>Didesain khusus untuk mempermudah ibadah umat muslim selama melakukan perjalanan jauh (safar) dengan merangkum semua kebutuhan esensial dalam satu halaman praktis.</p>
+              <div className="feature-benefits-list">
+                <div className="feature-benefit-item">
+                  <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>✈️</span>
+                  <div>
+                    <h4 style={{ color: '#FFFFFF' }}>Tuntunan Sholat Jamak & Qashar</h4>
+                    <p style={{ color: '#94A3B8' }}>Langkah-langkah praktis dan syarat sah melaksanakan sholat jamak takdim, takhir, dan qashar.</p>
+                  </div>
+                </div>
+                <div className="feature-benefit-item">
+                  <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>🤲</span>
+                  <div>
+                    <h4 style={{ color: '#FFFFFF' }}>Kumpulan Doa Safar</h4>
+                    <p style={{ color: '#94A3B8' }}>Doa keluar rumah, doa naik kendaraan, hingga doa singgah di suatu tempat lengkap transliterasi.</p>
+                  </div>
+                </div>
+                <div className="feature-benefit-item">
+                  <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>📻</span>
+                  <div>
+                    <h4 style={{ color: '#FFFFFF' }}>Audio Perjalanan & Kajian</h4>
+                    <p style={{ color: '#94A3B8' }}>Radio tilawah nonstop, murottal juz amma, dan kajian audio islami ringan untuk menemani perjalanan.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="feature-info-ctas" style={{ borderColor: 'rgba(148, 163, 184, 0.12)' }}>
+                <Link to="/kiblat" className="btn btn--primary">Cek Arah Kiblat</Link>
+                <Link to="/" className="btn btn--outline" style={{ color: '#FFFFFF', borderColor: 'rgba(255, 255, 255, 0.25)' }}>Kembali ke Beranda</Link>
+              </div>
             </div>
-          </div>
+          </section>
         </div>
-
-        {/* Detail Informasi Fitur (SEO & User Info) */}
-        <section className="feature-info-section container" style={{ paddingLeft: 'var(--sp-4)', paddingRight: 'var(--sp-4)', paddingBottom: 'var(--sp-6)' }}>
-          <div className="feature-info-card" style={{ background: 'rgba(15, 23, 42, 0.45)', borderColor: 'rgba(148, 163, 184, 0.12)' }}>
-            <h2 style={{ color: '#FFFFFF' }}>Panduan Ibadah Perjalanan (Safar) Islami</h2>
-            <p style={{ color: '#94A3B8' }}>Didesain khusus untuk mempermudah ibadah umat muslim selama melakukan perjalanan jauh (safar) dengan merangkum semua kebutuhan esensial dalam satu halaman praktis.</p>
-            <div className="feature-benefits-list">
-              <div className="feature-benefit-item">
-                <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>✈️</span>
-                <div>
-                  <h4 style={{ color: '#FFFFFF' }}>Tuntunan Sholat Jamak & Qashar</h4>
-                  <p style={{ color: '#94A3B8' }}>Langkah-langkah praktis dan syarat sah melaksanakan sholat jamak takdim, takhir, dan qashar.</p>
-                </div>
-              </div>
-              <div className="feature-benefit-item">
-                <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>🤲</span>
-                <div>
-                  <h4 style={{ color: '#FFFFFF' }}>Kumpulan Doa Safar</h4>
-                  <p style={{ color: '#94A3B8' }}>Doa keluar rumah, doa naik kendaraan, hingga doa singgah di suatu tempat lengkap transliterasi.</p>
-                </div>
-              </div>
-              <div className="feature-benefit-item">
-                <span className="benefit-icon" style={{ background: 'rgba(20, 184, 166, 0.15)', color: '#14B8A6' }}>📻</span>
-                <div>
-                  <h4 style={{ color: '#FFFFFF' }}>Audio Perjalanan & Kajian</h4>
-                  <p style={{ color: '#94A3B8' }}>Radio tilawah nonstop, murottal juz amma, dan kajian audio islami ringan untuk menemani perjalanan.</p>
-                </div>
-              </div>
-            </div>
-            <div className="feature-info-ctas" style={{ borderColor: 'rgba(148, 163, 184, 0.12)' }}>
-              <Link to="/kiblat" className="btn btn--primary">Cek Arah Kiblat</Link>
-              <Link to="/" className="btn btn--outline" style={{ color: '#FFFFFF', borderColor: 'rgba(255, 255, 255, 0.25)' }}>Kembali ke Beranda</Link>
-            </div>
-          </div>
-        </section>
-      </div>
 
       {/* ===== 9. Quick Tools Bottom Section / Footer Shortcut ===== */}
       <SafarQuickTools />

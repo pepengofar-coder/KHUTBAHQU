@@ -167,7 +167,7 @@ const FIQH_ARTICLES = [
 
 export default function FiqhSafar() {
   const [activeCategory, setActiveCategory] = useState('all');
-  const [openCardId, setOpenCardId] = useState('jamak-qashar');
+  const [openCardId, setOpenCardId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredArticles = FIQH_ARTICLES.filter(item => {
