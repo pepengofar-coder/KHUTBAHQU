@@ -416,29 +416,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Quick Action Floating Shortcuts */}
-      <div className="home-quick-actions container">
-        <Link to="/mushaf" className="home-quick-action" aria-label="Qur'an">
-          <div className="home-quick-action__icon home-quick-action__icon--quran"><BookOpen size={18} /></div>
-          <span>Qur'an</span>
-        </Link>
-        <Link to="/sholat" className="home-quick-action" aria-label="Sholat">
-          <div className="home-quick-action__icon home-quick-action__icon--sholat"><Clock size={18} /></div>
-          <span>Sholat</span>
-        </Link>
-        <Link to="/doa-dzikir" className="home-quick-action" aria-label="Doa">
-          <div className="home-quick-action__icon home-quick-action__icon--doa"><Sparkles size={18} /></div>
-          <span>Doa</span>
-        </Link>
-        <Link to="/tasbih" className="home-quick-action" aria-label="Tasbih">
-          <div className="home-quick-action__icon home-quick-action__icon--tasbih"><CircleDot size={18} /></div>
-          <span>Tasbih</span>
-        </Link>
-        <Link to="/kiblat" className="home-quick-action" aria-label="Kiblat">
-          <div className="home-quick-action__icon home-quick-action__icon--kiblat"><Compass size={18} /></div>
-          <span>Kiblat</span>
-        </Link>
-      </div>
+
 
       {/* Greeting Card */}
       <div className={`container greeting-card-wrapper ${greetingFade}`}>
@@ -710,21 +688,7 @@ export default function HomePage() {
         </ScrollReveal>
       )}
 
-      {/* ═══════════════ Travel Mode Compact Card ═══════════════ */}
-      <ScrollReveal delay={0.05}>
-        <section className="home-section container">
-          <Link to="/mode-perjalanan" className="travel-compact-card">
-            <div className="travel-compact-card__icon">
-              <Car size={22} />
-            </div>
-            <div className="travel-compact-card__text">
-              <strong>Mode Perjalanan</strong>
-              <p>Panduan ibadah, doa safar, kiblat & radio Islami saat bepergian</p>
-            </div>
-            <ChevronRight size={18} className="travel-compact-card__arrow" />
-          </Link>
-        </section>
-      </ScrollReveal>
+
 
       {/* ═══════════════ Prayer Times Mini Schedule ═══════════════ */}
       {timings && (

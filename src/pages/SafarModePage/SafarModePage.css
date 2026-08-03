@@ -29,14 +29,14 @@
   --safar-border-glow: rgba(20, 184, 166, 0.2);
   --safar-glass-bg: rgba(9, 17, 34, 0.45);
   --safar-glass-bg-hover: rgba(13, 25, 48, 0.6);
-  --safar-blur: blur(24px) saturate(160%);
+  --safar-blur: blur(10px);
   --safar-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   --safar-shadow-glow: 0 0 25px rgba(20, 184, 166, 0.15);
   --safar-radius-sm: 12px;
   --safar-radius-md: 20px;
   --safar-radius-lg: 28px;
   --safar-radius-pill: 99px;
-  --safar-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --safar-transition: all 0.15s ease-out;
 
   min-height: 100vh;
   padding-bottom: 120px;
@@ -58,16 +58,16 @@
 .safar-page__content {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 56px 32px 80px;
+  padding: 24px 32px 60px;
   display: flex;
   flex-direction: column;
-  gap: 72px; /* Generous breathing room */
+  gap: 24px;
 }
 
 @media (max-width: 768px) {
   .safar-page__content {
-    padding: 32px 20px 60px;
-    gap: 48px;
+    padding: 16px 20px 48px;
+    gap: 20px;
   }
 }
 
@@ -897,13 +897,14 @@
   border: 1px solid rgba(20, 184, 166, 0.2);
 }
 
-/* Tab content fade-in transition */
+/* Tab content fade-in transition - fast and snappy */
 @keyframes safar-tab-fadein {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
 .safar-tab-content {
-  animation: safar-tab-fadein 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: safar-tab-fadein 0.15s ease-out both;
+  padding-top: 12px;
 }
 
 /* ============================================
