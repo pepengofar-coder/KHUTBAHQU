@@ -580,14 +580,6 @@ export default function HomePage() {
           <h4 className="feature-group-label">✅ Produktivitas & Kebiasaan</h4>
           <div className="dash-actions__grid-main">
             <IllustratedFeatureCard
-              to="/tracker"
-              visual={CheckSquare}
-              colorVariant="lime"
-              title={t('nav.tracker')}
-              subtitle={t('feature.tracker').split(' - ')[1] || t('feature.tracker')}
-            />
-
-            <IllustratedFeatureCard
               to="/good-path"
               visual={Compass}
               colorVariant="emerald"
